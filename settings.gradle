@@ -1,2 +1,4 @@
-include ':lib'
 rootProject.name = "VillageWalletSDKOAIClient"
+
+include ':lib'
+include ':api-stubs'

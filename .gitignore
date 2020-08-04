@@ -12,3 +12,6 @@
 /captures
 .externalNativeBuild
 .cxx
+
+./village.json
+api-stubs/village-all.json
