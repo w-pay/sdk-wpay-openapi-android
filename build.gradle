@@ -34,7 +34,7 @@ htmlDependencyReport {
 }
 
 ext {
-    packageName = "au.com.woolworths.village"
+    packageName = "au.com.woolworths.village.sdk.openapi"
     spec = "$projectDir/village.json".toString()
 
     minSdkVersion = 21
@@ -83,7 +83,7 @@ apis.each { name, api ->
 
         groupId = project.ext.packageName
         id = "sdk-api-${name}"
-        packageName = "${project.ext.packageName}.sdk.openapi"
+        packageName = "${project.ext.packageName}"
         apiPackage = "${packageName.get()}.api"
         invokerPackage = "${packageName.get()}.client"
         modelPackage = "${packageName.get()}.dto"
