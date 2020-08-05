@@ -1,4 +1,4 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
@@ -7,7 +7,6 @@ android {
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "au.com.woolworths.village.sdk.openapi"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode 1
@@ -29,7 +28,17 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.3.0'
     implementation 'androidx.appcompat:appcompat:1.1.0'
+
+    // see settings.gradle
+    implementation "au.com.woolworths.village.sdk:sdk:0.0.1"
+
+    implementation 'org.threeten:threetenbp:1.4.4'
+
+    // TODO: Move into separate configuration
+    implementation project(':okhttp-gson')
+
     testImplementation 'junit:junit:4.12'
+
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
