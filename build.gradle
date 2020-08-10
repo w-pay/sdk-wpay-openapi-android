@@ -73,13 +73,13 @@ def clients = [
     ]
 ]
 
-def parser = new groovy.json.JsonSlurper().setType(groovy.json.JsonParserType.INDEX_OVERLAY)
-def json = parser.parse(new URL("file:///${project.ext.spec}"))
-
 clients.each { name, client ->
     def outputLoc = "${projectDir}/${name}".toString()
 
     task("generate${pascalCase(name)}SdkApi", type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
+        def parser = new groovy.json.JsonSlurper().setType(groovy.json.JsonParserType.INDEX_OVERLAY)
+        def json = parser.parse(new URL("file:///${project.ext.spec}"))
+
         group = "SDK API Generators"
         description = "Generates a Village SDK API client using the ${name} framework"
         generatorName = client.language
