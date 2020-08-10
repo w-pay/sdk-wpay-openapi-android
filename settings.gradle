@@ -13,4 +13,4 @@ include ':okhttp-gson'
  * TODO: Once artifacts are published remove these settings for composite builds
  *  @see https://docs.gradle.org/current/userguide/composite_builds.html
  */
-includeBuild '../android/sdk'
+includeBuild '../../android/sdk'
