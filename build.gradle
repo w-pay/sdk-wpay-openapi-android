@@ -62,36 +62,53 @@ def camelCase = { it ->
     return "${pc[0].toLowerCase()}${pc.substring(1)}"
 }
 
-def apis = [
-        "okhttp-gson": [
-            language: "java",
-            library: "okhttp-gson"
-        ],
-        "objc": [
-            language: "objc",
-            library: null
-        ]
+def clients = [
+    "okhttp-gson": [
+        language: "java",
+        library: "okhttp-gson"
+    ],
+    "objc": [
+        language: "objc",
+        library: null
+    ]
 ]
 
-apis.each { name, api ->
+def parser = new groovy.json.JsonSlurper().setType(groovy.json.JsonParserType.INDEX_OVERLAY)
+def json = parser.parse(new URL("file:///${project.ext.spec}"))
+
+clients.each { name, client ->
     def outputLoc = "${projectDir}/${name}".toString()
 
     task("generate${pascalCase(name)}SdkApi", type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
         group = "SDK API Generators"
         description = "Generates a Village SDK API client using the ${name} framework"
-        generatorName = api.language
+        generatorName = client.language
         validateSpec = true
-        library = api.library
+        library = client.library
+        skipOverwrite = false
 
         inputSpec = project.ext.spec
         outputDir = outputLoc
 
-        groupId = project.ext.packageName
-        id = "sdk-api-${name}"
-        packageName = "${project.ext.packageName}"
-        apiPackage = "${packageName.get()}.api"
-        invokerPackage = "${packageName.get()}.client"
-        modelPackage = "${packageName.get()}.dto"
+        switch (client.language) {
+            case "java":
+                groupId = project.ext.packageName
+                id = "${name}"
+                packageName = "${project.ext.packageName}"
+                apiPackage = "${packageName.get()}.api"
+                invokerPackage = "${packageName.get()}.client"
+                modelPackage = "${packageName.get()}.dto"
+
+                break
+
+            case "objc":
+                additionalProperties = [
+                  podName: "VillageOpenApiClient",
+                  podVersion: "${json.info.version}.0"
+                ]
+
+                break
+        }
 
         generateModelTests = false
         generateModelDocumentation = false
@@ -136,7 +153,7 @@ subprojects.each { sub ->
      */
     sub.afterEvaluate { prj ->
         // we don't care about other projects except API/tests
-        if (!apis.containsKey(prj.name) && prj.name != "sdk-tests") {
+        if (!clients.containsKey(prj.name) && prj.name != "sdk-tests") {
             logger.info("Ignoring ${prj.name}")
 
             return
