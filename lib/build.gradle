@@ -33,7 +33,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.1.0'
 
     // see settings.gradle
-    implementation "au.com.woolworths.village.sdk:sdk:0.0.1"
+    implementation "au.com.woolworths.village.sdk:sdk:1.0.0"
 
     implementation 'org.threeten:threetenbp:1.4.4'
 
