@@ -86,7 +86,7 @@ class OpenApiVillageCustomerApiRepository(
         }
     }
 
-    override fun retrievePaymentRequestDetailsByRequestId(paymentRequestId: String): ApiResult<CustomerPaymentRequest> {
+    override fun retrievePaymentRequestDetailsById(paymentRequestId: String): ApiResult<CustomerPaymentRequest> {
         val api = createCustomerApi()
         return try {
             val data = api.getCustomerPaymentDetailsByPaymentId(
@@ -177,7 +177,7 @@ class OpenApiVillageCustomerApiRepository(
         }
     }
 
-    override fun retrieveCustomerPaymentSession(paymentSessionId: String): ApiResult<PaymentSession> {
+    override fun retrieveCustomerPaymentSessionById(paymentSessionId: String): ApiResult<PaymentSession> {
         val api = createCustomerApi()
 
         return try {
@@ -193,7 +193,7 @@ class OpenApiVillageCustomerApiRepository(
         }
     }
 
-    override fun retrieveCustomerPaymentSessionByQR(qrCodeId: String): ApiResult<PaymentSession> {
+    override fun retrieveCustomerPaymentSessionByQRCode(qrCodeId: String): ApiResult<PaymentSession> {
         val api = createCustomerApi()
 
         return try {
@@ -234,8 +234,8 @@ class OpenApiVillageCustomerApiRepository(
     }
 
     override fun makePayment(
-        paymentRequest: CustomerPaymentRequest,
-        instrument: PaymentInstrument
+        paymentRequestId: String,
+        instrument: PaymentInstrumentIdentifier
     ): ApiResult<CustomerTransactionSummary> {
         val api = createCustomerApi()
 
@@ -248,7 +248,7 @@ class OpenApiVillageCustomerApiRepository(
 
             val data = api.makeCustomerPayment(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
-                paymentRequest.paymentRequestId(),
+                paymentRequestId,
                 body,
                 instrument.wallet() == Wallet.EVERYDAY_PAY
             ).data

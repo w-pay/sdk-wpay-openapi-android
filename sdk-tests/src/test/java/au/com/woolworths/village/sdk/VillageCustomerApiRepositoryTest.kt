@@ -1,7 +1,6 @@
 package au.com.woolworths.village.sdk
 
 import au.com.woolworths.village.sdk.data.TestUpdatePaymentSessionRequest
-import au.com.woolworths.village.sdk.data.aNewCustomerPaymentRequest
 import au.com.woolworths.village.sdk.data.aNewPaymentInstrument
 import au.com.woolworths.village.sdk.data.aSelectedPaymentInstrument
 import au.com.woolworths.village.sdk.matchers.*
@@ -53,14 +52,16 @@ class VillageCustomerApiRepositoryTest {
     fun shouldRetrievePaymentRequestDetailsByRequestId() {
         val qrCodeId = "75ba5b0b-7e5d-47fe-9508-29ca69fdb1d5"
 
-        val result = api.retrievePaymentRequestDetailsByRequestId(qrCodeId)
+        val result = api.retrievePaymentRequestDetailsById(qrCodeId)
 
         assertThat(result, isSuccessfulWith(customerPaymentRequest()))
     }
 
     @Test
     fun shouldMakePayment() {
-        val result = api.makePayment(aNewCustomerPaymentRequest(), aSelectedPaymentInstrument())
+        val paymentRequestId = "75ba5b0b-7e5d-47fe-9508-29ca69fdb1d5"
+
+        val result = api.makePayment(paymentRequestId, aSelectedPaymentInstrument())
 
         assertThat(result, isSuccessfulWith(customerTransactionSummary()))
     }
@@ -107,7 +108,7 @@ class VillageCustomerApiRepositoryTest {
     fun shouldRetrieveCustomerPaymentSession() {
         val paymentSessionId = "75ba5b0b-7e5d-47fe-9508-29ca69fdb1d5"
 
-        val result = api.retrieveCustomerPaymentSession(paymentSessionId)
+        val result = api.retrieveCustomerPaymentSessionById(paymentSessionId)
 
         assertThat(result, isSuccessfulWith(paymentSession()))
     }
@@ -116,7 +117,7 @@ class VillageCustomerApiRepositoryTest {
     fun shouldRetrieveCustomerPaymentSessionByQR() {
         val qrCodeId = "75ba5b0b-7e5d-47fe-9508-29ca69fdb1d5"
 
-        val result = api.retrieveCustomerPaymentSessionByQR(qrCodeId)
+        val result = api.retrieveCustomerPaymentSessionByQRCode(qrCodeId)
 
         assertThat(result, isSuccessfulWith(paymentSession()))
     }
