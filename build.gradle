@@ -37,6 +37,12 @@ ext {
     packageName = "au.com.woolworths.village.sdk.openapi"
     spec = "$projectDir/village.json".toString()
 
+    // what version of the spec does the implementation support
+    supportedSpecVersion = "0.0.6"
+
+    // to support a new version of the library, even if the spec hasn't changed.
+    buildNumber = 0
+
     minSdkVersion = 21
     targetSdkVersion = 28
     buildToolsVersion = "29.0.3"
@@ -77,9 +83,6 @@ clients.each { name, client ->
     def outputLoc = "${projectDir}/${name}".toString()
 
     task("generate${pascalCase(name)}SdkApi", type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask) {
-        def parser = new groovy.json.JsonSlurper().setType(groovy.json.JsonParserType.INDEX_OVERLAY)
-        def json = parser.parse(new URL("file:///${project.ext.spec}"))
-
         group = "SDK API Generators"
         description = "Generates a Village SDK API client using the ${name} framework"
         generatorName = client.language
@@ -89,6 +92,7 @@ clients.each { name, client ->
 
         inputSpec = project.ext.spec
         outputDir = outputLoc
+        version = "${project.ext.supportedSpecVersion}.${project.ext.buildNumber}"
 
         switch (client.language) {
             case "java":
@@ -104,7 +108,7 @@ clients.each { name, client ->
             case "objc":
                 additionalProperties = [
                   podName: "VillageOpenApiClient",
-                  podVersion: "${json.info.version}.0"
+                  podVersion: "${version.get()}"
                 ]
 
                 break
