@@ -1,13 +1,25 @@
 package au.com.woolworths.village.sdk.data
 
+import au.com.woolworths.village.sdk.model.CustomerUpdatePaymentSessionRequest
 import au.com.woolworths.village.sdk.model.DynamicPayload
-import au.com.woolworths.village.sdk.model.UpdatePaymentSessionRequest
+import au.com.woolworths.village.sdk.model.MerchantUpdatePaymentSessionRequest
 
-class TestUpdatePaymentSessionRequest: UpdatePaymentSessionRequest {
-    override fun additionalInfo(): DynamicPayload {
+class TestCustomerUpdatePaymentSessionRequest: CustomerUpdatePaymentSessionRequest {
+    override fun customerInfo(): DynamicPayload {
         return TestUpdatePaymentSessionRequestPayload()
     }
 }
+
+class TestMerchantUpdatePaymentSessionRequest: MerchantUpdatePaymentSessionRequest {
+    override fun paymentRequestId(): String? {
+        return null
+    }
+
+    override fun merchantInfo(): DynamicPayload {
+        return TestUpdatePaymentSessionRequestPayload()
+    }
+}
+
 
 class TestUpdatePaymentSessionRequestPayload: DynamicPayload {
     override fun schemaId(): String? {

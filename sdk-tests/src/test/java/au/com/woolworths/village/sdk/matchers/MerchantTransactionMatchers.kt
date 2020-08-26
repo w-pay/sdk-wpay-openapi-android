@@ -46,6 +46,7 @@ open class MerchantTransactionSummaryMatcher: TypeSafeMatcher<MerchantTransactio
         assertThat(item.executionTime(), not(nullValue()))
         assertThat(item.status(), not(nullValue()))
         assertThat(item.transactionId(), not(blankOrNullString()))
+        assertThat(item.clientReference(), blankOrNullString())
 
         return true
     }

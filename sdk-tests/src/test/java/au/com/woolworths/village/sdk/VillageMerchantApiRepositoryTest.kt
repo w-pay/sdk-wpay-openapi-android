@@ -3,8 +3,8 @@ package au.com.woolworths.village.sdk
 import au.com.woolworths.village.sdk.data.*
 import au.com.woolworths.village.sdk.matchers.*
 import au.com.woolworths.village.sdk.openapi.OpenApiSdkFactory
-import org.hamcrest.Matchers
-import org.hamcrest.text.IsBlankString
+import org.hamcrest.Matchers.*
+import org.hamcrest.text.IsBlankString.blankOrNullString
 import org.junit.Assert.assertThat
 import org.junit.Test
 import org.threeten.bp.OffsetDateTime
@@ -113,13 +113,10 @@ class VillageMerchantApiRepositoryTest {
         val result = api.retrievePreferences()
 
         assertThat(result, isSuccessfulWith(
-            Matchers.hasEntry(
-                Matchers.equalTo("preferenceGroup"),
-                Matchers.hasEntry(
-                    Matchers.equalTo("preference"),
-                    Matchers.not(IsBlankString.blankOrNullString())
-                )
-            )
+            hasEntry(equalTo("qrTemplates"), allOf(
+                hasEntry(equalTo("PAYMENT_REQUEST"), not(blankOrNullString())),
+                hasEntry(equalTo("PAYMENT_SESSION"), not(blankOrNullString()))
+            ))
         ))
     }
 
@@ -171,6 +168,24 @@ class VillageMerchantApiRepositoryTest {
         val result = api.retrievePaymentSession(paymentSessionId)
 
         assertThat(result, isSuccessfulWith(paymentSession()))
+    }
+
+    @Test
+    fun shouldUpdatePaymentSession() {
+        val paymentSessionId = "a5bbfe1a-c1b9-11ea-924f-33c96a9759eb"
+
+        val result = api.updatePaymentSession(paymentSessionId, TestMerchantUpdatePaymentSessionRequest())
+
+        assertThat(result, isSuccessful())
+    }
+
+    @Test
+    fun shouldDeletePaymentSession() {
+        val paymentSessionId = "a5bbfe1a-c1b9-11ea-924f-33c96a9759eb"
+
+        val result = api.deletePaymentSession(paymentSessionId)
+
+        assertThat(result, isSuccessful())
     }
 
     @Test

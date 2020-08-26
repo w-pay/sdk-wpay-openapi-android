@@ -55,6 +55,10 @@ class OpenApiMerchantTransactionSummary(
     override fun grossAmount(): BigDecimal {
         return summary.grossAmount
     }
+
+    override fun clientReference(): String? {
+        return summary.clientReference
+    }
 }
 
 class OpenApiMerchantTransactionDetails(
@@ -110,5 +114,9 @@ class OpenApiMerchantTransactionDetails(
 
     override fun grossAmount(): BigDecimal {
         return details.grossAmount
+    }
+
+    override fun clientReference(): String? {
+        return details.clientReference
     }
 }

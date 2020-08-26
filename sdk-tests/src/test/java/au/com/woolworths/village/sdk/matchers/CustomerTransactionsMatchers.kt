@@ -48,6 +48,7 @@ open class CustomerTransactionSummaryMatcher: TypeSafeMatcher<CustomerTransactio
         assertThat(item.instruments().size, greaterThanOrEqualTo(1))
         assertThat(item.instruments(), hasItems(withCustomerPaymentInstruments()))
         assertThat(item.transactionId(), not(blankOrNullString()))
+        assertThat(item.clientReference(), blankOrNullString())
 
         return true
     }

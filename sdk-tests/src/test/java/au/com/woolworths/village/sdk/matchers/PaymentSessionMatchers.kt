@@ -19,7 +19,8 @@ class PaymentSessionMatcher: TypeSafeMatcher<PaymentSession>() {
         assertThat(item.walletId(), nullValue())
         assertThat(item.expiryTime(), not(nullValue()))
         assertThat(item.location(), not(blankOrNullString()))
-        assertThat(item.additionalInfo(), not(nullValue()))
+        assertThat(item.merchantInfo(), not(nullValue()))
+        assertThat(item.customerInfo(), nullValue())
 
         return true
     }

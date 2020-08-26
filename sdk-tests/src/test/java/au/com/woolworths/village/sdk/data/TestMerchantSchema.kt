@@ -1,6 +1,7 @@
 package au.com.woolworths.village.sdk.data
 
 import au.com.woolworths.village.sdk.model.MerchantSchema
+import org.threeten.bp.OffsetDateTime
 
 fun aNewSchema(): MerchantSchema = TestMerchantSchema()
 
@@ -14,6 +15,10 @@ class TestMerchantSchema: MerchantSchema {
     }
 
     override fun description(): String? {
+        return null
+    }
+
+    override fun created(): OffsetDateTime? {
         return null
     }
 }

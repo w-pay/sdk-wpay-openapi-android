@@ -4,8 +4,7 @@ import au.com.woolworths.village.sdk.openapi.api.matchers.*
 import au.com.woolworths.village.sdk.openapi.client.Configuration
 import au.com.woolworths.village.sdk.openapi.dto.*
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.not
-import org.hamcrest.Matchers.nullValue
+import org.hamcrest.Matchers.*
 import org.hamcrest.text.IsBlankString.blankOrNullString
 import org.junit.BeforeClass
 import org.junit.Test
@@ -63,9 +62,9 @@ class CustomerApiTest {
     fun getCustomerPreferencesTest() {
         val preferences = api.getCustomerPreferences(X_WALLET_ID)
 
-        val preferenceGroup = preferences.data["preferenceGroup"]
-        assertThat(preferenceGroup, not(nullValue()))
-        assertThat(preferenceGroup?.get("preference"), not(blankOrNullString()))
+        assertThat(preferences.data, hasEntry(equalTo("payments"),
+            hasEntry(equalTo("defaultInstrument"), not(blankOrNullString()))
+        ))
     }
 
     @Test
@@ -187,11 +186,11 @@ class CustomerApiTest {
 
         val updateSessionRequest = UpdatePaymentSessionRequest()
         updateSessionRequest.data = CustomerPaymentSessionPaymentSessionIdData()
-        updateSessionRequest.data.additionalInfo = DynamicPayload()
-        updateSessionRequest.data.additionalInfo.schemaId = "def456"
-        updateSessionRequest.data.additionalInfo.payload = emptyMap()
+        updateSessionRequest.data.customerInfo = DynamicPayload()
+        updateSessionRequest.data.customerInfo.schemaId = "def456"
+        updateSessionRequest.data.customerInfo.payload = emptyMap()
 
-        api.updateCustomerPaymentSession(
+        api.customerUpdatePaymentSession(
             X_WALLET_ID,
             paymentSessionId,
             updateSessionRequest

@@ -27,7 +27,11 @@ class OpenApiPaymentSession(
         return session.location
     }
 
-    override fun additionalInfo(): DynamicPayload {
-        return OpenApiDynamicPayload(session.additionalInfo)
+    override fun merchantInfo(): DynamicPayload {
+        return OpenApiDynamicPayload(session.merchantInfo)
+    }
+
+    override fun customerInfo(): DynamicPayload? {
+        return session.customerInfo?.let { OpenApiDynamicPayload(it) }
     }
 }

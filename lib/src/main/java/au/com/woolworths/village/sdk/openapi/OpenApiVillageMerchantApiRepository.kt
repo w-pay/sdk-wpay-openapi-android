@@ -1,10 +1,7 @@
 package au.com.woolworths.village.sdk.openapi
 
-import au.com.woolworths.village.sdk.ApiResult
-import au.com.woolworths.village.sdk.X_WALLET_ID
+import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.MerchantPreferences
-import au.com.woolworths.village.sdk.RequestHeadersFactory
-import au.com.woolworths.village.sdk.VillageMerchantApiRepository
 import au.com.woolworths.village.sdk.model.*
 import au.com.woolworths.village.sdk.model.CreatePaymentSessionRequest
 import au.com.woolworths.village.sdk.model.MerchantSchema
@@ -349,13 +346,13 @@ class OpenApiVillageMerchantApiRepository(
             val body = au.com.woolworths.village.sdk.openapi.dto.CreatePaymentSessionRequest()
             body.data = MerchantPaymentSessionData().apply {
                 location = request.location()
-                additionalInfo = toDynamicPayload(request.additionalInfo())
+                merchantInfo = toDynamicPayload(request.merchantInfo())
                 generateQR = request.generateQR()
                 timeToLivePaymentSession = request.timeToLivePaymentSession()
                 timeToLiveQR = request.timeToLiveQR()
             }
 
-            val data = api.createCustomerPaymentSession(
+            val data = api.createPaymentSession(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 body
             ).data
@@ -371,12 +368,55 @@ class OpenApiVillageMerchantApiRepository(
         val api = createMerchantApi()
 
         return try {
-            val data = api.getMerchantPaymentSession(
+            val data = api.getPaymentSession(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 paymentSessionId
             ).data
 
             ApiResult.Success(OpenApiPaymentSession(data))
+        }
+        catch (e: ApiException) {
+            ApiResult.Error(toApiException(e))
+        }
+    }
+
+    override fun updatePaymentSession(
+        paymentSessionId: String,
+        session: MerchantUpdatePaymentSessionRequest
+    ): ApiResult<Unit> {
+        val api = createMerchantApi()
+
+        val body = UpdatePaymentSessionRequest1().apply {
+            data = MerchantPaymentSessionPaymentSessionIdData().apply {
+                paymentRequestId = session.paymentRequestId()
+                merchantInfo = toDynamicPayload(session.merchantInfo())
+            }
+        }
+
+        return try {
+            api.merchantUpdatePaymentSession(
+                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                paymentSessionId,
+                body
+            )
+
+            ApiResult.Success(Unit)
+        }
+        catch (e: ApiException) {
+            ApiResult.Error(toApiException(e))
+        }
+    }
+
+    override fun deletePaymentSession(paymentSessionId: String): ApiResult<Unit> {
+        val api = createMerchantApi()
+
+        return try {
+            api.deletePaymentSession(
+                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                paymentSessionId
+            )
+
+            ApiResult.Success(Unit)
         }
         catch (e: ApiException) {
             ApiResult.Error(toApiException(e))
