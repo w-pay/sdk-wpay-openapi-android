@@ -5,14 +5,13 @@ All URIs are relative to *http://localhost:3000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**cancelPaymentQRCode**](MerchantApi.md#cancelPaymentQRCode) | **DELETE** /merchant/qr/{qrId} | Invalidate QR Code
-[**createCustomerPaymentSession**](MerchantApi.md#createCustomerPaymentSession) | **POST** /merchant/payment/session | Create Payment Session
 [**createMerchantSchema**](MerchantApi.md#createMerchantSchema) | **POST** /merchant/schema | Add Schema
 [**createPaymentQRCode**](MerchantApi.md#createPaymentQRCode) | **POST** /merchant/qr | Create QR Code
 [**createPaymentRequest**](MerchantApi.md#createPaymentRequest) | **POST** /merchant/payments | Create Payment
+[**createPaymentSession**](MerchantApi.md#createPaymentSession) | **POST** /merchant/payment/session | Create Payment Session
 [**deleteMerchantPayment**](MerchantApi.md#deleteMerchantPayment) | **DELETE** /merchant/payments/{paymentRequestId} | Delete Payment
-[**deleteMerchantPaymentSession**](MerchantApi.md#deleteMerchantPaymentSession) | **DELETE** /merchant/payment/session/{paymentSessionId} | Delete Payment Session
+[**deletePaymentSession**](MerchantApi.md#deletePaymentSession) | **DELETE** /merchant/payment/session/{paymentSessionId} | Delete Payment Session
 [**getMerchantPaymentDetails**](MerchantApi.md#getMerchantPaymentDetails) | **GET** /merchant/payments/{paymentRequestId} | Get Payment Details
-[**getMerchantPaymentSession**](MerchantApi.md#getMerchantPaymentSession) | **GET** /merchant/payment/session/{paymentSessionId} | Get Payment Session
 [**getMerchantPayments**](MerchantApi.md#getMerchantPayments) | **GET** /merchant/payments | Get Payment List
 [**getMerchantPreferences**](MerchantApi.md#getMerchantPreferences) | **GET** /merchant/preferences | Get Preferences
 [**getMerchantSchemaDetails**](MerchantApi.md#getMerchantSchemaDetails) | **GET** /merchant/schema/{schemaId} | Get Schema Details
@@ -20,9 +19,10 @@ Method | HTTP request | Description
 [**getMerchantTransactionDetails**](MerchantApi.md#getMerchantTransactionDetails) | **GET** /merchant/transactions/{transactionId} | Get Transaction Details
 [**getMerchantTransactions**](MerchantApi.md#getMerchantTransactions) | **GET** /merchant/transactions | Get Transaction List
 [**getPaymentQRCodeContent**](MerchantApi.md#getPaymentQRCodeContent) | **GET** /merchant/qr/{qrId} | Get QR Code Content
+[**getPaymentSession**](MerchantApi.md#getPaymentSession) | **GET** /merchant/payment/session/{paymentSessionId} | Get Payment Session
+[**merchantUpdatePaymentSession**](MerchantApi.md#merchantUpdatePaymentSession) | **POST** /merchant/payment/session/{paymentSessionId} | Update Payment Session
 [**refundMerchantTransaction**](MerchantApi.md#refundMerchantTransaction) | **POST** /merchant/transactions/{transactionId}/refund | Refund Transaction
 [**setMerchantPreferences**](MerchantApi.md#setMerchantPreferences) | **POST** /merchant/preferences | Set Preferences
-[**updateMerchantPaymentSession**](MerchantApi.md#updateMerchantPaymentSession) | **POST** /merchant/payment/session/{paymentSessionId} | Update Payment Session
 
 
 <a name="cancelPaymentQRCode"></a>
@@ -95,77 +95,6 @@ null (empty response body)
 |-------------|-------------|------------------|
 **204** | QR code has been successfully expired.  Not content returned |  -  |
 **400** | The QR code specified doesn&#39;t exist |  -  |
-
-<a name="createCustomerPaymentSession"></a>
-# **createCustomerPaymentSession**
-> CreateMerchantPaymentSessionResponse createCustomerPaymentSession(xMerchantID, createPaymentSessionRequest)
-
-Create Payment Session
-
-Create a new payment session
-
-### Example
-```java
-// Import classes:
-import au.com.woolworths.village.sdk.openapi.client.ApiClient;
-import au.com.woolworths.village.sdk.openapi.client.ApiException;
-import au.com.woolworths.village.sdk.openapi.client.Configuration;
-import au.com.woolworths.village.sdk.openapi.client.auth.*;
-import au.com.woolworths.village.sdk.openapi.client.models.*;
-import au.com.woolworths.village.sdk.openapi.api.MerchantApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:3000");
-    
-    // Configure API key authorization: ApiKeyAuth
-    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
-    ApiKeyAuth.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //ApiKeyAuth.setApiKeyPrefix("Token");
-
-    MerchantApi apiInstance = new MerchantApi(defaultClient);
-    String xMerchantID = 10001; // String | 
-    CreatePaymentSessionRequest createPaymentSessionRequest = new CreatePaymentSessionRequest(); // CreatePaymentSessionRequest | 
-    try {
-      CreateMerchantPaymentSessionResponse result = apiInstance.createCustomerPaymentSession(xMerchantID, createPaymentSessionRequest);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MerchantApi#createCustomerPaymentSession");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **xMerchantID** | **String**|  |
- **createPaymentSessionRequest** | [**CreatePaymentSessionRequest**](CreatePaymentSessionRequest.md)|  |
-
-### Return type
-
-[**CreateMerchantPaymentSessionResponse**](CreateMerchantPaymentSessionResponse.md)
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response |  -  |
 
 <a name="createMerchantSchema"></a>
 # **createMerchantSchema**
@@ -381,6 +310,78 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
 
+<a name="createPaymentSession"></a>
+# **createPaymentSession**
+> CreateMerchantPaymentSessionResponse createPaymentSession(xMerchantID, createPaymentSessionRequest)
+
+Create Payment Session
+
+Create a new payment session
+
+### Example
+```java
+// Import classes:
+import au.com.woolworths.village.sdk.openapi.client.ApiClient;
+import au.com.woolworths.village.sdk.openapi.client.ApiException;
+import au.com.woolworths.village.sdk.openapi.client.Configuration;
+import au.com.woolworths.village.sdk.openapi.client.auth.*;
+import au.com.woolworths.village.sdk.openapi.client.models.*;
+import au.com.woolworths.village.sdk.openapi.api.MerchantApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:3000");
+    
+    // Configure API key authorization: ApiKeyAuth
+    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+    ApiKeyAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //ApiKeyAuth.setApiKeyPrefix("Token");
+
+    MerchantApi apiInstance = new MerchantApi(defaultClient);
+    String xMerchantID = 10001; // String | 
+    CreatePaymentSessionRequest createPaymentSessionRequest = new CreatePaymentSessionRequest(); // CreatePaymentSessionRequest | 
+    try {
+      CreateMerchantPaymentSessionResponse result = apiInstance.createPaymentSession(xMerchantID, createPaymentSessionRequest);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling MerchantApi#createPaymentSession");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xMerchantID** | **String**|  |
+ **createPaymentSessionRequest** | [**CreatePaymentSessionRequest**](CreatePaymentSessionRequest.md)|  |
+
+### Return type
+
+[**CreateMerchantPaymentSessionResponse**](CreateMerchantPaymentSessionResponse.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response |  -  |
+**422** | The specified Payment Session ID doesn&#39;t exist or has expired |  -  |
+
 <a name="deleteMerchantPayment"></a>
 # **deleteMerchantPayment**
 > deleteMerchantPayment(xMerchantID, paymentRequestId)
@@ -452,9 +453,9 @@ null (empty response body)
 **204** | Payment request has been successfully expired.  Not content returned |  -  |
 **400** | The payment request specified doesn&#39;t exist |  -  |
 
-<a name="deleteMerchantPaymentSession"></a>
-# **deleteMerchantPaymentSession**
-> deleteMerchantPaymentSession(xMerchantID, paymentSessionId)
+<a name="deletePaymentSession"></a>
+# **deletePaymentSession**
+> deletePaymentSession(xMerchantID, paymentSessionId)
 
 Delete Payment Session
 
@@ -485,9 +486,9 @@ public class Example {
     String xMerchantID = 10001; // String | 
     String paymentSessionId = "paymentSessionId_example"; // String | The ID of the specific payment session to delete
     try {
-      apiInstance.deleteMerchantPaymentSession(xMerchantID, paymentSessionId);
+      apiInstance.deletePaymentSession(xMerchantID, paymentSessionId);
     } catch (ApiException e) {
-      System.err.println("Exception when calling MerchantApi#deleteMerchantPaymentSession");
+      System.err.println("Exception when calling MerchantApi#deletePaymentSession");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -593,77 +594,6 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
 **400** | The specified Payment Request ID doesn&#39;t exist |  -  |
-
-<a name="getMerchantPaymentSession"></a>
-# **getMerchantPaymentSession**
-> CustomerPaymentSessionResult getMerchantPaymentSession(xMerchantID, paymentSessionId)
-
-Get Payment Session
-
-Get the details of a payment session
-
-### Example
-```java
-// Import classes:
-import au.com.woolworths.village.sdk.openapi.client.ApiClient;
-import au.com.woolworths.village.sdk.openapi.client.ApiException;
-import au.com.woolworths.village.sdk.openapi.client.Configuration;
-import au.com.woolworths.village.sdk.openapi.client.auth.*;
-import au.com.woolworths.village.sdk.openapi.client.models.*;
-import au.com.woolworths.village.sdk.openapi.api.MerchantApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:3000");
-    
-    // Configure API key authorization: ApiKeyAuth
-    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
-    ApiKeyAuth.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //ApiKeyAuth.setApiKeyPrefix("Token");
-
-    MerchantApi apiInstance = new MerchantApi(defaultClient);
-    String xMerchantID = 10001; // String | 
-    String paymentSessionId = "paymentSessionId_example"; // String | The ID of the specific payment session to retrieve
-    try {
-      CustomerPaymentSessionResult result = apiInstance.getMerchantPaymentSession(xMerchantID, paymentSessionId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MerchantApi#getMerchantPaymentSession");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **xMerchantID** | **String**|  |
- **paymentSessionId** | **String**| The ID of the specific payment session to retrieve |
-
-### Return type
-
-[**CustomerPaymentSessionResult**](CustomerPaymentSessionResult.md)
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response |  -  |
 
 <a name="getMerchantPayments"></a>
 # **getMerchantPayments**
@@ -1167,7 +1097,151 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
-**400** | The specified payment request doesn&#39;t exist or has already been closed |  -  |
+**422** | The specified payment request doesn&#39;t exist or has already been closed |  -  |
+
+<a name="getPaymentSession"></a>
+# **getPaymentSession**
+> CustomerPaymentSessionResult getPaymentSession(xMerchantID, paymentSessionId)
+
+Get Payment Session
+
+Get the details of a payment session
+
+### Example
+```java
+// Import classes:
+import au.com.woolworths.village.sdk.openapi.client.ApiClient;
+import au.com.woolworths.village.sdk.openapi.client.ApiException;
+import au.com.woolworths.village.sdk.openapi.client.Configuration;
+import au.com.woolworths.village.sdk.openapi.client.auth.*;
+import au.com.woolworths.village.sdk.openapi.client.models.*;
+import au.com.woolworths.village.sdk.openapi.api.MerchantApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:3000");
+    
+    // Configure API key authorization: ApiKeyAuth
+    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+    ApiKeyAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //ApiKeyAuth.setApiKeyPrefix("Token");
+
+    MerchantApi apiInstance = new MerchantApi(defaultClient);
+    String xMerchantID = 10001; // String | 
+    String paymentSessionId = "paymentSessionId_example"; // String | The ID of the specific payment session to retrieve
+    try {
+      CustomerPaymentSessionResult result = apiInstance.getPaymentSession(xMerchantID, paymentSessionId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling MerchantApi#getPaymentSession");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xMerchantID** | **String**|  |
+ **paymentSessionId** | **String**| The ID of the specific payment session to retrieve |
+
+### Return type
+
+[**CustomerPaymentSessionResult**](CustomerPaymentSessionResult.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response |  -  |
+**422** | The specified Payment Session ID doesn&#39;t exist or has expired |  -  |
+
+<a name="merchantUpdatePaymentSession"></a>
+# **merchantUpdatePaymentSession**
+> merchantUpdatePaymentSession(xMerchantID, paymentSessionId, updatePaymentSessionRequest1)
+
+Update Payment Session
+
+Update the payment session details
+
+### Example
+```java
+// Import classes:
+import au.com.woolworths.village.sdk.openapi.client.ApiClient;
+import au.com.woolworths.village.sdk.openapi.client.ApiException;
+import au.com.woolworths.village.sdk.openapi.client.Configuration;
+import au.com.woolworths.village.sdk.openapi.client.auth.*;
+import au.com.woolworths.village.sdk.openapi.client.models.*;
+import au.com.woolworths.village.sdk.openapi.api.MerchantApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:3000");
+    
+    // Configure API key authorization: ApiKeyAuth
+    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+    ApiKeyAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //ApiKeyAuth.setApiKeyPrefix("Token");
+
+    MerchantApi apiInstance = new MerchantApi(defaultClient);
+    String xMerchantID = 10001; // String | 
+    String paymentSessionId = "paymentSessionId_example"; // String | The ID of the specific payment session to retrieve
+    UpdatePaymentSessionRequest1 updatePaymentSessionRequest1 = new UpdatePaymentSessionRequest1(); // UpdatePaymentSessionRequest1 | 
+    try {
+      apiInstance.merchantUpdatePaymentSession(xMerchantID, paymentSessionId, updatePaymentSessionRequest1);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling MerchantApi#merchantUpdatePaymentSession");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xMerchantID** | **String**|  |
+ **paymentSessionId** | **String**| The ID of the specific payment session to retrieve |
+ **updatePaymentSessionRequest1** | [**UpdatePaymentSessionRequest1**](UpdatePaymentSessionRequest1.md)|  |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | The payment session has been successfully updated. No content returned. |  -  |
 
 <a name="refundMerchantTransaction"></a>
 # **refundMerchantTransaction**
@@ -1312,76 +1386,4 @@ null (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Preferences successfully updated.  No content returned |  -  |
-
-<a name="updateMerchantPaymentSession"></a>
-# **updateMerchantPaymentSession**
-> updateMerchantPaymentSession(xMerchantID, paymentSessionId, updatePaymentSessionRequest1)
-
-Update Payment Session
-
-Update the payment session details
-
-### Example
-```java
-// Import classes:
-import au.com.woolworths.village.sdk.openapi.client.ApiClient;
-import au.com.woolworths.village.sdk.openapi.client.ApiException;
-import au.com.woolworths.village.sdk.openapi.client.Configuration;
-import au.com.woolworths.village.sdk.openapi.client.auth.*;
-import au.com.woolworths.village.sdk.openapi.client.models.*;
-import au.com.woolworths.village.sdk.openapi.api.MerchantApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:3000");
-    
-    // Configure API key authorization: ApiKeyAuth
-    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
-    ApiKeyAuth.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //ApiKeyAuth.setApiKeyPrefix("Token");
-
-    MerchantApi apiInstance = new MerchantApi(defaultClient);
-    String xMerchantID = 10001; // String | 
-    String paymentSessionId = "paymentSessionId_example"; // String | The ID of the specific payment session to retrieve
-    UpdatePaymentSessionRequest1 updatePaymentSessionRequest1 = new UpdatePaymentSessionRequest1(); // UpdatePaymentSessionRequest1 | 
-    try {
-      apiInstance.updateMerchantPaymentSession(xMerchantID, paymentSessionId, updatePaymentSessionRequest1);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MerchantApi#updateMerchantPaymentSession");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **xMerchantID** | **String**|  |
- **paymentSessionId** | **String**| The ID of the specific payment session to retrieve |
- **updatePaymentSessionRequest1** | [**UpdatePaymentSessionRequest1**](UpdatePaymentSessionRequest1.md)|  |
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: Not defined
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**204** | The payment session has been successfully updated. No content returned. |  -  |
 
