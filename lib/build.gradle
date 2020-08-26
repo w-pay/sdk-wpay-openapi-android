@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'maven' // Required for publishing to packagecloud
 
 group "au.com.woolworths.village.sdk.openapi"
-version "1.1.0"
+version "1.1.1"
 
 android {
     compileSdkVersion 29
@@ -25,6 +25,21 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    flavorDimensions "sdk"
+
+    productFlavors {
+        okhttp {
+            dimension "sdk"
+            versionNameSuffix "-okhttp-gson"
+        }
+    }
+
+    sourceSets {
+        okhttp {
+            java.srcDirs = ["${rootDir}/okhttp-gson/src/main/java"]
+        }
+    }
 }
 
 configurations {
@@ -34,21 +49,24 @@ configurations {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.3.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation "androidx.core:core-ktx:1.3.0"
+    implementation "androidx.appcompat:appcompat:1.1.0"
 
-    // see settings.gradle
     implementation "au.com.woolworths.village.sdk:sdk:1.1.0"
+    implementation "org.threeten:threetenbp:1.4.4"
 
-    implementation 'org.threeten:threetenbp:1.4.4'
+    okhttpImplementation "io.swagger:swagger-annotations:1.5.24"
+    okhttpImplementation "com.google.code.findbugs:jsr305:3.0.2"
+    okhttpImplementation "com.squareup.okhttp3:okhttp:3.14.7"
+    okhttpImplementation "com.squareup.okhttp3:logging-interceptor:3.14.7"
+    okhttpImplementation "com.google.code.gson:gson:2.8.6"
+    okhttpImplementation "io.gsonfire:gson-fire:1.8.4"
+    okhttpImplementation group: "org.apache.commons", name: "commons-lang3", version: "3.10"
 
-    // TODO: Move into separate configuration
-    implementation project(':okhttp-gson')
+    testImplementation "junit:junit:4.12"
 
-    testImplementation 'junit:junit:4.12'
-
-    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation "androidx.test.ext:junit:1.1.1"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.2.0"
 
     deployerJars "io.packagecloud.maven.wagon:maven-packagecloud-wagon:0.0.6"
 }
