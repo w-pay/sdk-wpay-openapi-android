@@ -1,8 +1,7 @@
-# sdk-okhttp-gson
+# okhttp-gson
 
 Village Wallet
-- API version: 0.0.4
-  - Build date: 2020-04-27T18:20:31.535+10:00[Australia/Melbourne]
+- API version: 0.0.6
 
 APIs for Village Wallet
 
@@ -38,9 +37,9 @@ Add this dependency to your project's POM:
 
 ```xml
 <dependency>
-  <groupId>au.com.woolworths.village</groupId>
-  <artifactId>sdk-okhttp-gson</artifactId>
-  <version>0.0.4</version>
+  <groupId>au.com.woolworths.village.sdk.openapi</groupId>
+  <artifactId>okhttp-gson</artifactId>
+  <version>0.0.6.0</version>
   <scope>compile</scope>
 </dependency>
 ```
@@ -50,7 +49,7 @@ Add this dependency to your project's POM:
 Add this dependency to your project's build file:
 
 ```groovy
-compile "au.com.woolworths.village:sdk-okhttp-gson:0.0.4"
+compile "au.com.woolworths.village.sdk.openapi:okhttp-gson:0.0.6.0"
 ```
 
 ### Others
@@ -63,7 +62,7 @@ mvn clean package
 
 Then manually install the following JARs:
 
-* `target/sdk-okhttp-gson-0.0.4.jar`
+* `target/okhttp-gson-0.0.6.0.jar`
 * `target/lib/*.jar`
 
 ## Getting Started
@@ -71,19 +70,25 @@ Then manually install the following JARs:
 Please follow the [installation](#installation) instruction and execute the following Java code:
 
 ```java
-```java
 
 // Import classes:
 import au.com.woolworths.village.sdk.openapi.client.ApiClient;
-import au.com.woolworths.village.sdk.client.ApiException;
-import au.com.woolworths.village.sdk.client.Configuration;
-import au.com.woolworths.village.sdk.client.models.*;
+import au.com.woolworths.village.sdk.openapi.client.ApiException;
+import au.com.woolworths.village.sdk.openapi.client.Configuration;
+import au.com.woolworths.village.sdk.openapi.client.auth.*;
+import au.com.woolworths.village.sdk.openapi.client.models.*;
 import au.com.woolworths.village.sdk.openapi.api.AdministrationApi;
 
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
     defaultClient.setBasePath("http://localhost:3000");
+    
+    // Configure API key authorization: ApiKeyAuth
+    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+    ApiKeyAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //ApiKeyAuth.setApiKeyPrefix("Token");
 
     AdministrationApi apiInstance = new AdministrationApi(defaultClient);
     try {
@@ -108,9 +113,13 @@ All URIs are relative to *http://localhost:3000*
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AdministrationApi* | [**checkHealth**](docs/AdministrationApi.md#checkHealth) | **GET** / | Health Check
+*CustomerApi* | [**customerUpdatePaymentSession**](docs/CustomerApi.md#customerUpdatePaymentSession) | **POST** /customer/payment/session/{paymentSessionId} | Update Payment Session
+*CustomerApi* | [**deletePaymentInstrument**](docs/CustomerApi.md#deletePaymentInstrument) | **DELETE** /customer/instruments/{paymentInstrumentId} | Delete a payment instrument
 *CustomerApi* | [**getCustomerPaymentDetailsByPaymentId**](docs/CustomerApi.md#getCustomerPaymentDetailsByPaymentId) | **GET** /customer/payments/{paymentRequestId} | Get Payment Details
 *CustomerApi* | [**getCustomerPaymentDetailsByQRCodeId**](docs/CustomerApi.md#getCustomerPaymentDetailsByQRCodeId) | **GET** /customer/qr/{qrId} | Get Payment From QR
 *CustomerApi* | [**getCustomerPaymentInstruments**](docs/CustomerApi.md#getCustomerPaymentInstruments) | **GET** /customer/instruments | Get Payment Instruments
+*CustomerApi* | [**getCustomerPaymentSession**](docs/CustomerApi.md#getCustomerPaymentSession) | **GET** /customer/payment/session/{paymentSessionId} | Get Payment Session
+*CustomerApi* | [**getCustomerPaymentSessionByQr**](docs/CustomerApi.md#getCustomerPaymentSessionByQr) | **GET** /customer/payment/session/qr/{qrId} | Get Payment Session
 *CustomerApi* | [**getCustomerPreferences**](docs/CustomerApi.md#getCustomerPreferences) | **GET** /customer/preferences | Get Preferences
 *CustomerApi* | [**getCustomerTransactionDetails**](docs/CustomerApi.md#getCustomerTransactionDetails) | **GET** /customer/transactions/{transactionId} | Get Transaction Details
 *CustomerApi* | [**getCustomerTransactions**](docs/CustomerApi.md#getCustomerTransactions) | **GET** /customer/transactions | Get Transaction List
@@ -121,15 +130,19 @@ Class | Method | HTTP request | Description
 *MerchantApi* | [**createMerchantSchema**](docs/MerchantApi.md#createMerchantSchema) | **POST** /merchant/schema | Add Schema
 *MerchantApi* | [**createPaymentQRCode**](docs/MerchantApi.md#createPaymentQRCode) | **POST** /merchant/qr | Create QR Code
 *MerchantApi* | [**createPaymentRequest**](docs/MerchantApi.md#createPaymentRequest) | **POST** /merchant/payments | Create Payment
+*MerchantApi* | [**createPaymentSession**](docs/MerchantApi.md#createPaymentSession) | **POST** /merchant/payment/session | Create Payment Session
 *MerchantApi* | [**deleteMerchantPayment**](docs/MerchantApi.md#deleteMerchantPayment) | **DELETE** /merchant/payments/{paymentRequestId} | Delete Payment
+*MerchantApi* | [**deletePaymentSession**](docs/MerchantApi.md#deletePaymentSession) | **DELETE** /merchant/payment/session/{paymentSessionId} | Delete Payment Session
 *MerchantApi* | [**getMerchantPaymentDetails**](docs/MerchantApi.md#getMerchantPaymentDetails) | **GET** /merchant/payments/{paymentRequestId} | Get Payment Details
 *MerchantApi* | [**getMerchantPayments**](docs/MerchantApi.md#getMerchantPayments) | **GET** /merchant/payments | Get Payment List
 *MerchantApi* | [**getMerchantPreferences**](docs/MerchantApi.md#getMerchantPreferences) | **GET** /merchant/preferences | Get Preferences
-*MerchantApi* | [**getMerchantSchema**](docs/MerchantApi.md#getMerchantSchema) | **GET** /merchant/schema | Get Schema List
 *MerchantApi* | [**getMerchantSchemaDetails**](docs/MerchantApi.md#getMerchantSchemaDetails) | **GET** /merchant/schema/{schemaId} | Get Schema Details
+*MerchantApi* | [**getMerchantSchemas**](docs/MerchantApi.md#getMerchantSchemas) | **GET** /merchant/schema | Get Schema List
 *MerchantApi* | [**getMerchantTransactionDetails**](docs/MerchantApi.md#getMerchantTransactionDetails) | **GET** /merchant/transactions/{transactionId} | Get Transaction Details
 *MerchantApi* | [**getMerchantTransactions**](docs/MerchantApi.md#getMerchantTransactions) | **GET** /merchant/transactions | Get Transaction List
 *MerchantApi* | [**getPaymentQRCodeContent**](docs/MerchantApi.md#getPaymentQRCodeContent) | **GET** /merchant/qr/{qrId} | Get QR Code Content
+*MerchantApi* | [**getPaymentSession**](docs/MerchantApi.md#getPaymentSession) | **GET** /merchant/payment/session/{paymentSessionId} | Get Payment Session
+*MerchantApi* | [**merchantUpdatePaymentSession**](docs/MerchantApi.md#merchantUpdatePaymentSession) | **POST** /merchant/payment/session/{paymentSessionId} | Update Payment Session
 *MerchantApi* | [**refundMerchantTransaction**](docs/MerchantApi.md#refundMerchantTransaction) | **POST** /merchant/transactions/{transactionId}/refund | Refund Transaction
 *MerchantApi* | [**setMerchantPreferences**](docs/MerchantApi.md#setMerchantPreferences) | **POST** /merchant/preferences | Set Preferences
 
@@ -143,15 +156,21 @@ Class | Method | HTTP request | Description
  - [CommonPaymentSummaryAllOf](docs/CommonPaymentSummaryAllOf.md)
  - [CommonTransactionSummary](docs/CommonTransactionSummary.md)
  - [CommonTransactionSummaryAllOf](docs/CommonTransactionSummaryAllOf.md)
+ - [CreateMerchantPaymentSessionResponse](docs/CreateMerchantPaymentSessionResponse.md)
+ - [CreateMerchantPaymentSessionResponseData](docs/CreateMerchantPaymentSessionResponseData.md)
  - [CreateMerchantSchemaResults](docs/CreateMerchantSchemaResults.md)
- - [CreateMerchantSchemaResultsData](docs/CreateMerchantSchemaResultsData.md)
  - [CreatePaymentQRCodeResults](docs/CreatePaymentQRCodeResults.md)
  - [CreatePaymentRequestResults](docs/CreatePaymentRequestResults.md)
  - [CreatePaymentRequestResultsData](docs/CreatePaymentRequestResultsData.md)
+ - [CreatePaymentSessionRequest](docs/CreatePaymentSessionRequest.md)
+ - [CreditCard](docs/CreditCard.md)
+ - [CreditCardStepUp](docs/CreditCardStepUp.md)
  - [CustomerInstrumentsData](docs/CustomerInstrumentsData.md)
  - [CustomerPaymentDetail](docs/CustomerPaymentDetail.md)
  - [CustomerPaymentDetailAllOf](docs/CustomerPaymentDetailAllOf.md)
  - [CustomerPaymentDetails](docs/CustomerPaymentDetails.md)
+ - [CustomerPaymentSessionPaymentSessionIdData](docs/CustomerPaymentSessionPaymentSessionIdData.md)
+ - [CustomerPaymentSessionResult](docs/CustomerPaymentSessionResult.md)
  - [CustomerPaymentsPaymentRequestIdData](docs/CustomerPaymentsPaymentRequestIdData.md)
  - [CustomerPaymentsPaymentRequestIdDataSecondaryInstruments](docs/CustomerPaymentsPaymentRequestIdDataSecondaryInstruments.md)
  - [CustomerPreferences](docs/CustomerPreferences.md)
@@ -160,13 +179,12 @@ Class | Method | HTTP request | Description
  - [CustomerTransactionDetailAllOf](docs/CustomerTransactionDetailAllOf.md)
  - [CustomerTransactionSummary](docs/CustomerTransactionSummary.md)
  - [CustomerTransactionSummaryAllOf](docs/CustomerTransactionSummaryAllOf.md)
+ - [CustomerTransactionSummaryAllOfInstruments](docs/CustomerTransactionSummaryAllOfInstruments.md)
+ - [DynamicPayload](docs/DynamicPayload.md)
  - [Error](docs/Error.md)
  - [GetCustomerPaymentInstrumentsResults](docs/GetCustomerPaymentInstrumentsResults.md)
  - [GetCustomerPaymentInstrumentsResultsData](docs/GetCustomerPaymentInstrumentsResultsData.md)
- - [GetCustomerPaymentInstrumentsResultsDataCreditCards](docs/GetCustomerPaymentInstrumentsResultsDataCreditCards.md)
- - [GetCustomerPaymentInstrumentsResultsDataGiftCards](docs/GetCustomerPaymentInstrumentsResultsDataGiftCards.md)
- - [GetCustomerPaymentInstrumentsResultsDataStepUp](docs/GetCustomerPaymentInstrumentsResultsDataStepUp.md)
- - [GetCustomerPaymentInstrumentsResultsDataStepUp1](docs/GetCustomerPaymentInstrumentsResultsDataStepUp1.md)
+ - [GetCustomerPaymentInstrumentsResultsDataEverydayPay](docs/GetCustomerPaymentInstrumentsResultsDataEverydayPay.md)
  - [GetCustomerPaymentResult](docs/GetCustomerPaymentResult.md)
  - [GetCustomerTransactionDetailsResults](docs/GetCustomerTransactionDetailsResults.md)
  - [GetCustomerTransactionsResult](docs/GetCustomerTransactionsResult.md)
@@ -177,6 +195,8 @@ Class | Method | HTTP request | Description
  - [GetMerchantTransactionDetailsResults](docs/GetMerchantTransactionDetailsResults.md)
  - [GetMerchantTransactionsResults](docs/GetMerchantTransactionsResults.md)
  - [GetMerchantTransactionsResultsData](docs/GetMerchantTransactionsResultsData.md)
+ - [GiftCard](docs/GiftCard.md)
+ - [GiftCardStepUp](docs/GiftCardStepUp.md)
  - [HealthCheckResult](docs/HealthCheckResult.md)
  - [HealthCheckResultData](docs/HealthCheckResultData.md)
  - [InitiatePaymentInstrumentAdditionResults](docs/InitiatePaymentInstrumentAdditionResults.md)
@@ -187,34 +207,50 @@ Class | Method | HTTP request | Description
  - [MerchantPaymentDetail](docs/MerchantPaymentDetail.md)
  - [MerchantPaymentDetailAllOf](docs/MerchantPaymentDetailAllOf.md)
  - [MerchantPaymentRequest](docs/MerchantPaymentRequest.md)
+ - [MerchantPaymentSessionData](docs/MerchantPaymentSessionData.md)
+ - [MerchantPaymentSessionPaymentSessionIdData](docs/MerchantPaymentSessionPaymentSessionIdData.md)
  - [MerchantPaymentSummary](docs/MerchantPaymentSummary.md)
  - [MerchantPaymentSummaryAllOf](docs/MerchantPaymentSummaryAllOf.md)
  - [MerchantPaymentsData](docs/MerchantPaymentsData.md)
  - [MerchantPreferences](docs/MerchantPreferences.md)
- - [MerchantPreferences1](docs/MerchantPreferences1.md)
  - [MerchantQrData](docs/MerchantQrData.md)
+ - [MerchantSchema](docs/MerchantSchema.md)
  - [MerchantSchemaData](docs/MerchantSchemaData.md)
  - [MerchantSchemaDetailsResult](docs/MerchantSchemaDetailsResult.md)
  - [MerchantSchemaDetailsResultData](docs/MerchantSchemaDetailsResultData.md)
  - [MerchantSchemaResult](docs/MerchantSchemaResult.md)
  - [MerchantSchemaResultData](docs/MerchantSchemaResultData.md)
- - [MerchantSchemaResultDataSchemas](docs/MerchantSchemaResultDataSchemas.md)
+ - [MerchantSchemaSummary](docs/MerchantSchemaSummary.md)
  - [MerchantTransactionDetail](docs/MerchantTransactionDetail.md)
  - [MerchantTransactionSummary](docs/MerchantTransactionSummary.md)
  - [MerchantTransactionSummaryAllOf](docs/MerchantTransactionSummaryAllOf.md)
  - [MerchantTransactionsTransactionIdRefundData](docs/MerchantTransactionsTransactionIdRefundData.md)
+ - [MetaChallenge](docs/MetaChallenge.md)
+ - [MetaChallengeChallengeResponses](docs/MetaChallengeChallengeResponses.md)
  - [MetaPaginated](docs/MetaPaginated.md)
  - [PaymentQRCodeDetails](docs/PaymentQRCodeDetails.md)
+ - [PaymentSession](docs/PaymentSession.md)
  - [PosPayload](docs/PosPayload.md)
  - [Qr](docs/Qr.md)
  - [RefundMerchantTransactionRequest](docs/RefundMerchantTransactionRequest.md)
  - [RefundMerchantTransactionResults](docs/RefundMerchantTransactionResults.md)
+ - [UpdatePaymentSessionRequest](docs/UpdatePaymentSessionRequest.md)
+ - [UpdatePaymentSessionRequest1](docs/UpdatePaymentSessionRequest1.md)
 
 
 ## Documentation for Authorization
 
-All endpoints do not require authorization.
 Authentication schemes defined for the API:
+### ApiKeyAuth
+
+- **Type**: API key
+- **API key parameter name**: X-Api-Key
+- **Location**: HTTP header
+
+### bearerAuth
+
+- **Type**: HTTP basic authentication
+
 
 ## Recommendation
 

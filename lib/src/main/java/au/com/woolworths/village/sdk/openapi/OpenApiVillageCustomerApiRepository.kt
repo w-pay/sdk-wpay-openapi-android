@@ -1,13 +1,13 @@
 package au.com.woolworths.village.sdk.openapi
 
 import au.com.woolworths.village.sdk.*
+import au.com.woolworths.village.sdk.CustomerPreferences
 import au.com.woolworths.village.sdk.model.*
+import au.com.woolworths.village.sdk.model.CustomerTransactionSummary
+import au.com.woolworths.village.sdk.model.PaymentSession
 import au.com.woolworths.village.sdk.openapi.model.*
 import au.com.woolworths.village.sdk.openapi.client.ApiException
-import au.com.woolworths.village.sdk.openapi.dto.CustomerInstrumentsData
-import au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentSessionPaymentSessionIdData
-import au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentsPaymentRequestIdData
-import au.com.woolworths.village.sdk.openapi.dto.InstrumentAdditionDetails
+import au.com.woolworths.village.sdk.openapi.dto.*
 import org.threeten.bp.OffsetDateTime
 
 /**
@@ -71,7 +71,7 @@ class OpenApiVillageCustomerApiRepository(
         }
     }
 
-    override fun retrievePaymentRequestDetailsByQRCode(qrCodeId: String): ApiResult<CustomerPaymentRequest> {
+    override fun retrievePaymentRequestDetailsByQRCodeId(qrCodeId: String): ApiResult<CustomerPaymentRequest> {
         val api = createCustomerApi()
         return try {
             val data = api.getCustomerPaymentDetailsByQRCodeId(
@@ -115,6 +115,23 @@ class OpenApiVillageCustomerApiRepository(
                 data.giftCards,
                 data.everydayPay
             ))
+        }
+        catch (e: ApiException) {
+            ApiResult.Error(toApiException(e))
+        }
+    }
+
+    override fun deletePaymentInstrument(instrument: PaymentInstrumentIdentifier): ApiResult<Unit> {
+        val api = createCustomerApi()
+
+        return try {
+            api.deletePaymentInstrument(
+                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                instrument.paymentInstrumentId(),
+                instrument.wallet() == Wallet.EVERYDAY_PAY
+            )
+
+            ApiResult.Success(Unit)
         }
         catch (e: ApiException) {
             ApiResult.Error(toApiException(e))
@@ -177,7 +194,7 @@ class OpenApiVillageCustomerApiRepository(
         }
     }
 
-    override fun retrieveCustomerPaymentSessionById(paymentSessionId: String): ApiResult<PaymentSession> {
+    override fun retrievePaymentSessionById(paymentSessionId: String): ApiResult<PaymentSession> {
         val api = createCustomerApi()
 
         return try {
@@ -193,7 +210,7 @@ class OpenApiVillageCustomerApiRepository(
         }
     }
 
-    override fun retrieveCustomerPaymentSessionByQRCode(qrCodeId: String): ApiResult<PaymentSession> {
+    override fun retrievePaymentSessionByQRCodeId(qrCodeId: String): ApiResult<PaymentSession> {
         val api = createCustomerApi()
 
         return try {
@@ -209,18 +226,18 @@ class OpenApiVillageCustomerApiRepository(
         }
     }
 
-    override fun updateCustomerPaymentSession(
+    override fun updatePaymentSession(
         paymentSessionId: String,
-        session: UpdatePaymentSessionRequest
+        session: CustomerUpdatePaymentSessionRequest
     ): ApiResult<Unit> {
         val api = createCustomerApi()
 
         return try {
             val body = au.com.woolworths.village.sdk.openapi.dto.UpdatePaymentSessionRequest()
             body.data = CustomerPaymentSessionPaymentSessionIdData()
-            body.data.additionalInfo = toDynamicPayload(session.additionalInfo())
+            body.data.customerInfo = toDynamicPayload(session.customerInfo())
 
-            api.updateCustomerPaymentSession(
+            api.customerUpdatePaymentSession(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 paymentSessionId,
                 body
@@ -235,15 +252,23 @@ class OpenApiVillageCustomerApiRepository(
 
     override fun makePayment(
         paymentRequestId: String,
-        instrument: PaymentInstrumentIdentifier
+        instrument: PaymentInstrumentIdentifier,
+        secondaryInstruments: List<SecondaryPaymentInstrument>?,
+        clientReference: String?,
+        challengeResponses: List<ChallengeResponse>?
     ): ApiResult<CustomerTransactionSummary> {
         val api = createCustomerApi()
 
         return try {
             val body = au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetails()
             body.data = CustomerPaymentsPaymentRequestIdData().apply {
-                primaryInstrumentId = instrument.paymentInstrumentId()
-                secondaryInstruments = listOf()
+                this.primaryInstrumentId = instrument.paymentInstrumentId()
+                this.secondaryInstruments = secondaryInstruments?.map(::toSecondaryInstrument) ?: emptyList()
+                this.clientReference = clientReference
+            }
+
+            body.meta = MetaChallenge().apply {
+                this.challengeResponses = challengeResponses?.map(::toChallengeResponse) ?: emptyList()
             }
 
             val data = api.makeCustomerPayment(
@@ -259,4 +284,22 @@ class OpenApiVillageCustomerApiRepository(
             ApiResult.Error(toApiException(e))
         }
     }
+}
+
+fun toSecondaryInstrument(instrument: SecondaryPaymentInstrument): CustomerPaymentsPaymentRequestIdDataSecondaryInstruments {
+    val i = CustomerPaymentsPaymentRequestIdDataSecondaryInstruments()
+    i.amount = instrument.amount()
+    i.instrumentId = instrument.paymentInstrumentId()
+
+    return i
+}
+
+fun toChallengeResponse(challengeResponse: ChallengeResponse): MetaChallengeChallengeResponses {
+    val cr = MetaChallengeChallengeResponses()
+    cr.instrumentId = challengeResponse.instrumentId()
+    cr.reference = challengeResponse.reference()
+    cr.token = challengeResponse.token()
+    cr.type = MetaChallengeChallengeResponses.TypeEnum.valueOf(challengeResponse.type().toString())
+
+    return cr
 }

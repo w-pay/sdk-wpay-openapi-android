@@ -4,6 +4,8 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**customerUpdatePaymentSession**](CustomerApi.md#customerUpdatePaymentSession) | **POST** /customer/payment/session/{paymentSessionId} | Update Payment Session
+[**deletePaymentInstrument**](CustomerApi.md#deletePaymentInstrument) | **DELETE** /customer/instruments/{paymentInstrumentId} | Delete a payment instrument
 [**getCustomerPaymentDetailsByPaymentId**](CustomerApi.md#getCustomerPaymentDetailsByPaymentId) | **GET** /customer/payments/{paymentRequestId} | Get Payment Details
 [**getCustomerPaymentDetailsByQRCodeId**](CustomerApi.md#getCustomerPaymentDetailsByQRCodeId) | **GET** /customer/qr/{qrId} | Get Payment From QR
 [**getCustomerPaymentInstruments**](CustomerApi.md#getCustomerPaymentInstruments) | **GET** /customer/instruments | Get Payment Instruments
@@ -15,8 +17,160 @@ Method | HTTP request | Description
 [**initiatePaymentInstrumentAddition**](CustomerApi.md#initiatePaymentInstrumentAddition) | **POST** /customer/instruments | Initiate Instrument Addition
 [**makeCustomerPayment**](CustomerApi.md#makeCustomerPayment) | **PUT** /customer/payments/{paymentRequestId} | Pay Payment
 [**setCustomerPreferences**](CustomerApi.md#setCustomerPreferences) | **POST** /customer/preferences | Set Preferences
-[**updateCustomerPaymentSession**](CustomerApi.md#updateCustomerPaymentSession) | **POST** /customer/payment/session/{paymentSessionId} | Update Payment Session
 
+
+<a name="customerUpdatePaymentSession"></a>
+# **customerUpdatePaymentSession**
+> customerUpdatePaymentSession(xWalletID, paymentSessionId, updatePaymentSessionRequest)
+
+Update Payment Session
+
+Update the payment session details
+
+### Example
+```java
+// Import classes:
+import au.com.woolworths.village.sdk.openapi.client.ApiClient;
+import au.com.woolworths.village.sdk.openapi.client.ApiException;
+import au.com.woolworths.village.sdk.openapi.client.Configuration;
+import au.com.woolworths.village.sdk.openapi.client.auth.*;
+import au.com.woolworths.village.sdk.openapi.client.models.*;
+import au.com.woolworths.village.sdk.openapi.api.CustomerApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:3000");
+    
+    // Configure API key authorization: ApiKeyAuth
+    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+    ApiKeyAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //ApiKeyAuth.setApiKeyPrefix("Token");
+
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    CustomerApi apiInstance = new CustomerApi(defaultClient);
+    String xWalletID = bb8f86af-9e7b-4659-85d5-346b5e99d500; // String | 
+    String paymentSessionId = "paymentSessionId_example"; // String | The ID of the specific payment session to retrieve
+    UpdatePaymentSessionRequest updatePaymentSessionRequest = new UpdatePaymentSessionRequest(); // UpdatePaymentSessionRequest | 
+    try {
+      apiInstance.customerUpdatePaymentSession(xWalletID, paymentSessionId, updatePaymentSessionRequest);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CustomerApi#customerUpdatePaymentSession");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xWalletID** | **String**|  |
+ **paymentSessionId** | **String**| The ID of the specific payment session to retrieve |
+ **updatePaymentSessionRequest** | [**UpdatePaymentSessionRequest**](UpdatePaymentSessionRequest.md)|  |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | The payment session has been successfully updated. No content returned. |  -  |
+**422** | The specified Payment Session ID doesn&#39;t exist, has already been associated with a wallet or has expired |  -  |
+
+<a name="deletePaymentInstrument"></a>
+# **deletePaymentInstrument**
+> deletePaymentInstrument(xWalletID, paymentInstrumentId, xEverdayPayWallet)
+
+Delete a payment instrument
+
+Delete an existing payment instrument
+
+### Example
+```java
+// Import classes:
+import au.com.woolworths.village.sdk.openapi.client.ApiClient;
+import au.com.woolworths.village.sdk.openapi.client.ApiException;
+import au.com.woolworths.village.sdk.openapi.client.Configuration;
+import au.com.woolworths.village.sdk.openapi.client.auth.*;
+import au.com.woolworths.village.sdk.openapi.client.models.*;
+import au.com.woolworths.village.sdk.openapi.api.CustomerApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:3000");
+    
+    // Configure API key authorization: ApiKeyAuth
+    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+    ApiKeyAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //ApiKeyAuth.setApiKeyPrefix("Token");
+
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    CustomerApi apiInstance = new CustomerApi(defaultClient);
+    String xWalletID = bb8f86af-9e7b-4659-85d5-346b5e99d500; // String | 
+    String paymentInstrumentId = "paymentInstrumentId_example"; // String | The ID of the specific instrument
+    Boolean xEverdayPayWallet = false; // Boolean | The payment instrument to be deleted is in the everyday pay wallet
+    try {
+      apiInstance.deletePaymentInstrument(xWalletID, paymentInstrumentId, xEverdayPayWallet);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CustomerApi#deletePaymentInstrument");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xWalletID** | **String**|  |
+ **paymentInstrumentId** | **String**| The ID of the specific instrument |
+ **xEverdayPayWallet** | **Boolean**| The payment instrument to be deleted is in the everyday pay wallet | [optional] [default to false]
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | Payment Instrument successfully deleted.  No content returned |  -  |
 
 <a name="getCustomerPaymentDetailsByPaymentId"></a>
 # **getCustomerPaymentDetailsByPaymentId**
@@ -92,7 +246,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response. |  -  |
-**400** | The specified Payment Request ID doesn&#39;t exist, has been used or is expired |  -  |
+**422** | The specified Payment Request ID doesn&#39;t exist, has been used or is expired |  -  |
 
 <a name="getCustomerPaymentDetailsByQRCodeId"></a>
 # **getCustomerPaymentDetailsByQRCodeId**
@@ -168,7 +322,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response. |  -  |
-**400** | The specified QR Code ID doesn&#39;t exist or has been expired or the underlying payment request is no longer usable |  -  |
+**422** | The specified QR Code ID doesn&#39;t exist or has been expired or the underlying payment request is no longer usable |  -  |
 
 <a name="getCustomerPaymentInstruments"></a>
 # **getCustomerPaymentInstruments**
@@ -319,6 +473,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
+**422** | The specified Payment Session ID doesn&#39;t exist or has expired |  -  |
 
 <a name="getCustomerPaymentSessionByQr"></a>
 # **getCustomerPaymentSessionByQr**
@@ -394,6 +549,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
+**422** | The specified Payment Session ID doesn&#39;t exist, has been used or is expired |  -  |
 
 <a name="getCustomerPreferences"></a>
 # **getCustomerPreferences**
@@ -781,6 +937,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
+**422** | The specified Payment Request ID doesn&#39;t exist, has been used or is expired |  -  |
 
 <a name="setCustomerPreferences"></a>
 # **setCustomerPreferences**
@@ -855,80 +1012,4 @@ null (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Preferences successfully updated.  No content returned |  -  |
-
-<a name="updateCustomerPaymentSession"></a>
-# **updateCustomerPaymentSession**
-> updateCustomerPaymentSession(xWalletID, paymentSessionId, updatePaymentSessionRequest)
-
-Update Payment Session
-
-Update the payment session details
-
-### Example
-```java
-// Import classes:
-import au.com.woolworths.village.sdk.openapi.client.ApiClient;
-import au.com.woolworths.village.sdk.openapi.client.ApiException;
-import au.com.woolworths.village.sdk.openapi.client.Configuration;
-import au.com.woolworths.village.sdk.openapi.client.auth.*;
-import au.com.woolworths.village.sdk.openapi.client.models.*;
-import au.com.woolworths.village.sdk.openapi.api.CustomerApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:3000");
-    
-    // Configure API key authorization: ApiKeyAuth
-    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
-    ApiKeyAuth.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //ApiKeyAuth.setApiKeyPrefix("Token");
-
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
-
-    CustomerApi apiInstance = new CustomerApi(defaultClient);
-    String xWalletID = bb8f86af-9e7b-4659-85d5-346b5e99d500; // String | 
-    String paymentSessionId = "paymentSessionId_example"; // String | The ID of the specific payment session to retrieve
-    UpdatePaymentSessionRequest updatePaymentSessionRequest = new UpdatePaymentSessionRequest(); // UpdatePaymentSessionRequest | 
-    try {
-      apiInstance.updateCustomerPaymentSession(xWalletID, paymentSessionId, updatePaymentSessionRequest);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling CustomerApi#updateCustomerPaymentSession");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **xWalletID** | **String**|  |
- **paymentSessionId** | **String**| The ID of the specific payment session to retrieve |
- **updatePaymentSessionRequest** | [**UpdatePaymentSessionRequest**](UpdatePaymentSessionRequest.md)|  |
-
-### Return type
-
-null (empty response body)
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: Not defined
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**204** | The payment session has been successfully updated. No content returned. |  -  |
 

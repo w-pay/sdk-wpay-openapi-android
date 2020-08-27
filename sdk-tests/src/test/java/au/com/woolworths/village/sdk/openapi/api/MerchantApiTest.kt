@@ -148,9 +148,10 @@ class MerchantApiTest {
     fun getMerchantPreferencesTest() {
         val preferences = api.getMerchantPreferences(X_WALLET_ID)
 
-        val preferenceGroup = preferences.data["preferenceGroup"]
-        assertThat(preferenceGroup, not(nullValue()))
-        assertThat(preferenceGroup?.get("preference"), not(blankOrNullString()))
+        assertThat(preferences.data, hasEntry(equalTo("qrTemplates"), allOf(
+            hasEntry(equalTo("PAYMENT_REQUEST"), not(blankOrNullString())),
+            hasEntry(equalTo("PAYMENT_SESSION"), not(blankOrNullString()))
+        )))
     }
 
     @Test
@@ -257,9 +258,9 @@ class MerchantApiTest {
         val createRequest = CreatePaymentSessionRequest()
         createRequest.data = MerchantPaymentSessionData()
         createRequest.data.location = "somewhere"
-        createRequest.data.additionalInfo = DynamicPayload()
+        createRequest.data.merchantInfo = DynamicPayload()
 
-        val result = api.createCustomerPaymentSession(
+        val result = api.createPaymentSession(
             X_WALLET_ID,
             createRequest
         )
@@ -272,7 +273,7 @@ class MerchantApiTest {
     fun shouldRetrievePaymentSession() {
         val paymentSessionId = "a5bbfe1a-c1b9-11ea-924f-33c96a9759eb"
 
-        val result = api.getMerchantPaymentSession(
+        val result = api.getPaymentSession(
             X_WALLET_ID,
             paymentSessionId
         )

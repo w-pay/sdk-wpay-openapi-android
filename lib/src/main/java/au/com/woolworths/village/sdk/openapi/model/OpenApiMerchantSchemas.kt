@@ -4,6 +4,7 @@ import au.com.woolworths.village.sdk.model.MerchantSchema
 import au.com.woolworths.village.sdk.model.MerchantSchemaSummaries
 import au.com.woolworths.village.sdk.model.MerchantSchemaSummary
 import au.com.woolworths.village.sdk.openapi.dto.MerchantSchemaDetailsResultData
+import org.threeten.bp.OffsetDateTime
 
 class OpenApiMerchantSchemaSummaries(
     private val schemas: List<au.com.woolworths.village.sdk.openapi.dto.MerchantSchemaSummary>
@@ -42,5 +43,9 @@ class OpenApiMerchantSchema(
 
     override fun description(): String? {
         return schema.description
+    }
+
+    override fun created(): OffsetDateTime? {
+        return schema.created
     }
 }

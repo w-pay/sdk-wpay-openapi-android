@@ -8,6 +8,10 @@ fun aNewTransactionRefund(): TransactionRefundDetails {
 
 class TestTransactionRefundDetails: TransactionRefundDetails {
     override fun reason(): String {
-        return ""
+        return "no reason"
+    }
+
+    override fun clientReference(): String? {
+        return null
     }
 }

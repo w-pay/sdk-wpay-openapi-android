@@ -52,6 +52,7 @@ class MerchantSchemaMatcher: TypeSafeMatcher<MerchantSchema>() {
         assertThat(item.schema(), not(nullValue()))
         assertThat(item.type(), not(blankOrNullString()))
         assertThat(item.description(), not(blankOrNullString()))
+        assertThat(item.created(), not(nullValue()))
 
         return true
     }

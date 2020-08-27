@@ -8,7 +8,7 @@ class TestCreatePaymentSessionRequest: CreatePaymentSessionRequest {
         return "somewhere"
     }
 
-    override fun additionalInfo(): DynamicPayload {
+    override fun merchantInfo(): DynamicPayload {
         return TestCreatePaymentSessionRequestPayload()
     }
 }
