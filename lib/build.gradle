@@ -26,6 +26,8 @@ android {
         }
     }
 
+    defaultPublishConfig "okhttpRelease"
+
     flavorDimensions "sdk"
 
     productFlavors {
