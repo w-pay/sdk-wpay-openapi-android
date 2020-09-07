@@ -11,22 +11,18 @@ fun aNewMerchantPayload(): MerchantPayload {
     return TestMerchantPayload()
 }
 
-class TestPosPayload: PosPayload {
-    override fun schemaId(): String? {
-        return "abc123"
-    }
+class TestPosPayload : PosPayload {
+    override val schemaId: String?
+        get() = "abc123"
 
-    override fun payload(): Map<String, Any> {
-        return emptyMap()
-    }
+    override val payload: Map<String, Any>
+        get() = emptyMap()
 }
 
-class TestMerchantPayload: MerchantPayload {
-    override fun schemaId(): String? {
-        return "abc123"
-    }
+class TestMerchantPayload : MerchantPayload {
+    override val schemaId: String?
+        get() = "abc123"
 
-    override fun payload(): Map<String, Any> {
-        return emptyMap()
-    }
+    override val payload: Map<String, Any>
+        get() = emptyMap()
 }

@@ -22,9 +22,9 @@ fun paymentInstrumentAdded(): Matcher<PaymentInstrumentAdditionResult> = Payment
 
 class AllPaymentInstrumentsMatcher: TypeSafeMatcher<AllPaymentInstruments>() {
     override fun matchesSafely(item: AllPaymentInstruments): Boolean {
-        assertThat(item.creditCards(), hasCards(creditCard()))
-        assertThat(item.giftCards(), hasCards(giftCard()))
-        assertThat(item.everydayPay()!!, hasPaymentInstruments())
+        assertThat(item.creditCards, hasCards(creditCard()))
+        assertThat(item.giftCards, hasCards(giftCard()))
+        assertThat(item.everydayPay!!, hasPaymentInstruments())
 
         return true
     }
@@ -37,8 +37,8 @@ class AllPaymentInstrumentsMatcher: TypeSafeMatcher<AllPaymentInstruments>() {
 
 class PaymentInstrumentMatcher: TypeSafeMatcher<PaymentInstruments>() {
     override fun matchesSafely(item: PaymentInstruments): Boolean {
-        assertThat(item.creditCards(), hasCards(creditCard()))
-        assertThat(item.giftCards(), hasCards(giftCard()))
+        assertThat(item.creditCards, hasCards(creditCard()))
+        assertThat(item.giftCards, hasCards(giftCard()))
 
         return true
     }
@@ -63,28 +63,28 @@ class CardsMatcher<T : Any>(private val matcher: Matcher<T>): TypeSafeMatcher<Li
 
 class CreditCardMatcher: TypeSafeMatcher<CreditCard>() {
     override fun matchesSafely(card: CreditCard): Boolean {
-        assertThat(card.allowed(), not(nullValue()))
-        assertThat(card.cardName(), not(blankOrNullString()))
-        assertThat(card.cardSuffix(), not(blankOrNullString()))
-        assertThat(card.cvvValidated(), not(nullValue()))
-        assertThat(card.expired(), not(nullValue()))
-        assertThat(card.expiryMonth(), not(blankOrNullString()))
-        assertThat(card.expiryYear(), not(blankOrNullString()))
-        assertThat(card.lastUpdated(), not(nullValue()))
-        assertThat(card.lastUsed(), not(nullValue()))
-        assertThat(card.paymentInstrumentId(), not(blankOrNullString()))
-        assertThat(card.paymentToken(), not(blankOrNullString()))
-        assertThat(card.primary(), not(nullValue()))
-        assertThat(card.requiresCVV(), not(nullValue()))
-        assertThat(card.scheme(), not(blankOrNullString()))
-        assertThat(card.status(), not(nullValue()))
-        assertThat(card.updateURL(), not(nullValue()))
+        assertThat(card.allowed, not(nullValue()))
+        assertThat(card.cardName, not(blankOrNullString()))
+        assertThat(card.cardSuffix, not(blankOrNullString()))
+        assertThat(card.cvvValidated, not(nullValue()))
+        assertThat(card.expired, not(nullValue()))
+        assertThat(card.expiryMonth, not(blankOrNullString()))
+        assertThat(card.expiryYear, not(blankOrNullString()))
+        assertThat(card.lastUpdated, not(nullValue()))
+        assertThat(card.lastUsed, not(nullValue()))
+        assertThat(card.paymentInstrumentId, not(blankOrNullString()))
+        assertThat(card.paymentToken, not(blankOrNullString()))
+        assertThat(card.primary, not(nullValue()))
+        assertThat(card.requiresCVV, not(nullValue()))
+        assertThat(card.scheme, not(blankOrNullString()))
+        assertThat(card.status, not(nullValue()))
+        assertThat(card.updateURL, not(nullValue()))
 
-        val stepUp = card.stepUp()
+        val stepUp = card.stepUp
         assertThat(stepUp, not(nullValue()))
-        assertThat(stepUp.mandatory(), not(nullValue()))
-        assertThat(stepUp.type(), not(blankOrNullString()))
-        assertThat(stepUp.url(), not(nullValue()))
+        assertThat(stepUp.mandatory, not(nullValue()))
+        assertThat(stepUp.type, not(blankOrNullString()))
+        assertThat(stepUp.url, not(nullValue()))
 
         return true
     }
@@ -96,20 +96,20 @@ class CreditCardMatcher: TypeSafeMatcher<CreditCard>() {
 
 class GiftCardMatcher: TypeSafeMatcher<GiftCard>() {
     override fun matchesSafely(card: GiftCard): Boolean {
-        assertThat(card.allowed(), not(nullValue()))
-        assertThat(card.cardSuffix(), not(blankOrNullString()))
-        assertThat(card.lastUpdated(), not(nullValue()))
-        assertThat(card.lastUsed(), not(nullValue()))
-        assertThat(card.paymentInstrumentId(), not(blankOrNullString()))
-        assertThat(card.paymentToken(), not(blankOrNullString()))
-        assertThat(card.primary(), not(nullValue()))
-        assertThat(card.status(), not(nullValue()))
-        assertThat(card.programName(), not(blankOrNullString()))
+        assertThat(card.allowed, not(nullValue()))
+        assertThat(card.cardSuffix, not(blankOrNullString()))
+        assertThat(card.lastUpdated, not(nullValue()))
+        assertThat(card.lastUsed, not(nullValue()))
+        assertThat(card.paymentInstrumentId, not(blankOrNullString()))
+        assertThat(card.paymentToken, not(blankOrNullString()))
+        assertThat(card.primary, not(nullValue()))
+        assertThat(card.status, not(nullValue()))
+        assertThat(card.programName, not(blankOrNullString()))
 
-        val stepUp = card.stepUp()
+        val stepUp = card.stepUp
         assertThat(stepUp, not(nullValue()))
-        assertThat(stepUp?.mandatory(), not(nullValue()))
-        assertThat(stepUp?.type(), not(blankOrNullString()))
+        assertThat(stepUp?.mandatory, not(nullValue()))
+        assertThat(stepUp?.type, not(blankOrNullString()))
 
         return true
     }
@@ -121,8 +121,8 @@ class GiftCardMatcher: TypeSafeMatcher<GiftCard>() {
 
 class PaymentInstrumentAdditionResultMatcher: TypeSafeMatcher<PaymentInstrumentAdditionResult>() {
     override fun matchesSafely(item: PaymentInstrumentAdditionResult): Boolean {
-        assertThat(item.cardCaptureURL(), not(blankOrNullString()))
-        assertThat(item.transactionRef(), not(blankOrNullString()))
+        assertThat(item.cardCaptureURL, not(blankOrNullString()))
+        assertThat(item.transactionRef, not(blankOrNullString()))
 
         return true
     }

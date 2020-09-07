@@ -5,20 +5,16 @@ import org.threeten.bp.OffsetDateTime
 
 fun aNewSchema(): MerchantSchema = TestMerchantSchema()
 
-class TestMerchantSchema: MerchantSchema {
-    override fun schema(): Map<String, Any> {
-        return emptyMap()
-    }
+class TestMerchantSchema : MerchantSchema {
+    override val schema: Map<String, Any>
+        get() = emptyMap()
 
-    override fun type(): String? {
-        return null
-    }
+    override val type: String?
+        get() = null
 
-    override fun description(): String? {
-        return null
-    }
+    override val description: String?
+        get() = null
 
-    override fun created(): OffsetDateTime? {
-        return null
-    }
+    override val created: OffsetDateTime?
+        get() = null
 }

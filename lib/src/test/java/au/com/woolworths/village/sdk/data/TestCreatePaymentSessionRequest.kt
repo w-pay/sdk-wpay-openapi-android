@@ -3,22 +3,18 @@ package au.com.woolworths.village.sdk.data
 import au.com.woolworths.village.sdk.model.CreatePaymentSessionRequest
 import au.com.woolworths.village.sdk.model.DynamicPayload
 
-class TestCreatePaymentSessionRequest: CreatePaymentSessionRequest {
-    override fun location(): String {
-        return "somewhere"
-    }
+class TestCreatePaymentSessionRequest : CreatePaymentSessionRequest {
+    override val location: String
+        get() = "somewhere"
 
-    override fun merchantInfo(): DynamicPayload {
-        return TestCreatePaymentSessionRequestPayload()
-    }
+    override val merchantInfo: DynamicPayload
+        get() = TestCreatePaymentSessionRequestPayload()
 }
 
-class TestCreatePaymentSessionRequestPayload: DynamicPayload {
-    override fun schemaId(): String? {
-        return "abc123"
-    }
+class TestCreatePaymentSessionRequestPayload : DynamicPayload {
+    override val schemaId: String?
+        get() = "abc123"
 
-    override fun payload(): Map<String, Any> {
-        return emptyMap()
-    }
+    override val payload: Map<String, Any>
+        get() = emptyMap()
 }

@@ -4,29 +4,24 @@ import au.com.woolworths.village.sdk.model.CustomerUpdatePaymentSessionRequest
 import au.com.woolworths.village.sdk.model.DynamicPayload
 import au.com.woolworths.village.sdk.model.MerchantUpdatePaymentSessionRequest
 
-class TestCustomerUpdatePaymentSessionRequest: CustomerUpdatePaymentSessionRequest {
-    override fun customerInfo(): DynamicPayload {
-        return TestUpdatePaymentSessionRequestPayload()
-    }
+class TestCustomerUpdatePaymentSessionRequest : CustomerUpdatePaymentSessionRequest {
+    override val customerInfo: DynamicPayload
+        get() = TestUpdatePaymentSessionRequestPayload()
 }
 
-class TestMerchantUpdatePaymentSessionRequest: MerchantUpdatePaymentSessionRequest {
-    override fun paymentRequestId(): String? {
-        return null
-    }
+class TestMerchantUpdatePaymentSessionRequest : MerchantUpdatePaymentSessionRequest {
+    override val paymentRequestId: String?
+        get() = null
 
-    override fun merchantInfo(): DynamicPayload {
-        return TestUpdatePaymentSessionRequestPayload()
-    }
+    override val merchantInfo: DynamicPayload
+        get() = TestUpdatePaymentSessionRequestPayload()
 }
 
 
-class TestUpdatePaymentSessionRequestPayload: DynamicPayload {
-    override fun schemaId(): String? {
-        return "abc123"
-    }
+class TestUpdatePaymentSessionRequestPayload : DynamicPayload {
+    override val schemaId: String?
+        get() = "abc123"
 
-    override fun payload(): Map<String, Any> {
-        return emptyMap()
-    }
+    override val payload: Map<String, Any>
+        get() = emptyMap()
 }

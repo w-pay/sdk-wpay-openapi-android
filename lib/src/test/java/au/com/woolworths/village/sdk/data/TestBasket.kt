@@ -5,41 +5,33 @@ import java.math.BigDecimal
 
 fun aNewBasket(): Basket = TestBasket()
 
-class TestBasket: Basket {
-    override fun items(): List<Basket.Items> {
-        return arrayListOf(TestBasketItem())
-    }
+class TestBasket : Basket {
+    override val items: List<Basket.Items>
+        get() = arrayListOf(TestBasketItem())
 }
 
-class TestBasketItem: Basket.Items {
-    override fun label(): String {
-        return "Item 1"
-    }
+class TestBasketItem : Basket.Items {
+    override val label: String
+        get() = "Item 1"
 
-    override fun description(): String? {
-       return "This is item 1"
-    }
+    override val description: String?
+        get() = "This is item 1"
 
-    override fun quantity(): BigDecimal? {
-        return BigDecimal(3)
-    }
+    override val quantity: BigDecimal?
+        get() = BigDecimal(3)
 
-    override fun unitPrice(): BigDecimal? {
-        return BigDecimal(2.1)
-    }
+    override val unitPrice: BigDecimal?
+        get() = BigDecimal(2.1)
 
-    override fun unitMeasure(): String? {
-        return "EACH"
-    }
+    override val unitMeasure: String?
+        get() = "EACH"
 
-    override fun totalPrice(): BigDecimal? {
-       return BigDecimal(6.3)
-    }
+    override val totalPrice: BigDecimal?
+        get() = BigDecimal(6.3)
 
-    override fun tags(): Map<String, String> {
-        return hashMapOf(
+    override val tags: Map<String, String>
+        get() = hashMapOf(
             "property1" to "string",
             "property2" to "string"
         )
-    }
 }

@@ -1,45 +1,37 @@
 package au.com.woolworths.village.sdk.openapi.model
 
-import au.com.woolworths.village.sdk.openapi.dto.BasketItems
 import au.com.woolworths.village.sdk.model.Basket
+import au.com.woolworths.village.sdk.openapi.dto.BasketItems
 import java.math.BigDecimal
 
 class OpenApiBasket(
     private val basket: au.com.woolworths.village.sdk.openapi.dto.Basket
 ) : Basket {
-    override fun items(): List<Basket.Items> {
-        return basket.items?.let { item -> item.map { OpenApiBasketItem(it) } } ?: emptyList()
-    }
+    override val items: List<Basket.Items>
+        get() = basket.items?.let { item -> item.map { OpenApiBasketItem(it) } } ?: emptyList()
 }
 
 class OpenApiBasketItem(
     private val item: BasketItems
-): Basket.Items {
-    override fun label(): String {
-        return item.label
-    }
+) : Basket.Items {
+    override val label: String
+        get() = item.label
 
-    override fun description(): String? {
-       return item.description
-    }
+    override val description: String?
+        get() = item.description
 
-    override fun quantity(): BigDecimal? {
-       return item.quantity
-    }
+    override val quantity: BigDecimal?
+        get() = item.quantity
 
-    override fun unitPrice(): BigDecimal? {
-        return item.unitPrice
-    }
+    override val unitPrice: BigDecimal?
+        get() = item.unitPrice
 
-    override fun unitMeasure(): String? {
-        return item.unitMeasure
-    }
+    override val unitMeasure: String?
+        get() = item.unitMeasure
 
-    override fun totalPrice(): BigDecimal? {
-        return item.totalPrice
-    }
+    override val totalPrice: BigDecimal?
+        get() = item.totalPrice
 
-    override fun tags(): Map<String, String> {
-        return item.tags?.let { item.tags as Map<String, String> } ?: emptyMap()
-    }
+    override val tags: Map<String, String>
+        get() = item.tags?.let { item.tags as Map<String, String> } ?: emptyMap()
 }

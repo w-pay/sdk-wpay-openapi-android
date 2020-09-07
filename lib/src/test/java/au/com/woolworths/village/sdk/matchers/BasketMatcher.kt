@@ -14,7 +14,7 @@ fun isBasket(): Matcher<Basket?> = BasketMatcher()
 class BasketMatcher: TypeSafeMatcher<Basket>() {
     override fun matchesSafely(basket: Basket): Boolean {
         val matcher = BasketItemMatcher()
-        val items = basket.items()
+        val items = basket.items
 
         assertThat(items, not(nullValue()))
         assertThat(items.size, greaterThanOrEqualTo(1))
@@ -29,14 +29,14 @@ class BasketMatcher: TypeSafeMatcher<Basket>() {
     class BasketItemMatcher: TypeSafeMatcher<Basket.Items>() {
         override fun matchesSafely(item: Basket.Items): Boolean {
             assertThat(item, not(nullValue()))
-            assertThat(item.label(), not(blankOrNullString()))
-            assertThat(item.description(), not(blankOrNullString()))
-            assertThat(item.quantity(), greaterThan(BigDecimal.ZERO))
-            assertThat(item.unitPrice(), greaterThan(BigDecimal.ZERO))
-            assertThat(item.unitMeasure(), not(blankOrNullString()))
-            assertThat(item.totalPrice(), greaterThan(BigDecimal.ZERO))
-            assertThat(item.tags(), not(nullValue()))
-            assertThat(item.tags().size, greaterThan(0))
+            assertThat(item.label, not(blankOrNullString()))
+            assertThat(item.description, not(blankOrNullString()))
+            assertThat(item.quantity, greaterThan(BigDecimal.ZERO))
+            assertThat(item.unitPrice, greaterThan(BigDecimal.ZERO))
+            assertThat(item.unitMeasure, not(blankOrNullString()))
+            assertThat(item.totalPrice, greaterThan(BigDecimal.ZERO))
+            assertThat(item.tags, not(nullValue()))
+            assertThat(item.tags.size, greaterThan(0))
 
             return true
         }

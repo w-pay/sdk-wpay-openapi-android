@@ -6,8 +6,7 @@ import java.util.*
 
 class OpenApiHealthCheck(
     private val check: HealthCheckResultData
-): HealthCheck {
-    override fun result(): HealthCheck.Status {
-        return HealthCheck.Status.valueOf(check.healthCheck.value.toUpperCase(Locale.ROOT))
-    }
+) : HealthCheck {
+    override val result: HealthCheck.Status
+        get() = HealthCheck.Status.valueOf(check.healthCheck.value.toUpperCase(Locale.ROOT))
 }

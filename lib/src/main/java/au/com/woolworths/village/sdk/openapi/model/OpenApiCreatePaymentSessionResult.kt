@@ -6,12 +6,10 @@ import au.com.woolworths.village.sdk.openapi.dto.CreateMerchantPaymentSessionRes
 
 class OpenApiCreatePaymentSessionResult(
     private val result: CreateMerchantPaymentSessionResponseData
-): CreatePaymentSessionResult {
-    override fun paymentSessionId(): String {
-        return result.paymentSessionId
-    }
+) : CreatePaymentSessionResult {
+    override val paymentSessionId: String
+        get() = result.paymentSessionId
 
-    override fun qr(): QRCode? {
-        return result.qr?.let { OpenApiQRCode(it) }
-    }
+    override val qr: QRCode?
+        get() = result.qr?.let { OpenApiQRCode(it) }
 }

@@ -7,117 +7,91 @@ import org.threeten.bp.OffsetDateTime
 import java.math.BigDecimal
 
 class OpenApiCustomerTransactionSummaries(
-    private val transactions: List<CustomerTransactionSummary>
+    private val summaries: List<CustomerTransactionSummary>
 ): CustomerTransactionSummaries {
-    override fun transactions(): List<au.com.woolworths.village.sdk.model.CustomerTransactionSummary> {
-        return transactions.map { OpenApiCustomerTransactionSummary(it) }
-    }
+    override val transactions: List<au.com.woolworths.village.sdk.model.CustomerTransactionSummary>
+        get() = summaries.map { OpenApiCustomerTransactionSummary(it) }
 }
 
 class OpenApiCustomerTransactionSummary(
     private val summary: CustomerTransactionSummary
 ): au.com.woolworths.village.sdk.model.CustomerTransactionSummary {
-    override fun merchantId(): String {
-        return summary.merchantId
-    }
+    override val merchantId: String
+        get() = summary.merchantId
 
-    override fun instruments(): List<CustomerTransactions.UsedPaymentInstrument> {
-        return summary.instruments.map { OpenApiUsedPaymentInstrument(it) }
-    }
+    override val instruments: List<CustomerTransactions.UsedPaymentInstrument>
+        get() = summary.instruments.map { OpenApiUsedPaymentInstrument(it) }
 
-    override fun transactionId(): String {
-        return summary.transactionId
-    }
+    override val transactionId: String
+        get() = summary.transactionId
 
-    override fun type(): TransactionSummary.PaymentType {
-        return TransactionSummary.PaymentType.valueOf(summary.type.value)
-    }
+    override val type: TransactionSummary.PaymentType
+        get() = TransactionSummary.PaymentType.valueOf(summary.type.value)
 
-    override fun executionTime(): OffsetDateTime {
-        return summary.executionTime
-    }
+    override val executionTime: OffsetDateTime
+        get() = summary.executionTime
 
-    override fun status(): TransactionSummary.PaymentStatus {
-        return TransactionSummary.PaymentStatus.valueOf(summary.status.value)
-    }
+    override val status: TransactionSummary.PaymentStatus
+        get() = TransactionSummary.PaymentStatus.valueOf(summary.status.value)
 
-    override fun statusDetail(): Any {
-        return Any()
-    }
+    override val statusDetail: Any
+        get() = Any()
 
-    override fun refundReason(): String? {
-        return summary.refundReason
-    }
+    override val refundReason: String?
+        get() = summary.refundReason
 
-    override fun paymentRequestId(): String {
-        return summary.paymentRequestId
-    }
+    override val paymentRequestId: String
+        get() = summary.paymentRequestId
 
-    override fun merchantReferenceId(): String {
-        return summary.merchantReferenceId
-    }
+    override val merchantReferenceId: String
+        get() = summary.merchantReferenceId
 
-    override fun grossAmount(): BigDecimal {
-        return summary.grossAmount
-    }
+    override val grossAmount: BigDecimal
+        get() = summary.grossAmount
 
-    override fun clientReference(): String? {
-        return summary.clientReference
-    }
+    override val clientReference: String?
+        get() = summary.clientReference
 }
 
 class OpenApiCustomerTransactionDetails(
     private val details: CustomerTransactionDetail
 ): CustomerTransactionDetails {
-    override fun basket(): Basket? {
-        return details.basket?.let { OpenApiBasket(it) }
-    }
+    override val basket: Basket?
+        get() = details.basket?.let { OpenApiBasket(it) }
 
-    override fun merchantId(): String {
-        return details.merchantId
-    }
+    override val merchantId: String
+        get() = details.merchantId
 
-    override fun instruments(): List<CustomerTransactions.UsedPaymentInstrument> {
-        return details.instruments.map { OpenApiUsedPaymentInstrument(it) }
-    }
+    override val instruments: List<CustomerTransactions.UsedPaymentInstrument>
+        get() = details.instruments.map { OpenApiUsedPaymentInstrument(it) }
 
-    override fun transactionId(): String {
-        return details.transactionId
-    }
+    override val transactionId: String
+        get() = details.transactionId
 
-    override fun type(): TransactionSummary.PaymentType {
-        return TransactionSummary.PaymentType.valueOf(details.type.value)
-    }
+    override val type: TransactionSummary.PaymentType
+        get() = TransactionSummary.PaymentType.valueOf(details.type.value)
 
-    override fun executionTime(): OffsetDateTime {
-        return details.executionTime
-    }
+    override val executionTime: OffsetDateTime
+        get() = details.executionTime
 
-    override fun status(): TransactionSummary.PaymentStatus {
-        return TransactionSummary.PaymentStatus.valueOf(details.status.value)
-    }
+    override val status: TransactionSummary.PaymentStatus
+        get() = TransactionSummary.PaymentStatus.valueOf(details.status.value)
 
-    override fun statusDetail(): Any {
-        return Any()
-    }
+    override val statusDetail: Any
+        get() = Any()
 
-    override fun refundReason(): String? {
-        return details.refundReason
-    }
+    override val refundReason: String?
+        get() = details.refundReason
 
-    override fun paymentRequestId(): String {
-        return details.paymentRequestId
-    }
+    override val paymentRequestId: String
+        get() = details.paymentRequestId
 
-    override fun merchantReferenceId(): String {
-        return details.merchantReferenceId
-    }
+    override val merchantReferenceId: String
+        get() = details.merchantReferenceId
 
-    override fun grossAmount(): BigDecimal {
-        return details.grossAmount
-    }
+    override val grossAmount: BigDecimal
+        get() = details.grossAmount
 
-    override fun clientReference(): String? {
-       return details.clientReference
-    }
+    override val clientReference: String?
+       get() = details.clientReference
 }

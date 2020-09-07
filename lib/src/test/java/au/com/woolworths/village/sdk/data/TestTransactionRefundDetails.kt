@@ -6,12 +6,10 @@ fun aNewTransactionRefund(): TransactionRefundDetails {
     return TestTransactionRefundDetails()
 }
 
-class TestTransactionRefundDetails: TransactionRefundDetails {
-    override fun reason(): String {
-        return "no reason"
-    }
+class TestTransactionRefundDetails : TransactionRefundDetails {
+    override val reason: String
+        get() = "no reason"
 
-    override fun clientReference(): String? {
-        return null
-    }
+    override val clientReference: String?
+        get() = null
 }

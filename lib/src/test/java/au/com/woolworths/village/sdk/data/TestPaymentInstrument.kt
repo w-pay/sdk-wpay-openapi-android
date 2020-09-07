@@ -8,50 +8,39 @@ import org.threeten.bp.OffsetDateTime
 fun aSelectedPaymentInstrument(): PaymentInstrument = TestPaymentInstrument()
 fun aNewPaymentInstrument(): PaymentInstrumentAddition = TestPaymentInstrumentAddition()
 
-class TestPaymentInstrument: PaymentInstrument {
-    override fun allowed(): Boolean {
-        return true
-    }
+class TestPaymentInstrument : PaymentInstrument {
+    override val allowed: Boolean
+        get() = true
 
-    override fun cardSuffix(): String {
-        return "1234"
-    }
+    override val cardSuffix: String
+        get() = "1234"
 
-    override fun lastUpdated(): OffsetDateTime {
-        return OffsetDateTime.now()
-    }
+    override val lastUpdated: OffsetDateTime
+        get() = OffsetDateTime.now()
 
-    override fun lastUsed(): OffsetDateTime {
-        return OffsetDateTime.now()
-    }
+    override val lastUsed: OffsetDateTime
+        get() = OffsetDateTime.now()
 
-    override fun paymentInstrumentId(): String {
-        return "abc123"
-    }
+    override val paymentInstrumentId: String
+        get() = "abc123"
 
-    override fun paymentToken(): String {
-        return "def123fgh"
-    }
+    override val paymentToken: String
+        get() = "def123fgh"
 
-    override fun primary(): Boolean {
-        return true
-    }
+    override val primary: Boolean
+        get() = true
 
-    override fun status(): PaymentInstrument.InstrumentStatus {
-        return PaymentInstrument.InstrumentStatus.VERIFIED
-    }
+    override val status: PaymentInstrument.InstrumentStatus
+        get() = PaymentInstrument.InstrumentStatus.VERIFIED
 
-    override fun wallet(): Wallet {
-        return Wallet.MERCHANT
-    }
+    override val wallet: Wallet
+        get() = Wallet.MERCHANT
 }
 
-class TestPaymentInstrumentAddition: PaymentInstrumentAddition {
-    override fun clientReference(): String {
-        return "abc123"
-    }
+class TestPaymentInstrumentAddition : PaymentInstrumentAddition {
+    override val clientReference: String
+        get() = "abc123"
 
-    override fun wallet(): Wallet {
-        return Wallet.EVERYDAY_PAY
-    }
+    override val wallet: Wallet
+        get() = Wallet.EVERYDAY_PAY
 }

@@ -17,12 +17,12 @@ fun isAQrCode(): Matcher<QRCode> = aQrCode()
 
 class QRCodeMatcher: TypeSafeMatcher<QRCode>() {
     override fun matchesSafely(item: QRCode): Boolean {
-        assertThat(item.qrId(), not(blankOrNullString()))
-        assertThat(item.referenceId(), not(blankOrNullString()))
-        assertThat(item.referenceType(), not(nullValue()))
-        assertThat(item.content(), not(blankOrNullString()))
-        assertThat(item.image(), not(blankOrNullString()))
-        assertThat(item.expiryTime(), not(nullValue()))
+        assertThat(item.qrId, not(blankOrNullString()))
+        assertThat(item.referenceId, not(blankOrNullString()))
+        assertThat(item.referenceType, not(nullValue()))
+        assertThat(item.content, not(blankOrNullString()))
+        assertThat(item.image, not(blankOrNullString()))
+        assertThat(item.expiryTime, not(nullValue()))
 
         return true
     }

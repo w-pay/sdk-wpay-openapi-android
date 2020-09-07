@@ -10,44 +10,34 @@ fun aNewPaymentRequest(): NewPaymentRequest {
     return TestNewPaymentRequest()
 }
 
-class TestNewPaymentRequest: NewPaymentRequest {
-    override fun merchantReferenceId(): String {
-        return "123456"
-    }
+class TestNewPaymentRequest : NewPaymentRequest {
+    override val merchantReferenceId: String
+        get() = "123456"
 
-    override fun grossAmount(): BigDecimal {
-        return BigDecimal(12000)
-    }
+    override val grossAmount: BigDecimal
+        get() = BigDecimal(12000)
 
-    override fun generateQR(): Boolean {
-        return true
-    }
+    override val generateQR: Boolean
+        get() = true
 
-    override fun maxUses(): Int? {
-        return 1
-    }
+    override val maxUses: Int?
+        get() = 1
 
-    override fun timeToLivePayment(): Int? {
-        return 300
-    }
+    override val timeToLivePayment: Int?
+        get() = 300
 
-    override fun timeToLiveQR(): Int? {
-        return 60
-    }
+    override val timeToLiveQR: Int?
+        get() = 60
 
-    override fun specificWalletId(): String? {
-        return ""
-    }
+    override val specificWalletId: String?
+        get() = ""
 
-    override fun basket(): Basket? {
-        return aNewBasket()
-    }
+    override val basket: Basket?
+        get() = aNewBasket()
 
-    override fun posPayload(): PosPayload? {
-        return aNewPosPayload()
-    }
+    override val posPayload: PosPayload?
+        get() = aNewPosPayload()
 
-    override fun merchantPayload(): MerchantPayload? {
-        return aNewMerchantPayload()
-    }
+    override val merchantPayload: MerchantPayload?
+        get() = aNewMerchantPayload()
 }

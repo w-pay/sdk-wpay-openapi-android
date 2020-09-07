@@ -6,24 +6,19 @@ import java.math.BigDecimal
 
 fun aNewCustomerPaymentRequest(): CustomerPaymentRequest = TestCustomerPaymentRequest()
 
-class TestCustomerPaymentRequest: CustomerPaymentRequest {
-    override fun merchantId(): String {
-        return "abc123"
-    }
+class TestCustomerPaymentRequest : CustomerPaymentRequest {
+    override val merchantId: String
+        get() = "abc123"
 
-    override fun basket(): Basket? {
-        return aNewBasket()
-    }
+    override val basket: Basket?
+        get() = aNewBasket()
 
-    override fun paymentRequestId(): String {
-        return "def456"
-    }
+    override val paymentRequestId: String
+        get() = "def456"
 
-    override fun merchantReferenceId(): String {
-        return "hij789"
-    }
+    override val merchantReferenceId: String
+        get() = "hij789"
 
-    override fun grossAmount(): BigDecimal {
-        return BigDecimal.TEN
-    }
+    override val grossAmount: BigDecimal
+        get() = BigDecimal.TEN
 }

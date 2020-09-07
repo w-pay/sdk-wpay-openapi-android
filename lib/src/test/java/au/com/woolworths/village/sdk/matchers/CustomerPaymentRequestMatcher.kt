@@ -12,8 +12,8 @@ fun customerPaymentRequest(): Matcher<CustomerPaymentRequest> = CustomerPaymentR
 
 class CustomerPaymentRequestMatcher: TypeSafeMatcher<CustomerPaymentRequest>() {
     override fun matchesSafely(item: CustomerPaymentRequest): Boolean {
-        assertThat(item.merchantId(), not(blankOrNullString()))
-        assertThat(item.basket(), isBasket())
+        assertThat(item.merchantId, not(blankOrNullString()))
+        assertThat(item.basket, isBasket())
 
         return true
     }

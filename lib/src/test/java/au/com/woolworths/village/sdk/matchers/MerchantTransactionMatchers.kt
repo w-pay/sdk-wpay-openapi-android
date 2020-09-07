@@ -20,9 +20,9 @@ class MerchantTransactionsSummariesMatcher: TypeSafeMatcher<MerchantTransactionS
     override fun matchesSafely(item: MerchantTransactionSummaries): Boolean {
         val transactionMatcher = MerchantTransactionSummaryMatcher()
 
-        assertThat(item.transactions().size, Matchers.greaterThan(0))
+        assertThat(item.transactions.size, Matchers.greaterThan(0))
 
-        return item.transactions().fold(true, { result, it ->
+        return item.transactions.fold(true, { result, it ->
             return result && transactionMatcher.matches(it)
         })
     }
@@ -38,15 +38,15 @@ fun merchantTransactionSummary(): Matcher<MerchantTransactionSummary> {
 
 open class MerchantTransactionSummaryMatcher: TypeSafeMatcher<MerchantTransactionSummary>() {
     override fun matchesSafely(item: MerchantTransactionSummary): Boolean {
-        assertThat(item.walletId(), not(blankOrNullString()))
-        assertThat(item.merchantReferenceId(), not(blankOrNullString()))
-        assertThat(item.paymentRequestId(), not(blankOrNullString()))
-        assertThat(item.type(), not(nullValue()))
-        assertThat(item.grossAmount(), not(nullValue()))
-        assertThat(item.executionTime(), not(nullValue()))
-        assertThat(item.status(), not(nullValue()))
-        assertThat(item.transactionId(), not(blankOrNullString()))
-        assertThat(item.clientReference(), blankOrNullString())
+        assertThat(item.walletId, not(blankOrNullString()))
+        assertThat(item.merchantReferenceId, not(blankOrNullString()))
+        assertThat(item.paymentRequestId, not(blankOrNullString()))
+        assertThat(item.type, not(nullValue()))
+        assertThat(item.grossAmount, not(nullValue()))
+        assertThat(item.executionTime, not(nullValue()))
+        assertThat(item.status, not(nullValue()))
+        assertThat(item.transactionId, not(blankOrNullString()))
+        assertThat(item.clientReference, blankOrNullString())
 
         return true
     }
@@ -64,9 +64,9 @@ class MerchantTransactionDetailsMatcher: TypeSafeMatcher<MerchantTransactionDeta
     private val summaryMatcher = MerchantTransactionSummaryMatcher()
 
     override fun matchesSafely(item: MerchantTransactionDetails): Boolean {
-        assertThat(item.basket(), nullValue())
-        assertThat(item.posPayload(), nullValue())
-        assertThat(item.merchantPayload(), nullValue())
+        assertThat(item.basket, nullValue())
+        assertThat(item.posPayload, nullValue())
+        assertThat(item.merchantPayload, nullValue())
 
         return summaryMatcher.matches(item)
     }

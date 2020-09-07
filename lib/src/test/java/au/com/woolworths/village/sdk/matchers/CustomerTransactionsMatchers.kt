@@ -20,9 +20,9 @@ class CustomerTransactionsSummariesMatcher: TypeSafeMatcher<CustomerTransactionS
     override fun matchesSafely(item: CustomerTransactionSummaries): Boolean {
         val transactionMatcher = CustomerTransactionSummaryMatcher()
 
-        MatcherAssert.assertThat(item.transactions().size, greaterThan(0))
+        MatcherAssert.assertThat(item.transactions.size, greaterThan(0))
 
-        return item.transactions().fold(true, { result, it ->
+        return item.transactions.fold(true, { result, it ->
             return result && transactionMatcher.matches(it)
         })
     }
@@ -38,17 +38,17 @@ fun customerTransactionSummary(): Matcher<CustomerTransactionSummary> {
 
 open class CustomerTransactionSummaryMatcher: TypeSafeMatcher<CustomerTransactionSummary>() {
     override fun matchesSafely(item: CustomerTransactionSummary): Boolean {
-        assertThat(item.merchantId(), not(blankOrNullString()))
-        assertThat(item.merchantReferenceId(), not(blankOrNullString()))
-        assertThat(item.paymentRequestId(), not(blankOrNullString()))
-        assertThat(item.type(), not(nullValue()))
-        assertThat(item.grossAmount(), not(nullValue()))
-        assertThat(item.executionTime(), not(nullValue()))
-        assertThat(item.status(), not(nullValue()))
-        assertThat(item.instruments().size, greaterThanOrEqualTo(1))
-        assertThat(item.instruments(), hasItems(withCustomerPaymentInstruments()))
-        assertThat(item.transactionId(), not(blankOrNullString()))
-        assertThat(item.clientReference(), blankOrNullString())
+        assertThat(item.merchantId, not(blankOrNullString()))
+        assertThat(item.merchantReferenceId, not(blankOrNullString()))
+        assertThat(item.paymentRequestId, not(blankOrNullString()))
+        assertThat(item.type, not(nullValue()))
+        assertThat(item.grossAmount, not(nullValue()))
+        assertThat(item.executionTime, not(nullValue()))
+        assertThat(item.status, not(nullValue()))
+        assertThat(item.instruments.size, greaterThanOrEqualTo(1))
+        assertThat(item.instruments, hasItems(withCustomerPaymentInstruments()))
+        assertThat(item.transactionId, not(blankOrNullString()))
+        assertThat(item.clientReference, blankOrNullString())
 
         return true
     }
@@ -64,7 +64,7 @@ class CustomerTransactionDetailsMatcher: TypeSafeMatcher<CustomerTransactionDeta
     private val summaryMatcher: CustomerTransactionSummaryMatcher = CustomerTransactionSummaryMatcher()
 
     override fun matchesSafely(item: CustomerTransactionDetails): Boolean {
-        assertThat(item.basket(), isBasket())
+        assertThat(item.basket, isBasket())
 
         return summaryMatcher.matches(item)
     }
@@ -80,8 +80,8 @@ fun withCustomerPaymentInstruments(): CustomerPaymentInstrumentsMatcher {
 
 class CustomerPaymentInstrumentsMatcher: TypeSafeMatcher<CustomerTransactions.UsedPaymentInstrument>() {
     override fun matchesSafely(item: CustomerTransactions.UsedPaymentInstrument): Boolean {
-        MatcherAssert.assertThat(item.paymentInstrumentId(), not(blankOrNullString()))
-        MatcherAssert.assertThat(item.amount(), not(nullValue()))
+        MatcherAssert.assertThat(item.paymentInstrumentId, not(blankOrNullString()))
+        MatcherAssert.assertThat(item.amount, not(nullValue()))
 
         return true
     }

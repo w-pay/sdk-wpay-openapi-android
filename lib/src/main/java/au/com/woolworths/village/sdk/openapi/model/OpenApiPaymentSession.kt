@@ -6,32 +6,25 @@ import org.threeten.bp.OffsetDateTime
 
 class OpenApiPaymentSession(
     private val session: au.com.woolworths.village.sdk.openapi.dto.PaymentSession
-): PaymentSession {
-    override fun paymentSessionId(): String {
-        return session.paymentSessionId
-    }
+) : PaymentSession {
+    override val paymentSessionId: String
+        get() = session.paymentSessionId
 
-    override fun merchantId(): String {
-        return session.merchantId
-    }
+    override val merchantId: String
+        get() = session.merchantId
 
-    override fun walletId(): String? {
-        return session.walletId
-    }
+    override val walletId: String?
+        get() = session.walletId
 
-    override fun expiryTime(): OffsetDateTime {
-        return session.expiryTime
-    }
+    override val expiryTime: OffsetDateTime
+        get() = session.expiryTime
 
-    override fun location(): String {
-        return session.location
-    }
+    override val location: String
+        get() = session.location
 
-    override fun merchantInfo(): DynamicPayload {
-        return OpenApiDynamicPayload(session.merchantInfo)
-    }
+    override val merchantInfo: DynamicPayload
+        get() = OpenApiDynamicPayload(session.merchantInfo)
 
-    override fun customerInfo(): DynamicPayload? {
-        return session.customerInfo?.let { OpenApiDynamicPayload(it) }
-    }
+    override val customerInfo: DynamicPayload?
+        get() = session.customerInfo?.let { OpenApiDynamicPayload(it) }
 }

@@ -15,7 +15,7 @@ fun merchantSchemaSummaries(): Matcher<MerchantSchemaSummaries> = MerchantSchema
 class MerchantSchemaSummariesMatcher: TypeSafeMatcher<MerchantSchemaSummaries>() {
     override fun matchesSafely(item: MerchantSchemaSummaries): Boolean {
         val schemaMatcher = MerchantSummarySchemaMatcher()
-        val schemas = item.schemas()
+        val schemas = item.schemas
 
         assertThat(schemas.size, greaterThan(0))
 
@@ -33,9 +33,9 @@ fun merchantSchemaSummary(): Matcher<MerchantSchemaSummary> = MerchantSummarySch
 
 class MerchantSummarySchemaMatcher: TypeSafeMatcher<MerchantSchemaSummary>() {
     override fun matchesSafely(item: MerchantSchemaSummary): Boolean {
-        assertThat(item.schemaId(), not(blankOrNullString()))
-        assertThat(item.type(), not(blankOrNullString()))
-        assertThat(item.description(), not(blankOrNullString()))
+        assertThat(item.schemaId, not(blankOrNullString()))
+        assertThat(item.type, not(blankOrNullString()))
+        assertThat(item.description, not(blankOrNullString()))
 
         return true
     }
@@ -49,10 +49,10 @@ fun merchantSchema(): Matcher<MerchantSchema> = MerchantSchemaMatcher()
 
 class MerchantSchemaMatcher: TypeSafeMatcher<MerchantSchema>() {
     override fun matchesSafely(item: MerchantSchema): Boolean {
-        assertThat(item.schema(), not(nullValue()))
-        assertThat(item.type(), not(blankOrNullString()))
-        assertThat(item.description(), not(blankOrNullString()))
-        assertThat(item.created(), not(nullValue()))
+        assertThat(item.schema, not(nullValue()))
+        assertThat(item.type, not(blankOrNullString()))
+        assertThat(item.description, not(blankOrNullString()))
+        assertThat(item.created, not(nullValue()))
 
         return true
     }

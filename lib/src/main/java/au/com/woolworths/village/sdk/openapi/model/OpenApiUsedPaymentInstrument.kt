@@ -6,16 +6,13 @@ import java.math.BigDecimal
 
 class OpenApiUsedPaymentInstrument(
     private val instrument: CustomerTransactionSummaryAllOfInstruments
-): CustomerTransactions.UsedPaymentInstrument {
-    override fun paymentInstrumentId(): String {
-        return instrument.paymentInstrumentId
-    }
+) : CustomerTransactions.UsedPaymentInstrument {
+    override val paymentInstrumentId: String
+        get() = instrument.paymentInstrumentId
 
-    override fun amount(): BigDecimal {
-        return instrument.amount
-    }
+    override val amount: BigDecimal
+        get() = instrument.amount
 
-    override fun paymentTransactionRef(): String? {
-        return instrument.paymentTransactionRef
-    }
+    override val paymentTransactionRef: String?
+        get() = instrument.paymentTransactionRef
 }

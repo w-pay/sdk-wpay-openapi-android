@@ -8,28 +8,22 @@ import java.util.*
 
 class OpenApiQRCode(
     private val code: Qr
-): QRCode {
-    override fun qrId(): String {
-        return code.qrId
-    }
+) : QRCode {
+    override val qrId: String
+        get() = code.qrId
 
-    override fun referenceId(): String {
-        return code.referenceId
-    }
+    override val referenceId: String
+        get() = code.referenceId
 
-    override fun referenceType(): QRCodePaymentReferenceType {
-        return QRCodePaymentReferenceType.valueOf(code.referenceType.value.toUpperCase(Locale.ROOT))
-    }
+    override val referenceType: QRCodePaymentReferenceType
+        get() = QRCodePaymentReferenceType.valueOf(code.referenceType.value.toUpperCase(Locale.ROOT))
 
-    override fun content(): String {
-        return code.content
-    }
+    override val content: String
+        get() = code.content
 
-    override fun image(): String {
-        return code.image
-    }
+    override val image: String
+        get() = code.image
 
-    override fun expiryTime(): OffsetDateTime? {
-        return code.expiryTime
-    }
+    override val expiryTime: OffsetDateTime?
+        get() = code.expiryTime
 }

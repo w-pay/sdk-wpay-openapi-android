@@ -19,9 +19,9 @@ class MerchantPaymentSummariesMatcher: TypeSafeMatcher<MerchantPaymentSummaries>
     override fun matchesSafely(item: MerchantPaymentSummaries): Boolean {
         val matcher = MerchantPaymentSummaryMatcher()
 
-        assertThat(item.payments().size, greaterThanOrEqualTo(1))
+        assertThat(item.payments.size, greaterThanOrEqualTo(1))
 
-        return item.payments().fold(true, { result, it -> result && matcher.matches(it) })
+        return item.payments.fold(true, { result, it -> result && matcher.matches(it) })
     }
 
     override fun describeTo(description: Description) {
@@ -31,12 +31,12 @@ class MerchantPaymentSummariesMatcher: TypeSafeMatcher<MerchantPaymentSummaries>
 
 class MerchantPaymentSummaryMatcher: TypeSafeMatcher<MerchantPaymentSummary>() {
     override fun matchesSafely(item: MerchantPaymentSummary): Boolean {
-        assertThat(item.paymentRequestId(), not(blankOrNullString()))
-        assertThat(item.merchantReferenceId(), not(blankOrNullString()))
-        assertThat(item.grossAmount(), not(nullValue()))
-        assertThat(item.usesRemaining(), not(nullValue()))
-        assertThat(item.expiryTime(), not(nullValue()))
-        assertThat(item.specificWalletId(), not(blankOrNullString()))
+        assertThat(item.paymentRequestId, not(blankOrNullString()))
+        assertThat(item.merchantReferenceId, not(blankOrNullString()))
+        assertThat(item.grossAmount, not(nullValue()))
+        assertThat(item.usesRemaining, not(nullValue()))
+        assertThat(item.expiryTime, not(nullValue()))
+        assertThat(item.specificWalletId, not(blankOrNullString()))
 
         return true
     }
@@ -52,15 +52,15 @@ fun merchantPaymentDetails(): Matcher<MerchantPaymentDetails> {
 
 class MerchantPaymentDetailsMatcher: TypeSafeMatcher<MerchantPaymentDetails>() {
     override fun matchesSafely(item: MerchantPaymentDetails): Boolean {
-        assertThat(item.paymentRequestId(), not(blankOrNullString()))
-        assertThat(item.merchantReferenceId(), not(blankOrNullString()))
-        assertThat(item.grossAmount(), not(nullValue()))
-        assertThat(item.usesRemaining(), not(nullValue()))
-        assertThat(item.expiryTime(), not(nullValue()))
-        assertThat(item.specificWalletId(), not(blankOrNullString()))
-        assertThat(item.basket(), isBasket())
-        assertThat(item.posPayload(), isPosPayload())
-        assertThat(item.merchantPayload(), isMerchantPayload())
+        assertThat(item.paymentRequestId, not(blankOrNullString()))
+        assertThat(item.merchantReferenceId, not(blankOrNullString()))
+        assertThat(item.grossAmount, not(nullValue()))
+        assertThat(item.usesRemaining, not(nullValue()))
+        assertThat(item.expiryTime, not(nullValue()))
+        assertThat(item.specificWalletId, not(blankOrNullString()))
+        assertThat(item.basket, isBasket())
+        assertThat(item.posPayload, isPosPayload())
+        assertThat(item.merchantPayload, isMerchantPayload())
 
         return true
     }
@@ -76,8 +76,8 @@ fun paymentRequestCreated(): Matcher<CreatePaymentRequestResult> {
 
 class CreatePaymentRequestResultMatcher: TypeSafeMatcher<CreatePaymentRequestResult>() {
     override fun matchesSafely(item: CreatePaymentRequestResult): Boolean {
-        assertThat(item.paymentRequestId(), not(blankOrNullString()))
-        assertThat(item.qr()!!, isAQrCode())
+        assertThat(item.paymentRequestId, not(blankOrNullString()))
+        assertThat(item.qr!!, isAQrCode())
 
         return true
     }

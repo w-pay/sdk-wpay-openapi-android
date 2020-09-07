@@ -3,13 +3,11 @@ package au.com.woolworths.village.sdk.openapi.model
 import au.com.woolworths.village.sdk.model.MerchantPayload
 
 class OpenApiMerchantPayload(
-    private val payload: au.com.woolworths.village.sdk.openapi.dto.MerchantPayload
-): MerchantPayload {
-    override fun schemaId(): String? {
-        return payload.schemaId
-    }
+    private val mp: au.com.woolworths.village.sdk.openapi.dto.MerchantPayload
+) : MerchantPayload {
+    override val schemaId: String?
+        get() = mp.schemaId
 
-    override fun payload(): Map<String, Any> {
-        return payload.payload as Map<String, Any>
-    }
+    override val payload: Map<String, Any>
+        get() = mp.payload as Map<String, Any>
 }

@@ -9,7 +9,7 @@ fun healthyService(): Matcher<HealthCheck> = HealthCheckMatcher()
 
 class HealthCheckMatcher: TypeSafeMatcher<HealthCheck>() {
     override fun matchesSafely(item: HealthCheck): Boolean {
-        return item.result() == HealthCheck.Status.SUCCESS
+        return item.result == HealthCheck.Status.SUCCESS
     }
 
     override fun describeTo(description: Description) {

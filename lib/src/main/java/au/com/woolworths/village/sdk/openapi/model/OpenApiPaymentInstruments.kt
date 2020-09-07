@@ -10,177 +10,146 @@ import java.util.*
 class OpenApiAllPaymentInstruments(
     creditCards: List<au.com.woolworths.village.sdk.openapi.dto.CreditCard>,
     giftCards: List<au.com.woolworths.village.sdk.openapi.dto.GiftCard>,
-    private val everydayPay: GetCustomerPaymentInstrumentsResultsDataEverydayPay?
+    private val data: GetCustomerPaymentInstrumentsResultsDataEverydayPay?
 ) : OpenApiPaymentInstruments(creditCards, giftCards, Wallet.MERCHANT), AllPaymentInstruments {
-    override fun everydayPay(): PaymentInstruments? {
-        return everydayPay?.let { OpenApiPaymentInstruments(it.creditCards, it.giftCards, Wallet.EVERYDAY_PAY) }
-    }
+    override val everydayPay: PaymentInstruments?
+        get() = data?.let {
+            OpenApiPaymentInstruments(
+                it.creditCards,
+                it.giftCards,
+                Wallet.EVERYDAY_PAY
+            )
+        }
 }
 
 open class OpenApiPaymentInstruments(
-    private val creditCards: List<au.com.woolworths.village.sdk.openapi.dto.CreditCard>,
-    private val giftCards: List<au.com.woolworths.village.sdk.openapi.dto.GiftCard>,
+    private val creditCardsData: List<au.com.woolworths.village.sdk.openapi.dto.CreditCard>,
+    private val giftCardsData: List<au.com.woolworths.village.sdk.openapi.dto.GiftCard>,
     private val wallet: Wallet
-): PaymentInstruments {
-    override fun creditCards(): List<CreditCard> {
-        return creditCards.map { OpenApiCreditCard(it, wallet) }
-    }
+) : PaymentInstruments {
+    override val creditCards: List<CreditCard>
+        get() = creditCardsData.map { OpenApiCreditCard(it, wallet) }
 
-    override fun giftCards(): List<GiftCard> {
-        return giftCards.map { OpenApiGiftCard(it, wallet) }
-    }
+    override val giftCards: List<GiftCard>
+        get() = giftCardsData.map { OpenApiGiftCard(it, wallet) }
 }
 
 class OpenApiCreditCard(
     private val card: au.com.woolworths.village.sdk.openapi.dto.CreditCard,
-    private val wallet: Wallet
-): CreditCard {
-    override fun paymentInstrumentId(): String {
-        return card.paymentInstrumentId
-    }
+    private val aWallet: Wallet
+) : CreditCard {
+    override val paymentInstrumentId: String
+        get() = card.paymentInstrumentId
 
-    override fun paymentToken(): String {
-        return card.paymentToken
-    }
+    override val paymentToken: String
+        get() = card.paymentToken
 
-    override fun primary(): Boolean {
-        return card.primary
-    }
+    override val primary: Boolean
+        get() = card.primary
 
-    override fun status(): PaymentInstrument.InstrumentStatus {
-        return PaymentInstrument.InstrumentStatus.valueOf(card.status.value.toUpperCase(Locale.ROOT))
-    }
+    override val status: PaymentInstrument.InstrumentStatus
+        get() = PaymentInstrument.InstrumentStatus.valueOf(card.status.value.toUpperCase(Locale.ROOT))
 
-    override fun wallet(): Wallet {
-        return wallet
-    }
+    override val wallet: Wallet
+        get() = aWallet
 
-    override fun cardName(): String {
-        return card.cardName
-    }
+    override val cardName: String
+        get() = card.cardName
 
-    override fun cvvValidated(): Boolean {
-        return card.cvvValidated
-    }
+    override val cvvValidated: Boolean
+        get() = card.cvvValidated
 
-    override fun expired(): Boolean {
-        return card.expired
-    }
+    override val expired: Boolean
+        get() = card.expired
 
-    override fun expiryMonth(): String {
-        return card.expiryMonth
-    }
+    override val expiryMonth: String
+        get() = card.expiryMonth
 
-    override fun expiryYear(): String {
-        return card.expiryYear
-    }
+    override val expiryYear: String
+        get() = card.expiryYear
 
-    override fun requiresCVV(): Boolean {
-        return card.requiresCVV
-    }
+    override val requiresCVV: Boolean
+        get() = card.requiresCVV
 
-    override fun scheme(): String {
-        return card.scheme
-    }
+    override val scheme: String
+        get() = card.scheme
 
-    override fun stepUp(): CreditCardStepUp {
-        return OpenApiCreditCardStepUp(card.stepUp)
-    }
+    override val stepUp: CreditCardStepUp
+        get() = OpenApiCreditCardStepUp(card.stepUp)
 
-    override fun updateURL(): URL {
-        return URL(card.updateURL)
-    }
+    override val updateURL: URL
+        get() = URL(card.updateURL)
 
-    override fun allowed(): Boolean {
-        return card.allowed
-    }
+    override val allowed: Boolean
+        get() = card.allowed
 
-    override fun cardSuffix(): String {
-        return card.cardSuffix
-    }
+    override val cardSuffix: String
+        get() = card.cardSuffix
 
-    override fun lastUpdated(): OffsetDateTime {
-        return card.lastUpdated
-    }
+    override val lastUpdated: OffsetDateTime
+        get() = card.lastUpdated
 
-    override fun lastUsed(): OffsetDateTime? {
-        return card.lastUsed
-    }
+    override val lastUsed: OffsetDateTime?
+        get() = card.lastUsed
 }
 
 class OpenApiGiftCard(
     private val card: au.com.woolworths.village.sdk.openapi.dto.GiftCard,
-    private val wallet: Wallet
-): GiftCard {
-    override fun programName(): String {
-        return card.programName
-    }
+    private val aWallet: Wallet
+) : GiftCard {
+    override val programName: String
+        get() = card.programName
 
-    override fun allowed(): Boolean {
-        return card.allowed
-    }
+    override val allowed: Boolean
+        get() = card.allowed
 
-    override fun cardSuffix(): String {
-        return card.cardSuffix
-    }
+    override val cardSuffix: String
+        get() = card.cardSuffix
 
-    override fun lastUpdated(): OffsetDateTime {
-        return card.lastUpdated
-    }
+    override val lastUpdated: OffsetDateTime
+        get() = card.lastUpdated
 
-    override fun lastUsed(): OffsetDateTime? {
-        return card.lastUsed
-    }
+    override val lastUsed: OffsetDateTime?
+        get() = card.lastUsed
 
-    override fun paymentInstrumentId(): String {
-        return card.paymentInstrumentId
-    }
+    override val paymentInstrumentId: String
+        get() = card.paymentInstrumentId
 
-    override fun paymentToken(): String {
-        return card.paymentToken
-    }
+    override val paymentToken: String
+        get() = card.paymentToken
 
-    override fun primary(): Boolean {
-        return card.primary
-    }
+    override val primary: Boolean
+        get() = card.primary
 
-    override fun status(): PaymentInstrument.InstrumentStatus {
-        return PaymentInstrument.InstrumentStatus.valueOf(card.status.value)
-    }
+    override val status: PaymentInstrument.InstrumentStatus
+        get() = PaymentInstrument.InstrumentStatus.valueOf(card.status.value)
 
-    override fun wallet(): Wallet {
-        return wallet
-    }
+    override val wallet: Wallet
+        get() = aWallet
 
-    override fun stepUp(): GiftCardStepUp? {
-        return card.stepUp?.let { OpenApiGiftCardStepUp(it) }
-    }
+    override val stepUp: GiftCardStepUp?
+        get() = card.stepUp?.let { OpenApiGiftCardStepUp(it) }
 }
 
 class OpenApiCreditCardStepUp(
     private val stepUp: au.com.woolworths.village.sdk.openapi.dto.CreditCardStepUp
-): CreditCardStepUp {
-    override fun type(): String {
-        return stepUp.type
-    }
+) : CreditCardStepUp {
+    override val type: String
+        get() = stepUp.type
 
-    override fun mandatory(): Boolean {
-        return stepUp.mandatory
-    }
+    override val mandatory: Boolean
+        get() = stepUp.mandatory
 
-    override fun url(): URL {
-        return URL(stepUp.url)
-    }
+    override val url: URL
+        get() = URL(stepUp.url)
 }
 
 class OpenApiGiftCardStepUp(
     private val stepUp: au.com.woolworths.village.sdk.openapi.dto.GiftCardStepUp
-): GiftCardStepUp {
-    override fun type(): String {
-        return stepUp.type
-    }
+) : GiftCardStepUp {
+    override val type: String
+        get() = stepUp.type
 
-    override fun mandatory(): Boolean {
-        return stepUp.mandatory
-    }
+    override val mandatory: Boolean
+        get() = stepUp.mandatory
 }

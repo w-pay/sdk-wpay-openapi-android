@@ -7,11 +7,9 @@ import au.com.woolworths.village.sdk.openapi.dto.CreatePaymentRequestResultsData
 class OpenApiCreatePaymentRequestResult(
     private val result: CreatePaymentRequestResultsData
 ) : CreatePaymentRequestResult {
-    override fun paymentRequestId(): String {
-       return result.paymentRequestId
-    }
+    override val paymentRequestId: String
+        get() = result.paymentRequestId
 
-    override fun qr(): QRCode? {
-        return result.qr?.let { OpenApiQRCode(it) }
-    }
+    override val qr: QRCode?
+        get() = result.qr?.let { OpenApiQRCode(it) }
 }

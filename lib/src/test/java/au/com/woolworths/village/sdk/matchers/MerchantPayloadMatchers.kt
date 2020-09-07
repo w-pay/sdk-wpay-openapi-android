@@ -15,8 +15,8 @@ fun isPosPayload(): PosPayloadMatcher {
 
 class PosPayloadMatcher: TypeSafeMatcher<PosPayload>() {
     override fun matchesSafely(item: PosPayload): Boolean {
-        assertThat(item.schemaId(), not(blankOrNullString()))
-        assertThat(item.payload(), not(nullValue()))
+        assertThat(item.schemaId, not(blankOrNullString()))
+        assertThat(item.payload, not(nullValue()))
 
         return true
     }
@@ -33,8 +33,8 @@ fun isMerchantPayload(): MerchantPayloadMatcher {
 
 class MerchantPayloadMatcher: TypeSafeMatcher<MerchantPayload>() {
     override fun matchesSafely(item: MerchantPayload): Boolean {
-        assertThat(item.schemaId(), not(blankOrNullString()))
-        assertThat(item.payload(), not(nullValue()))
+        assertThat(item.schemaId, not(blankOrNullString()))
+        assertThat(item.payload, not(nullValue()))
 
         return true
     }

@@ -7,12 +7,10 @@ fun aNewPaymentRequestQRCode(): NewPaymentRequestQRCode {
     return TestNewPaymentRequestQRCode()
 }
 
-class TestNewPaymentRequestQRCode: NewPaymentRequestQRCode {
-    override fun referenceId(): String {
-        return "abc123def"
-    }
+class TestNewPaymentRequestQRCode : NewPaymentRequestQRCode {
+    override val referenceId: String
+        get() = "abc123def"
 
-    override fun referenceType(): QRCodePaymentReferenceType {
-        return QRCodePaymentReferenceType.PAYMENT_SESSION
-    }
+    override val referenceType: QRCodePaymentReferenceType
+        get() = QRCodePaymentReferenceType.PAYMENT_SESSION
 }

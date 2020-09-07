@@ -14,13 +14,13 @@ fun paymentSession(): Matcher<PaymentSession> = PaymentSessionMatcher()
 
 class PaymentSessionMatcher: TypeSafeMatcher<PaymentSession>() {
     override fun matchesSafely(item: PaymentSession): Boolean {
-        assertThat(item.paymentSessionId(), not(blankOrNullString()))
-        assertThat(item.merchantId(), not(blankOrNullString()))
-        assertThat(item.walletId(), nullValue())
-        assertThat(item.expiryTime(), not(nullValue()))
-        assertThat(item.location(), not(blankOrNullString()))
-        assertThat(item.merchantInfo(), not(nullValue()))
-        assertThat(item.customerInfo(), nullValue())
+        assertThat(item.paymentSessionId, not(blankOrNullString()))
+        assertThat(item.merchantId, not(blankOrNullString()))
+        assertThat(item.walletId, nullValue())
+        assertThat(item.expiryTime, not(nullValue()))
+        assertThat(item.location, not(blankOrNullString()))
+        assertThat(item.merchantInfo, not(nullValue()))
+        assertThat(item.customerInfo, nullValue())
 
         return true
     }
@@ -34,8 +34,8 @@ fun paymentSessionCreated(): Matcher<CreatePaymentSessionResult> = CreatePayment
 
 class CreatePaymentSessionResultMatcher: TypeSafeMatcher<CreatePaymentSessionResult>() {
     override fun matchesSafely(item: CreatePaymentSessionResult): Boolean {
-        assertThat(item.paymentSessionId(), not(blankOrNullString()))
-        assertThat(item.qr()!!, isAQrCode())
+        assertThat(item.paymentSessionId, not(blankOrNullString()))
+        assertThat(item.qr!!, isAQrCode())
 
         return true
     }
