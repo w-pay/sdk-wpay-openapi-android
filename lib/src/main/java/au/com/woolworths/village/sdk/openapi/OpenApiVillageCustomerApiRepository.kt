@@ -6,7 +6,6 @@ import au.com.woolworths.village.sdk.model.*
 import au.com.woolworths.village.sdk.model.CustomerTransactionSummary
 import au.com.woolworths.village.sdk.model.PaymentSession
 import au.com.woolworths.village.sdk.openapi.model.*
-import au.com.woolworths.village.sdk.openapi.client.ApiException
 import au.com.woolworths.village.sdk.openapi.dto.*
 import org.threeten.bp.OffsetDateTime
 
@@ -20,14 +19,12 @@ class OpenApiVillageCustomerApiRepository(
     VillageCustomerApiRepository
 {
     override fun checkHealth(): ApiResult<HealthCheck> {
-        val api = createAdministrationApi()
-        return try {
+        return makeCall {
+            val api = createAdministrationApi()
+
             val data = api.checkHealth().data
 
             ApiResult.Success(OpenApiHealthCheck(data))
-        }
-        catch (e: ApiException) {
-            ApiResult.Error(toApiException(e))
         }
     }
 
@@ -38,8 +35,9 @@ class OpenApiVillageCustomerApiRepository(
         endTime: OffsetDateTime?,
         startTime: OffsetDateTime?
     ): ApiResult<CustomerTransactionSummaries> {
-        val api = createCustomerApi()
-        return try {
+        return makeCall {
+            val api = createCustomerApi()
+
             val data = api.getCustomerTransactions(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 paymentRequestId,
@@ -51,14 +49,12 @@ class OpenApiVillageCustomerApiRepository(
 
             ApiResult.Success(OpenApiCustomerTransactionSummaries(data.transactions))
         }
-        catch (e: ApiException) {
-            ApiResult.Error(toApiException(e))
-        }
     }
 
     override fun retrieveTransactionDetails(transactionId: String): ApiResult<CustomerTransactionDetails> {
-        val api = createCustomerApi()
-        return try {
+        return makeCall {
+            val api = createCustomerApi()
+
             val data = api.getCustomerTransactionDetails(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 transactionId
@@ -66,14 +62,12 @@ class OpenApiVillageCustomerApiRepository(
 
             ApiResult.Success(OpenApiCustomerTransactionDetails(data))
         }
-        catch (e: ApiException) {
-            ApiResult.Error(toApiException(e))
-        }
     }
 
     override fun retrievePaymentRequestDetailsByQRCodeId(qrCodeId: String): ApiResult<CustomerPaymentRequest> {
-        val api = createCustomerApi()
-        return try {
+        return makeCall {
+            val api = createCustomerApi()
+
             val data = api.getCustomerPaymentDetailsByQRCodeId(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 qrCodeId
@@ -81,14 +75,12 @@ class OpenApiVillageCustomerApiRepository(
 
             ApiResult.Success(OpenApiCustomerPaymentRequest(data))
         }
-        catch (e: ApiException) {
-            ApiResult.Error(toApiException(e))
-        }
     }
 
     override fun retrievePaymentRequestDetailsById(paymentRequestId: String): ApiResult<CustomerPaymentRequest> {
-        val api = createCustomerApi()
-        return try {
+        return makeCall {
+            val api = createCustomerApi()
+
             val data = api.getCustomerPaymentDetailsByPaymentId(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 paymentRequestId
@@ -96,15 +88,12 @@ class OpenApiVillageCustomerApiRepository(
 
             ApiResult.Success(OpenApiCustomerPaymentRequest(data))
         }
-        catch (e: ApiException) {
-            ApiResult.Error(toApiException(e))
-        }
     }
 
     override fun retrievePaymentInstruments(wallet: Wallet): ApiResult<AllPaymentInstruments> {
-        val api = createCustomerApi()
+        return makeCall {
+            val api = createCustomerApi()
 
-        return try {
             val data = api.getCustomerPaymentInstruments(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 wallet == Wallet.EVERYDAY_PAY
@@ -116,69 +105,59 @@ class OpenApiVillageCustomerApiRepository(
                 data.everydayPay
             ))
         }
-        catch (e: ApiException) {
-            ApiResult.Error(toApiException(e))
-        }
     }
 
     override fun deletePaymentInstrument(instrument: PaymentInstrumentIdentifier): ApiResult<Unit> {
-        val api = createCustomerApi()
+        return makeCall {
+            val api = createCustomerApi()
 
-        return try {
             api.deletePaymentInstrument(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
-                instrument.paymentInstrumentId(),
-                instrument.wallet() == Wallet.EVERYDAY_PAY
+                instrument.paymentInstrumentId,
+                instrument.wallet == Wallet.EVERYDAY_PAY
             )
 
             ApiResult.Success(Unit)
-        }
-        catch (e: ApiException) {
-            ApiResult.Error(toApiException(e))
         }
     }
 
     override fun initiatePaymentInstrumentAddition(
         instrument: PaymentInstrumentAddition
     ): ApiResult<PaymentInstrumentAdditionResult> {
-        val api = createCustomerApi()
-        return try {
+        return makeCall {
+            val api = createCustomerApi()
+
             val body = InstrumentAdditionDetails()
             body.data = CustomerInstrumentsData().apply {
-                clientReference = instrument.clientReference()
+                clientReference = instrument.clientReference
             }
 
             val data = api.initiatePaymentInstrumentAddition(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 body,
-                instrument.wallet() == Wallet.EVERYDAY_PAY
+                instrument.wallet == Wallet.EVERYDAY_PAY
             ).data
 
             ApiResult.Success(OpenApiPaymentInstrumentAdditionResult(data))
         }
-        catch (e: ApiException) {
-            ApiResult.Error(toApiException(e))
-        }
     }
 
     override fun retrievePreferences(): ApiResult<CustomerPreferences> {
-        val api = createCustomerApi()
-        return try {
+        return makeCall {
+            val api = createCustomerApi()
+
             val data = api.getCustomerPreferences(
                 getDefaultHeader(api.apiClient, X_WALLET_ID)
             ).data
 
             ApiResult.Success(data)
         }
-        catch (e: ApiException) {
-            ApiResult.Error(toApiException(e))
-        }
     }
 
     override fun setPreferences(preferences: CustomerPreferences): ApiResult<Unit> {
-        val api = createCustomerApi()
+        return makeCall {
+            val api = createCustomerApi()
 
-        return try {
             val body = au.com.woolworths.village.sdk.openapi.dto.CustomerPreferences()
             body.data = preferences
 
@@ -189,15 +168,12 @@ class OpenApiVillageCustomerApiRepository(
 
             ApiResult.Success(Unit)
         }
-        catch (e: ApiException) {
-            ApiResult.Error(toApiException(e))
-        }
     }
 
     override fun retrievePaymentSessionById(paymentSessionId: String): ApiResult<PaymentSession> {
-        val api = createCustomerApi()
+        return makeCall {
+            val api = createCustomerApi()
 
-        return try {
             val data = api.getCustomerPaymentSession(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 paymentSessionId
@@ -205,15 +181,12 @@ class OpenApiVillageCustomerApiRepository(
 
             ApiResult.Success(OpenApiPaymentSession(data))
         }
-        catch (e: ApiException) {
-            ApiResult.Error(toApiException(e))
-        }
     }
 
     override fun retrievePaymentSessionByQRCodeId(qrCodeId: String): ApiResult<PaymentSession> {
-        val api = createCustomerApi()
+        return makeCall {
+            val api = createCustomerApi()
 
-        return try {
             val data = api.getCustomerPaymentSessionByQr(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 qrCodeId
@@ -221,21 +194,18 @@ class OpenApiVillageCustomerApiRepository(
 
             ApiResult.Success(OpenApiPaymentSession(data))
         }
-        catch (e: ApiException) {
-            ApiResult.Error(toApiException(e))
-        }
     }
 
     override fun updatePaymentSession(
         paymentSessionId: String,
         session: CustomerUpdatePaymentSessionRequest
     ): ApiResult<Unit> {
-        val api = createCustomerApi()
+        return makeCall {
+            val api = createCustomerApi()
 
-        return try {
             val body = au.com.woolworths.village.sdk.openapi.dto.UpdatePaymentSessionRequest()
             body.data = CustomerPaymentSessionPaymentSessionIdData()
-            body.data.customerInfo = toDynamicPayload(session.customerInfo())
+            body.data.customerInfo = toDynamicPayload(session.customerInfo)
 
             api.customerUpdatePaymentSession(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
@@ -244,9 +214,6 @@ class OpenApiVillageCustomerApiRepository(
             )
 
             ApiResult.Success(Unit)
-        }
-        catch (e: ApiException) {
-            ApiResult.Error(toApiException(e))
         }
     }
 
@@ -257,12 +224,12 @@ class OpenApiVillageCustomerApiRepository(
         clientReference: String?,
         challengeResponses: List<ChallengeResponse>?
     ): ApiResult<CustomerTransactionSummary> {
-        val api = createCustomerApi()
+        return makeCall {
+            val api = createCustomerApi()
 
-        return try {
             val body = au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetails()
             body.data = CustomerPaymentsPaymentRequestIdData().apply {
-                this.primaryInstrumentId = instrument.paymentInstrumentId()
+                this.primaryInstrumentId = instrument.paymentInstrumentId
                 this.secondaryInstruments = secondaryInstruments?.map(::toSecondaryInstrument) ?: emptyList()
                 this.clientReference = clientReference
             }
@@ -275,31 +242,28 @@ class OpenApiVillageCustomerApiRepository(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 paymentRequestId,
                 body,
-                instrument.wallet() == Wallet.EVERYDAY_PAY
+                instrument.wallet == Wallet.EVERYDAY_PAY
             ).data
 
             ApiResult.Success(OpenApiCustomerTransactionSummary(data))
-        }
-        catch (e: ApiException) {
-            ApiResult.Error(toApiException(e))
         }
     }
 }
 
 fun toSecondaryInstrument(instrument: SecondaryPaymentInstrument): CustomerPaymentsPaymentRequestIdDataSecondaryInstruments {
     val i = CustomerPaymentsPaymentRequestIdDataSecondaryInstruments()
-    i.amount = instrument.amount()
-    i.instrumentId = instrument.paymentInstrumentId()
+    i.amount = instrument.amount
+    i.instrumentId = instrument.paymentInstrumentId
 
     return i
 }
 
 fun toChallengeResponse(challengeResponse: ChallengeResponse): MetaChallengeChallengeResponses {
     val cr = MetaChallengeChallengeResponses()
-    cr.instrumentId = challengeResponse.instrumentId()
-    cr.reference = challengeResponse.reference()
-    cr.token = challengeResponse.token()
-    cr.type = MetaChallengeChallengeResponses.TypeEnum.valueOf(challengeResponse.type().toString())
+    cr.instrumentId = challengeResponse.instrumentId
+    cr.reference = challengeResponse.reference
+    cr.token = challengeResponse.token
+    cr.type = MetaChallengeChallengeResponses.TypeEnum.valueOf(challengeResponse.type.toString())
 
     return cr
 }

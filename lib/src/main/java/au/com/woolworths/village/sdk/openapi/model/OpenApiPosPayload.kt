@@ -3,13 +3,11 @@ package au.com.woolworths.village.sdk.openapi.model
 import au.com.woolworths.village.sdk.model.PosPayload
 
 class OpenApiPosPayload(
-    private val payload: au.com.woolworths.village.sdk.openapi.dto.PosPayload
-): PosPayload {
-    override fun schemaId(): String? {
-        return payload.schemaId
-    }
+    private val pp: au.com.woolworths.village.sdk.openapi.dto.PosPayload
+) : PosPayload {
+    override val schemaId: String?
+        get() = pp.schemaId
 
-    override fun payload(): Map<String, Any> {
-        return payload.payload as Map<String, Any>
-    }
+    override val payload: Map<String, Any>
+        get() = pp.payload as Map<String, Any>
 }

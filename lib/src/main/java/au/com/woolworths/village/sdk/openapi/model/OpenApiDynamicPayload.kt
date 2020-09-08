@@ -3,13 +3,11 @@ package au.com.woolworths.village.sdk.openapi.model
 import au.com.woolworths.village.sdk.model.DynamicPayload
 
 class OpenApiDynamicPayload(
-    private val payload: au.com.woolworths.village.sdk.openapi.dto.DynamicPayload
-): DynamicPayload {
-    override fun schemaId(): String? {
-        return payload.schemaId
-    }
+    private val dp: au.com.woolworths.village.sdk.openapi.dto.DynamicPayload
+) : DynamicPayload {
+    override val schemaId: String?
+        get() = dp.schemaId
 
-    override fun payload(): Map<String, Any> {
-        return payload.payload as Map<String, Any>
-    }
+    override val payload: Map<String, Any>
+        get() = dp.payload as Map<String, Any>
 }

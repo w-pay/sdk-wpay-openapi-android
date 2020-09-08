@@ -2,7 +2,6 @@ rootProject.name = "VillageWalletSDKOAIClient"
 
 include ':lib'
 include ':api-stubs'
-include ':sdk-tests'
 
 /*
  * Include SDK on separate line

@@ -7,45 +7,37 @@ import au.com.woolworths.village.sdk.openapi.dto.MerchantSchemaDetailsResultData
 import org.threeten.bp.OffsetDateTime
 
 class OpenApiMerchantSchemaSummaries(
-    private val schemas: List<au.com.woolworths.village.sdk.openapi.dto.MerchantSchemaSummary>
+    private val summaries: List<au.com.woolworths.village.sdk.openapi.dto.MerchantSchemaSummary>
 ) : MerchantSchemaSummaries {
-    override fun schemas(): List<MerchantSchemaSummary> {
-        return schemas.map { OpenApiMerchantSchemaSummary(it) }
-    }
+    override val schemas: List<MerchantSchemaSummary>
+        get() = summaries.map { OpenApiMerchantSchemaSummary(it) }
 }
 
 class OpenApiMerchantSchemaSummary(
     private val summary: au.com.woolworths.village.sdk.openapi.dto.MerchantSchemaSummary
 ) : MerchantSchemaSummary {
-    override fun schemaId(): String {
-        return summary.schemaId
-    }
+    override val schemaId: String
+        get() = summary.schemaId
 
-    override fun type(): String {
-        return summary.type
-    }
+    override val type: String
+        get() = summary.type
 
-    override fun description(): String? {
-        return summary.description
-    }
+    override val description: String?
+        get() = summary.description
 }
 
 class OpenApiMerchantSchema(
-    private val schema: MerchantSchemaDetailsResultData
+    private val details: MerchantSchemaDetailsResultData
 ) : MerchantSchema {
-    override fun schema(): Map<String, Any> {
-        return schema.schema
-    }
+    override val schema: Map<String, Any>
+        get() = details.schema
 
-    override fun type(): String? {
-        return schema.type
-    }
+    override val type: String?
+        get() = details.type
 
-    override fun description(): String? {
-        return schema.description
-    }
+    override val description: String?
+        get() = details.description
 
-    override fun created(): OffsetDateTime? {
-        return schema.created
-    }
+    override val created: OffsetDateTime?
+        get() = details.created
 }

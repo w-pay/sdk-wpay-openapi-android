@@ -7,24 +7,18 @@ import java.math.BigDecimal
 class OpenApiCustomerPaymentRequest(
     private val customerPaymentDetails: au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetail
 ): CustomerPaymentRequest {
+    override val paymentRequestId: String
+        get() = customerPaymentDetails.paymentRequestId
 
-    override fun paymentRequestId(): String {
-        return customerPaymentDetails.paymentRequestId
-    }
+    override val merchantReferenceId: String
+        get() = customerPaymentDetails.merchantReferenceId
 
-    override fun merchantReferenceId(): String {
-        return customerPaymentDetails.merchantReferenceId
-    }
+    override val grossAmount: BigDecimal
+        get() = customerPaymentDetails.grossAmount
 
-    override fun grossAmount(): BigDecimal {
-        return customerPaymentDetails.grossAmount
-    }
+    override val merchantId: String
+        get() = customerPaymentDetails.merchantId
 
-    override fun merchantId(): String {
-        return customerPaymentDetails.merchantId
-    }
-
-    override fun basket(): Basket? {
-        return customerPaymentDetails.basket?.let { OpenApiBasket(it) }
-    }
+    override val basket: Basket?
+        get() = customerPaymentDetails.basket?.let { OpenApiBasket(it) }
 }

@@ -1,13 +1,12 @@
 package au.com.woolworths.village.sdk.openapi
 
-import au.com.woolworths.village.sdk.ApiException
-import au.com.woolworths.village.sdk.Configurable
-import au.com.woolworths.village.sdk.RequestHeadersFactory
+import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.openapi.api.AdministrationApi
 import au.com.woolworths.village.sdk.openapi.api.CustomerApi
 import au.com.woolworths.village.sdk.openapi.api.MerchantApi
 import au.com.woolworths.village.sdk.openapi.client.ApiClient
 import au.com.woolworths.village.sdk.openapi.dto.DynamicPayload
+import java.lang.IllegalStateException
 
 open class OpenApiClientFactory(
     private val requestHeadersFactory: RequestHeadersFactory,
@@ -35,17 +34,45 @@ open class OpenApiClientFactory(
         return (client as ExtendedApiClient).getDefaultHeader(name)
     }
 
+    protected fun<T : Any> makeCall(call: () -> ApiResult.Success<T>): ApiResult<T> {
+        return try {
+            call()
+        }
+        catch (e: au.com.woolworths.village.sdk.openapi.client.ApiException) {
+            ApiResult.Error(toHttpError(e))
+        }
+        catch (e: Exception) {
+            ApiResult.Error(examineException(e))
+        }
+    }
+
     protected fun toDynamicPayload(payload: au.com.woolworths.village.sdk.model.DynamicPayload): DynamicPayload {
         val dto = DynamicPayload()
 
-        dto.schemaId = payload.schemaId()
-        dto.payload = payload.payload()
+        dto.schemaId = payload.schemaId
+        dto.payload = payload.payload
 
         return dto
     }
 
-    protected fun toApiException(e: au.com.woolworths.village.sdk.openapi.client.ApiException): ApiException {
-        return ApiException(e.code, e.responseHeaders, e.responseBody)
+    private fun examineException(e: Exception): ApiException {
+        /**
+         * This allows us to dynamically examine/convert the exception. Not all exception types
+         * may be on the classpath depending on what flavour is being used.
+         */
+        if (e is IllegalStateException) {
+            return JsonParsingException(e.message!!, e, null)
+        }
+
+        return ApiException(e.message ?: "An error occurred", e)
+    }
+
+    private fun toHttpError(e: au.com.woolworths.village.sdk.openapi.client.ApiException): ApiException {
+        if (e.code > 0) {
+            return HttpErrorException(e.code, e.responseHeaders, e.responseBody)
+        }
+
+        return ApiException(e.message ?: "Some HTTP error", e)
     }
 
     private fun createApiClient(): ApiClient {

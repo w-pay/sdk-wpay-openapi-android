@@ -6,77 +6,61 @@ import org.threeten.bp.OffsetDateTime
 import java.math.BigDecimal
 
 class OpenApiMerchantPaymentSummaries(
-    private val payments: List<au.com.woolworths.village.sdk.openapi.dto.MerchantPaymentSummary>
-): MerchantPaymentSummaries {
-    override fun payments(): List<MerchantPaymentSummary> {
-        return payments.map { OpenApiMerchantPaymentSummary(it) }
-    }
+    private val summaries: List<au.com.woolworths.village.sdk.openapi.dto.MerchantPaymentSummary>
+) : MerchantPaymentSummaries {
+    override val payments: List<MerchantPaymentSummary>
+        get() = summaries.map { OpenApiMerchantPaymentSummary(it) }
 }
 
 class OpenApiMerchantPaymentSummary(
     private val payment: au.com.woolworths.village.sdk.openapi.dto.MerchantPaymentSummary
 ) : MerchantPaymentSummary {
-    override fun usesRemaining(): Int? {
-        return payment.usesRemaining
-    }
+    override val usesRemaining: Int?
+        get() = payment.usesRemaining
 
-    override fun expiryTime(): OffsetDateTime? {
-        return payment.expiryTime
-    }
+    override val expiryTime: OffsetDateTime?
+        get() = payment.expiryTime
 
-    override fun specificWalletId(): String? {
-        return payment.specificWalletId
-    }
+    override val specificWalletId: String?
+        get() = payment.specificWalletId
 
-    override fun paymentRequestId(): String {
-        return payment.paymentRequestId
-    }
+    override val paymentRequestId: String
+        get() = payment.paymentRequestId
 
-    override fun merchantReferenceId(): String {
-        return payment.merchantReferenceId
-    }
+    override val merchantReferenceId: String
+        get() = payment.merchantReferenceId
 
-    override fun grossAmount(): BigDecimal {
-        return payment.grossAmount
-    }
+    override val grossAmount: BigDecimal
+        get() = payment.grossAmount
 }
 
 class OpenApiMerchantPaymentDetails(
     private val details: MerchantPaymentDetail
 ) : MerchantPaymentDetails {
-    override fun basket(): Basket? {
-        return details.basket?.let { OpenApiBasket(it) }
-    }
+    override val basket: Basket?
+        get() = details.basket?.let { OpenApiBasket(it) }
 
-    override fun posPayload(): PosPayload? {
-        return details.posPayload?.let { OpenApiPosPayload(it) }
-    }
+    override val posPayload: PosPayload?
+        get() = details.posPayload?.let { OpenApiPosPayload(it) }
 
-    override fun merchantPayload(): MerchantPayload? {
-        return details.merchantPayload?.let { OpenApiMerchantPayload(it) }
-    }
+    override val merchantPayload: MerchantPayload?
+        get() = details.merchantPayload?.let { OpenApiMerchantPayload(it) }
 
-    override fun usesRemaining(): Int? {
-        return details.usesRemaining
-    }
+    override val usesRemaining: Int?
+        get() = details.usesRemaining
 
-    override fun expiryTime(): OffsetDateTime? {
-        return details.expiryTime
-    }
+    override val expiryTime: OffsetDateTime?
+        get() = details.expiryTime
 
-    override fun specificWalletId(): String? {
-        return details.specificWalletId
-    }
+    override val specificWalletId: String?
+        get() = details.specificWalletId
 
-    override fun paymentRequestId(): String {
-        return details.paymentRequestId
-    }
+    override val paymentRequestId: String
+        get() = details.paymentRequestId
 
-    override fun merchantReferenceId(): String {
-        return details.merchantReferenceId
-    }
+    override val merchantReferenceId: String
+        get() = details.merchantReferenceId
 
-    override fun grossAmount(): BigDecimal {
-        return details.grossAmount
-    }
+    override val grossAmount: BigDecimal
+        get() = details.grossAmount
 }

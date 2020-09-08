@@ -5,12 +5,10 @@ import au.com.woolworths.village.sdk.openapi.dto.InitiatePaymentInstrumentAdditi
 
 class OpenApiPaymentInstrumentAdditionResult(
     private val result: InitiatePaymentInstrumentAdditionResultsData
-): PaymentInstrumentAdditionResult {
-    override fun cardCaptureURL(): String {
-        return result.cardCaptureURL
-    }
+) : PaymentInstrumentAdditionResult {
+    override val cardCaptureURL: String
+        get() = result.cardCaptureURL
 
-    override fun transactionRef(): String? {
-        return result.transactionRef
-    }
+    override val transactionRef: String?
+        get() = result.transactionRef
 }
