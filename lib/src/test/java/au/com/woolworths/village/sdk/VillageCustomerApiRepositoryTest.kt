@@ -148,6 +148,30 @@ class VillageCustomerApiRepositoryTest {
     }
 
     @Test
+    fun shouldDeletePaymentSession() {
+        val paymentSessionId = "75ba5b0b-7e5d-47fe-9508-29ca69fdb1d5"
+
+        val result = api.deletePaymentSession(paymentSessionId)
+
+        assertThat(result, isSuccessful())
+    }
+
+    @Test
+    fun shouldPreApprovePaymentSession() {
+        val paymentSessionId = "75ba5b0b-7e5d-47fe-9508-29ca69fdb1d5"
+
+        val result = api.preApprovePaymentSession(
+            paymentSessionId,
+            aSelectedPaymentInstrument(),
+            null,
+            null,
+            null
+        )
+
+        assertThat(result, isSuccessful())
+    }
+
+    @Test
     fun shouldCheckHealth() {
         val result = api.checkHealth()
 
