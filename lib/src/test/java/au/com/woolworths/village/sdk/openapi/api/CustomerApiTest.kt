@@ -27,7 +27,7 @@ class CustomerApiTest {
     fun getCustomerPaymentDetailsByPaymentIdTest() {
         val paymentRequestId = "abc123def"
 
-        val result = api.getCustomerPaymentDetailsByPaymentId(
+        val result = api.getCustomerPaymentRequestDetailsByPaymentId(
             X_WALLET_ID,
             paymentRequestId
         )
@@ -40,7 +40,7 @@ class CustomerApiTest {
     fun getCustomerPaymentDetailsByQRCodeIdTest() {
         val qrId = "abc123def"
 
-        val result = api.getCustomerPaymentDetailsByQRCodeId(
+        val result = api.getCustomerPaymentRequestDetailsByQRCodeId(
             X_WALLET_ID,
             qrId
         )
@@ -171,7 +171,7 @@ class CustomerApiTest {
     fun getCustomerPaymentSessionByQrTest() {
         val qrCodeId = "abc123"
 
-        val result = api.getCustomerPaymentSessionByQr(
+        val result = api.getCustomerPaymentSessionByQRCodeId(
             X_WALLET_ID,
             qrCodeId
         )

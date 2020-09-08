@@ -4,6 +4,7 @@ import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.MerchantPreferences
 import au.com.woolworths.village.sdk.model.*
 import au.com.woolworths.village.sdk.model.CreatePaymentSessionRequest
+import au.com.woolworths.village.sdk.model.MerchantPaymentDetails
 import au.com.woolworths.village.sdk.model.MerchantSchema
 import au.com.woolworths.village.sdk.model.MerchantSchemaSummary
 import au.com.woolworths.village.sdk.model.MerchantTransactionSummary
@@ -66,7 +67,7 @@ class OpenApiVillageMerchantApiRepository(
                 }
             }
 
-            val data = api.createPaymentQRCode(
+            val data = api.createPaymentRequestQRCode(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 body
             ).data
@@ -79,7 +80,7 @@ class OpenApiVillageMerchantApiRepository(
         return makeCall {
             val api = createMerchantApi()
 
-            val data = api.getPaymentQRCodeContent(
+            val data = api.getPaymentRequestQRCodeContent(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 qrCodeId
             ).data
@@ -92,7 +93,7 @@ class OpenApiVillageMerchantApiRepository(
         return makeCall {
             val api = createMerchantApi()
 
-            api.cancelPaymentQRCode(
+            api.cancelPaymentRequestQRCode(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 qrCodeId
             )
@@ -190,7 +191,7 @@ class OpenApiVillageMerchantApiRepository(
         return makeCall {
             val api = createMerchantApi()
 
-            api.deleteMerchantPayment(
+            api.deleteMerchantPaymentRequest(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 paymentRequestId
             )

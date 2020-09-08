@@ -4,12 +4,12 @@ All URIs are relative to *http://localhost:3000*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**cancelPaymentQRCode**](MerchantApi.md#cancelPaymentQRCode) | **DELETE** /merchant/qr/{qrId} | Invalidate QR Code
+[**cancelPaymentRequestQRCode**](MerchantApi.md#cancelPaymentRequestQRCode) | **DELETE** /merchant/qr/{qrId} | Invalidate QR Code
 [**createMerchantSchema**](MerchantApi.md#createMerchantSchema) | **POST** /merchant/schema | Add Schema
-[**createPaymentQRCode**](MerchantApi.md#createPaymentQRCode) | **POST** /merchant/qr | Create QR Code
 [**createPaymentRequest**](MerchantApi.md#createPaymentRequest) | **POST** /merchant/payments | Create Payment
+[**createPaymentRequestQRCode**](MerchantApi.md#createPaymentRequestQRCode) | **POST** /merchant/qr | Create QR Code for a payment request
 [**createPaymentSession**](MerchantApi.md#createPaymentSession) | **POST** /merchant/payment/session | Create Payment Session
-[**deleteMerchantPayment**](MerchantApi.md#deleteMerchantPayment) | **DELETE** /merchant/payments/{paymentRequestId} | Delete Payment
+[**deleteMerchantPaymentRequest**](MerchantApi.md#deleteMerchantPaymentRequest) | **DELETE** /merchant/payments/{paymentRequestId} | Delete Payment Request
 [**deletePaymentSession**](MerchantApi.md#deletePaymentSession) | **DELETE** /merchant/payment/session/{paymentSessionId} | Delete Payment Session
 [**getMerchantPaymentDetails**](MerchantApi.md#getMerchantPaymentDetails) | **GET** /merchant/payments/{paymentRequestId} | Get Payment Details
 [**getMerchantPayments**](MerchantApi.md#getMerchantPayments) | **GET** /merchant/payments | Get Payment List
@@ -18,16 +18,16 @@ Method | HTTP request | Description
 [**getMerchantSchemas**](MerchantApi.md#getMerchantSchemas) | **GET** /merchant/schema | Get Schema List
 [**getMerchantTransactionDetails**](MerchantApi.md#getMerchantTransactionDetails) | **GET** /merchant/transactions/{transactionId} | Get Transaction Details
 [**getMerchantTransactions**](MerchantApi.md#getMerchantTransactions) | **GET** /merchant/transactions | Get Transaction List
-[**getPaymentQRCodeContent**](MerchantApi.md#getPaymentQRCodeContent) | **GET** /merchant/qr/{qrId} | Get QR Code Content
+[**getPaymentRequestQRCodeContent**](MerchantApi.md#getPaymentRequestQRCodeContent) | **GET** /merchant/qr/{qrId} | Get QR Code Content
 [**getPaymentSession**](MerchantApi.md#getPaymentSession) | **GET** /merchant/payment/session/{paymentSessionId} | Get Payment Session
 [**merchantUpdatePaymentSession**](MerchantApi.md#merchantUpdatePaymentSession) | **POST** /merchant/payment/session/{paymentSessionId} | Update Payment Session
 [**refundMerchantTransaction**](MerchantApi.md#refundMerchantTransaction) | **POST** /merchant/transactions/{transactionId}/refund | Refund Transaction
 [**setMerchantPreferences**](MerchantApi.md#setMerchantPreferences) | **POST** /merchant/preferences | Set Preferences
 
 
-<a name="cancelPaymentQRCode"></a>
-# **cancelPaymentQRCode**
-> cancelPaymentQRCode(xMerchantID, qrId)
+<a name="cancelPaymentRequestQRCode"></a>
+# **cancelPaymentRequestQRCode**
+> cancelPaymentRequestQRCode(xMerchantID, qrId)
 
 Invalidate QR Code
 
@@ -58,9 +58,9 @@ public class Example {
     String xMerchantID = 10001; // String | 
     String qrId = dca8edc5-bbb7-44c0-8056-a5daf4327601; // String | The ID of the specific QR Code
     try {
-      apiInstance.cancelPaymentQRCode(xMerchantID, qrId);
+      apiInstance.cancelPaymentRequestQRCode(xMerchantID, qrId);
     } catch (ApiException e) {
-      System.err.println("Exception when calling MerchantApi#cancelPaymentQRCode");
+      System.err.println("Exception when calling MerchantApi#cancelPaymentRequestQRCode");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -94,7 +94,7 @@ null (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | QR code has been successfully expired.  Not content returned |  -  |
-**400** | The QR code specified doesn&#39;t exist |  -  |
+**422** | The QR code specified doesn&#39;t exist |  -  |
 
 <a name="createMerchantSchema"></a>
 # **createMerchantSchema**
@@ -167,78 +167,6 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
 
-<a name="createPaymentQRCode"></a>
-# **createPaymentQRCode**
-> CreatePaymentQRCodeResults createPaymentQRCode(xMerchantID, paymentQRCodeDetails)
-
-Create QR Code
-
-Create a new QR code for an existing payment
-
-### Example
-```java
-// Import classes:
-import au.com.woolworths.village.sdk.openapi.client.ApiClient;
-import au.com.woolworths.village.sdk.openapi.client.ApiException;
-import au.com.woolworths.village.sdk.openapi.client.Configuration;
-import au.com.woolworths.village.sdk.openapi.client.auth.*;
-import au.com.woolworths.village.sdk.openapi.client.models.*;
-import au.com.woolworths.village.sdk.openapi.api.MerchantApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:3000");
-    
-    // Configure API key authorization: ApiKeyAuth
-    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
-    ApiKeyAuth.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //ApiKeyAuth.setApiKeyPrefix("Token");
-
-    MerchantApi apiInstance = new MerchantApi(defaultClient);
-    String xMerchantID = 10001; // String | 
-    PaymentQRCodeDetails paymentQRCodeDetails = new PaymentQRCodeDetails(); // PaymentQRCodeDetails | 
-    try {
-      CreatePaymentQRCodeResults result = apiInstance.createPaymentQRCode(xMerchantID, paymentQRCodeDetails);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling MerchantApi#createPaymentQRCode");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **xMerchantID** | **String**|  |
- **paymentQRCodeDetails** | [**PaymentQRCodeDetails**](PaymentQRCodeDetails.md)|  |
-
-### Return type
-
-[**CreatePaymentQRCodeResults**](CreatePaymentQRCodeResults.md)
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response |  -  |
-**400** | The specified payment request doesn&#39;t exist or has already been closed |  -  |
-
 <a name="createPaymentRequest"></a>
 # **createPaymentRequest**
 > CreatePaymentRequestResults createPaymentRequest(xMerchantID, merchantPaymentRequest)
@@ -309,6 +237,78 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
+
+<a name="createPaymentRequestQRCode"></a>
+# **createPaymentRequestQRCode**
+> CreatePaymentRequestQRCodeResults createPaymentRequestQRCode(xMerchantID, paymentQRCodeDetails)
+
+Create QR Code for a payment request
+
+Create a new QR code for an existing payment request
+
+### Example
+```java
+// Import classes:
+import au.com.woolworths.village.sdk.openapi.client.ApiClient;
+import au.com.woolworths.village.sdk.openapi.client.ApiException;
+import au.com.woolworths.village.sdk.openapi.client.Configuration;
+import au.com.woolworths.village.sdk.openapi.client.auth.*;
+import au.com.woolworths.village.sdk.openapi.client.models.*;
+import au.com.woolworths.village.sdk.openapi.api.MerchantApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:3000");
+    
+    // Configure API key authorization: ApiKeyAuth
+    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+    ApiKeyAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //ApiKeyAuth.setApiKeyPrefix("Token");
+
+    MerchantApi apiInstance = new MerchantApi(defaultClient);
+    String xMerchantID = 10001; // String | 
+    PaymentQRCodeDetails paymentQRCodeDetails = new PaymentQRCodeDetails(); // PaymentQRCodeDetails | 
+    try {
+      CreatePaymentRequestQRCodeResults result = apiInstance.createPaymentRequestQRCode(xMerchantID, paymentQRCodeDetails);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling MerchantApi#createPaymentRequestQRCode");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xMerchantID** | **String**|  |
+ **paymentQRCodeDetails** | [**PaymentQRCodeDetails**](PaymentQRCodeDetails.md)|  |
+
+### Return type
+
+[**CreatePaymentRequestQRCodeResults**](CreatePaymentRequestQRCodeResults.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response |  -  |
+**422** | The specified payment request doesn&#39;t exist or has already been closed |  -  |
 
 <a name="createPaymentSession"></a>
 # **createPaymentSession**
@@ -382,11 +382,11 @@ Name | Type | Description  | Notes
 **200** | Successful response |  -  |
 **422** | The specified Payment Session ID doesn&#39;t exist or has expired |  -  |
 
-<a name="deleteMerchantPayment"></a>
-# **deleteMerchantPayment**
-> deleteMerchantPayment(xMerchantID, paymentRequestId)
+<a name="deleteMerchantPaymentRequest"></a>
+# **deleteMerchantPaymentRequest**
+> deleteMerchantPaymentRequest(xMerchantID, paymentRequestId)
 
-Delete Payment
+Delete Payment Request
 
 Cancel an existing payment by setting the expiration date/time to now and setting the remaining uses to 0.  Will only be successful if the payment is still pending.  Completed payments need to be refunded using the dedicated API for that purpose
 
@@ -415,9 +415,9 @@ public class Example {
     String xMerchantID = 10001; // String | 
     String paymentRequestId = "paymentRequestId_example"; // String | The ID of the specific payment request
     try {
-      apiInstance.deleteMerchantPayment(xMerchantID, paymentRequestId);
+      apiInstance.deleteMerchantPaymentRequest(xMerchantID, paymentRequestId);
     } catch (ApiException e) {
-      System.err.println("Exception when calling MerchantApi#deleteMerchantPayment");
+      System.err.println("Exception when calling MerchantApi#deleteMerchantPaymentRequest");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -451,7 +451,7 @@ null (empty response body)
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **204** | Payment request has been successfully expired.  Not content returned |  -  |
-**400** | The payment request specified doesn&#39;t exist |  -  |
+**422** | The payment request specified doesn&#39;t exist |  -  |
 
 <a name="deletePaymentSession"></a>
 # **deletePaymentSession**
@@ -593,7 +593,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
-**400** | The specified Payment Request ID doesn&#39;t exist |  -  |
+**422** | The specified Payment Request ID doesn&#39;t exist |  -  |
 
 <a name="getMerchantPayments"></a>
 # **getMerchantPayments**
@@ -1027,9 +1027,9 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
 
-<a name="getPaymentQRCodeContent"></a>
-# **getPaymentQRCodeContent**
-> CreatePaymentQRCodeResults getPaymentQRCodeContent(xMerchantID, qrId)
+<a name="getPaymentRequestQRCodeContent"></a>
+# **getPaymentRequestQRCodeContent**
+> CreatePaymentRequestQRCodeResults getPaymentRequestQRCodeContent(xMerchantID, qrId)
 
 Get QR Code Content
 
@@ -1060,10 +1060,10 @@ public class Example {
     String xMerchantID = 10001; // String | 
     String qrId = "qrId_example"; // String | The ID of the specific QR Code
     try {
-      CreatePaymentQRCodeResults result = apiInstance.getPaymentQRCodeContent(xMerchantID, qrId);
+      CreatePaymentRequestQRCodeResults result = apiInstance.getPaymentRequestQRCodeContent(xMerchantID, qrId);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling MerchantApi#getPaymentQRCodeContent");
+      System.err.println("Exception when calling MerchantApi#getPaymentRequestQRCodeContent");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -1082,7 +1082,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**CreatePaymentQRCodeResults**](CreatePaymentQRCodeResults.md)
+[**CreatePaymentRequestQRCodeResults**](CreatePaymentRequestQRCodeResults.md)
 
 ### Authorization
 
@@ -1315,7 +1315,7 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
-**400** | The transaction specified doesn&#39;t exist or is a refund transaction already |  -  |
+**422** | The transaction specified doesn&#39;t exist or is a refund transaction already |  -  |
 
 <a name="setMerchantPreferences"></a>
 # **setMerchantPreferences**

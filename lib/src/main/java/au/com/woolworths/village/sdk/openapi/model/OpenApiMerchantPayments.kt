@@ -1,7 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.model
 
 import au.com.woolworths.village.sdk.model.*
-import au.com.woolworths.village.sdk.openapi.dto.MerchantPaymentDetail
 import org.threeten.bp.OffsetDateTime
 import java.math.BigDecimal
 
@@ -35,7 +34,7 @@ class OpenApiMerchantPaymentSummary(
 }
 
 class OpenApiMerchantPaymentDetails(
-    private val details: MerchantPaymentDetail
+    private val details: au.com.woolworths.village.sdk.openapi.dto.MerchantPaymentDetails
 ) : MerchantPaymentDetails {
     override val basket: Basket?
         get() = details.basket?.let { OpenApiBasket(it) }

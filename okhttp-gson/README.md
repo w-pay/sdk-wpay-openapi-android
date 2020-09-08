@@ -1,7 +1,7 @@
 # okhttp-gson
 
 Village Wallet
-- API version: 0.0.6
+- API version: 0.0.7
 
 APIs for Village Wallet
 
@@ -114,24 +114,26 @@ Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
 *AdministrationApi* | [**checkHealth**](docs/AdministrationApi.md#checkHealth) | **GET** / | Health Check
 *CustomerApi* | [**customerUpdatePaymentSession**](docs/CustomerApi.md#customerUpdatePaymentSession) | **POST** /customer/payment/session/{paymentSessionId} | Update Payment Session
+*CustomerApi* | [**deleteCustomerPaymentSession**](docs/CustomerApi.md#deleteCustomerPaymentSession) | **DELETE** /customer/payment/session/{paymentSessionId} | Delete Payment Session
 *CustomerApi* | [**deletePaymentInstrument**](docs/CustomerApi.md#deletePaymentInstrument) | **DELETE** /customer/instruments/{paymentInstrumentId} | Delete a payment instrument
-*CustomerApi* | [**getCustomerPaymentDetailsByPaymentId**](docs/CustomerApi.md#getCustomerPaymentDetailsByPaymentId) | **GET** /customer/payments/{paymentRequestId} | Get Payment Details
-*CustomerApi* | [**getCustomerPaymentDetailsByQRCodeId**](docs/CustomerApi.md#getCustomerPaymentDetailsByQRCodeId) | **GET** /customer/qr/{qrId} | Get Payment From QR
 *CustomerApi* | [**getCustomerPaymentInstruments**](docs/CustomerApi.md#getCustomerPaymentInstruments) | **GET** /customer/instruments | Get Payment Instruments
+*CustomerApi* | [**getCustomerPaymentRequestDetailsByPaymentId**](docs/CustomerApi.md#getCustomerPaymentRequestDetailsByPaymentId) | **GET** /customer/payments/{paymentRequestId} | Get Payment Request details
+*CustomerApi* | [**getCustomerPaymentRequestDetailsByQRCodeId**](docs/CustomerApi.md#getCustomerPaymentRequestDetailsByQRCodeId) | **GET** /customer/qr/{qrId} | Get Payment Request details from a QR code
 *CustomerApi* | [**getCustomerPaymentSession**](docs/CustomerApi.md#getCustomerPaymentSession) | **GET** /customer/payment/session/{paymentSessionId} | Get Payment Session
-*CustomerApi* | [**getCustomerPaymentSessionByQr**](docs/CustomerApi.md#getCustomerPaymentSessionByQr) | **GET** /customer/payment/session/qr/{qrId} | Get Payment Session
+*CustomerApi* | [**getCustomerPaymentSessionByQRCodeId**](docs/CustomerApi.md#getCustomerPaymentSessionByQRCodeId) | **GET** /customer/payment/session/qr/{qrId} | Get Payment Session
 *CustomerApi* | [**getCustomerPreferences**](docs/CustomerApi.md#getCustomerPreferences) | **GET** /customer/preferences | Get Preferences
 *CustomerApi* | [**getCustomerTransactionDetails**](docs/CustomerApi.md#getCustomerTransactionDetails) | **GET** /customer/transactions/{transactionId} | Get Transaction Details
 *CustomerApi* | [**getCustomerTransactions**](docs/CustomerApi.md#getCustomerTransactions) | **GET** /customer/transactions | Get Transaction List
 *CustomerApi* | [**initiatePaymentInstrumentAddition**](docs/CustomerApi.md#initiatePaymentInstrumentAddition) | **POST** /customer/instruments | Initiate Instrument Addition
 *CustomerApi* | [**makeCustomerPayment**](docs/CustomerApi.md#makeCustomerPayment) | **PUT** /customer/payments/{paymentRequestId} | Pay Payment
+*CustomerApi* | [**preApprovePaymentSession**](docs/CustomerApi.md#preApprovePaymentSession) | **PUT** /customer/payment/session/{paymentSessionId} | Pre-Approve payment
 *CustomerApi* | [**setCustomerPreferences**](docs/CustomerApi.md#setCustomerPreferences) | **POST** /customer/preferences | Set Preferences
-*MerchantApi* | [**cancelPaymentQRCode**](docs/MerchantApi.md#cancelPaymentQRCode) | **DELETE** /merchant/qr/{qrId} | Invalidate QR Code
+*MerchantApi* | [**cancelPaymentRequestQRCode**](docs/MerchantApi.md#cancelPaymentRequestQRCode) | **DELETE** /merchant/qr/{qrId} | Invalidate QR Code
 *MerchantApi* | [**createMerchantSchema**](docs/MerchantApi.md#createMerchantSchema) | **POST** /merchant/schema | Add Schema
-*MerchantApi* | [**createPaymentQRCode**](docs/MerchantApi.md#createPaymentQRCode) | **POST** /merchant/qr | Create QR Code
 *MerchantApi* | [**createPaymentRequest**](docs/MerchantApi.md#createPaymentRequest) | **POST** /merchant/payments | Create Payment
+*MerchantApi* | [**createPaymentRequestQRCode**](docs/MerchantApi.md#createPaymentRequestQRCode) | **POST** /merchant/qr | Create QR Code for a payment request
 *MerchantApi* | [**createPaymentSession**](docs/MerchantApi.md#createPaymentSession) | **POST** /merchant/payment/session | Create Payment Session
-*MerchantApi* | [**deleteMerchantPayment**](docs/MerchantApi.md#deleteMerchantPayment) | **DELETE** /merchant/payments/{paymentRequestId} | Delete Payment
+*MerchantApi* | [**deleteMerchantPaymentRequest**](docs/MerchantApi.md#deleteMerchantPaymentRequest) | **DELETE** /merchant/payments/{paymentRequestId} | Delete Payment Request
 *MerchantApi* | [**deletePaymentSession**](docs/MerchantApi.md#deletePaymentSession) | **DELETE** /merchant/payment/session/{paymentSessionId} | Delete Payment Session
 *MerchantApi* | [**getMerchantPaymentDetails**](docs/MerchantApi.md#getMerchantPaymentDetails) | **GET** /merchant/payments/{paymentRequestId} | Get Payment Details
 *MerchantApi* | [**getMerchantPayments**](docs/MerchantApi.md#getMerchantPayments) | **GET** /merchant/payments | Get Payment List
@@ -140,7 +142,7 @@ Class | Method | HTTP request | Description
 *MerchantApi* | [**getMerchantSchemas**](docs/MerchantApi.md#getMerchantSchemas) | **GET** /merchant/schema | Get Schema List
 *MerchantApi* | [**getMerchantTransactionDetails**](docs/MerchantApi.md#getMerchantTransactionDetails) | **GET** /merchant/transactions/{transactionId} | Get Transaction Details
 *MerchantApi* | [**getMerchantTransactions**](docs/MerchantApi.md#getMerchantTransactions) | **GET** /merchant/transactions | Get Transaction List
-*MerchantApi* | [**getPaymentQRCodeContent**](docs/MerchantApi.md#getPaymentQRCodeContent) | **GET** /merchant/qr/{qrId} | Get QR Code Content
+*MerchantApi* | [**getPaymentRequestQRCodeContent**](docs/MerchantApi.md#getPaymentRequestQRCodeContent) | **GET** /merchant/qr/{qrId} | Get QR Code Content
 *MerchantApi* | [**getPaymentSession**](docs/MerchantApi.md#getPaymentSession) | **GET** /merchant/payment/session/{paymentSessionId} | Get Payment Session
 *MerchantApi* | [**merchantUpdatePaymentSession**](docs/MerchantApi.md#merchantUpdatePaymentSession) | **POST** /merchant/payment/session/{paymentSessionId} | Update Payment Session
 *MerchantApi* | [**refundMerchantTransaction**](docs/MerchantApi.md#refundMerchantTransaction) | **POST** /merchant/transactions/{transactionId}/refund | Refund Transaction
@@ -152,23 +154,22 @@ Class | Method | HTTP request | Description
  - [Basket](docs/Basket.md)
  - [BasketItems](docs/BasketItems.md)
  - [CommonPaymentBase](docs/CommonPaymentBase.md)
- - [CommonPaymentSummary](docs/CommonPaymentSummary.md)
- - [CommonPaymentSummaryAllOf](docs/CommonPaymentSummaryAllOf.md)
  - [CommonTransactionSummary](docs/CommonTransactionSummary.md)
  - [CommonTransactionSummaryAllOf](docs/CommonTransactionSummaryAllOf.md)
  - [CreateMerchantPaymentSessionResponse](docs/CreateMerchantPaymentSessionResponse.md)
  - [CreateMerchantPaymentSessionResponseData](docs/CreateMerchantPaymentSessionResponseData.md)
  - [CreateMerchantSchemaResults](docs/CreateMerchantSchemaResults.md)
- - [CreatePaymentQRCodeResults](docs/CreatePaymentQRCodeResults.md)
+ - [CreatePaymentRequestQRCodeResults](docs/CreatePaymentRequestQRCodeResults.md)
  - [CreatePaymentRequestResults](docs/CreatePaymentRequestResults.md)
  - [CreatePaymentRequestResultsData](docs/CreatePaymentRequestResultsData.md)
  - [CreatePaymentSessionRequest](docs/CreatePaymentSessionRequest.md)
  - [CreditCard](docs/CreditCard.md)
  - [CreditCardStepUp](docs/CreditCardStepUp.md)
  - [CustomerInstrumentsData](docs/CustomerInstrumentsData.md)
- - [CustomerPaymentDetail](docs/CustomerPaymentDetail.md)
- - [CustomerPaymentDetailAllOf](docs/CustomerPaymentDetailAllOf.md)
  - [CustomerPaymentDetails](docs/CustomerPaymentDetails.md)
+ - [CustomerPaymentDetails1](docs/CustomerPaymentDetails1.md)
+ - [CustomerPaymentRequestDetails](docs/CustomerPaymentRequestDetails.md)
+ - [CustomerPaymentRequestDetailsAllOf](docs/CustomerPaymentRequestDetailsAllOf.md)
  - [CustomerPaymentSessionPaymentSessionIdData](docs/CustomerPaymentSessionPaymentSessionIdData.md)
  - [CustomerPaymentSessionResult](docs/CustomerPaymentSessionResult.md)
  - [CustomerPaymentsPaymentRequestIdData](docs/CustomerPaymentsPaymentRequestIdData.md)
@@ -185,7 +186,7 @@ Class | Method | HTTP request | Description
  - [GetCustomerPaymentInstrumentsResults](docs/GetCustomerPaymentInstrumentsResults.md)
  - [GetCustomerPaymentInstrumentsResultsData](docs/GetCustomerPaymentInstrumentsResultsData.md)
  - [GetCustomerPaymentInstrumentsResultsDataEverydayPay](docs/GetCustomerPaymentInstrumentsResultsDataEverydayPay.md)
- - [GetCustomerPaymentResult](docs/GetCustomerPaymentResult.md)
+ - [GetCustomerPaymentRequestResult](docs/GetCustomerPaymentRequestResult.md)
  - [GetCustomerTransactionDetailsResults](docs/GetCustomerTransactionDetailsResults.md)
  - [GetCustomerTransactionsResult](docs/GetCustomerTransactionsResult.md)
  - [GetCustomerTransactionsResultData](docs/GetCustomerTransactionsResultData.md)
@@ -204,8 +205,8 @@ Class | Method | HTTP request | Description
  - [InstrumentAdditionDetails](docs/InstrumentAdditionDetails.md)
  - [MakeCustomerPaymentResults](docs/MakeCustomerPaymentResults.md)
  - [MerchantPayload](docs/MerchantPayload.md)
- - [MerchantPaymentDetail](docs/MerchantPaymentDetail.md)
- - [MerchantPaymentDetailAllOf](docs/MerchantPaymentDetailAllOf.md)
+ - [MerchantPaymentDetails](docs/MerchantPaymentDetails.md)
+ - [MerchantPaymentDetailsAllOf](docs/MerchantPaymentDetailsAllOf.md)
  - [MerchantPaymentRequest](docs/MerchantPaymentRequest.md)
  - [MerchantPaymentSessionData](docs/MerchantPaymentSessionData.md)
  - [MerchantPaymentSessionPaymentSessionIdData](docs/MerchantPaymentSessionPaymentSessionIdData.md)

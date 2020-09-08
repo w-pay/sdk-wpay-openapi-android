@@ -27,7 +27,7 @@ class MerchantApiTest {
     fun cancelPaymentQRCodeTest() {
         val qrId = "dca8edc5-bbb7-44c0-8056-a5daf4327601"
 
-        api.cancelPaymentQRCode(
+        api.cancelPaymentRequestQRCode(
             X_WALLET_ID,
             qrId
         )
@@ -68,7 +68,7 @@ class MerchantApiTest {
         paymentQRCodeDetails.data.referenceType = MerchantQrData.ReferenceTypeEnum.SESSION
         paymentQRCodeDetails.data.timeToLive = 300
 
-        val result = api.createPaymentQRCode(
+        val result = api.createPaymentRequestQRCode(
             X_WALLET_ID,
             paymentQRCodeDetails
         )
@@ -114,7 +114,7 @@ class MerchantApiTest {
     fun deleteMerchantPaymentTest() {
         val paymentRequestId = "2c6ffba4-8912-11ea-80d7-1766761cedbe"
 
-        api.deleteMerchantPayment(X_WALLET_ID, paymentRequestId)
+        api.deleteMerchantPaymentRequest(X_WALLET_ID, paymentRequestId)
     }
 
     @Test
@@ -212,7 +212,7 @@ class MerchantApiTest {
     @Test
     fun getPaymentQRCodeContentTest() {
         val qrId = "60006a56-892d-11ea-9d87-f3644d81edc2"
-        val results = api.getPaymentQRCodeContent(
+        val results = api.getPaymentRequestQRCodeContent(
             X_WALLET_ID,
             qrId
         )

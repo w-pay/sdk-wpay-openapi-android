@@ -1,7 +1,7 @@
 package au.com.woolworths.village.sdk.openapi.api.matchers
 
 import au.com.woolworths.village.sdk.openapi.dto.MerchantPayload
-import au.com.woolworths.village.sdk.openapi.dto.MerchantPaymentDetail
+import au.com.woolworths.village.sdk.openapi.dto.MerchantPaymentDetails
 import au.com.woolworths.village.sdk.openapi.dto.MerchantPaymentSummary
 import au.com.woolworths.village.sdk.openapi.dto.PosPayload
 import org.hamcrest.Description
@@ -36,8 +36,8 @@ fun hasMerchantPaymentDetails(): MerchantPaymentDetailsMatcher {
     return MerchantPaymentDetailsMatcher()
 }
 
-class MerchantPaymentDetailsMatcher: TypeSafeMatcher<MerchantPaymentDetail>() {
-    override fun matchesSafely(item: MerchantPaymentDetail): Boolean {
+class MerchantPaymentDetailsMatcher: TypeSafeMatcher<MerchantPaymentDetails>() {
+    override fun matchesSafely(item: MerchantPaymentDetails): Boolean {
         assertThat(item.paymentRequestId, not(blankOrNullString()))
         assertThat(item.merchantReferenceId, not(blankOrNullString()))
         assertThat(item.grossAmount, not(nullValue()))

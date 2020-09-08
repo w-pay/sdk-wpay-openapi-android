@@ -68,7 +68,7 @@ class OpenApiVillageCustomerApiRepository(
         return makeCall {
             val api = createCustomerApi()
 
-            val data = api.getCustomerPaymentDetailsByQRCodeId(
+            val data = api.getCustomerPaymentRequestDetailsByQRCodeId(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 qrCodeId
             ).data
@@ -81,7 +81,7 @@ class OpenApiVillageCustomerApiRepository(
         return makeCall {
             val api = createCustomerApi()
 
-            val data = api.getCustomerPaymentDetailsByPaymentId(
+            val data = api.getCustomerPaymentRequestDetailsByQRCodeId(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 paymentRequestId
             ).data
@@ -187,7 +187,7 @@ class OpenApiVillageCustomerApiRepository(
         return makeCall {
             val api = createCustomerApi()
 
-            val data = api.getCustomerPaymentSessionByQr(
+            val data = api.getCustomerPaymentSessionByQRCodeId(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 qrCodeId
             ).data
