@@ -68,7 +68,7 @@ class OpenApiVillageCustomerApiRepository(
         return makeCall {
             val api = createCustomerApi()
 
-            val data = api.getCustomerPaymentDetailsByQRCodeId(
+            val data = api.getCustomerPaymentRequestDetailsByQRCodeId(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 qrCodeId
             ).data
@@ -81,7 +81,7 @@ class OpenApiVillageCustomerApiRepository(
         return makeCall {
             val api = createCustomerApi()
 
-            val data = api.getCustomerPaymentDetailsByPaymentId(
+            val data = api.getCustomerPaymentRequestDetailsByQRCodeId(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 paymentRequestId
             ).data
@@ -187,7 +187,7 @@ class OpenApiVillageCustomerApiRepository(
         return makeCall {
             val api = createCustomerApi()
 
-            val data = api.getCustomerPaymentSessionByQr(
+            val data = api.getCustomerPaymentSessionByQRCodeId(
                 getDefaultHeader(api.apiClient, X_WALLET_ID),
                 qrCodeId
             ).data
@@ -246,6 +246,51 @@ class OpenApiVillageCustomerApiRepository(
             ).data
 
             ApiResult.Success(OpenApiCustomerTransactionSummary(data))
+        }
+    }
+
+    override fun deletePaymentSession(paymentSessionId: String): ApiResult<Unit> {
+        return makeCall {
+            val api = createCustomerApi()
+
+            api.deleteCustomerPaymentSession(
+                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                paymentSessionId
+            )
+
+            ApiResult.Success(Unit)
+        }
+    }
+
+    override fun preApprovePaymentSession(
+        paymentSessionId: String,
+        primaryInstrument: PaymentInstrumentIdentifier,
+        secondaryInstruments: List<SecondaryPaymentInstrument>?,
+        clientReference: String?,
+        challengeResponses: List<ChallengeResponse>?
+    ): ApiResult<Unit> {
+        return makeCall {
+            val api = createCustomerApi()
+
+            val body = au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetails1()
+            body.data = CustomerPaymentsPaymentRequestIdData().apply {
+                this.primaryInstrumentId = primaryInstrument.paymentInstrumentId
+                this.secondaryInstruments = secondaryInstruments?.map(::toSecondaryInstrument) ?: emptyList()
+                this.clientReference = clientReference
+            }
+
+            body.meta = MetaChallenge().apply {
+                this.challengeResponses = challengeResponses?.map(::toChallengeResponse) ?: emptyList()
+            }
+
+            api.preApprovePaymentSession(
+                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                paymentSessionId,
+                body,
+                primaryInstrument.wallet == Wallet.EVERYDAY_PAY
+            )
+
+            ApiResult.Success(Unit)
         }
     }
 }

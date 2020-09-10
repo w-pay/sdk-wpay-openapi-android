@@ -5,17 +5,19 @@ All URIs are relative to *http://localhost:3000*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**customerUpdatePaymentSession**](CustomerApi.md#customerUpdatePaymentSession) | **POST** /customer/payment/session/{paymentSessionId} | Update Payment Session
+[**deleteCustomerPaymentSession**](CustomerApi.md#deleteCustomerPaymentSession) | **DELETE** /customer/payment/session/{paymentSessionId} | Delete Payment Session
 [**deletePaymentInstrument**](CustomerApi.md#deletePaymentInstrument) | **DELETE** /customer/instruments/{paymentInstrumentId} | Delete a payment instrument
-[**getCustomerPaymentDetailsByPaymentId**](CustomerApi.md#getCustomerPaymentDetailsByPaymentId) | **GET** /customer/payments/{paymentRequestId} | Get Payment Details
-[**getCustomerPaymentDetailsByQRCodeId**](CustomerApi.md#getCustomerPaymentDetailsByQRCodeId) | **GET** /customer/qr/{qrId} | Get Payment From QR
 [**getCustomerPaymentInstruments**](CustomerApi.md#getCustomerPaymentInstruments) | **GET** /customer/instruments | Get Payment Instruments
+[**getCustomerPaymentRequestDetailsByPaymentId**](CustomerApi.md#getCustomerPaymentRequestDetailsByPaymentId) | **GET** /customer/payments/{paymentRequestId} | Get Payment Request details
+[**getCustomerPaymentRequestDetailsByQRCodeId**](CustomerApi.md#getCustomerPaymentRequestDetailsByQRCodeId) | **GET** /customer/qr/{qrId} | Get Payment Request details from a QR code
 [**getCustomerPaymentSession**](CustomerApi.md#getCustomerPaymentSession) | **GET** /customer/payment/session/{paymentSessionId} | Get Payment Session
-[**getCustomerPaymentSessionByQr**](CustomerApi.md#getCustomerPaymentSessionByQr) | **GET** /customer/payment/session/qr/{qrId} | Get Payment Session
+[**getCustomerPaymentSessionByQRCodeId**](CustomerApi.md#getCustomerPaymentSessionByQRCodeId) | **GET** /customer/payment/session/qr/{qrId} | Get Payment Session
 [**getCustomerPreferences**](CustomerApi.md#getCustomerPreferences) | **GET** /customer/preferences | Get Preferences
 [**getCustomerTransactionDetails**](CustomerApi.md#getCustomerTransactionDetails) | **GET** /customer/transactions/{transactionId} | Get Transaction Details
 [**getCustomerTransactions**](CustomerApi.md#getCustomerTransactions) | **GET** /customer/transactions | Get Transaction List
 [**initiatePaymentInstrumentAddition**](CustomerApi.md#initiatePaymentInstrumentAddition) | **POST** /customer/instruments | Initiate Instrument Addition
 [**makeCustomerPayment**](CustomerApi.md#makeCustomerPayment) | **PUT** /customer/payments/{paymentRequestId} | Pay Payment
+[**preApprovePaymentSession**](CustomerApi.md#preApprovePaymentSession) | **PUT** /customer/payment/session/{paymentSessionId} | Pre-Approve payment
 [**setCustomerPreferences**](CustomerApi.md#setCustomerPreferences) | **POST** /customer/preferences | Set Preferences
 
 
@@ -96,6 +98,76 @@ null (empty response body)
 **204** | The payment session has been successfully updated. No content returned. |  -  |
 **422** | The specified Payment Session ID doesn&#39;t exist, has already been associated with a wallet or has expired |  -  |
 
+<a name="deleteCustomerPaymentSession"></a>
+# **deleteCustomerPaymentSession**
+> deleteCustomerPaymentSession(xWalletID, paymentSessionId)
+
+Delete Payment Session
+
+Deletes a payment session by setting its expiration date/time to now
+
+### Example
+```java
+// Import classes:
+import au.com.woolworths.village.sdk.openapi.client.ApiClient;
+import au.com.woolworths.village.sdk.openapi.client.ApiException;
+import au.com.woolworths.village.sdk.openapi.client.Configuration;
+import au.com.woolworths.village.sdk.openapi.client.auth.*;
+import au.com.woolworths.village.sdk.openapi.client.models.*;
+import au.com.woolworths.village.sdk.openapi.api.CustomerApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:3000");
+    
+    // Configure API key authorization: ApiKeyAuth
+    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+    ApiKeyAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //ApiKeyAuth.setApiKeyPrefix("Token");
+
+    CustomerApi apiInstance = new CustomerApi(defaultClient);
+    String xWalletID = bb8f86af-9e7b-4659-85d5-346b5e99d500; // String | 
+    String paymentSessionId = "paymentSessionId_example"; // String | The ID of the specific payment session to delete
+    try {
+      apiInstance.deleteCustomerPaymentSession(xWalletID, paymentSessionId);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CustomerApi#deleteCustomerPaymentSession");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xWalletID** | **String**|  |
+ **paymentSessionId** | **String**| The ID of the specific payment session to delete |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | The payment session has been successfully deleted. No content returned. |  -  |
+
 <a name="deletePaymentInstrument"></a>
 # **deletePaymentInstrument**
 > deletePaymentInstrument(xWalletID, paymentInstrumentId, xEverdayPayWallet)
@@ -172,158 +244,6 @@ null (empty response body)
 |-------------|-------------|------------------|
 **204** | Payment Instrument successfully deleted.  No content returned |  -  |
 
-<a name="getCustomerPaymentDetailsByPaymentId"></a>
-# **getCustomerPaymentDetailsByPaymentId**
-> GetCustomerPaymentResult getCustomerPaymentDetailsByPaymentId(xWalletID, paymentRequestId)
-
-Get Payment Details
-
-Get the details for a specific payment request so that the customer can pay using it
-
-### Example
-```java
-// Import classes:
-import au.com.woolworths.village.sdk.openapi.client.ApiClient;
-import au.com.woolworths.village.sdk.openapi.client.ApiException;
-import au.com.woolworths.village.sdk.openapi.client.Configuration;
-import au.com.woolworths.village.sdk.openapi.client.auth.*;
-import au.com.woolworths.village.sdk.openapi.client.models.*;
-import au.com.woolworths.village.sdk.openapi.api.CustomerApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:3000");
-    
-    // Configure API key authorization: ApiKeyAuth
-    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
-    ApiKeyAuth.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //ApiKeyAuth.setApiKeyPrefix("Token");
-
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
-
-    CustomerApi apiInstance = new CustomerApi(defaultClient);
-    String xWalletID = bb8f86af-9e7b-4659-85d5-346b5e99d500; // String | 
-    String paymentRequestId = "paymentRequestId_example"; // String | The ID of the specific payment request
-    try {
-      GetCustomerPaymentResult result = apiInstance.getCustomerPaymentDetailsByPaymentId(xWalletID, paymentRequestId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling CustomerApi#getCustomerPaymentDetailsByPaymentId");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **xWalletID** | **String**|  |
- **paymentRequestId** | **String**| The ID of the specific payment request |
-
-### Return type
-
-[**GetCustomerPaymentResult**](GetCustomerPaymentResult.md)
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response. |  -  |
-**422** | The specified Payment Request ID doesn&#39;t exist, has been used or is expired |  -  |
-
-<a name="getCustomerPaymentDetailsByQRCodeId"></a>
-# **getCustomerPaymentDetailsByQRCodeId**
-> GetCustomerPaymentResult getCustomerPaymentDetailsByQRCodeId(xWalletID, qrId)
-
-Get Payment From QR
-
-Get the details for a specific payment from a QR Code ID so that the customer can pay using it
-
-### Example
-```java
-// Import classes:
-import au.com.woolworths.village.sdk.openapi.client.ApiClient;
-import au.com.woolworths.village.sdk.openapi.client.ApiException;
-import au.com.woolworths.village.sdk.openapi.client.Configuration;
-import au.com.woolworths.village.sdk.openapi.client.auth.*;
-import au.com.woolworths.village.sdk.openapi.client.models.*;
-import au.com.woolworths.village.sdk.openapi.api.CustomerApi;
-
-public class Example {
-  public static void main(String[] args) {
-    ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("http://localhost:3000");
-    
-    // Configure API key authorization: ApiKeyAuth
-    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
-    ApiKeyAuth.setApiKey("YOUR API KEY");
-    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-    //ApiKeyAuth.setApiKeyPrefix("Token");
-
-    // Configure HTTP bearer authorization: bearerAuth
-    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
-    bearerAuth.setBearerToken("BEARER TOKEN");
-
-    CustomerApi apiInstance = new CustomerApi(defaultClient);
-    String xWalletID = bb8f86af-9e7b-4659-85d5-346b5e99d500; // String | 
-    String qrId = "qrId_example"; // String | The ID of the specific QR Code
-    try {
-      GetCustomerPaymentResult result = apiInstance.getCustomerPaymentDetailsByQRCodeId(xWalletID, qrId);
-      System.out.println(result);
-    } catch (ApiException e) {
-      System.err.println("Exception when calling CustomerApi#getCustomerPaymentDetailsByQRCodeId");
-      System.err.println("Status code: " + e.getCode());
-      System.err.println("Reason: " + e.getResponseBody());
-      System.err.println("Response headers: " + e.getResponseHeaders());
-      e.printStackTrace();
-    }
-  }
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **xWalletID** | **String**|  |
- **qrId** | **String**| The ID of the specific QR Code |
-
-### Return type
-
-[**GetCustomerPaymentResult**](GetCustomerPaymentResult.md)
-
-### Authorization
-
-[ApiKeyAuth](../README.md#ApiKeyAuth), [bearerAuth](../README.md#bearerAuth)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-### HTTP response details
-| Status code | Description | Response headers |
-|-------------|-------------|------------------|
-**200** | Successful response. |  -  |
-**422** | The specified QR Code ID doesn&#39;t exist or has been expired or the underlying payment request is no longer usable |  -  |
-
 <a name="getCustomerPaymentInstruments"></a>
 # **getCustomerPaymentInstruments**
 > GetCustomerPaymentInstrumentsResults getCustomerPaymentInstruments(xWalletID, xEverdayPayWallet)
@@ -398,6 +318,158 @@ Name | Type | Description  | Notes
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
+
+<a name="getCustomerPaymentRequestDetailsByPaymentId"></a>
+# **getCustomerPaymentRequestDetailsByPaymentId**
+> GetCustomerPaymentRequestResult getCustomerPaymentRequestDetailsByPaymentId(xWalletID, paymentRequestId)
+
+Get Payment Request details
+
+Get the details for a specific payment request so that the customer can pay using it
+
+### Example
+```java
+// Import classes:
+import au.com.woolworths.village.sdk.openapi.client.ApiClient;
+import au.com.woolworths.village.sdk.openapi.client.ApiException;
+import au.com.woolworths.village.sdk.openapi.client.Configuration;
+import au.com.woolworths.village.sdk.openapi.client.auth.*;
+import au.com.woolworths.village.sdk.openapi.client.models.*;
+import au.com.woolworths.village.sdk.openapi.api.CustomerApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:3000");
+    
+    // Configure API key authorization: ApiKeyAuth
+    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+    ApiKeyAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //ApiKeyAuth.setApiKeyPrefix("Token");
+
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    CustomerApi apiInstance = new CustomerApi(defaultClient);
+    String xWalletID = bb8f86af-9e7b-4659-85d5-346b5e99d500; // String | 
+    String paymentRequestId = "paymentRequestId_example"; // String | The ID of the specific payment request
+    try {
+      GetCustomerPaymentRequestResult result = apiInstance.getCustomerPaymentRequestDetailsByPaymentId(xWalletID, paymentRequestId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CustomerApi#getCustomerPaymentRequestDetailsByPaymentId");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xWalletID** | **String**|  |
+ **paymentRequestId** | **String**| The ID of the specific payment request |
+
+### Return type
+
+[**GetCustomerPaymentRequestResult**](GetCustomerPaymentRequestResult.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response. |  -  |
+**422** | The specified Payment Request ID doesn&#39;t exist, has been used or is expired |  -  |
+
+<a name="getCustomerPaymentRequestDetailsByQRCodeId"></a>
+# **getCustomerPaymentRequestDetailsByQRCodeId**
+> GetCustomerPaymentRequestResult getCustomerPaymentRequestDetailsByQRCodeId(xWalletID, qrId)
+
+Get Payment Request details from a QR code
+
+Get the details for a specific payment from a QR Code ID so that the customer can pay using it
+
+### Example
+```java
+// Import classes:
+import au.com.woolworths.village.sdk.openapi.client.ApiClient;
+import au.com.woolworths.village.sdk.openapi.client.ApiException;
+import au.com.woolworths.village.sdk.openapi.client.Configuration;
+import au.com.woolworths.village.sdk.openapi.client.auth.*;
+import au.com.woolworths.village.sdk.openapi.client.models.*;
+import au.com.woolworths.village.sdk.openapi.api.CustomerApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:3000");
+    
+    // Configure API key authorization: ApiKeyAuth
+    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+    ApiKeyAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //ApiKeyAuth.setApiKeyPrefix("Token");
+
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    CustomerApi apiInstance = new CustomerApi(defaultClient);
+    String xWalletID = bb8f86af-9e7b-4659-85d5-346b5e99d500; // String | 
+    String qrId = "qrId_example"; // String | The ID of the specific QR Code
+    try {
+      GetCustomerPaymentRequestResult result = apiInstance.getCustomerPaymentRequestDetailsByQRCodeId(xWalletID, qrId);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CustomerApi#getCustomerPaymentRequestDetailsByQRCodeId");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xWalletID** | **String**|  |
+ **qrId** | **String**| The ID of the specific QR Code |
+
+### Return type
+
+[**GetCustomerPaymentRequestResult**](GetCustomerPaymentRequestResult.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response. |  -  |
+**422** | The specified QR Code ID doesn&#39;t exist or has been expired or the underlying payment request is no longer usable |  -  |
 
 <a name="getCustomerPaymentSession"></a>
 # **getCustomerPaymentSession**
@@ -475,9 +547,9 @@ Name | Type | Description  | Notes
 **200** | Successful response |  -  |
 **422** | The specified Payment Session ID doesn&#39;t exist or has expired |  -  |
 
-<a name="getCustomerPaymentSessionByQr"></a>
-# **getCustomerPaymentSessionByQr**
-> CustomerPaymentSessionResult getCustomerPaymentSessionByQr(xWalletID, qrId)
+<a name="getCustomerPaymentSessionByQRCodeId"></a>
+# **getCustomerPaymentSessionByQRCodeId**
+> CustomerPaymentSessionResult getCustomerPaymentSessionByQRCodeId(xWalletID, qrId)
 
 Get Payment Session
 
@@ -512,10 +584,10 @@ public class Example {
     String xWalletID = bb8f86af-9e7b-4659-85d5-346b5e99d500; // String | 
     String qrId = "qrId_example"; // String | The ID of the qr relating to the payment session
     try {
-      CustomerPaymentSessionResult result = apiInstance.getCustomerPaymentSessionByQr(xWalletID, qrId);
+      CustomerPaymentSessionResult result = apiInstance.getCustomerPaymentSessionByQRCodeId(xWalletID, qrId);
       System.out.println(result);
     } catch (ApiException e) {
-      System.err.println("Exception when calling CustomerApi#getCustomerPaymentSessionByQr");
+      System.err.println("Exception when calling CustomerApi#getCustomerPaymentSessionByQRCodeId");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -938,6 +1010,84 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 **200** | Successful response |  -  |
 **422** | The specified Payment Request ID doesn&#39;t exist, has been used or is expired |  -  |
+
+<a name="preApprovePaymentSession"></a>
+# **preApprovePaymentSession**
+> preApprovePaymentSession(xWalletID, paymentSessionId, customerPaymentDetails1, xEverdayPayWallet)
+
+Pre-Approve payment
+
+Pre-Approve a payment session to make a payment using the instrument details provided
+
+### Example
+```java
+// Import classes:
+import au.com.woolworths.village.sdk.openapi.client.ApiClient;
+import au.com.woolworths.village.sdk.openapi.client.ApiException;
+import au.com.woolworths.village.sdk.openapi.client.Configuration;
+import au.com.woolworths.village.sdk.openapi.client.auth.*;
+import au.com.woolworths.village.sdk.openapi.client.models.*;
+import au.com.woolworths.village.sdk.openapi.api.CustomerApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:3000");
+    
+    // Configure API key authorization: ApiKeyAuth
+    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+    ApiKeyAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //ApiKeyAuth.setApiKeyPrefix("Token");
+
+    // Configure HTTP bearer authorization: bearerAuth
+    HttpBearerAuth bearerAuth = (HttpBearerAuth) defaultClient.getAuthentication("bearerAuth");
+    bearerAuth.setBearerToken("BEARER TOKEN");
+
+    CustomerApi apiInstance = new CustomerApi(defaultClient);
+    String xWalletID = bb8f86af-9e7b-4659-85d5-346b5e99d500; // String | 
+    String paymentSessionId = "paymentSessionId_example"; // String | The ID of the specific payment session
+    CustomerPaymentDetails1 customerPaymentDetails1 = new CustomerPaymentDetails1(); // CustomerPaymentDetails1 | 
+    Boolean xEverdayPayWallet = false; // Boolean | The makes instruments available in the everyday pay wallet available for payments
+    try {
+      apiInstance.preApprovePaymentSession(xWalletID, paymentSessionId, customerPaymentDetails1, xEverdayPayWallet);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling CustomerApi#preApprovePaymentSession");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xWalletID** | **String**|  |
+ **paymentSessionId** | **String**| The ID of the specific payment session |
+ **customerPaymentDetails1** | [**CustomerPaymentDetails1**](CustomerPaymentDetails1.md)|  |
+ **xEverdayPayWallet** | **Boolean**| The makes instruments available in the everyday pay wallet available for payments | [optional] [default to false]
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth), [bearerAuth](../README.md#bearerAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: Not defined
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**204** | The pre approval has been successfully added to the payment session. No content returned. |  -  |
 
 <a name="setCustomerPreferences"></a>
 # **setCustomerPreferences**

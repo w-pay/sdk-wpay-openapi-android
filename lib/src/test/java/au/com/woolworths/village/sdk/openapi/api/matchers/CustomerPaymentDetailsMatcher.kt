@@ -1,6 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.api.matchers
 
-import au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetail
+import au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentRequestDetails
 
 import org.hamcrest.Description
 import org.hamcrest.MatcherAssert.assertThat
@@ -14,8 +14,8 @@ fun hasCustomerPaymentDetails(): CustomerPaymentDetailsMatcher {
     return CustomerPaymentDetailsMatcher()
 }
 
-class CustomerPaymentDetailsMatcher : TypeSafeMatcher<CustomerPaymentDetail>() {
-    override fun matchesSafely(item: CustomerPaymentDetail): Boolean {
+class CustomerPaymentDetailsMatcher : TypeSafeMatcher<CustomerPaymentRequestDetails>() {
+    override fun matchesSafely(item: CustomerPaymentRequestDetails): Boolean {
         assertThat(item, not(nullValue()))
         assertThat(item.paymentRequestId, not(blankOrNullString()))
         assertThat(item.merchantId, not(blankOrNullString()))

@@ -5,7 +5,7 @@ import au.com.woolworths.village.sdk.model.CustomerPaymentRequest
 import java.math.BigDecimal
 
 class OpenApiCustomerPaymentRequest(
-    private val customerPaymentDetails: au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetail
+    private val customerPaymentDetails: au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentRequestDetails
 ): CustomerPaymentRequest {
     override val paymentRequestId: String
         get() = customerPaymentDetails.paymentRequestId

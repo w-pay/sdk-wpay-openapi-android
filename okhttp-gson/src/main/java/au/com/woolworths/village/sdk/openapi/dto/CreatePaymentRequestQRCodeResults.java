@@ -15,7 +15,7 @@ package au.com.woolworths.village.sdk.openapi.dto;
 
 import java.util.Objects;
 import java.util.Arrays;
-import au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentSessionPaymentSessionIdData;
+import au.com.woolworths.village.sdk.openapi.dto.Qr;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -30,22 +30,22 @@ import java.util.Map;
 import java.io.Serializable;
 
 /**
- * UpdatePaymentSessionRequest
+ * CreatePaymentRequestQRCodeResults
  */
 
-public class UpdatePaymentSessionRequest implements Serializable {
+public class CreatePaymentRequestQRCodeResults implements Serializable {
   private static final long serialVersionUID = 1L;
 
   public static final String SERIALIZED_NAME_DATA = "data";
   @SerializedName(SERIALIZED_NAME_DATA)
-  private CustomerPaymentSessionPaymentSessionIdData data;
+  private Qr data;
 
   public static final String SERIALIZED_NAME_META = "meta";
   @SerializedName(SERIALIZED_NAME_META)
   private Map<String, Object> meta = new HashMap<String, Object>();
 
 
-  public UpdatePaymentSessionRequest data(CustomerPaymentSessionPaymentSessionIdData data) {
+  public CreatePaymentRequestQRCodeResults data(Qr data) {
     
     this.data = data;
     return this;
@@ -57,23 +57,23 @@ public class UpdatePaymentSessionRequest implements Serializable {
   **/
   @ApiModelProperty(required = true, value = "")
 
-  public CustomerPaymentSessionPaymentSessionIdData getData() {
+  public Qr getData() {
     return data;
   }
 
 
-  public void setData(CustomerPaymentSessionPaymentSessionIdData data) {
+  public void setData(Qr data) {
     this.data = data;
   }
 
 
-  public UpdatePaymentSessionRequest meta(Map<String, Object> meta) {
+  public CreatePaymentRequestQRCodeResults meta(Map<String, Object> meta) {
     
     this.meta = meta;
     return this;
   }
 
-  public UpdatePaymentSessionRequest putMetaItem(String key, Object metaItem) {
+  public CreatePaymentRequestQRCodeResults putMetaItem(String key, Object metaItem) {
     this.meta.put(key, metaItem);
     return this;
   }
@@ -102,9 +102,9 @@ public class UpdatePaymentSessionRequest implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UpdatePaymentSessionRequest updatePaymentSessionRequest = (UpdatePaymentSessionRequest) o;
-    return Objects.equals(this.data, updatePaymentSessionRequest.data) &&
-        Objects.equals(this.meta, updatePaymentSessionRequest.meta);
+    CreatePaymentRequestQRCodeResults createPaymentRequestQRCodeResults = (CreatePaymentRequestQRCodeResults) o;
+    return Objects.equals(this.data, createPaymentRequestQRCodeResults.data) &&
+        Objects.equals(this.meta, createPaymentRequestQRCodeResults.meta);
   }
 
   @Override
@@ -116,7 +116,7 @@ public class UpdatePaymentSessionRequest implements Serializable {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UpdatePaymentSessionRequest {\n");
+    sb.append("class CreatePaymentRequestQRCodeResults {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");
