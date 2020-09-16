@@ -10,6 +10,9 @@ class OpenApiPaymentSession(
     override val paymentSessionId: String
         get() = session.paymentSessionId
 
+    override val paymentRequestId: String?
+        get() = session.paymentRequestId
+
     override val merchantId: String
         get() = session.merchantId
 
