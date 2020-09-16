@@ -15,6 +15,7 @@ fun paymentSession(): Matcher<PaymentSession> = PaymentSessionMatcher()
 class PaymentSessionMatcher: TypeSafeMatcher<PaymentSession>() {
     override fun matchesSafely(item: PaymentSession): Boolean {
         assertThat(item.paymentSessionId, not(blankOrNullString()))
+        assertThat(item.paymentRequestId, blankOrNullString())
         assertThat(item.merchantId, not(blankOrNullString()))
         assertThat(item.walletId, nullValue())
         assertThat(item.expiryTime, not(nullValue()))
