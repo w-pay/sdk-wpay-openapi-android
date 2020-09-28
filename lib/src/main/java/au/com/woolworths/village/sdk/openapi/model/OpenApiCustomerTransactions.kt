@@ -34,8 +34,8 @@ class OpenApiCustomerTransactionSummary(
     override val status: TransactionSummary.PaymentStatus
         get() = TransactionSummary.PaymentStatus.valueOf(summary.status.value)
 
-    override val statusDetail: Any
-        get() = Any()
+    override val statusDetail: Any?
+        get() = summary.statusDetail
 
     override val refundReason: String?
         get() = summary.refundReason
@@ -77,8 +77,8 @@ class OpenApiCustomerTransactionDetails(
     override val status: TransactionSummary.PaymentStatus
         get() = TransactionSummary.PaymentStatus.valueOf(details.status.value)
 
-    override val statusDetail: Any
-        get() = Any()
+    override val statusDetail: Any?
+        get() = details.statusDetail
 
     override val refundReason: String?
         get() = details.refundReason
