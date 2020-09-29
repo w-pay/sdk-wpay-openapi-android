@@ -30,8 +30,8 @@ class OpenApiMerchantTransactionSummary(
     override val status: TransactionSummary.PaymentStatus
         get() = TransactionSummary.PaymentStatus.valueOf(summary.status.value.toUpperCase(Locale.ROOT))
 
-    override val statusDetail: Any
-        get() = Any()
+    override val statusDetail: Any?
+        get() = summary.statusDetail
 
     override val refundReason: String?
         get() = summary.refundReason
@@ -76,8 +76,8 @@ class OpenApiMerchantTransactionDetails(
     override val status: TransactionSummary.PaymentStatus
         get() = TransactionSummary.PaymentStatus.valueOf(details.status.value)
 
-    override val statusDetail: Any
-        get() = Any()
+    override val statusDetail: Any?
+        get() = details.statusDetail
 
     override val refundReason: String?
         get() = details.refundReason
