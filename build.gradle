@@ -79,6 +79,10 @@ def clients = [
     "objc": [
         language: "objc",
         library: null
+    ],
+    "javascript": [
+        language: "javascript",
+        library: null
     ]
 ]
 
@@ -115,6 +119,15 @@ clients.each { name, client ->
                 ]
 
                 break
+
+            case "javascript":
+                apiPackage = "api"
+                invokerPackage = "client"
+                modelPackage = "dto"
+
+                additionalProperties = [
+                    usePromises: "true"
+                ]
         }
 
         generateModelTests = false
