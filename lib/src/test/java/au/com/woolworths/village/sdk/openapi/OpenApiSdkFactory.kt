@@ -17,7 +17,8 @@ class OpenApiSdkFactory: SdkFactory {
 class TestRequestHeadersFactory: RequestHeadersFactory {
     override fun createHeaders(): Map<String, String> {
         return hashMapOf(
-            X_WALLET_ID to "a value"
+            X_WALLET_ID to "a value",
+            X_MERCHANT_ID to "a value"
         )
     }
 }
