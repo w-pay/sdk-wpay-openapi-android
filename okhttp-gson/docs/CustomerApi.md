@@ -170,7 +170,7 @@ null (empty response body)
 
 <a name="deletePaymentInstrument"></a>
 # **deletePaymentInstrument**
-> deletePaymentInstrument(xWalletID, paymentInstrumentId, xEverdayPayWallet)
+> deletePaymentInstrument(xWalletID, paymentInstrumentId, xEverydayPayWallet)
 
 Delete a payment instrument
 
@@ -204,9 +204,9 @@ public class Example {
     CustomerApi apiInstance = new CustomerApi(defaultClient);
     String xWalletID = bb8f86af-9e7b-4659-85d5-346b5e99d500; // String | 
     String paymentInstrumentId = "paymentInstrumentId_example"; // String | The ID of the specific instrument
-    Boolean xEverdayPayWallet = false; // Boolean | The payment instrument to be deleted is in the everyday pay wallet
+    Boolean xEverydayPayWallet = false; // Boolean | The payment instrument to be deleted is in the everyday pay wallet
     try {
-      apiInstance.deletePaymentInstrument(xWalletID, paymentInstrumentId, xEverdayPayWallet);
+      apiInstance.deletePaymentInstrument(xWalletID, paymentInstrumentId, xEverydayPayWallet);
     } catch (ApiException e) {
       System.err.println("Exception when calling CustomerApi#deletePaymentInstrument");
       System.err.println("Status code: " + e.getCode());
@@ -224,7 +224,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xWalletID** | **String**|  |
  **paymentInstrumentId** | **String**| The ID of the specific instrument |
- **xEverdayPayWallet** | **Boolean**| The payment instrument to be deleted is in the everyday pay wallet | [optional] [default to false]
+ **xEverydayPayWallet** | **Boolean**| The payment instrument to be deleted is in the everyday pay wallet | [optional] [default to false]
 
 ### Return type
 
@@ -246,7 +246,7 @@ null (empty response body)
 
 <a name="getCustomerPaymentInstruments"></a>
 # **getCustomerPaymentInstruments**
-> GetCustomerPaymentInstrumentsResults getCustomerPaymentInstruments(xWalletID, xEverdayPayWallet)
+> GetCustomerPaymentInstrumentsResults getCustomerPaymentInstruments(xWalletID, xEverydayPayWallet)
 
 Get Payment Instruments
 
@@ -279,9 +279,9 @@ public class Example {
 
     CustomerApi apiInstance = new CustomerApi(defaultClient);
     String xWalletID = bb8f86af-9e7b-4659-85d5-346b5e99d500; // String | 
-    Boolean xEverdayPayWallet = false; // Boolean | Includes everyday pay wallet in the list of payment instruments
+    Boolean xEverydayPayWallet = false; // Boolean | Includes everyday pay wallet in the list of payment instruments
     try {
-      GetCustomerPaymentInstrumentsResults result = apiInstance.getCustomerPaymentInstruments(xWalletID, xEverdayPayWallet);
+      GetCustomerPaymentInstrumentsResults result = apiInstance.getCustomerPaymentInstruments(xWalletID, xEverydayPayWallet);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CustomerApi#getCustomerPaymentInstruments");
@@ -299,7 +299,7 @@ public class Example {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xWalletID** | **String**|  |
- **xEverdayPayWallet** | **Boolean**| Includes everyday pay wallet in the list of payment instruments | [optional] [default to false]
+ **xEverydayPayWallet** | **Boolean**| Includes everyday pay wallet in the list of payment instruments | [optional] [default to false]
 
 ### Return type
 
@@ -856,7 +856,7 @@ Name | Type | Description  | Notes
 
 <a name="initiatePaymentInstrumentAddition"></a>
 # **initiatePaymentInstrumentAddition**
-> InitiatePaymentInstrumentAdditionResults initiatePaymentInstrumentAddition(xWalletID, instrumentAdditionDetails, xEverdayPayWallet)
+> InitiatePaymentInstrumentAdditionResults initiatePaymentInstrumentAddition(xWalletID, instrumentAdditionDetails, xEverydayPayWallet)
 
 Initiate Instrument Addition
 
@@ -890,9 +890,9 @@ public class Example {
     CustomerApi apiInstance = new CustomerApi(defaultClient);
     String xWalletID = bb8f86af-9e7b-4659-85d5-346b5e99d500; // String | 
     InstrumentAdditionDetails instrumentAdditionDetails = new InstrumentAdditionDetails(); // InstrumentAdditionDetails | 
-    Boolean xEverdayPayWallet = false; // Boolean | The payment instrument should be stored in the everyday pay wallet
+    Boolean xEverydayPayWallet = false; // Boolean | The payment instrument should be stored in the everyday pay wallet
     try {
-      InitiatePaymentInstrumentAdditionResults result = apiInstance.initiatePaymentInstrumentAddition(xWalletID, instrumentAdditionDetails, xEverdayPayWallet);
+      InitiatePaymentInstrumentAdditionResults result = apiInstance.initiatePaymentInstrumentAddition(xWalletID, instrumentAdditionDetails, xEverydayPayWallet);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CustomerApi#initiatePaymentInstrumentAddition");
@@ -911,7 +911,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xWalletID** | **String**|  |
  **instrumentAdditionDetails** | [**InstrumentAdditionDetails**](InstrumentAdditionDetails.md)|  |
- **xEverdayPayWallet** | **Boolean**| The payment instrument should be stored in the everyday pay wallet | [optional] [default to false]
+ **xEverydayPayWallet** | **Boolean**| The payment instrument should be stored in the everyday pay wallet | [optional] [default to false]
 
 ### Return type
 
@@ -933,7 +933,7 @@ Name | Type | Description  | Notes
 
 <a name="makeCustomerPayment"></a>
 # **makeCustomerPayment**
-> MakeCustomerPaymentResults makeCustomerPayment(xWalletID, paymentRequestId, customerPaymentDetails, xEverdayPayWallet)
+> MakeCustomerPaymentResults makeCustomerPayment(xWalletID, paymentRequestId, customerPaymentDetails, xEverydayPayWallet)
 
 Pay Payment
 
@@ -968,9 +968,9 @@ public class Example {
     String xWalletID = bb8f86af-9e7b-4659-85d5-346b5e99d500; // String | 
     String paymentRequestId = "paymentRequestId_example"; // String | The ID of the specific payment request
     CustomerPaymentDetails customerPaymentDetails = new CustomerPaymentDetails(); // CustomerPaymentDetails | 
-    Boolean xEverdayPayWallet = false; // Boolean | The makes instruments available in the everyday pay wallet available for payments
+    Boolean xEverydayPayWallet = false; // Boolean | The makes instruments available in the everyday pay wallet available for payments
     try {
-      MakeCustomerPaymentResults result = apiInstance.makeCustomerPayment(xWalletID, paymentRequestId, customerPaymentDetails, xEverdayPayWallet);
+      MakeCustomerPaymentResults result = apiInstance.makeCustomerPayment(xWalletID, paymentRequestId, customerPaymentDetails, xEverydayPayWallet);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CustomerApi#makeCustomerPayment");
@@ -990,7 +990,7 @@ Name | Type | Description  | Notes
  **xWalletID** | **String**|  |
  **paymentRequestId** | **String**| The ID of the specific payment request |
  **customerPaymentDetails** | [**CustomerPaymentDetails**](CustomerPaymentDetails.md)|  |
- **xEverdayPayWallet** | **Boolean**| The makes instruments available in the everyday pay wallet available for payments | [optional] [default to false]
+ **xEverydayPayWallet** | **Boolean**| The makes instruments available in the everyday pay wallet available for payments | [optional] [default to false]
 
 ### Return type
 
@@ -1013,7 +1013,7 @@ Name | Type | Description  | Notes
 
 <a name="preApprovePaymentSession"></a>
 # **preApprovePaymentSession**
-> preApprovePaymentSession(xWalletID, paymentSessionId, customerPaymentDetails1, xEverdayPayWallet)
+> preApprovePaymentSession(xWalletID, paymentSessionId, customerPaymentDetails1, xEverydayPayWallet)
 
 Pre-Approve payment
 
@@ -1048,9 +1048,9 @@ public class Example {
     String xWalletID = bb8f86af-9e7b-4659-85d5-346b5e99d500; // String | 
     String paymentSessionId = "paymentSessionId_example"; // String | The ID of the specific payment session
     CustomerPaymentDetails1 customerPaymentDetails1 = new CustomerPaymentDetails1(); // CustomerPaymentDetails1 | 
-    Boolean xEverdayPayWallet = false; // Boolean | The makes instruments available in the everyday pay wallet available for payments
+    Boolean xEverydayPayWallet = false; // Boolean | The makes instruments available in the everyday pay wallet available for payments
     try {
-      apiInstance.preApprovePaymentSession(xWalletID, paymentSessionId, customerPaymentDetails1, xEverdayPayWallet);
+      apiInstance.preApprovePaymentSession(xWalletID, paymentSessionId, customerPaymentDetails1, xEverydayPayWallet);
     } catch (ApiException e) {
       System.err.println("Exception when calling CustomerApi#preApprovePaymentSession");
       System.err.println("Status code: " + e.getCode());
@@ -1069,7 +1069,7 @@ Name | Type | Description  | Notes
  **xWalletID** | **String**|  |
  **paymentSessionId** | **String**| The ID of the specific payment session |
  **customerPaymentDetails1** | [**CustomerPaymentDetails1**](CustomerPaymentDetails1.md)|  |
- **xEverdayPayWallet** | **Boolean**| The makes instruments available in the everyday pay wallet available for payments | [optional] [default to false]
+ **xEverydayPayWallet** | **Boolean**| The makes instruments available in the everyday pay wallet available for payments | [optional] [default to false]
 
 ### Return type
 
