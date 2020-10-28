@@ -29,7 +29,7 @@ class OpenApiVillageMerchantApiRepository(
             val api = createMerchantApi()
             
             val data = api.getMerchantTransactions(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID),
                 startTime,
                 endTime,
                 pageSize,
@@ -44,7 +44,7 @@ class OpenApiVillageMerchantApiRepository(
             val api = createMerchantApi()
             
             val data = api.getMerchantTransactionDetails(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID),
                 transactionId
             ).data
 
@@ -68,7 +68,7 @@ class OpenApiVillageMerchantApiRepository(
             }
 
             val data = api.createPaymentRequestQRCode(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID),
                 body
             ).data
 
@@ -81,7 +81,7 @@ class OpenApiVillageMerchantApiRepository(
             val api = createMerchantApi()
 
             val data = api.getPaymentRequestQRCodeContent(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID),
                 qrCodeId
             ).data
 
@@ -94,7 +94,7 @@ class OpenApiVillageMerchantApiRepository(
             val api = createMerchantApi()
 
             api.cancelPaymentRequestQRCode(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID),
                 qrCodeId
             )
 
@@ -107,7 +107,7 @@ class OpenApiVillageMerchantApiRepository(
             val api = createMerchantApi()
 
             val data = api.getMerchantPayments(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID),
                 type,
                 pageSize,
                 page
@@ -166,7 +166,7 @@ class OpenApiVillageMerchantApiRepository(
             }
 
             val data = api.createPaymentRequest(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID),
                 body
             ).data
 
@@ -179,7 +179,7 @@ class OpenApiVillageMerchantApiRepository(
             val api = createMerchantApi()
 
             val data = api.getMerchantPaymentDetails(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID),
                 paymentRequestId
             ).data
 
@@ -192,7 +192,7 @@ class OpenApiVillageMerchantApiRepository(
             val api = createMerchantApi()
 
             api.deleteMerchantPaymentRequest(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID),
                 paymentRequestId
             )
 
@@ -213,7 +213,7 @@ class OpenApiVillageMerchantApiRepository(
             }
 
             val data = api.refundMerchantTransaction(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID),
                 transactionId,
                 body
             ).data
@@ -227,7 +227,7 @@ class OpenApiVillageMerchantApiRepository(
             val api = createMerchantApi()
 
             val data = api.getMerchantPreferences(
-                getDefaultHeader(api.apiClient, X_WALLET_ID)
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID)
             ).data
 
             ApiResult.Success(data)
@@ -242,7 +242,7 @@ class OpenApiVillageMerchantApiRepository(
             body.data = preferences
 
             api.setMerchantPreferences(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID),
                 body
             )
 
@@ -255,7 +255,7 @@ class OpenApiVillageMerchantApiRepository(
             val api = createMerchantApi()
 
             val data = api.getMerchantSchemas(
-                getDefaultHeader(api.apiClient, X_WALLET_ID)
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID)
             ).data
 
             ApiResult.Success(OpenApiMerchantSchemaSummaries(data.schemas))
@@ -267,7 +267,7 @@ class OpenApiVillageMerchantApiRepository(
             val api = createMerchantApi()
 
             val data = api.getMerchantSchemaDetails(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID),
                 schemaId
             ).data
 
@@ -287,7 +287,7 @@ class OpenApiVillageMerchantApiRepository(
             }
 
             val data = api.createMerchantSchema(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID),
                 body
             ).data
 
@@ -309,7 +309,7 @@ class OpenApiVillageMerchantApiRepository(
             }
 
             val data = api.createPaymentSession(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID),
                 body
             ).data
 
@@ -322,7 +322,7 @@ class OpenApiVillageMerchantApiRepository(
             val api = createMerchantApi()
 
             val data = api.getPaymentSession(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID),
                 paymentSessionId
             ).data
 
@@ -345,7 +345,7 @@ class OpenApiVillageMerchantApiRepository(
             }
 
             api.merchantUpdatePaymentSession(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID),
                 paymentSessionId,
                 body
             )
@@ -359,7 +359,7 @@ class OpenApiVillageMerchantApiRepository(
             val api = createMerchantApi()
 
             api.deletePaymentSession(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_MERCHANT_ID),
                 paymentSessionId
             )
 
