@@ -325,7 +325,7 @@ public class CustomerApi {
      * Build call for deletePaymentInstrument
      * @param xWalletID  (required)
      * @param paymentInstrumentId The ID of the specific instrument (required)
-     * @param xEverdayPayWallet The payment instrument to be deleted is in the everyday pay wallet (optional, default to false)
+     * @param xEverydayPayWallet The payment instrument to be deleted is in the everyday pay wallet (optional, default to false)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -335,7 +335,7 @@ public class CustomerApi {
         <tr><td> 204 </td><td> Payment Instrument successfully deleted.  No content returned </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deletePaymentInstrumentCall(String xWalletID, String paymentInstrumentId, Boolean xEverdayPayWallet, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call deletePaymentInstrumentCall(String xWalletID, String paymentInstrumentId, Boolean xEverydayPayWallet, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -349,8 +349,8 @@ public class CustomerApi {
             localVarHeaderParams.put("X-Wallet-ID", localVarApiClient.parameterToString(xWalletID));
         }
 
-        if (xEverdayPayWallet != null) {
-            localVarHeaderParams.put("X-Everday-Pay-Wallet", localVarApiClient.parameterToString(xEverdayPayWallet));
+        if (xEverydayPayWallet != null) {
+            localVarHeaderParams.put("X-Everyday-Pay-Wallet", localVarApiClient.parameterToString(xEverydayPayWallet));
         }
 
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
@@ -374,7 +374,7 @@ public class CustomerApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call deletePaymentInstrumentValidateBeforeCall(String xWalletID, String paymentInstrumentId, Boolean xEverdayPayWallet, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call deletePaymentInstrumentValidateBeforeCall(String xWalletID, String paymentInstrumentId, Boolean xEverydayPayWallet, final ApiCallback _callback) throws ApiException {
         
         // verify the required parameter 'xWalletID' is set
         if (xWalletID == null) {
@@ -387,7 +387,7 @@ public class CustomerApi {
         }
         
 
-        okhttp3.Call localVarCall = deletePaymentInstrumentCall(xWalletID, paymentInstrumentId, xEverdayPayWallet, _callback);
+        okhttp3.Call localVarCall = deletePaymentInstrumentCall(xWalletID, paymentInstrumentId, xEverydayPayWallet, _callback);
         return localVarCall;
 
     }
@@ -397,7 +397,7 @@ public class CustomerApi {
      * Delete an existing payment instrument
      * @param xWalletID  (required)
      * @param paymentInstrumentId The ID of the specific instrument (required)
-     * @param xEverdayPayWallet The payment instrument to be deleted is in the everyday pay wallet (optional, default to false)
+     * @param xEverydayPayWallet The payment instrument to be deleted is in the everyday pay wallet (optional, default to false)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -405,8 +405,8 @@ public class CustomerApi {
         <tr><td> 204 </td><td> Payment Instrument successfully deleted.  No content returned </td><td>  -  </td></tr>
      </table>
      */
-    public void deletePaymentInstrument(String xWalletID, String paymentInstrumentId, Boolean xEverdayPayWallet) throws ApiException {
-        deletePaymentInstrumentWithHttpInfo(xWalletID, paymentInstrumentId, xEverdayPayWallet);
+    public void deletePaymentInstrument(String xWalletID, String paymentInstrumentId, Boolean xEverydayPayWallet) throws ApiException {
+        deletePaymentInstrumentWithHttpInfo(xWalletID, paymentInstrumentId, xEverydayPayWallet);
     }
 
     /**
@@ -414,7 +414,7 @@ public class CustomerApi {
      * Delete an existing payment instrument
      * @param xWalletID  (required)
      * @param paymentInstrumentId The ID of the specific instrument (required)
-     * @param xEverdayPayWallet The payment instrument to be deleted is in the everyday pay wallet (optional, default to false)
+     * @param xEverydayPayWallet The payment instrument to be deleted is in the everyday pay wallet (optional, default to false)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -423,8 +423,8 @@ public class CustomerApi {
         <tr><td> 204 </td><td> Payment Instrument successfully deleted.  No content returned </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> deletePaymentInstrumentWithHttpInfo(String xWalletID, String paymentInstrumentId, Boolean xEverdayPayWallet) throws ApiException {
-        okhttp3.Call localVarCall = deletePaymentInstrumentValidateBeforeCall(xWalletID, paymentInstrumentId, xEverdayPayWallet, null);
+    public ApiResponse<Void> deletePaymentInstrumentWithHttpInfo(String xWalletID, String paymentInstrumentId, Boolean xEverydayPayWallet) throws ApiException {
+        okhttp3.Call localVarCall = deletePaymentInstrumentValidateBeforeCall(xWalletID, paymentInstrumentId, xEverydayPayWallet, null);
         return localVarApiClient.execute(localVarCall);
     }
 
@@ -433,7 +433,7 @@ public class CustomerApi {
      * Delete an existing payment instrument
      * @param xWalletID  (required)
      * @param paymentInstrumentId The ID of the specific instrument (required)
-     * @param xEverdayPayWallet The payment instrument to be deleted is in the everyday pay wallet (optional, default to false)
+     * @param xEverydayPayWallet The payment instrument to be deleted is in the everyday pay wallet (optional, default to false)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -443,16 +443,16 @@ public class CustomerApi {
         <tr><td> 204 </td><td> Payment Instrument successfully deleted.  No content returned </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call deletePaymentInstrumentAsync(String xWalletID, String paymentInstrumentId, Boolean xEverdayPayWallet, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call deletePaymentInstrumentAsync(String xWalletID, String paymentInstrumentId, Boolean xEverydayPayWallet, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = deletePaymentInstrumentValidateBeforeCall(xWalletID, paymentInstrumentId, xEverdayPayWallet, _callback);
+        okhttp3.Call localVarCall = deletePaymentInstrumentValidateBeforeCall(xWalletID, paymentInstrumentId, xEverydayPayWallet, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
     /**
      * Build call for getCustomerPaymentInstruments
      * @param xWalletID  (required)
-     * @param xEverdayPayWallet Includes everyday pay wallet in the list of payment instruments (optional, default to false)
+     * @param xEverydayPayWallet Includes everyday pay wallet in the list of payment instruments (optional, default to false)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -462,7 +462,7 @@ public class CustomerApi {
         <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCustomerPaymentInstrumentsCall(String xWalletID, Boolean xEverdayPayWallet, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call getCustomerPaymentInstrumentsCall(String xWalletID, Boolean xEverydayPayWallet, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = null;
 
         // create path and map variables
@@ -475,8 +475,8 @@ public class CustomerApi {
             localVarHeaderParams.put("X-Wallet-ID", localVarApiClient.parameterToString(xWalletID));
         }
 
-        if (xEverdayPayWallet != null) {
-            localVarHeaderParams.put("X-Everday-Pay-Wallet", localVarApiClient.parameterToString(xEverdayPayWallet));
+        if (xEverydayPayWallet != null) {
+            localVarHeaderParams.put("X-Everyday-Pay-Wallet", localVarApiClient.parameterToString(xEverydayPayWallet));
         }
 
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
@@ -500,7 +500,7 @@ public class CustomerApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call getCustomerPaymentInstrumentsValidateBeforeCall(String xWalletID, Boolean xEverdayPayWallet, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call getCustomerPaymentInstrumentsValidateBeforeCall(String xWalletID, Boolean xEverydayPayWallet, final ApiCallback _callback) throws ApiException {
         
         // verify the required parameter 'xWalletID' is set
         if (xWalletID == null) {
@@ -508,7 +508,7 @@ public class CustomerApi {
         }
         
 
-        okhttp3.Call localVarCall = getCustomerPaymentInstrumentsCall(xWalletID, xEverdayPayWallet, _callback);
+        okhttp3.Call localVarCall = getCustomerPaymentInstrumentsCall(xWalletID, xEverydayPayWallet, _callback);
         return localVarCall;
 
     }
@@ -517,7 +517,7 @@ public class CustomerApi {
      * Get Payment Instruments
      * Get the list of payment instruments currently configured for the customer.  Returns an array of instrument records that can be used to execute payments
      * @param xWalletID  (required)
-     * @param xEverdayPayWallet Includes everyday pay wallet in the list of payment instruments (optional, default to false)
+     * @param xEverydayPayWallet Includes everyday pay wallet in the list of payment instruments (optional, default to false)
      * @return GetCustomerPaymentInstrumentsResults
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -526,8 +526,8 @@ public class CustomerApi {
         <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
      </table>
      */
-    public GetCustomerPaymentInstrumentsResults getCustomerPaymentInstruments(String xWalletID, Boolean xEverdayPayWallet) throws ApiException {
-        ApiResponse<GetCustomerPaymentInstrumentsResults> localVarResp = getCustomerPaymentInstrumentsWithHttpInfo(xWalletID, xEverdayPayWallet);
+    public GetCustomerPaymentInstrumentsResults getCustomerPaymentInstruments(String xWalletID, Boolean xEverydayPayWallet) throws ApiException {
+        ApiResponse<GetCustomerPaymentInstrumentsResults> localVarResp = getCustomerPaymentInstrumentsWithHttpInfo(xWalletID, xEverydayPayWallet);
         return localVarResp.getData();
     }
 
@@ -535,7 +535,7 @@ public class CustomerApi {
      * Get Payment Instruments
      * Get the list of payment instruments currently configured for the customer.  Returns an array of instrument records that can be used to execute payments
      * @param xWalletID  (required)
-     * @param xEverdayPayWallet Includes everyday pay wallet in the list of payment instruments (optional, default to false)
+     * @param xEverydayPayWallet Includes everyday pay wallet in the list of payment instruments (optional, default to false)
      * @return ApiResponse&lt;GetCustomerPaymentInstrumentsResults&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -544,8 +544,8 @@ public class CustomerApi {
         <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<GetCustomerPaymentInstrumentsResults> getCustomerPaymentInstrumentsWithHttpInfo(String xWalletID, Boolean xEverdayPayWallet) throws ApiException {
-        okhttp3.Call localVarCall = getCustomerPaymentInstrumentsValidateBeforeCall(xWalletID, xEverdayPayWallet, null);
+    public ApiResponse<GetCustomerPaymentInstrumentsResults> getCustomerPaymentInstrumentsWithHttpInfo(String xWalletID, Boolean xEverydayPayWallet) throws ApiException {
+        okhttp3.Call localVarCall = getCustomerPaymentInstrumentsValidateBeforeCall(xWalletID, xEverydayPayWallet, null);
         Type localVarReturnType = new TypeToken<GetCustomerPaymentInstrumentsResults>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -554,7 +554,7 @@ public class CustomerApi {
      * Get Payment Instruments (asynchronously)
      * Get the list of payment instruments currently configured for the customer.  Returns an array of instrument records that can be used to execute payments
      * @param xWalletID  (required)
-     * @param xEverdayPayWallet Includes everyday pay wallet in the list of payment instruments (optional, default to false)
+     * @param xEverydayPayWallet Includes everyday pay wallet in the list of payment instruments (optional, default to false)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -564,9 +564,9 @@ public class CustomerApi {
         <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getCustomerPaymentInstrumentsAsync(String xWalletID, Boolean xEverdayPayWallet, final ApiCallback<GetCustomerPaymentInstrumentsResults> _callback) throws ApiException {
+    public okhttp3.Call getCustomerPaymentInstrumentsAsync(String xWalletID, Boolean xEverydayPayWallet, final ApiCallback<GetCustomerPaymentInstrumentsResults> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = getCustomerPaymentInstrumentsValidateBeforeCall(xWalletID, xEverdayPayWallet, _callback);
+        okhttp3.Call localVarCall = getCustomerPaymentInstrumentsValidateBeforeCall(xWalletID, xEverydayPayWallet, _callback);
         Type localVarReturnType = new TypeToken<GetCustomerPaymentInstrumentsResults>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1479,7 +1479,7 @@ public class CustomerApi {
      * Build call for initiatePaymentInstrumentAddition
      * @param xWalletID  (required)
      * @param instrumentAdditionDetails  (required)
-     * @param xEverdayPayWallet The payment instrument should be stored in the everyday pay wallet (optional, default to false)
+     * @param xEverydayPayWallet The payment instrument should be stored in the everyday pay wallet (optional, default to false)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -1489,7 +1489,7 @@ public class CustomerApi {
         <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call initiatePaymentInstrumentAdditionCall(String xWalletID, InstrumentAdditionDetails instrumentAdditionDetails, Boolean xEverdayPayWallet, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call initiatePaymentInstrumentAdditionCall(String xWalletID, InstrumentAdditionDetails instrumentAdditionDetails, Boolean xEverydayPayWallet, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = instrumentAdditionDetails;
 
         // create path and map variables
@@ -1502,8 +1502,8 @@ public class CustomerApi {
             localVarHeaderParams.put("X-Wallet-ID", localVarApiClient.parameterToString(xWalletID));
         }
 
-        if (xEverdayPayWallet != null) {
-            localVarHeaderParams.put("X-Everday-Pay-Wallet", localVarApiClient.parameterToString(xEverdayPayWallet));
+        if (xEverydayPayWallet != null) {
+            localVarHeaderParams.put("X-Everyday-Pay-Wallet", localVarApiClient.parameterToString(xEverydayPayWallet));
         }
 
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
@@ -1527,7 +1527,7 @@ public class CustomerApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call initiatePaymentInstrumentAdditionValidateBeforeCall(String xWalletID, InstrumentAdditionDetails instrumentAdditionDetails, Boolean xEverdayPayWallet, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call initiatePaymentInstrumentAdditionValidateBeforeCall(String xWalletID, InstrumentAdditionDetails instrumentAdditionDetails, Boolean xEverydayPayWallet, final ApiCallback _callback) throws ApiException {
         
         // verify the required parameter 'xWalletID' is set
         if (xWalletID == null) {
@@ -1540,7 +1540,7 @@ public class CustomerApi {
         }
         
 
-        okhttp3.Call localVarCall = initiatePaymentInstrumentAdditionCall(xWalletID, instrumentAdditionDetails, xEverdayPayWallet, _callback);
+        okhttp3.Call localVarCall = initiatePaymentInstrumentAdditionCall(xWalletID, instrumentAdditionDetails, xEverydayPayWallet, _callback);
         return localVarCall;
 
     }
@@ -1550,7 +1550,7 @@ public class CustomerApi {
      * Initiate the addition of a new payment instrument for this customer.  This API returns a URL to be used to access the DigiPay IFrame based interface to request the customer to enter a payment instrument details.
      * @param xWalletID  (required)
      * @param instrumentAdditionDetails  (required)
-     * @param xEverdayPayWallet The payment instrument should be stored in the everyday pay wallet (optional, default to false)
+     * @param xEverydayPayWallet The payment instrument should be stored in the everyday pay wallet (optional, default to false)
      * @return InitiatePaymentInstrumentAdditionResults
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1559,8 +1559,8 @@ public class CustomerApi {
         <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
      </table>
      */
-    public InitiatePaymentInstrumentAdditionResults initiatePaymentInstrumentAddition(String xWalletID, InstrumentAdditionDetails instrumentAdditionDetails, Boolean xEverdayPayWallet) throws ApiException {
-        ApiResponse<InitiatePaymentInstrumentAdditionResults> localVarResp = initiatePaymentInstrumentAdditionWithHttpInfo(xWalletID, instrumentAdditionDetails, xEverdayPayWallet);
+    public InitiatePaymentInstrumentAdditionResults initiatePaymentInstrumentAddition(String xWalletID, InstrumentAdditionDetails instrumentAdditionDetails, Boolean xEverydayPayWallet) throws ApiException {
+        ApiResponse<InitiatePaymentInstrumentAdditionResults> localVarResp = initiatePaymentInstrumentAdditionWithHttpInfo(xWalletID, instrumentAdditionDetails, xEverydayPayWallet);
         return localVarResp.getData();
     }
 
@@ -1569,7 +1569,7 @@ public class CustomerApi {
      * Initiate the addition of a new payment instrument for this customer.  This API returns a URL to be used to access the DigiPay IFrame based interface to request the customer to enter a payment instrument details.
      * @param xWalletID  (required)
      * @param instrumentAdditionDetails  (required)
-     * @param xEverdayPayWallet The payment instrument should be stored in the everyday pay wallet (optional, default to false)
+     * @param xEverydayPayWallet The payment instrument should be stored in the everyday pay wallet (optional, default to false)
      * @return ApiResponse&lt;InitiatePaymentInstrumentAdditionResults&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1578,8 +1578,8 @@ public class CustomerApi {
         <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<InitiatePaymentInstrumentAdditionResults> initiatePaymentInstrumentAdditionWithHttpInfo(String xWalletID, InstrumentAdditionDetails instrumentAdditionDetails, Boolean xEverdayPayWallet) throws ApiException {
-        okhttp3.Call localVarCall = initiatePaymentInstrumentAdditionValidateBeforeCall(xWalletID, instrumentAdditionDetails, xEverdayPayWallet, null);
+    public ApiResponse<InitiatePaymentInstrumentAdditionResults> initiatePaymentInstrumentAdditionWithHttpInfo(String xWalletID, InstrumentAdditionDetails instrumentAdditionDetails, Boolean xEverydayPayWallet) throws ApiException {
+        okhttp3.Call localVarCall = initiatePaymentInstrumentAdditionValidateBeforeCall(xWalletID, instrumentAdditionDetails, xEverydayPayWallet, null);
         Type localVarReturnType = new TypeToken<InitiatePaymentInstrumentAdditionResults>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -1589,7 +1589,7 @@ public class CustomerApi {
      * Initiate the addition of a new payment instrument for this customer.  This API returns a URL to be used to access the DigiPay IFrame based interface to request the customer to enter a payment instrument details.
      * @param xWalletID  (required)
      * @param instrumentAdditionDetails  (required)
-     * @param xEverdayPayWallet The payment instrument should be stored in the everyday pay wallet (optional, default to false)
+     * @param xEverydayPayWallet The payment instrument should be stored in the everyday pay wallet (optional, default to false)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -1599,9 +1599,9 @@ public class CustomerApi {
         <tr><td> 200 </td><td> Successful response </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call initiatePaymentInstrumentAdditionAsync(String xWalletID, InstrumentAdditionDetails instrumentAdditionDetails, Boolean xEverdayPayWallet, final ApiCallback<InitiatePaymentInstrumentAdditionResults> _callback) throws ApiException {
+    public okhttp3.Call initiatePaymentInstrumentAdditionAsync(String xWalletID, InstrumentAdditionDetails instrumentAdditionDetails, Boolean xEverydayPayWallet, final ApiCallback<InitiatePaymentInstrumentAdditionResults> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = initiatePaymentInstrumentAdditionValidateBeforeCall(xWalletID, instrumentAdditionDetails, xEverdayPayWallet, _callback);
+        okhttp3.Call localVarCall = initiatePaymentInstrumentAdditionValidateBeforeCall(xWalletID, instrumentAdditionDetails, xEverydayPayWallet, _callback);
         Type localVarReturnType = new TypeToken<InitiatePaymentInstrumentAdditionResults>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1611,7 +1611,7 @@ public class CustomerApi {
      * @param xWalletID  (required)
      * @param paymentRequestId The ID of the specific payment request (required)
      * @param customerPaymentDetails  (required)
-     * @param xEverdayPayWallet The makes instruments available in the everyday pay wallet available for payments (optional, default to false)
+     * @param xEverydayPayWallet The makes instruments available in the everyday pay wallet available for payments (optional, default to false)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -1622,7 +1622,7 @@ public class CustomerApi {
         <tr><td> 422 </td><td> The specified Payment Request ID doesn&#39;t exist, has been used or is expired </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call makeCustomerPaymentCall(String xWalletID, String paymentRequestId, CustomerPaymentDetails customerPaymentDetails, Boolean xEverdayPayWallet, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call makeCustomerPaymentCall(String xWalletID, String paymentRequestId, CustomerPaymentDetails customerPaymentDetails, Boolean xEverydayPayWallet, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = customerPaymentDetails;
 
         // create path and map variables
@@ -1636,8 +1636,8 @@ public class CustomerApi {
             localVarHeaderParams.put("X-Wallet-ID", localVarApiClient.parameterToString(xWalletID));
         }
 
-        if (xEverdayPayWallet != null) {
-            localVarHeaderParams.put("X-Everday-Pay-Wallet", localVarApiClient.parameterToString(xEverdayPayWallet));
+        if (xEverydayPayWallet != null) {
+            localVarHeaderParams.put("X-Everyday-Pay-Wallet", localVarApiClient.parameterToString(xEverydayPayWallet));
         }
 
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
@@ -1661,7 +1661,7 @@ public class CustomerApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call makeCustomerPaymentValidateBeforeCall(String xWalletID, String paymentRequestId, CustomerPaymentDetails customerPaymentDetails, Boolean xEverdayPayWallet, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call makeCustomerPaymentValidateBeforeCall(String xWalletID, String paymentRequestId, CustomerPaymentDetails customerPaymentDetails, Boolean xEverydayPayWallet, final ApiCallback _callback) throws ApiException {
         
         // verify the required parameter 'xWalletID' is set
         if (xWalletID == null) {
@@ -1679,7 +1679,7 @@ public class CustomerApi {
         }
         
 
-        okhttp3.Call localVarCall = makeCustomerPaymentCall(xWalletID, paymentRequestId, customerPaymentDetails, xEverdayPayWallet, _callback);
+        okhttp3.Call localVarCall = makeCustomerPaymentCall(xWalletID, paymentRequestId, customerPaymentDetails, xEverydayPayWallet, _callback);
         return localVarCall;
 
     }
@@ -1690,7 +1690,7 @@ public class CustomerApi {
      * @param xWalletID  (required)
      * @param paymentRequestId The ID of the specific payment request (required)
      * @param customerPaymentDetails  (required)
-     * @param xEverdayPayWallet The makes instruments available in the everyday pay wallet available for payments (optional, default to false)
+     * @param xEverydayPayWallet The makes instruments available in the everyday pay wallet available for payments (optional, default to false)
      * @return MakeCustomerPaymentResults
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1700,8 +1700,8 @@ public class CustomerApi {
         <tr><td> 422 </td><td> The specified Payment Request ID doesn&#39;t exist, has been used or is expired </td><td>  -  </td></tr>
      </table>
      */
-    public MakeCustomerPaymentResults makeCustomerPayment(String xWalletID, String paymentRequestId, CustomerPaymentDetails customerPaymentDetails, Boolean xEverdayPayWallet) throws ApiException {
-        ApiResponse<MakeCustomerPaymentResults> localVarResp = makeCustomerPaymentWithHttpInfo(xWalletID, paymentRequestId, customerPaymentDetails, xEverdayPayWallet);
+    public MakeCustomerPaymentResults makeCustomerPayment(String xWalletID, String paymentRequestId, CustomerPaymentDetails customerPaymentDetails, Boolean xEverydayPayWallet) throws ApiException {
+        ApiResponse<MakeCustomerPaymentResults> localVarResp = makeCustomerPaymentWithHttpInfo(xWalletID, paymentRequestId, customerPaymentDetails, xEverydayPayWallet);
         return localVarResp.getData();
     }
 
@@ -1711,7 +1711,7 @@ public class CustomerApi {
      * @param xWalletID  (required)
      * @param paymentRequestId The ID of the specific payment request (required)
      * @param customerPaymentDetails  (required)
-     * @param xEverdayPayWallet The makes instruments available in the everyday pay wallet available for payments (optional, default to false)
+     * @param xEverydayPayWallet The makes instruments available in the everyday pay wallet available for payments (optional, default to false)
      * @return ApiResponse&lt;MakeCustomerPaymentResults&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1721,8 +1721,8 @@ public class CustomerApi {
         <tr><td> 422 </td><td> The specified Payment Request ID doesn&#39;t exist, has been used or is expired </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<MakeCustomerPaymentResults> makeCustomerPaymentWithHttpInfo(String xWalletID, String paymentRequestId, CustomerPaymentDetails customerPaymentDetails, Boolean xEverdayPayWallet) throws ApiException {
-        okhttp3.Call localVarCall = makeCustomerPaymentValidateBeforeCall(xWalletID, paymentRequestId, customerPaymentDetails, xEverdayPayWallet, null);
+    public ApiResponse<MakeCustomerPaymentResults> makeCustomerPaymentWithHttpInfo(String xWalletID, String paymentRequestId, CustomerPaymentDetails customerPaymentDetails, Boolean xEverydayPayWallet) throws ApiException {
+        okhttp3.Call localVarCall = makeCustomerPaymentValidateBeforeCall(xWalletID, paymentRequestId, customerPaymentDetails, xEverydayPayWallet, null);
         Type localVarReturnType = new TypeToken<MakeCustomerPaymentResults>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
@@ -1733,7 +1733,7 @@ public class CustomerApi {
      * @param xWalletID  (required)
      * @param paymentRequestId The ID of the specific payment request (required)
      * @param customerPaymentDetails  (required)
-     * @param xEverdayPayWallet The makes instruments available in the everyday pay wallet available for payments (optional, default to false)
+     * @param xEverydayPayWallet The makes instruments available in the everyday pay wallet available for payments (optional, default to false)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -1744,9 +1744,9 @@ public class CustomerApi {
         <tr><td> 422 </td><td> The specified Payment Request ID doesn&#39;t exist, has been used or is expired </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call makeCustomerPaymentAsync(String xWalletID, String paymentRequestId, CustomerPaymentDetails customerPaymentDetails, Boolean xEverdayPayWallet, final ApiCallback<MakeCustomerPaymentResults> _callback) throws ApiException {
+    public okhttp3.Call makeCustomerPaymentAsync(String xWalletID, String paymentRequestId, CustomerPaymentDetails customerPaymentDetails, Boolean xEverydayPayWallet, final ApiCallback<MakeCustomerPaymentResults> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = makeCustomerPaymentValidateBeforeCall(xWalletID, paymentRequestId, customerPaymentDetails, xEverdayPayWallet, _callback);
+        okhttp3.Call localVarCall = makeCustomerPaymentValidateBeforeCall(xWalletID, paymentRequestId, customerPaymentDetails, xEverydayPayWallet, _callback);
         Type localVarReturnType = new TypeToken<MakeCustomerPaymentResults>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
@@ -1756,7 +1756,7 @@ public class CustomerApi {
      * @param xWalletID  (required)
      * @param paymentSessionId The ID of the specific payment session (required)
      * @param customerPaymentDetails1  (required)
-     * @param xEverdayPayWallet The makes instruments available in the everyday pay wallet available for payments (optional, default to false)
+     * @param xEverydayPayWallet The makes instruments available in the everyday pay wallet available for payments (optional, default to false)
      * @param _callback Callback for upload/download progress
      * @return Call to execute
      * @throws ApiException If fail to serialize the request body object
@@ -1766,7 +1766,7 @@ public class CustomerApi {
         <tr><td> 204 </td><td> The pre approval has been successfully added to the payment session. No content returned. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call preApprovePaymentSessionCall(String xWalletID, String paymentSessionId, CustomerPaymentDetails1 customerPaymentDetails1, Boolean xEverdayPayWallet, final ApiCallback _callback) throws ApiException {
+    public okhttp3.Call preApprovePaymentSessionCall(String xWalletID, String paymentSessionId, CustomerPaymentDetails1 customerPaymentDetails1, Boolean xEverydayPayWallet, final ApiCallback _callback) throws ApiException {
         Object localVarPostBody = customerPaymentDetails1;
 
         // create path and map variables
@@ -1780,8 +1780,8 @@ public class CustomerApi {
             localVarHeaderParams.put("X-Wallet-ID", localVarApiClient.parameterToString(xWalletID));
         }
 
-        if (xEverdayPayWallet != null) {
-            localVarHeaderParams.put("X-Everday-Pay-Wallet", localVarApiClient.parameterToString(xEverdayPayWallet));
+        if (xEverydayPayWallet != null) {
+            localVarHeaderParams.put("X-Everyday-Pay-Wallet", localVarApiClient.parameterToString(xEverydayPayWallet));
         }
 
         Map<String, String> localVarCookieParams = new HashMap<String, String>();
@@ -1805,7 +1805,7 @@ public class CustomerApi {
     }
 
     @SuppressWarnings("rawtypes")
-    private okhttp3.Call preApprovePaymentSessionValidateBeforeCall(String xWalletID, String paymentSessionId, CustomerPaymentDetails1 customerPaymentDetails1, Boolean xEverdayPayWallet, final ApiCallback _callback) throws ApiException {
+    private okhttp3.Call preApprovePaymentSessionValidateBeforeCall(String xWalletID, String paymentSessionId, CustomerPaymentDetails1 customerPaymentDetails1, Boolean xEverydayPayWallet, final ApiCallback _callback) throws ApiException {
         
         // verify the required parameter 'xWalletID' is set
         if (xWalletID == null) {
@@ -1823,7 +1823,7 @@ public class CustomerApi {
         }
         
 
-        okhttp3.Call localVarCall = preApprovePaymentSessionCall(xWalletID, paymentSessionId, customerPaymentDetails1, xEverdayPayWallet, _callback);
+        okhttp3.Call localVarCall = preApprovePaymentSessionCall(xWalletID, paymentSessionId, customerPaymentDetails1, xEverydayPayWallet, _callback);
         return localVarCall;
 
     }
@@ -1834,7 +1834,7 @@ public class CustomerApi {
      * @param xWalletID  (required)
      * @param paymentSessionId The ID of the specific payment session (required)
      * @param customerPaymentDetails1  (required)
-     * @param xEverdayPayWallet The makes instruments available in the everyday pay wallet available for payments (optional, default to false)
+     * @param xEverydayPayWallet The makes instruments available in the everyday pay wallet available for payments (optional, default to false)
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -1842,8 +1842,8 @@ public class CustomerApi {
         <tr><td> 204 </td><td> The pre approval has been successfully added to the payment session. No content returned. </td><td>  -  </td></tr>
      </table>
      */
-    public void preApprovePaymentSession(String xWalletID, String paymentSessionId, CustomerPaymentDetails1 customerPaymentDetails1, Boolean xEverdayPayWallet) throws ApiException {
-        preApprovePaymentSessionWithHttpInfo(xWalletID, paymentSessionId, customerPaymentDetails1, xEverdayPayWallet);
+    public void preApprovePaymentSession(String xWalletID, String paymentSessionId, CustomerPaymentDetails1 customerPaymentDetails1, Boolean xEverydayPayWallet) throws ApiException {
+        preApprovePaymentSessionWithHttpInfo(xWalletID, paymentSessionId, customerPaymentDetails1, xEverydayPayWallet);
     }
 
     /**
@@ -1852,7 +1852,7 @@ public class CustomerApi {
      * @param xWalletID  (required)
      * @param paymentSessionId The ID of the specific payment session (required)
      * @param customerPaymentDetails1  (required)
-     * @param xEverdayPayWallet The makes instruments available in the everyday pay wallet available for payments (optional, default to false)
+     * @param xEverydayPayWallet The makes instruments available in the everyday pay wallet available for payments (optional, default to false)
      * @return ApiResponse&lt;Void&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
@@ -1861,8 +1861,8 @@ public class CustomerApi {
         <tr><td> 204 </td><td> The pre approval has been successfully added to the payment session. No content returned. </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<Void> preApprovePaymentSessionWithHttpInfo(String xWalletID, String paymentSessionId, CustomerPaymentDetails1 customerPaymentDetails1, Boolean xEverdayPayWallet) throws ApiException {
-        okhttp3.Call localVarCall = preApprovePaymentSessionValidateBeforeCall(xWalletID, paymentSessionId, customerPaymentDetails1, xEverdayPayWallet, null);
+    public ApiResponse<Void> preApprovePaymentSessionWithHttpInfo(String xWalletID, String paymentSessionId, CustomerPaymentDetails1 customerPaymentDetails1, Boolean xEverydayPayWallet) throws ApiException {
+        okhttp3.Call localVarCall = preApprovePaymentSessionValidateBeforeCall(xWalletID, paymentSessionId, customerPaymentDetails1, xEverydayPayWallet, null);
         return localVarApiClient.execute(localVarCall);
     }
 
@@ -1872,7 +1872,7 @@ public class CustomerApi {
      * @param xWalletID  (required)
      * @param paymentSessionId The ID of the specific payment session (required)
      * @param customerPaymentDetails1  (required)
-     * @param xEverdayPayWallet The makes instruments available in the everyday pay wallet available for payments (optional, default to false)
+     * @param xEverydayPayWallet The makes instruments available in the everyday pay wallet available for payments (optional, default to false)
      * @param _callback The callback to be executed when the API call finishes
      * @return The request call
      * @throws ApiException If fail to process the API call, e.g. serializing the request body object
@@ -1882,9 +1882,9 @@ public class CustomerApi {
         <tr><td> 204 </td><td> The pre approval has been successfully added to the payment session. No content returned. </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call preApprovePaymentSessionAsync(String xWalletID, String paymentSessionId, CustomerPaymentDetails1 customerPaymentDetails1, Boolean xEverdayPayWallet, final ApiCallback<Void> _callback) throws ApiException {
+    public okhttp3.Call preApprovePaymentSessionAsync(String xWalletID, String paymentSessionId, CustomerPaymentDetails1 customerPaymentDetails1, Boolean xEverydayPayWallet, final ApiCallback<Void> _callback) throws ApiException {
 
-        okhttp3.Call localVarCall = preApprovePaymentSessionValidateBeforeCall(xWalletID, paymentSessionId, customerPaymentDetails1, xEverdayPayWallet, _callback);
+        okhttp3.Call localVarCall = preApprovePaymentSessionValidateBeforeCall(xWalletID, paymentSessionId, customerPaymentDetails1, xEverydayPayWallet, _callback);
         localVarApiClient.executeAsync(localVarCall, _callback);
         return localVarCall;
     }
