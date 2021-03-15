@@ -39,7 +39,12 @@ class OpenApiVillageCustomerApiRepository(
             val api = createCustomerApi()
 
             val data = api.getCustomerTransactions(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                "",
+                "",
+                "",
+                "",
                 paymentRequestId,
                 startTime,
                 endTime,
@@ -56,8 +61,13 @@ class OpenApiVillageCustomerApiRepository(
             val api = createCustomerApi()
 
             val data = api.getCustomerTransactionDetails(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
-                transactionId
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                "",
+                transactionId,
+                "",
+                "",
+                ""
             ).data
 
             ApiResult.Success(OpenApiCustomerTransactionDetails(data))
@@ -69,8 +79,13 @@ class OpenApiVillageCustomerApiRepository(
             val api = createCustomerApi()
 
             val data = api.getCustomerPaymentRequestDetailsByQRCodeId(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
-                qrCodeId
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                "",
+                qrCodeId,
+                "",
+                "",
+                ""
             ).data
 
             ApiResult.Success(OpenApiCustomerPaymentRequest(data))
@@ -81,9 +96,14 @@ class OpenApiVillageCustomerApiRepository(
         return makeCall {
             val api = createCustomerApi()
 
-            val data = api.getCustomerPaymentRequestDetailsByQRCodeId(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
-                paymentRequestId
+            val data = api.getCustomerPaymentRequestDetailsByPaymentId(
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                "",
+                paymentRequestId,
+                "",
+                "",
+                ""
             ).data
 
             ApiResult.Success(OpenApiCustomerPaymentRequest(data))
@@ -95,8 +115,12 @@ class OpenApiVillageCustomerApiRepository(
             val api = createCustomerApi()
 
             val data = api.getCustomerPaymentInstruments(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
-                wallet == Wallet.EVERYDAY_PAY
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                "",
+                "",
+                "",
+                ""
             ).data
 
             ApiResult.Success(OpenApiAllPaymentInstruments(
@@ -112,9 +136,13 @@ class OpenApiVillageCustomerApiRepository(
             val api = createCustomerApi()
 
             api.deletePaymentInstrument(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                "",
                 instrument.paymentInstrumentId,
-                instrument.wallet == Wallet.EVERYDAY_PAY
+                "",
+                "",
+                ""
             )
 
             ApiResult.Success(Unit)
@@ -128,14 +156,18 @@ class OpenApiVillageCustomerApiRepository(
             val api = createCustomerApi()
 
             val body = InstrumentAdditionDetails()
-            body.data = CustomerInstrumentsData().apply {
+            body.data = InstoreCustomerInstrumentsData().apply {
                 clientReference = instrument.clientReference
             }
 
             val data = api.initiatePaymentInstrumentAddition(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                "",
                 body,
-                instrument.wallet == Wallet.EVERYDAY_PAY
+                "",
+                "",
+                ""
             ).data
 
             ApiResult.Success(OpenApiPaymentInstrumentAdditionResult(data))
@@ -146,9 +178,14 @@ class OpenApiVillageCustomerApiRepository(
         return makeCall {
             val api = createCustomerApi()
 
-            val data = api.getCustomerPreferences(
-                getDefaultHeader(api.apiClient, X_WALLET_ID)
-            ).data
+            val data: Map<String, Map<String, String>> = api.getCustomerPreferences(
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                "",
+                "",
+                "",
+                ""
+            ).data.general as Map<String, Map<String, String>>
 
             ApiResult.Success(data)
         }
@@ -159,11 +196,17 @@ class OpenApiVillageCustomerApiRepository(
             val api = createCustomerApi()
 
             val body = au.com.woolworths.village.sdk.openapi.dto.CustomerPreferences()
-            body.data = preferences
+            body.data = PreferencesCustomer()
+            body.data.general = preferences
 
             api.setCustomerPreferences(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
-                body
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                "",
+                body,
+                "",
+                "",
+                ""
             )
 
             ApiResult.Success(Unit)
@@ -175,8 +218,13 @@ class OpenApiVillageCustomerApiRepository(
             val api = createCustomerApi()
 
             val data = api.getCustomerPaymentSession(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
-                paymentSessionId
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                "",
+                paymentSessionId,
+                "",
+                "",
+                ""
             ).data
 
             ApiResult.Success(OpenApiPaymentSession(data))
@@ -188,8 +236,13 @@ class OpenApiVillageCustomerApiRepository(
             val api = createCustomerApi()
 
             val data = api.getCustomerPaymentSessionByQRCodeId(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
-                qrCodeId
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                "",
+                qrCodeId,
+                "",
+                "",
+                ""
             ).data
 
             ApiResult.Success(OpenApiPaymentSession(data))
@@ -204,13 +257,18 @@ class OpenApiVillageCustomerApiRepository(
             val api = createCustomerApi()
 
             val body = au.com.woolworths.village.sdk.openapi.dto.UpdatePaymentSessionRequest()
-            body.data = CustomerPaymentSessionPaymentSessionIdData()
+            body.data = InstoreCustomerPaymentSessionPaymentSessionIdData()
             body.data.customerInfo = toDynamicPayload(session.customerInfo)
 
             api.customerUpdatePaymentSession(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                "",
                 paymentSessionId,
-                body
+                body,
+                "",
+                "",
+                ""
             )
 
             ApiResult.Success(Unit)
@@ -228,7 +286,7 @@ class OpenApiVillageCustomerApiRepository(
             val api = createCustomerApi()
 
             val body = au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetails()
-            body.data = CustomerPaymentsPaymentRequestIdData().apply {
+            body.data = InstoreCustomerPaymentsPaymentRequestIdData().apply {
                 this.primaryInstrumentId = instrument.paymentInstrumentId
                 this.secondaryInstruments = secondaryInstruments?.map(::toSecondaryInstrument) ?: emptyList()
                 this.clientReference = clientReference
@@ -239,9 +297,14 @@ class OpenApiVillageCustomerApiRepository(
             }
 
             val data = api.makeCustomerPayment(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                "",
                 paymentRequestId,
                 body,
+                "",
+                "",
+                "",
                 instrument.wallet == Wallet.EVERYDAY_PAY
             ).data
 
@@ -254,8 +317,13 @@ class OpenApiVillageCustomerApiRepository(
             val api = createCustomerApi()
 
             api.deleteCustomerPaymentSession(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
-                paymentSessionId
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                "",
+                paymentSessionId,
+                "",
+                "",
+                ""
             )
 
             ApiResult.Success(Unit)
@@ -273,7 +341,7 @@ class OpenApiVillageCustomerApiRepository(
             val api = createCustomerApi()
 
             val body = au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetails1()
-            body.data = CustomerPaymentsPaymentRequestIdData().apply {
+            body.data = InstoreCustomerPaymentsPaymentRequestIdData().apply {
                 this.primaryInstrumentId = primaryInstrument.paymentInstrumentId
                 this.secondaryInstruments = secondaryInstruments?.map(::toSecondaryInstrument) ?: emptyList()
                 this.clientReference = clientReference
@@ -284,10 +352,14 @@ class OpenApiVillageCustomerApiRepository(
             }
 
             api.preApprovePaymentSession(
-                getDefaultHeader(api.apiClient, X_WALLET_ID),
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                "",
                 paymentSessionId,
                 body,
-                primaryInstrument.wallet == Wallet.EVERYDAY_PAY
+                "",
+                "",
+                ""
             )
 
             ApiResult.Success(Unit)
@@ -295,8 +367,8 @@ class OpenApiVillageCustomerApiRepository(
     }
 }
 
-fun toSecondaryInstrument(instrument: SecondaryPaymentInstrument): CustomerPaymentsPaymentRequestIdDataSecondaryInstruments {
-    val i = CustomerPaymentsPaymentRequestIdDataSecondaryInstruments()
+fun toSecondaryInstrument(instrument: SecondaryPaymentInstrument): InstoreCustomerPaymentsPaymentRequestIdDataSecondaryInstruments {
+    val i = InstoreCustomerPaymentsPaymentRequestIdDataSecondaryInstruments()
     i.amount = instrument.amount
     i.instrumentId = instrument.paymentInstrumentId
 
