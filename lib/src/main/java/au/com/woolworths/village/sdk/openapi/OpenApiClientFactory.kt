@@ -4,6 +4,7 @@ import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.openapi.api.AdministrationApi
 import au.com.woolworths.village.sdk.openapi.api.CustomerApi
 import au.com.woolworths.village.sdk.openapi.api.MerchantApi
+import au.com.woolworths.village.sdk.openapi.api.WalletManagementApi
 import au.com.woolworths.village.sdk.openapi.client.ApiClient
 import au.com.woolworths.village.sdk.openapi.dto.DynamicPayload
 import java.lang.IllegalStateException
@@ -22,6 +23,10 @@ open class OpenApiClientFactory(
 
     protected fun createMerchantApi(): MerchantApi {
         return MerchantApi(createApiClient())
+    }
+
+    protected fun createWalletManagementApi(): WalletManagementApi {
+        return WalletManagementApi(createApiClient())
     }
 
     protected fun getDefaultHeader(client: ApiClient, name: String): String? {
