@@ -10,14 +10,8 @@ import java.lang.IllegalStateException
 
 open class OpenApiClientFactory(
     private val requestHeadersFactory: RequestHeadersFactory,
-    private var contextRoot: String
-): Configurable {
-    private var host: String = "localhost:3000"
-
-    override fun setHost(host: String) {
-        this.host = host
-    }
-
+    private var options: VillageOptions
+) {
     protected fun createAdministrationApi(): AdministrationApi {
         return AdministrationApi(createApiClient())
     }
@@ -77,7 +71,7 @@ open class OpenApiClientFactory(
 
     private fun createApiClient(): ApiClient {
         val apiClient = ExtendedApiClient()
-        apiClient.basePath = "${host}${contextRoot}"
+        apiClient.basePath = options.baseUrl
 
         requestHeadersFactory.createHeaders().forEach { (name, value) ->
             apiClient.addDefaultHeader(name, value)

@@ -5,6 +5,7 @@ import au.com.woolworths.village.sdk.openapi.dto.CustomerTransactionDetail
 import au.com.woolworths.village.sdk.openapi.dto.CustomerTransactionSummary
 import org.threeten.bp.OffsetDateTime
 import java.math.BigDecimal
+import java.util.*
 
 class OpenApiCustomerTransactionSummaries(
     private val summaries: List<CustomerTransactionSummary>
@@ -19,7 +20,7 @@ class OpenApiCustomerTransactionSummary(
     override val merchantId: String
         get() = summary.merchantId
 
-    override val instruments: List<CustomerTransactions.UsedPaymentInstrument>
+    override val instruments: List<TransactionSummary.UsedPaymentInstrument>
         get() = summary.instruments.map { OpenApiUsedPaymentInstrument(it) }
 
     override val transactionId: String
@@ -34,11 +35,16 @@ class OpenApiCustomerTransactionSummary(
     override val status: TransactionSummary.PaymentStatus
         get() = TransactionSummary.PaymentStatus.valueOf(summary.status.value)
 
-    override val statusDetail: Any?
-        get() = summary.statusDetail
+    override val subTransactions: List<Any>?
+        get() = summary.subTransactions
 
     override val refundReason: String?
         get() = summary.refundReason
+
+    override val rollback: TransactionSummary.SummaryRollback?
+        get() = summary.rollback?.let {
+            TransactionSummary.SummaryRollback.valueOf(it.value.toUpperCase(Locale.ROOT))
+        }
 
     override val paymentRequestId: String
         get() = summary.paymentRequestId
@@ -62,7 +68,7 @@ class OpenApiCustomerTransactionDetails(
     override val merchantId: String
         get() = details.merchantId
 
-    override val instruments: List<CustomerTransactions.UsedPaymentInstrument>
+    override val instruments: List<TransactionSummary.UsedPaymentInstrument>
         get() = details.instruments.map { OpenApiUsedPaymentInstrument(it) }
 
     override val transactionId: String
@@ -77,11 +83,16 @@ class OpenApiCustomerTransactionDetails(
     override val status: TransactionSummary.PaymentStatus
         get() = TransactionSummary.PaymentStatus.valueOf(details.status.value)
 
-    override val statusDetail: Any?
-        get() = details.statusDetail
+    override val subTransactions: List<Any>?
+        get() = details.subTransactions
 
     override val refundReason: String?
         get() = details.refundReason
+
+    override val rollback: TransactionSummary.SummaryRollback?
+        get() = details.rollback?.let {
+            TransactionSummary.SummaryRollback.valueOf(it.value.toUpperCase(Locale.ROOT))
+        }
 
     override val paymentRequestId: String
         get() = details.paymentRequestId

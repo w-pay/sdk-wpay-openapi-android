@@ -31,8 +31,7 @@ public class PaymentAgreementListResponseData implements Serializable {
 
   public static final String SERIALIZED_NAME_PAYMENT_AGREEMENTS = "paymentAgreements";
   @SerializedName(SERIALIZED_NAME_PAYMENT_AGREEMENTS)
-  private List<List<Object>> paymentAgreements = new ArrayList<List>();
-
+  private List<List<Object>> paymentAgreements = new ArrayList<>();
 
   public PaymentAgreementListResponseData paymentAgreements(List<List<Object>> paymentAgreements) {
     
