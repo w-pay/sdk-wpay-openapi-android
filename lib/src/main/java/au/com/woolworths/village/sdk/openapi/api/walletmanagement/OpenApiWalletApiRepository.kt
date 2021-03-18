@@ -1,9 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.api.walletmanagement
 
-import au.com.woolworths.village.sdk.ApiResult
-import au.com.woolworths.village.sdk.RequestHeadersFactory
-import au.com.woolworths.village.sdk.VillageOptions
-import au.com.woolworths.village.sdk.X_API_KEY
+import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.walletmanagement.WalletApiRepository
 import au.com.woolworths.village.sdk.model.walletmanagement.WalletDeleteRequest
 import au.com.woolworths.village.sdk.model.walletmanagement.WalletDeleteResponse
@@ -29,8 +26,7 @@ class OpenApiWalletApiRepository (
                 "",
                 "",
                 "",
-                // TODO Fix this
-                "true"
+                (walletDeleteRequest.wallet == Wallet.EVERYDAY_PAY).toString()
             )
 
             return@makeCall ApiResult.Success(object : WalletDeleteResponse {})

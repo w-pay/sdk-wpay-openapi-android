@@ -16,8 +16,7 @@ class OpenApiSdkFactory : SdkFactory {
         return OpenApiVillageMerchantApiRepository(
             TestRequestHeadersFactory(), VillageMerchantOptions(
                 baseUrl = "http://localhost:8080/wow/v1/pay",
-                apiKey = "abc123",
-                merchantId = null
+                apiKey = "abc123"
             )
         )
     }
