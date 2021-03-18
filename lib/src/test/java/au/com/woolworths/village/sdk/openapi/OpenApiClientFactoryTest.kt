@@ -10,7 +10,10 @@ import java.lang.IllegalStateException
 class OpenApiClientFactoryTest {
     private val client = FakeOpenApiClientFactory(
         EmptyRequestHeadersFactory(),
-        ""
+        VillageOptions(
+            baseUrl = "",
+            apiKey = ""
+        )
     )
 
     @Test
@@ -55,8 +58,8 @@ class OpenApiClientFactoryTest {
 }
 
 open class FakeOpenApiClientFactory
-    (requestHeadersFactory: RequestHeadersFactory, contextRoot: String) :
-        OpenApiClientFactory(requestHeadersFactory, contextRoot) {
+    (requestHeadersFactory: RequestHeadersFactory, options: VillageOptions) :
+        OpenApiClientFactory(requestHeadersFactory, options) {
     fun<T : Any> doCall(call: () -> ApiResult.Success<T>): ApiResult<T> {
         return super.makeCall(call)
     }

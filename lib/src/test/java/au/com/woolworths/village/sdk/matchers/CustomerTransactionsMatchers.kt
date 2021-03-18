@@ -1,9 +1,6 @@
 package au.com.woolworths.village.sdk.matchers
 
-import au.com.woolworths.village.sdk.model.CustomerTransactionDetails
-import au.com.woolworths.village.sdk.model.CustomerTransactionSummaries
-import au.com.woolworths.village.sdk.model.CustomerTransactionSummary
-import au.com.woolworths.village.sdk.model.CustomerTransactions
+import au.com.woolworths.village.sdk.model.*
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.MatcherAssert
@@ -78,10 +75,13 @@ fun withCustomerPaymentInstruments(): CustomerPaymentInstrumentsMatcher {
     return CustomerPaymentInstrumentsMatcher()
 }
 
-class CustomerPaymentInstrumentsMatcher: TypeSafeMatcher<CustomerTransactions.UsedPaymentInstrument>() {
-    override fun matchesSafely(item: CustomerTransactions.UsedPaymentInstrument): Boolean {
-        MatcherAssert.assertThat(item.paymentInstrumentId, not(blankOrNullString()))
-        MatcherAssert.assertThat(item.amount, not(nullValue()))
+class CustomerPaymentInstrumentsMatcher: TypeSafeMatcher<TransactionSummary.UsedPaymentInstrument>() {
+    override fun matchesSafely(item: TransactionSummary.UsedPaymentInstrument): Boolean {
+        assertThat(item.paymentInstrumentId, not(blankOrNullString()))
+        assertThat(item.instrumentType, not(blankOrNullString()))
+
+        // TODO:
+        //  assertThat(item.transactions, not(nullValue()))
 
         return true
     }
