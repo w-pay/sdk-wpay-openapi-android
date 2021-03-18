@@ -3,8 +3,7 @@ package au.com.woolworths.village.sdk.openapi.api
 import au.com.woolworths.village.sdk.matchers.isSuccessful
 import au.com.woolworths.village.sdk.matchers.isSuccessfulWith
 import au.com.woolworths.village.sdk.openapi.OpenApiSdkFactory
-import org.hamcrest.Matchers.*
-import org.hamcrest.text.IsBlankString
+import org.hamcrest.Matchers.equalTo
 import org.junit.Assert.assertThat
 import org.junit.Test
 
@@ -16,17 +15,7 @@ class OpenApiCustomerPreferencesRepositoryTest {
     fun shouldRetrievePreferences() {
         val result = api.preferences.get()
 
-        assertThat(
-            result, isSuccessfulWith(
-                hasEntry(
-                    equalTo("payments"),
-                    hasEntry(
-                        equalTo("defaultInstrument"),
-                        not(IsBlankString.blankOrNullString())
-                    )
-                )
-            )
-        )
+        assertThat(result, isSuccessfulWith(equalTo((emptyMap()))))
     }
 
     @Test
