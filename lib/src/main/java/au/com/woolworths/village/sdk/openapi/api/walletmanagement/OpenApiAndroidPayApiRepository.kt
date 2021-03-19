@@ -7,7 +7,7 @@ import au.com.woolworths.village.sdk.model.walletmanagement.TokenizeAndroidPayRe
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.model.OpenApiTokenizeAndroidPayResponse
 
-class OpenApiAndroidPayApiRepository  (
+class OpenApiAndroidPayApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
     options: VillageOptions
 ) : OpenApiClientFactory(requestHeadersFactory, options), AndroidPayApiRepository {
@@ -33,11 +33,14 @@ class OpenApiAndroidPayApiRepository  (
                 body,
                 "",
                 "",
-                "")
+                ""
+            )
 
-            return@makeCall ApiResult.Success(OpenApiTokenizeAndroidPayResponse(
-                response
-        ))
+            return@makeCall ApiResult.Success(
+                OpenApiTokenizeAndroidPayResponse(
+                    response
+                )
+            )
         }
     }
 
@@ -65,11 +68,14 @@ class OpenApiAndroidPayApiRepository  (
                 body,
                 "",
                 "",
-                "")
+                ""
+            )
 
-            return@makeCall ApiResult.Success(OpenApiTokenizeAndroidPayResponse(
-                response
-            ))
+            return@makeCall ApiResult.Success(
+                OpenApiTokenizeAndroidPayResponse(
+                    response
+                )
+            )
         }
     }
 }

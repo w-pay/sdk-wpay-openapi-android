@@ -7,7 +7,7 @@ import au.com.woolworths.village.sdk.model.walletmanagement.WalletDeleteResponse
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.DeleteWalletRequest
 
-class OpenApiWalletApiRepository (
+class OpenApiWalletApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
     options: VillageOptions
 ) : OpenApiClientFactory(requestHeadersFactory, options), WalletApiRepository {

@@ -10,12 +10,12 @@ import au.com.woolworths.village.sdk.model.walletmanagement.TokenizeApplePayResp
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.model.OpenApiTokenizeApplePayResponse
 
-class OpenApiApplePayApiRepository (
+class OpenApiApplePayApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
     options: VillageOptions
 ) : OpenApiClientFactory(requestHeadersFactory, options), ApplePayApiRepository {
     override fun tokenize(tokenizeApplePayRequest: au.com.woolworths.village.sdk.model.walletmanagement.TokenizeApplePayRequest):
-            ApiResult<au.com.woolworths.village.sdk.model.walletmanagement.TokenizeApplePayResponse>{
+            ApiResult<au.com.woolworths.village.sdk.model.walletmanagement.TokenizeApplePayResponse> {
         return makeCall {
             val api = createWalletManagementApi()
 
@@ -39,19 +39,20 @@ class OpenApiApplePayApiRepository (
                 body,
                 "",
                 "",
-                "")
+                ""
+            )
 
             return@makeCall ApiResult.Success(
                 OpenApiTokenizeApplePayResponse(
-                response
-            )
+                    response
+                )
             )
         }
     }
 
     override fun guestTokenize(
         tokenizeApplePayRequest: au.com.woolworths.village.sdk.model.walletmanagement.TokenizeApplePayRequest
-    ): ApiResult<au.com.woolworths.village.sdk.model.walletmanagement.TokenizeApplePayResponse>{
+    ): ApiResult<au.com.woolworths.village.sdk.model.walletmanagement.TokenizeApplePayResponse> {
         return makeCall {
             val api = createWalletManagementApi()
 
@@ -74,7 +75,8 @@ class OpenApiApplePayApiRepository (
                 body,
                 "",
                 "",
-                "")
+                ""
+            )
 
             return@makeCall ApiResult.Success(
                 OpenApiTokenizeApplePayResponse(
@@ -87,7 +89,7 @@ class OpenApiApplePayApiRepository (
     override fun update(
         paymentInstrumentId: String,
         tokenizeApplePayRequest: TokenizeApplePayRequest
-    ): ApiResult<TokenizeApplePayResponse>{
+    ): ApiResult<TokenizeApplePayResponse> {
         return makeCall {
             val api = createWalletManagementApi()
 
@@ -112,11 +114,14 @@ class OpenApiApplePayApiRepository (
                 body,
                 "",
                 "",
-                "")
+                ""
+            )
 
-            return@makeCall ApiResult.Success(OpenApiTokenizeApplePayResponse(
-                response
-            ))
+            return@makeCall ApiResult.Success(
+                OpenApiTokenizeApplePayResponse(
+                    response
+                )
+            )
         }
     }
 }

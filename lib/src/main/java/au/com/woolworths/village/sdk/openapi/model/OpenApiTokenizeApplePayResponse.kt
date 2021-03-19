@@ -7,7 +7,7 @@ class OpenApiTokenizeApplePayResponse(
     private val tokenizeApplePayResponse: TokenizeApplePayResponse
 ) : au.com.woolworths.village.sdk.model.walletmanagement.TokenizeApplePayResponse {
     override val paymentInstrumentId: String
-            get() = tokenizeApplePayResponse.paymentInstrumentId
+        get() = tokenizeApplePayResponse.paymentInstrumentId
     override val stepUpToken: String
-            get() = tokenizeApplePayResponse.stepUpToken
+        get() = tokenizeApplePayResponse.stepUpToken
 }
