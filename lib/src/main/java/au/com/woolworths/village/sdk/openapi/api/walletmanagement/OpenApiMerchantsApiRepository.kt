@@ -8,7 +8,7 @@ import au.com.woolworths.village.sdk.model.walletmanagement.MerchantProfileRespo
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.model.OpenApiMerchantProfileResponse
 
-class OpenApiMerchantsApiRepository (
+class   OpenApiMerchantsApiRepository (
     requestHeadersFactory: RequestHeadersFactory,
     options: VillageOptions
 ) : OpenApiClientFactory(requestHeadersFactory, options), au.com.woolworths.village.sdk.api.walletmanagement.MerchantsApiRepository {
