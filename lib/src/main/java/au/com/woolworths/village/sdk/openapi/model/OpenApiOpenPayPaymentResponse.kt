@@ -1,6 +1,7 @@
 package au.com.woolworths.village.sdk.openapi.model
 
 import au.com.woolworths.village.sdk.model.digitalpay.OpenPayPaymentResponse
+import au.com.woolworths.village.sdk.model.digitalpay.OpenPayPaymentResponseDetails
 import au.com.woolworths.village.sdk.openapi.dto.OpenpayPaymentsSuccessResponse
 
 class OpenApiOpenPayPaymentResponse(
@@ -10,6 +11,6 @@ class OpenApiOpenPayPaymentResponse(
     override val transactionReceipt: String
         get() = openpayPaymentsSuccessResponse.transactionReceipt
 
-    override val paymentResponses: List<OpenPayPaymentResponse>
-        get() = openpayPaymentsSuccessResponse.paymentResponses as List<OpenPayPaymentResponse>
+    override val paymentResponses: List<OpenPayPaymentResponseDetails>
+        get() = openpayPaymentsSuccessResponse.paymentResponses as List<OpenPayPaymentResponseDetails>
 }
