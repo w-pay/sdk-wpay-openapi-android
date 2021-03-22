@@ -13,16 +13,21 @@
 
 package au.com.woolworths.village.sdk.openapi.dto;
 
+import java.util.Objects;
+import java.util.Arrays;
+import au.com.woolworths.village.sdk.openapi.dto.PaymentAgreement;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
-import java.util.ArrayList;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
-
-import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
 
 /**
  * PaymentAgreementResponse
@@ -33,36 +38,31 @@ public class PaymentAgreementResponse implements Serializable {
 
   public static final String SERIALIZED_NAME_DATA = "data";
   @SerializedName(SERIALIZED_NAME_DATA)
-  private List<Object> data = new ArrayList<Object>();
+  private PaymentAgreement data;
 
   public static final String SERIALIZED_NAME_META = "meta";
   @SerializedName(SERIALIZED_NAME_META)
   private Map<String, Object> meta = new HashMap<String, Object>();
 
 
-  public PaymentAgreementResponse data(List<Object> data) {
+  public PaymentAgreementResponse data(PaymentAgreement data) {
     
     this.data = data;
     return this;
   }
 
-  public PaymentAgreementResponse addDataItem(Object dataItem) {
-    this.data.add(dataItem);
-    return this;
-  }
-
    /**
-   * Definition of a payment agreement
+   * Get data
    * @return data
   **/
-  @ApiModelProperty(required = true, value = "Definition of a payment agreement")
+  @ApiModelProperty(required = true, value = "")
 
-  public List<Object> getData() {
+  public PaymentAgreement getData() {
     return data;
   }
 
 
-  public void setData(List<Object> data) {
+  public void setData(PaymentAgreement data) {
     this.data = data;
   }
 

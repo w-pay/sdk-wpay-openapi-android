@@ -13,15 +13,26 @@
 
 package au.com.woolworths.village.sdk.openapi.dto;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-
+import java.util.Arrays;
+import au.com.woolworths.village.sdk.openapi.dto.PaymentsSuccessResponseApplePay;
+import au.com.woolworths.village.sdk.openapi.dto.PaymentsSuccessResponseCreditCards;
+import au.com.woolworths.village.sdk.openapi.dto.PaymentsSuccessResponseFraudResponse;
+import au.com.woolworths.village.sdk.openapi.dto.PaymentsSuccessResponseGiftCards;
+import au.com.woolworths.village.sdk.openapi.dto.PaymentsSuccessResponseGooglePay;
+import au.com.woolworths.village.sdk.openapi.dto.PaymentsSuccessResponsePayPal;
+import au.com.woolworths.village.sdk.openapi.dto.PaymentsSuccessResponseUnknown;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.Serializable;
 
 /**
  * The JSON success response structure of the Payments endpoint.

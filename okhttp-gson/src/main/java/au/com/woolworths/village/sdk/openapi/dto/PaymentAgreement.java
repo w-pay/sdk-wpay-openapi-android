@@ -29,10 +29,11 @@ import org.threeten.bp.OffsetDateTime;
 import java.io.Serializable;
 
 /**
- * ListPaymentInstrumentsResponsePaymentAgreements
+ * Definition of a payment agreement
  */
+@ApiModel(description = "Definition of a payment agreement")
 
-public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializable {
+public class PaymentAgreement implements Serializable {
   private static final long serialVersionUID = 1L;
 
   public static final String SERIALIZED_NAME_PAYMENT_TOKEN = "paymentToken";
@@ -264,8 +265,12 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   @SerializedName(SERIALIZED_NAME_STEP_UP)
   private ListPaymentInstrumentsResponseStepUp1 stepUp;
 
+  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
+  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  private String description;
 
-  public ListPaymentInstrumentsResponsePaymentAgreements paymentToken(String paymentToken) {
+
+  public PaymentAgreement paymentToken(String paymentToken) {
     
     this.paymentToken = paymentToken;
     return this;
@@ -287,7 +292,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements status(StatusEnum status) {
+  public PaymentAgreement status(StatusEnum status) {
     
     this.status = status;
     return this;
@@ -309,7 +314,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements lastUpdated(String lastUpdated) {
+  public PaymentAgreement lastUpdated(String lastUpdated) {
     
     this.lastUpdated = lastUpdated;
     return this;
@@ -331,7 +336,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements lastUsed(String lastUsed) {
+  public PaymentAgreement lastUsed(String lastUsed) {
     
     this.lastUsed = lastUsed;
     return this;
@@ -353,7 +358,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements createdOn(OffsetDateTime createdOn) {
+  public PaymentAgreement createdOn(OffsetDateTime createdOn) {
     
     this.createdOn = createdOn;
     return this;
@@ -375,7 +380,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements primary(Boolean primary) {
+  public PaymentAgreement primary(Boolean primary) {
     
     this.primary = primary;
     return this;
@@ -397,7 +402,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements allowed(Boolean allowed) {
+  public PaymentAgreement allowed(Boolean allowed) {
     
     this.allowed = allowed;
     return this;
@@ -419,7 +424,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements type(TypeEnum type) {
+  public PaymentAgreement type(TypeEnum type) {
     
     this.type = type;
     return this;
@@ -441,7 +446,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements paymentInstrumentId(String paymentInstrumentId) {
+  public PaymentAgreement paymentInstrumentId(String paymentInstrumentId) {
     
     this.paymentInstrumentId = paymentInstrumentId;
     return this;
@@ -463,7 +468,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements scheme(String scheme) {
+  public PaymentAgreement scheme(String scheme) {
     
     this.scheme = scheme;
     return this;
@@ -486,7 +491,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements cardSuffix(String cardSuffix) {
+  public PaymentAgreement cardSuffix(String cardSuffix) {
     
     this.cardSuffix = cardSuffix;
     return this;
@@ -509,7 +514,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements expiryMonth(String expiryMonth) {
+  public PaymentAgreement expiryMonth(String expiryMonth) {
     
     this.expiryMonth = expiryMonth;
     return this;
@@ -532,7 +537,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements expiryYear(String expiryYear) {
+  public PaymentAgreement expiryYear(String expiryYear) {
     
     this.expiryYear = expiryYear;
     return this;
@@ -555,7 +560,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements startDate(String startDate) {
+  public PaymentAgreement startDate(String startDate) {
     
     this.startDate = startDate;
     return this;
@@ -577,7 +582,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements endDate(String endDate) {
+  public PaymentAgreement endDate(String endDate) {
     
     this.endDate = endDate;
     return this;
@@ -599,7 +604,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements chargeFrequency(ChargeFrequencyEnum chargeFrequency) {
+  public PaymentAgreement chargeFrequency(ChargeFrequencyEnum chargeFrequency) {
     
     this.chargeFrequency = chargeFrequency;
     return this;
@@ -621,7 +626,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements chargeAmount(BigDecimal chargeAmount) {
+  public PaymentAgreement chargeAmount(BigDecimal chargeAmount) {
     
     this.chargeAmount = chargeAmount;
     return this;
@@ -643,7 +648,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements chargeCycle(BigDecimal chargeCycle) {
+  public PaymentAgreement chargeCycle(BigDecimal chargeCycle) {
     
     this.chargeCycle = chargeCycle;
     return this;
@@ -665,7 +670,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements expired(String expired) {
+  public PaymentAgreement expired(String expired) {
     
     this.expired = expired;
     return this;
@@ -687,7 +692,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements updateURL(String updateURL) {
+  public PaymentAgreement updateURL(String updateURL) {
     
     this.updateURL = updateURL;
     return this;
@@ -709,7 +714,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
-  public ListPaymentInstrumentsResponsePaymentAgreements stepUp(ListPaymentInstrumentsResponseStepUp1 stepUp) {
+  public PaymentAgreement stepUp(ListPaymentInstrumentsResponseStepUp1 stepUp) {
     
     this.stepUp = stepUp;
     return this;
@@ -732,6 +737,29 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
   }
 
 
+  public PaymentAgreement description(String description) {
+    
+    this.description = description;
+    return this;
+  }
+
+   /**
+   * A description of the payment agreement
+   * @return description
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "A description of the payment agreement")
+
+  public String getDescription() {
+    return description;
+  }
+
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+
   @Override
   public boolean equals(java.lang.Object o) {
     if (this == o) {
@@ -740,40 +768,41 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ListPaymentInstrumentsResponsePaymentAgreements listPaymentInstrumentsResponsePaymentAgreements = (ListPaymentInstrumentsResponsePaymentAgreements) o;
-    return Objects.equals(this.paymentToken, listPaymentInstrumentsResponsePaymentAgreements.paymentToken) &&
-        Objects.equals(this.status, listPaymentInstrumentsResponsePaymentAgreements.status) &&
-        Objects.equals(this.lastUpdated, listPaymentInstrumentsResponsePaymentAgreements.lastUpdated) &&
-        Objects.equals(this.lastUsed, listPaymentInstrumentsResponsePaymentAgreements.lastUsed) &&
-        Objects.equals(this.createdOn, listPaymentInstrumentsResponsePaymentAgreements.createdOn) &&
-        Objects.equals(this.primary, listPaymentInstrumentsResponsePaymentAgreements.primary) &&
-        Objects.equals(this.allowed, listPaymentInstrumentsResponsePaymentAgreements.allowed) &&
-        Objects.equals(this.type, listPaymentInstrumentsResponsePaymentAgreements.type) &&
-        Objects.equals(this.paymentInstrumentId, listPaymentInstrumentsResponsePaymentAgreements.paymentInstrumentId) &&
-        Objects.equals(this.scheme, listPaymentInstrumentsResponsePaymentAgreements.scheme) &&
-        Objects.equals(this.cardSuffix, listPaymentInstrumentsResponsePaymentAgreements.cardSuffix) &&
-        Objects.equals(this.expiryMonth, listPaymentInstrumentsResponsePaymentAgreements.expiryMonth) &&
-        Objects.equals(this.expiryYear, listPaymentInstrumentsResponsePaymentAgreements.expiryYear) &&
-        Objects.equals(this.startDate, listPaymentInstrumentsResponsePaymentAgreements.startDate) &&
-        Objects.equals(this.endDate, listPaymentInstrumentsResponsePaymentAgreements.endDate) &&
-        Objects.equals(this.chargeFrequency, listPaymentInstrumentsResponsePaymentAgreements.chargeFrequency) &&
-        Objects.equals(this.chargeAmount, listPaymentInstrumentsResponsePaymentAgreements.chargeAmount) &&
-        Objects.equals(this.chargeCycle, listPaymentInstrumentsResponsePaymentAgreements.chargeCycle) &&
-        Objects.equals(this.expired, listPaymentInstrumentsResponsePaymentAgreements.expired) &&
-        Objects.equals(this.updateURL, listPaymentInstrumentsResponsePaymentAgreements.updateURL) &&
-        Objects.equals(this.stepUp, listPaymentInstrumentsResponsePaymentAgreements.stepUp);
+    PaymentAgreement paymentAgreement = (PaymentAgreement) o;
+    return Objects.equals(this.paymentToken, paymentAgreement.paymentToken) &&
+        Objects.equals(this.status, paymentAgreement.status) &&
+        Objects.equals(this.lastUpdated, paymentAgreement.lastUpdated) &&
+        Objects.equals(this.lastUsed, paymentAgreement.lastUsed) &&
+        Objects.equals(this.createdOn, paymentAgreement.createdOn) &&
+        Objects.equals(this.primary, paymentAgreement.primary) &&
+        Objects.equals(this.allowed, paymentAgreement.allowed) &&
+        Objects.equals(this.type, paymentAgreement.type) &&
+        Objects.equals(this.paymentInstrumentId, paymentAgreement.paymentInstrumentId) &&
+        Objects.equals(this.scheme, paymentAgreement.scheme) &&
+        Objects.equals(this.cardSuffix, paymentAgreement.cardSuffix) &&
+        Objects.equals(this.expiryMonth, paymentAgreement.expiryMonth) &&
+        Objects.equals(this.expiryYear, paymentAgreement.expiryYear) &&
+        Objects.equals(this.startDate, paymentAgreement.startDate) &&
+        Objects.equals(this.endDate, paymentAgreement.endDate) &&
+        Objects.equals(this.chargeFrequency, paymentAgreement.chargeFrequency) &&
+        Objects.equals(this.chargeAmount, paymentAgreement.chargeAmount) &&
+        Objects.equals(this.chargeCycle, paymentAgreement.chargeCycle) &&
+        Objects.equals(this.expired, paymentAgreement.expired) &&
+        Objects.equals(this.updateURL, paymentAgreement.updateURL) &&
+        Objects.equals(this.stepUp, paymentAgreement.stepUp) &&
+        Objects.equals(this.description, paymentAgreement.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(paymentToken, status, lastUpdated, lastUsed, createdOn, primary, allowed, type, paymentInstrumentId, scheme, cardSuffix, expiryMonth, expiryYear, startDate, endDate, chargeFrequency, chargeAmount, chargeCycle, expired, updateURL, stepUp);
+    return Objects.hash(paymentToken, status, lastUpdated, lastUsed, createdOn, primary, allowed, type, paymentInstrumentId, scheme, cardSuffix, expiryMonth, expiryYear, startDate, endDate, chargeFrequency, chargeAmount, chargeCycle, expired, updateURL, stepUp, description);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ListPaymentInstrumentsResponsePaymentAgreements {\n");
+    sb.append("class PaymentAgreement {\n");
     sb.append("    paymentToken: ").append(toIndentedString(paymentToken)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    lastUpdated: ").append(toIndentedString(lastUpdated)).append("\n");
@@ -795,6 +824,7 @@ public class ListPaymentInstrumentsResponsePaymentAgreements implements Serializ
     sb.append("    expired: ").append(toIndentedString(expired)).append("\n");
     sb.append("    updateURL: ").append(toIndentedString(updateURL)).append("\n");
     sb.append("    stepUp: ").append(toIndentedString(stepUp)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");
     return sb.toString();
   }

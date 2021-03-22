@@ -13,28 +13,39 @@
 
 package au.com.woolworths.village.sdk.openapi.api;
 
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import au.com.woolworths.village.sdk.openapi.client.ApiCallback;
 import au.com.woolworths.village.sdk.openapi.client.ApiClient;
 import au.com.woolworths.village.sdk.openapi.client.ApiException;
 import au.com.woolworths.village.sdk.openapi.client.ApiResponse;
 import au.com.woolworths.village.sdk.openapi.client.Configuration;
 import au.com.woolworths.village.sdk.openapi.client.Pair;
+import au.com.woolworths.village.sdk.openapi.client.ProgressRequestBody;
+import au.com.woolworths.village.sdk.openapi.client.ProgressResponseBody;
+
+import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
+
+
+import au.com.woolworths.village.sdk.openapi.dto.BaseErrorResponse;
+import au.com.woolworths.village.sdk.openapi.dto.CompletionsErrorResponse;
 import au.com.woolworths.village.sdk.openapi.dto.CompletionsRequest;
 import au.com.woolworths.village.sdk.openapi.dto.CompletionsSuccessResponse;
+import au.com.woolworths.village.sdk.openapi.dto.PaymentsErrorResponse;
 import au.com.woolworths.village.sdk.openapi.dto.PaymentsRequest;
 import au.com.woolworths.village.sdk.openapi.dto.PaymentsSuccessResponse;
+import au.com.woolworths.village.sdk.openapi.dto.RefundsErrorResponse;
 import au.com.woolworths.village.sdk.openapi.dto.RefundsRequest;
 import au.com.woolworths.village.sdk.openapi.dto.RefundsSuccessResponse;
+import au.com.woolworths.village.sdk.openapi.dto.VoidsErrorResponse;
 import au.com.woolworths.village.sdk.openapi.dto.VoidsRequest;
 import au.com.woolworths.village.sdk.openapi.dto.VoidsSuccessResponse;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class PaymentsApi {
     private ApiClient localVarApiClient;

@@ -13,10 +13,11 @@
 
 package au.com.woolworths.village.sdk.openapi.client;
 
-import java.io.IOException;
-
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
+
+import java.io.IOException;
+
 import okio.Buffer;
 import okio.BufferedSink;
 import okio.ForwardingSink;

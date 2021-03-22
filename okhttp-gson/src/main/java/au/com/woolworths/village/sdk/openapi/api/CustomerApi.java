@@ -13,22 +13,20 @@
 
 package au.com.woolworths.village.sdk.openapi.api;
 
-import com.google.gson.reflect.TypeToken;
-
-import org.threeten.bp.OffsetDateTime;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import au.com.woolworths.village.sdk.openapi.client.ApiCallback;
 import au.com.woolworths.village.sdk.openapi.client.ApiClient;
 import au.com.woolworths.village.sdk.openapi.client.ApiException;
 import au.com.woolworths.village.sdk.openapi.client.ApiResponse;
 import au.com.woolworths.village.sdk.openapi.client.Configuration;
 import au.com.woolworths.village.sdk.openapi.client.Pair;
+import au.com.woolworths.village.sdk.openapi.client.ProgressRequestBody;
+import au.com.woolworths.village.sdk.openapi.client.ProgressResponseBody;
+
+import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
+
+
 import au.com.woolworths.village.sdk.openapi.dto.CustomerCreatePaymentAgreementRequest;
 import au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetails;
 import au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetails1;
@@ -38,6 +36,7 @@ import au.com.woolworths.village.sdk.openapi.dto.CustomerPreferencesResult;
 import au.com.woolworths.village.sdk.openapi.dto.CustomerTermsAndConditions;
 import au.com.woolworths.village.sdk.openapi.dto.CustomerTermsAndConditionsResult;
 import au.com.woolworths.village.sdk.openapi.dto.CustomerUpdatePaymentAgreementRequest;
+import au.com.woolworths.village.sdk.openapi.dto.Error;
 import au.com.woolworths.village.sdk.openapi.dto.GetCustomerPaymentInstrumentResult;
 import au.com.woolworths.village.sdk.openapi.dto.GetCustomerPaymentInstrumentsResults;
 import au.com.woolworths.village.sdk.openapi.dto.GetCustomerPaymentRequestResult;
@@ -46,9 +45,16 @@ import au.com.woolworths.village.sdk.openapi.dto.GetCustomerTransactionsResult;
 import au.com.woolworths.village.sdk.openapi.dto.InitiatePaymentInstrumentAdditionResults;
 import au.com.woolworths.village.sdk.openapi.dto.InstrumentAdditionDetails;
 import au.com.woolworths.village.sdk.openapi.dto.MakeCustomerPaymentResults;
+import org.threeten.bp.OffsetDateTime;
 import au.com.woolworths.village.sdk.openapi.dto.PaymentAgreementListResponse;
 import au.com.woolworths.village.sdk.openapi.dto.PaymentAgreementResponse;
 import au.com.woolworths.village.sdk.openapi.dto.UpdatePaymentSessionRequest;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class CustomerApi {
     private ApiClient localVarApiClient;

@@ -13,15 +13,19 @@
 
 package au.com.woolworths.village.sdk.openapi.dto;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-
+import java.util.Arrays;
+import au.com.woolworths.village.sdk.openapi.dto.BillingAddress;
+import au.com.woolworths.village.sdk.openapi.dto.PaymentAgreement;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * Mandatory data object containing request
@@ -53,7 +57,7 @@ public class InstoreCustomerPaymentsAgreementsPaymentTokenData implements Serial
 
   public static final String SERIALIZED_NAME_PAYMENT_AGREEMENT = "paymentAgreement";
   @SerializedName(SERIALIZED_NAME_PAYMENT_AGREEMENT)
-  private List<Object> paymentAgreement = null;
+  private PaymentAgreement paymentAgreement;
 
 
   public InstoreCustomerPaymentsAgreementsPaymentTokenData clientReference(String clientReference) {
@@ -170,33 +174,25 @@ public class InstoreCustomerPaymentsAgreementsPaymentTokenData implements Serial
   }
 
 
-  public InstoreCustomerPaymentsAgreementsPaymentTokenData paymentAgreement(List<Object> paymentAgreement) {
+  public InstoreCustomerPaymentsAgreementsPaymentTokenData paymentAgreement(PaymentAgreement paymentAgreement) {
     
     this.paymentAgreement = paymentAgreement;
     return this;
   }
 
-  public InstoreCustomerPaymentsAgreementsPaymentTokenData addPaymentAgreementItem(Object paymentAgreementItem) {
-    if (this.paymentAgreement == null) {
-      this.paymentAgreement = new ArrayList<Object>();
-    }
-    this.paymentAgreement.add(paymentAgreementItem);
-    return this;
-  }
-
    /**
-   * Definition of a payment agreement
+   * Get paymentAgreement
    * @return paymentAgreement
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Definition of a payment agreement")
+  @ApiModelProperty(value = "")
 
-  public List<Object> getPaymentAgreement() {
+  public PaymentAgreement getPaymentAgreement() {
     return paymentAgreement;
   }
 
 
-  public void setPaymentAgreement(List<Object> paymentAgreement) {
+  public void setPaymentAgreement(PaymentAgreement paymentAgreement) {
     this.paymentAgreement = paymentAgreement;
   }
 

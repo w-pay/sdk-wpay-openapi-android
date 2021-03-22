@@ -13,20 +13,21 @@
 
 package au.com.woolworths.village.sdk.openapi.api;
 
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import au.com.woolworths.village.sdk.openapi.client.ApiCallback;
 import au.com.woolworths.village.sdk.openapi.client.ApiClient;
 import au.com.woolworths.village.sdk.openapi.client.ApiException;
 import au.com.woolworths.village.sdk.openapi.client.ApiResponse;
 import au.com.woolworths.village.sdk.openapi.client.Configuration;
 import au.com.woolworths.village.sdk.openapi.client.Pair;
+import au.com.woolworths.village.sdk.openapi.client.ProgressRequestBody;
+import au.com.woolworths.village.sdk.openapi.client.ProgressResponseBody;
+
+import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
+
+
+import au.com.woolworths.village.sdk.openapi.dto.BaseErrorResponse;
 import au.com.woolworths.village.sdk.openapi.dto.DeleteWalletRequest;
 import au.com.woolworths.village.sdk.openapi.dto.GiftcardsBalanceRequest;
 import au.com.woolworths.village.sdk.openapi.dto.GiftcardsBalanceResponse;
@@ -54,8 +55,15 @@ import au.com.woolworths.village.sdk.openapi.dto.TokenizePaypalRequest;
 import au.com.woolworths.village.sdk.openapi.dto.TokenizePaypalResponse;
 import au.com.woolworths.village.sdk.openapi.dto.TransactionHistoryRequest;
 import au.com.woolworths.village.sdk.openapi.dto.TransactionHistoryResponse;
+import au.com.woolworths.village.sdk.openapi.dto.VerifyPaymentInstrumentsErrorResponse;
 import au.com.woolworths.village.sdk.openapi.dto.VerifyPaymentInstrumentsRequest;
 import au.com.woolworths.village.sdk.openapi.dto.VerifyPaymentInstrumentsSuccessResponse;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class WalletManagementApi {
     private ApiClient localVarApiClient;

@@ -13,14 +13,20 @@
 
 package au.com.woolworths.village.sdk.openapi.dto;
 
+import java.util.Objects;
+import java.util.Arrays;
+import au.com.woolworths.village.sdk.openapi.dto.PaymentAgreement;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
 
 /**
  * PaymentAgreementListResponseData
@@ -31,15 +37,16 @@ public class PaymentAgreementListResponseData implements Serializable {
 
   public static final String SERIALIZED_NAME_PAYMENT_AGREEMENTS = "paymentAgreements";
   @SerializedName(SERIALIZED_NAME_PAYMENT_AGREEMENTS)
-  private List<List<Object>> paymentAgreements = new ArrayList<>();
+  private List<PaymentAgreement> paymentAgreements = new ArrayList<PaymentAgreement>();
 
-  public PaymentAgreementListResponseData paymentAgreements(List<List<Object>> paymentAgreements) {
+
+  public PaymentAgreementListResponseData paymentAgreements(List<PaymentAgreement> paymentAgreements) {
     
     this.paymentAgreements = paymentAgreements;
     return this;
   }
 
-  public PaymentAgreementListResponseData addPaymentAgreementsItem(List<Object> paymentAgreementsItem) {
+  public PaymentAgreementListResponseData addPaymentAgreementsItem(PaymentAgreement paymentAgreementsItem) {
     this.paymentAgreements.add(paymentAgreementsItem);
     return this;
   }
@@ -50,12 +57,12 @@ public class PaymentAgreementListResponseData implements Serializable {
   **/
   @ApiModelProperty(required = true, value = "")
 
-  public List<List<Object>> getPaymentAgreements() {
+  public List<PaymentAgreement> getPaymentAgreements() {
     return paymentAgreements;
   }
 
 
-  public void setPaymentAgreements(List<List<Object>> paymentAgreements) {
+  public void setPaymentAgreements(List<PaymentAgreement> paymentAgreements) {
     this.paymentAgreements = paymentAgreements;
   }
 

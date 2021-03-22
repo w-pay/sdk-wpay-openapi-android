@@ -13,11 +13,14 @@
 
 package au.com.woolworths.village.sdk.openapi.client.auth;
 
-import java.util.List;
-import java.util.Map;
-
 import au.com.woolworths.village.sdk.openapi.client.Pair;
+
 import okhttp3.Credentials;
+
+import java.util.Map;
+import java.util.List;
+
+import java.io.UnsupportedEncodingException;
 
 public class HttpBasicAuth implements Authentication {
     private String username;

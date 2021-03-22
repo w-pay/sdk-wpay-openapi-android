@@ -13,19 +13,20 @@
 
 package au.com.woolworths.village.sdk.openapi.dto;
 
+import java.util.Objects;
+import java.util.Arrays;
+import au.com.woolworths.village.sdk.openapi.dto.MerchantProfileResponseAllowedPaymentMethodsGooglePayCreditCard;
+import au.com.woolworths.village.sdk.openapi.dto.MerchantProfileResponseAllowedPaymentMethodsGooglePayDebitCard;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-
-import java.io.IOException;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Objects;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.io.Serializable;
 
 /**
  * The presence of this object in the response indicates that google pay is an allowed payment method and instrument in the container for the relevant merchant.
