@@ -75,7 +75,7 @@ class OpenApiGooglePayApiRepository(
     override fun update(
         paymentToken: String,
         tokenizeGooglePayRequest: au.com.woolworths.village.sdk.model.walletmanagement.TokenizeGooglePayRequest
-    ): ApiResult<au.com.woolworths.village.sdk.model.walletmanagement.TokenizeGooglePayRequest> {
+    ): ApiResult<au.com.woolworths.village.sdk.model.walletmanagement.TokenizeGooglePayResponse> {
         return makeCall {
             val api = createWalletManagementApi()
 
@@ -84,7 +84,7 @@ class OpenApiGooglePayApiRepository(
             body.comment = tokenizeGooglePayRequest.comment
             body.tokenData = tokenizeGooglePayRequest.tokenData
 
-            api.googlepayTokenizePaymentTokenPost(
+            val response = api.googlepayTokenizePaymentTokenPost(
                 tokenizeGooglePayRequest.tokenData,
                 getDefaultHeader(api.apiClient, X_API_KEY),
                 "",
@@ -95,7 +95,11 @@ class OpenApiGooglePayApiRepository(
                 ""
             )
 
-            return@makeCall ApiResult.Success(tokenizeGooglePayRequest)
+            return@makeCall ApiResult.Success(
+                OpenApiTokenizeGooglePayResponse(
+                    response
+                )
+            )
         }
     }
 }
