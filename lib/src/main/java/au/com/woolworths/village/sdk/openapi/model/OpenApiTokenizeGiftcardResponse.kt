@@ -2,7 +2,6 @@ package au.com.woolworths.village.sdk.openapi.model
 
 import au.com.woolworths.village.sdk.model.walletmanagement.TokenizedGiftCard
 import au.com.woolworths.village.sdk.openapi.dto.TokenizeGiftcardResponse
-import au.com.woolworths.village.sdk.openapi.dto.TokenizeGiftcardResponseGiftCard
 import java.math.BigDecimal
 import java.util.*
 

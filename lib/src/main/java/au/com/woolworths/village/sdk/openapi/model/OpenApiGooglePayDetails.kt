@@ -1,7 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.model
 
 import au.com.woolworths.village.sdk.openapi.dto.ListPaymentInstrumentsResponseGooglePay
-import au.com.woolworths.village.sdk.openapi.dto.ListPaymentInstrumentsResponseGooglePayStepUp
 
 
 class OpenApiGooglePayDetails(
@@ -24,10 +23,8 @@ class OpenApiGooglePayDetails(
     override val expired: Boolean
         get() = listPaymentInstrumentsResponseGooglePay.expired
     override val stepUp: au.com.woolworths.village.sdk.model.walletmanagement.StepUp
-        get() = toStepUp(listPaymentInstrumentsResponseGooglePay.stepUp)
-
-    private fun toStepUp(stepUp: ListPaymentInstrumentsResponseGooglePayStepUp?):
-            au.com.woolworths.village.sdk.model.walletmanagement.StepUp {
-        return OpenApiStepUp(stepUp!!.mandatory, stepUp.type, stepUp.url)
-    }
+        get() = OpenApiStepUp(
+            listPaymentInstrumentsResponseGooglePay.stepUp!!.mandatory,
+            listPaymentInstrumentsResponseGooglePay.stepUp!!.type,
+            listPaymentInstrumentsResponseGooglePay.stepUp!!.url)
 }

@@ -1,9 +1,9 @@
 package au.com.woolworths.village.sdk.openapi.model
 
+import au.com.woolworths.village.sdk.model.*
 import org.threeten.bp.OffsetDateTime
 import java.math.BigDecimal
 import java.util.*
-import au.com.woolworths.village.sdk.model.*
 
 
 class OpenApiMerchantTransactionDetails(

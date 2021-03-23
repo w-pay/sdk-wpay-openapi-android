@@ -1,6 +1,5 @@
 package au.com.woolworths.village.sdk.openapi.model
 
-import au.com.woolworths.village.sdk.openapi.dto.CreditCardStepUp
 import au.com.woolworths.village.sdk.openapi.dto.ListPaymentInstrumentsResponseCreditCards
 
 

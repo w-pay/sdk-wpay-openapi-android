@@ -1,7 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.model
 
 import au.com.woolworths.village.sdk.openapi.dto.TokenizePaypalResponse
-import au.com.woolworths.village.sdk.openapi.dto.TokenizePaypalResponsePayPal
 import java.util.*
 
 class OpenApiTokenizePaypalResponse(

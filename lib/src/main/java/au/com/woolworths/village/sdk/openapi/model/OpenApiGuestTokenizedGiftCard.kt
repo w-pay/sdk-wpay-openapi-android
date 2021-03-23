@@ -6,7 +6,6 @@ import java.util.*
 class OpenApiGuestTokenizedGiftCard(
     private val card: GuestTokenizeGiftcardResponseGiftCard
 ) : au.com.woolworths.village.sdk.model.walletmanagement.TokenizedGiftCard {
-
     override val paymentInstrumentId: String
         get() = card.paymentInstrumentId.toString()
     override val status: au.com.woolworths.village.sdk.model.walletmanagement.Status

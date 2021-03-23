@@ -10,7 +10,6 @@ class OpenApiGuestTokenizeGiftcardResponse(
 ) : au.com.woolworths.village.sdk.model.walletmanagement.TokenizeGiftcardResponse {
     override val giftCard: au.com.woolworths.village.sdk.model.walletmanagement.TokenizedGiftCard
         get() = OpenApiGuestTokenizedGiftCard(tokenizeGiftcardResponse.giftCard)
-
     override val balance: BigDecimal
         get() = tokenizeGiftcardResponse.balance
     override val expiryDay: String
