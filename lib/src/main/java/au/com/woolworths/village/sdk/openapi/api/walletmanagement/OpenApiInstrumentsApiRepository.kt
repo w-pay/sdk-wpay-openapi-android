@@ -26,7 +26,7 @@ class OpenApiInstrumentsApiRepository (
             body.uid = importPaymentInstrumentsRequest.uid
             body.shopperId = importPaymentInstrumentsRequest.shopperId
             body.payPal = toPayPal(importPaymentInstrumentsRequest.payPal)
-            body.creditCards = importPaymentInstrumentsRequest.creditCards!!.map(::getCreditCard)
+            body.creditCards = importPaymentInstrumentsRequest.creditCards!!.map(::toCreditCard)
 
             val response = api.instrumentsImportPost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
@@ -73,23 +73,6 @@ class OpenApiInstrumentsApiRepository (
                 )
             )
         }
-    }
-
-    private fun toFraudPayload(fraudPayload: au.com.woolworths.village.sdk.model.walletmanagement.FraudPayload?): VerifyPaymentInstrumentsRequestFraudPayload {
-        val verifyPaymentInstrumentsRequestFraudPayload = VerifyPaymentInstrumentsRequestFraudPayload()
-        verifyPaymentInstrumentsRequestFraudPayload.provider = fraudPayload!!.provider
-        verifyPaymentInstrumentsRequestFraudPayload.version = fraudPayload.version
-        verifyPaymentInstrumentsRequestFraudPayload.format= VerifyPaymentInstrumentsRequestFraudPayload.FormatEnum.valueOf(fraudPayload.format.toString())
-        verifyPaymentInstrumentsRequestFraudPayload.message = fraudPayload.message
-        verifyPaymentInstrumentsRequestFraudPayload.responseFormat = VerifyPaymentInstrumentsRequestFraudPayload.ResponseFormatEnum.valueOf(fraudPayload.responseFormat.toString())
-        return verifyPaymentInstrumentsRequestFraudPayload
-    }
-
-    private fun toPaymentInstruments(instrument: au.com.woolworths.village.sdk.model.walletmanagement.VerifyPaymentInstrumentsRequestInstrument): VerifyPaymentInstrumentsRequestPaymentInstruments {
-        val i = VerifyPaymentInstrumentsRequestPaymentInstruments()
-        i.paymentToken = instrument.paymentToken
-        i.stepUpToken = instrument.stepUpToken
-        return i
     }
 
     override fun getList(): ApiResult<au.com.woolworths.village.sdk.model.walletmanagement.ListPaymentInstrumentsResponse> {
@@ -160,7 +143,7 @@ class OpenApiInstrumentsApiRepository (
         }
     }
 
-    private fun getCreditCard(creditCard: au.com.woolworths.village.sdk.model.walletmanagement.PaymentInstrumentRequestCreditCard): ImportPaymentInstrumentsRequestCreditCards {
+    private fun toCreditCard(creditCard: au.com.woolworths.village.sdk.model.walletmanagement.PaymentInstrumentRequestCreditCard): ImportPaymentInstrumentsRequestCreditCards {
         val instrumentCreditCard = ImportPaymentInstrumentsRequestCreditCards()
         instrumentCreditCard.transactionRef = creditCard.transactionRef
         instrumentCreditCard.transactionTimestamp = creditCard.transactionTimestamp
@@ -177,5 +160,22 @@ class OpenApiInstrumentsApiRepository (
         instrumentPayPal.payPalId = payPal.payPalId
         instrumentPayPal.paymentMethodToken = payPal.paymentMethodToken
         return instrumentPayPal
+    }
+
+    private fun toFraudPayload(fraudPayload: au.com.woolworths.village.sdk.model.walletmanagement.FraudPayload?): VerifyPaymentInstrumentsRequestFraudPayload {
+        val verifyPaymentInstrumentsRequestFraudPayload = VerifyPaymentInstrumentsRequestFraudPayload()
+        verifyPaymentInstrumentsRequestFraudPayload.provider = fraudPayload!!.provider
+        verifyPaymentInstrumentsRequestFraudPayload.version = fraudPayload.version
+        verifyPaymentInstrumentsRequestFraudPayload.format= VerifyPaymentInstrumentsRequestFraudPayload.FormatEnum.valueOf(fraudPayload.format.toString())
+        verifyPaymentInstrumentsRequestFraudPayload.message = fraudPayload.message
+        verifyPaymentInstrumentsRequestFraudPayload.responseFormat = VerifyPaymentInstrumentsRequestFraudPayload.ResponseFormatEnum.valueOf(fraudPayload.responseFormat.toString())
+        return verifyPaymentInstrumentsRequestFraudPayload
+    }
+
+    private fun toPaymentInstruments(instrument: au.com.woolworths.village.sdk.model.walletmanagement.VerifyPaymentInstrumentsRequestInstrument): VerifyPaymentInstrumentsRequestPaymentInstruments {
+        val i = VerifyPaymentInstrumentsRequestPaymentInstruments()
+        i.paymentToken = instrument.paymentToken
+        i.stepUpToken = instrument.stepUpToken
+        return i
     }
 }

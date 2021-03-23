@@ -20,7 +20,7 @@ class OpenApiTransactionsApiRepository(
             val api = createWalletManagementApi()
 
             val body = au.com.woolworths.village.sdk.openapi.dto.TransactionHistoryRequest()
-            body.transactionTypes = transactionHistoryRequest.transactionTypes.map(::getTransactionTypes)
+            body.transactionTypes = transactionHistoryRequest.transactionTypes.map(::toTransactionTypes)
             body.paymentInstrumentIds = transactionHistoryRequest.paymentInstrumentIds
             body.clientReference = transactionHistoryRequest.clientReference
             body.transactionRef = transactionHistoryRequest.transactionRef
@@ -47,7 +47,7 @@ class OpenApiTransactionsApiRepository(
         }
     }
 
-    private fun getTransactionTypes(transactionType: au.com.woolworths.village.sdk.model.walletmanagement.TransactionClass): TransactionHistoryRequest.TransactionTypesEnum {
+    private fun toTransactionTypes(transactionType: au.com.woolworths.village.sdk.model.walletmanagement.TransactionClass): TransactionHistoryRequest.TransactionTypesEnum {
         return TransactionHistoryRequest.TransactionTypesEnum.valueOf(transactionType.toString())
     }
 }
