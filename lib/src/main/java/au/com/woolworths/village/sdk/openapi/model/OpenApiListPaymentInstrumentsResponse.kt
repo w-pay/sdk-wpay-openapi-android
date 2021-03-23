@@ -8,78 +8,19 @@ class OpenApiListPaymentInstrumentsResponse(
     private val listPaymentInstrumentsResponse: ListPaymentInstrumentsResponse
 ) : au.com.woolworths.village.sdk.model.walletmanagement.ListPaymentInstrumentsResponse {
     override val creditCards: List<au.com.woolworths.village.sdk.model.walletmanagement.CreditCardDetails>
-        get() = listPaymentInstrumentsResponse.creditCards.map(::toCreditCardDetails)
+        get() = listPaymentInstrumentsResponse.creditCards.map{OpenApiCreditCardDetails(it)}
     override val giftCards: List<au.com.woolworths.village.sdk.model.walletmanagement.GiftCardDetails>
-        get() = listPaymentInstrumentsResponse.giftCards.map(::toGiftCardDetails)
+        get() = listPaymentInstrumentsResponse.giftCards.map{OpenApiGiftCardDetails(it)}
     override val androidPay: String
         get() = listPaymentInstrumentsResponse.androidPay.toString()
     override val googlePay: au.com.woolworths.village.sdk.model.walletmanagement.GooglePayDetails
-        get() = toGooglePayDetails(listPaymentInstrumentsResponse.googlePay)
+        get() = OpenApiGooglePayDetails(listPaymentInstrumentsResponse.googlePay)
     override val applePay: au.com.woolworths.village.sdk.model.walletmanagement.ApplePayDetails
-        get() = toApplePayDetails(listPaymentInstrumentsResponse.applePay)
+        get() = OpenApiApplePayDetails(listPaymentInstrumentsResponse.applePay)
     override val payPal: List<au.com.woolworths.village.sdk.model.walletmanagement.PayPalDetails>
-        get() = listPaymentInstrumentsResponse.payPal.map(::toPayPalDetails)
+        get() = listPaymentInstrumentsResponse.payPal.map{OpenApiPaymentInstrumentsPayPalDetails(it)}
     override val paymentAgreements: List<au.com.woolworths.village.sdk.model.walletmanagement.PaymentAgreementDetails>
-        get() = listPaymentInstrumentsResponse.paymentAgreements.map(::toPaymentAgreementDetails)
-}
-
-fun toPaymentAgreementDetails(listPaymentInstrumentsResponsePaymentAgreements: ListPaymentInstrumentsResponsePaymentAgreements?):
-        au.com.woolworths.village.sdk.model.walletmanagement.PaymentAgreementDetails {
-    return OpenApiPaymentAgreementDetails(listPaymentInstrumentsResponsePaymentAgreements!!)
-}
-class OpenApiPaymentAgreementDetails(
-    private val listPaymentInstrumentsResponsePaymentAgreements: ListPaymentInstrumentsResponsePaymentAgreements
-): au.com.woolworths.village.sdk.model.walletmanagement.PaymentAgreementDetails{
-    override val paymentToken: String
-        get() = listPaymentInstrumentsResponsePaymentAgreements.paymentToken
-    override val status: au.com.woolworths.village.sdk.model.walletmanagement.PaymentInstrumentStatus
-        get() = au.com.woolworths.village.sdk.model.walletmanagement.PaymentInstrumentStatus.valueOf(listPaymentInstrumentsResponsePaymentAgreements.status.value)
-    override val lastUpdated: String
-        get() = listPaymentInstrumentsResponsePaymentAgreements.lastUpdated
-    override val lastUsed: String
-        get() = listPaymentInstrumentsResponsePaymentAgreements.lastUsed
-    override val primary: Boolean
-        get() = listPaymentInstrumentsResponsePaymentAgreements.primary
-    override val allowed: Boolean
-        get() = listPaymentInstrumentsResponsePaymentAgreements.allowed
-    override val cardSuffix: String
-        get() = listPaymentInstrumentsResponsePaymentAgreements.cardSuffix!!
-    override val type: au.com.woolworths.village.sdk.model.walletmanagement.PaymentAgreementTypeEnum
-        get() = au.com.woolworths.village.sdk.model.walletmanagement.PaymentAgreementTypeEnum.valueOf(listPaymentInstrumentsResponsePaymentAgreements.type.value)
-    override val chargeFrequency: au.com.woolworths.village.sdk.model.walletmanagement.ChargeFrequencyEnum
-        get() = au.com.woolworths.village.sdk.model.walletmanagement.ChargeFrequencyEnum.valueOf(listPaymentInstrumentsResponsePaymentAgreements.chargeFrequency.value)
-    override val paymentInstrumentId: String
-        get() = listPaymentInstrumentsResponsePaymentAgreements.paymentInstrumentId
-    override val scheme: String
-        get() = listPaymentInstrumentsResponsePaymentAgreements.scheme!!
-    override val expiryMonth: String
-        get() = listPaymentInstrumentsResponsePaymentAgreements.expiryMonth!!
-    override val expiryYear: String
-        get() = listPaymentInstrumentsResponsePaymentAgreements.expiryYear!!
-    override val startDate: String
-        get() = listPaymentInstrumentsResponsePaymentAgreements.startDate
-    override val endDate: String
-        get() = listPaymentInstrumentsResponsePaymentAgreements.endDate!!
-    override val chargeAmount: BigDecimal
-        get() = listPaymentInstrumentsResponsePaymentAgreements.chargeAmount!!
-    override val chargeCycle: BigDecimal
-        get() = listPaymentInstrumentsResponsePaymentAgreements.chargeCycle!!
-    override val expired: String
-        get() = listPaymentInstrumentsResponsePaymentAgreements.expired
-    override val updateURL: String
-        get() = listPaymentInstrumentsResponsePaymentAgreements.updateURL!!
-    override val stepUp: au.com.woolworths.village.sdk.model.walletmanagement.StepUp
-        get() = toStepUp(listPaymentInstrumentsResponsePaymentAgreements.stepUp)
-
-    private fun toStepUp(stepUp: ListPaymentInstrumentsResponseStepUp1?):
-            au.com.woolworths.village.sdk.model.walletmanagement.StepUp {
-        return OpenApiStepUp(stepUp!!.mandatory, stepUp.type, stepUp.url)
-    }
-}
-
-fun toPayPalDetails(listPaymentInstrumentsResponsePayPal: ListPaymentInstrumentsResponsePayPal?):
-        au.com.woolworths.village.sdk.model.walletmanagement.PayPalDetails {
-    return OpenApiPaymentInstrumentsPayPalDetails(listPaymentInstrumentsResponsePayPal!!)
+        get() = listPaymentInstrumentsResponse.paymentAgreements.map{OpenApiPaymentAgreementDetails(it)}
 }
 
 class OpenApiPaymentInstrumentsPayPalDetails(
@@ -283,11 +224,7 @@ class OpenApiPaymentInstrumentsCreditCardResult(
     override val result: au.com.woolworths.village.sdk.model.walletmanagement.ResultEnum
         get() = au.com.woolworths.village.sdk.model.walletmanagement.ResultEnum.valueOf(importPaymentInstrumentsResponseCreditCards.result.value)
     override val errorMessage: au.com.woolworths.village.sdk.model.walletmanagement.ErrorMessage
-        get() = toErrorMessage(importPaymentInstrumentsResponseCreditCards.errorMessage.toString())
-
-    private fun toErrorMessage(errorMessage: String): au.com.woolworths.village.sdk.model.walletmanagement.ErrorMessage {
-        return OpenApiPaymentInstrumentsErrorMessage(errorMessage)
-    }
+        get() = OpenApiPaymentInstrumentsErrorMessage(importPaymentInstrumentsResponseCreditCards.errorMessage.toString())
 }
 class OpenApiPaymentInstrumentsErrorMessage(
     private val errorMessage: String
