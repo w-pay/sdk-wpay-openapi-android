@@ -8,11 +8,7 @@ class OpenApiGiftcardsBalanceResponse(
     private val tokenizeGiftcardResponse: GiftcardsBalanceResponse
 ) : au.com.woolworths.village.sdk.model.walletmanagement.GiftcardsBalanceResponse {
     override val giftCardBalances: List<au.com.woolworths.village.sdk.model.walletmanagement.GiftCardBalance>
-        get() = tokenizeGiftcardResponse.giftCardBalances?.map(::toGiftCardBalances) ?: emptyList()
-
-    fun toGiftCardBalances(card: GiftcardsBalanceResponseGiftCardBalances): au.com.woolworths.village.sdk.model.walletmanagement.GiftCardBalance {
-        return OpenApiGiftCardBalance(card)
-    }
+        get() = tokenizeGiftcardResponse.giftCardBalances!!.map{OpenApiGiftCardBalance(it)}
 }
 
 class OpenApiGiftCardBalance(
