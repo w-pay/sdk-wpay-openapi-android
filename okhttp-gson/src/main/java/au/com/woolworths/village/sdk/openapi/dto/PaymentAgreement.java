@@ -14,8 +14,6 @@
 package au.com.woolworths.village.sdk.openapi.dto;
 
 import java.util.Objects;
-import java.util.Arrays;
-import au.com.woolworths.village.sdk.openapi.dto.ListPaymentInstrumentsResponseStepUp1;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -25,7 +23,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.math.BigDecimal;
+
+import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.OffsetDateTime;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.io.Serializable;
 
 /**
@@ -46,7 +48,7 @@ public class PaymentAgreement implements Serializable {
   @JsonAdapter(StatusEnum.Adapter.class)
   public enum StatusEnum {
     UNVERIFIED_PERSISTENT("UNVERIFIED_PERSISTENT"),
-    
+
     VERIFIED("VERIFIED");
 
     private String value;
@@ -93,11 +95,11 @@ public class PaymentAgreement implements Serializable {
 
   public static final String SERIALIZED_NAME_LAST_UPDATED = "lastUpdated";
   @SerializedName(SERIALIZED_NAME_LAST_UPDATED)
-  private String lastUpdated;
+  private OffsetDateTime lastUpdated;
 
   public static final String SERIALIZED_NAME_LAST_USED = "lastUsed";
   @SerializedName(SERIALIZED_NAME_LAST_USED)
-  private String lastUsed;
+  private OffsetDateTime lastUsed;
 
   public static final String SERIALIZED_NAME_CREATED_ON = "createdOn";
   @SerializedName(SERIALIZED_NAME_CREATED_ON)
@@ -186,11 +188,11 @@ public class PaymentAgreement implements Serializable {
 
   public static final String SERIALIZED_NAME_START_DATE = "startDate";
   @SerializedName(SERIALIZED_NAME_START_DATE)
-  private String startDate;
+  private OffsetDateTime startDate;
 
   public static final String SERIALIZED_NAME_END_DATE = "endDate";
   @SerializedName(SERIALIZED_NAME_END_DATE)
-  private String endDate;
+  private OffsetDateTime endDate;
 
   /**
    * The payment agreement charge frequency.
@@ -271,7 +273,7 @@ public class PaymentAgreement implements Serializable {
 
 
   public PaymentAgreement paymentToken(String paymentToken) {
-    
+
     this.paymentToken = paymentToken;
     return this;
   }
@@ -293,7 +295,7 @@ public class PaymentAgreement implements Serializable {
 
 
   public PaymentAgreement status(StatusEnum status) {
-    
+
     this.status = status;
     return this;
   }
@@ -314,8 +316,8 @@ public class PaymentAgreement implements Serializable {
   }
 
 
-  public PaymentAgreement lastUpdated(String lastUpdated) {
-    
+  public PaymentAgreement lastUpdated(OffsetDateTime lastUpdated) {
+
     this.lastUpdated = lastUpdated;
     return this;
   }
@@ -326,18 +328,18 @@ public class PaymentAgreement implements Serializable {
   **/
   @ApiModelProperty(example = "2018-09-01T00:00:00.000+1100", required = true, value = "The timestamp the payment agreement was last updated in the container. The timestamp format is ISO8601.")
 
-  public String getLastUpdated() {
+  public OffsetDateTime getLastUpdated() {
     return lastUpdated;
   }
 
 
   public void setLastUpdated(String lastUpdated) {
-    this.lastUpdated = lastUpdated;
+    this.lastUpdated = OffsetDateTime.parse(lastUpdated, DateTimeFormatter.ISO_DATE_TIME);
   }
 
 
-  public PaymentAgreement lastUsed(String lastUsed) {
-    
+  public PaymentAgreement lastUsed(OffsetDateTime lastUsed) {
+
     this.lastUsed = lastUsed;
     return this;
   }
@@ -348,18 +350,18 @@ public class PaymentAgreement implements Serializable {
   **/
   @ApiModelProperty(example = "2018-09-14T12:00:00.000+1100", required = true, value = "The timestamp the payment agreement was last used in the container. The timestamp format is ISO8601. Will be null if never used.")
 
-  public String getLastUsed() {
+  public OffsetDateTime getLastUsed() {
     return lastUsed;
   }
 
 
   public void setLastUsed(String lastUsed) {
-    this.lastUsed = lastUsed;
+    this.lastUsed = OffsetDateTime.parse(lastUsed, DateTimeFormatter.ISO_DATE_TIME);
   }
 
 
   public PaymentAgreement createdOn(OffsetDateTime createdOn) {
-    
+
     this.createdOn = createdOn;
     return this;
   }
@@ -375,13 +377,13 @@ public class PaymentAgreement implements Serializable {
   }
 
 
-  public void setCreatedOn(OffsetDateTime createdOn) {
-    this.createdOn = createdOn;
+  public void setCreatedOn(String createdOn) {
+    this.createdOn = OffsetDateTime.parse(createdOn, DateTimeFormatter.ISO_DATE_TIME);
   }
 
 
   public PaymentAgreement primary(Boolean primary) {
-    
+
     this.primary = primary;
     return this;
   }
@@ -403,7 +405,7 @@ public class PaymentAgreement implements Serializable {
 
 
   public PaymentAgreement allowed(Boolean allowed) {
-    
+
     this.allowed = allowed;
     return this;
   }
@@ -560,7 +562,7 @@ public class PaymentAgreement implements Serializable {
   }
 
 
-  public PaymentAgreement startDate(String startDate) {
+  public PaymentAgreement startDate(OffsetDateTime startDate) {
     
     this.startDate = startDate;
     return this;
@@ -572,17 +574,17 @@ public class PaymentAgreement implements Serializable {
   **/
   @ApiModelProperty(example = "2018-09-01T00:00:00.000+1100", required = true, value = "The payment agreement start date and time. The timestamp format is ISO8601.")
 
-  public String getStartDate() {
+  public OffsetDateTime getStartDate() {
     return startDate;
   }
 
 
   public void setStartDate(String startDate) {
-    this.startDate = startDate;
+    this.startDate = OffsetDateTime.parse(startDate, DateTimeFormatter.ISO_DATE_TIME);
   }
 
 
-  public PaymentAgreement endDate(String endDate) {
+  public PaymentAgreement endDate(OffsetDateTime endDate) {
     
     this.endDate = endDate;
     return this;
@@ -594,13 +596,13 @@ public class PaymentAgreement implements Serializable {
   **/
   @ApiModelProperty(example = "2018-12-31T23:59:59.999+1100", required = true, value = "The payment agreement end date and time. The timestamp format is ISO8601.")
 
-  public String getEndDate() {
+  public OffsetDateTime getEndDate() {
     return endDate;
   }
 
 
   public void setEndDate(String endDate) {
-    this.endDate = endDate;
+    this.endDate = OffsetDateTime.parse(endDate, DateTimeFormatter.ISO_DATE_TIME);
   }
 
 
@@ -627,7 +629,7 @@ public class PaymentAgreement implements Serializable {
 
 
   public PaymentAgreement chargeAmount(BigDecimal chargeAmount) {
-    
+
     this.chargeAmount = chargeAmount;
     return this;
   }
@@ -649,7 +651,7 @@ public class PaymentAgreement implements Serializable {
 
 
   public PaymentAgreement chargeCycle(BigDecimal chargeCycle) {
-    
+
     this.chargeCycle = chargeCycle;
     return this;
   }
@@ -671,7 +673,7 @@ public class PaymentAgreement implements Serializable {
 
 
   public PaymentAgreement expired(String expired) {
-    
+
     this.expired = expired;
     return this;
   }
@@ -693,7 +695,7 @@ public class PaymentAgreement implements Serializable {
 
 
   public PaymentAgreement updateURL(String updateURL) {
-    
+
     this.updateURL = updateURL;
     return this;
   }
@@ -715,7 +717,7 @@ public class PaymentAgreement implements Serializable {
 
 
   public PaymentAgreement stepUp(ListPaymentInstrumentsResponseStepUp1 stepUp) {
-    
+
     this.stepUp = stepUp;
     return this;
   }
@@ -738,7 +740,7 @@ public class PaymentAgreement implements Serializable {
 
 
   public PaymentAgreement description(String description) {
-    
+
     this.description = description;
     return this;
   }
