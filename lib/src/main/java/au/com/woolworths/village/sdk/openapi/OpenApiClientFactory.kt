@@ -1,23 +1,15 @@
 package au.com.woolworths.village.sdk.openapi
 
 import au.com.woolworths.village.sdk.*
-import au.com.woolworths.village.sdk.openapi.api.AdministrationApi
-import au.com.woolworths.village.sdk.openapi.api.CustomerApi
-import au.com.woolworths.village.sdk.openapi.api.MerchantApi
+import au.com.woolworths.village.sdk.openapi.api.*
 import au.com.woolworths.village.sdk.openapi.client.ApiClient
 import au.com.woolworths.village.sdk.openapi.dto.DynamicPayload
 import java.lang.IllegalStateException
 
 open class OpenApiClientFactory(
     private val requestHeadersFactory: RequestHeadersFactory,
-    private var contextRoot: String
-): Configurable {
-    private var host: String = "localhost:3000"
-
-    override fun setHost(host: String) {
-        this.host = host
-    }
-
+    private var options: VillageOptions
+) {
     protected fun createAdministrationApi(): AdministrationApi {
         return AdministrationApi(createApiClient())
     }
@@ -28,6 +20,18 @@ open class OpenApiClientFactory(
 
     protected fun createMerchantApi(): MerchantApi {
         return MerchantApi(createApiClient())
+    }
+
+    protected fun createWalletManagementApi(): WalletManagementApi {
+        return WalletManagementApi(createApiClient())
+    }
+
+    protected fun createPaymentAgreementsApi(): PaymentAgreementsApi {
+        return PaymentAgreementsApi(createApiClient())
+    }
+
+    protected fun createOpenpayApi(): OpenpayApi {
+        return OpenpayApi(createApiClient())
     }
 
     protected fun getDefaultHeader(client: ApiClient, name: String): String? {
@@ -77,7 +81,7 @@ open class OpenApiClientFactory(
 
     private fun createApiClient(): ApiClient {
         val apiClient = ExtendedApiClient()
-        apiClient.basePath = "${host}${contextRoot}"
+        apiClient.basePath = options.baseUrl
 
         requestHeadersFactory.createHeaders().forEach { (name, value) ->
             apiClient.addDefaultHeader(name, value)

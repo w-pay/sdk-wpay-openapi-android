@@ -7,11 +7,11 @@ import org.threeten.bp.OffsetDateTime
 import java.net.URL
 import java.util.*
 
-class OpenApiAllPaymentInstruments(
+class OpenApiWalletContents(
     creditCards: List<au.com.woolworths.village.sdk.openapi.dto.CreditCard>,
     giftCards: List<au.com.woolworths.village.sdk.openapi.dto.GiftCard>,
     private val data: GetCustomerPaymentInstrumentsResultsDataEverydayPay?
-) : OpenApiPaymentInstruments(creditCards, giftCards, Wallet.MERCHANT), AllPaymentInstruments {
+) : OpenApiPaymentInstruments(creditCards, giftCards, Wallet.MERCHANT), WalletContents {
     override val everydayPay: PaymentInstruments?
         get() = data?.let {
             OpenApiPaymentInstruments(
@@ -145,7 +145,7 @@ class OpenApiCreditCardStepUp(
 }
 
 class OpenApiGiftCardStepUp(
-    private val stepUp: au.com.woolworths.village.sdk.openapi.dto.GiftCardStepUp
+    private val stepUp: au.com.woolworths.village.sdk.openapi.dto.GetCustomerPaymentInstrumentResultDataPaymentInstrumentDetailStepUp
 ) : GiftCardStepUp {
     override val type: String
         get() = stepUp.type

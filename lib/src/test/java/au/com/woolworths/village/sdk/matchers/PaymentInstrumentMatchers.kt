@@ -8,7 +8,7 @@ import org.hamcrest.TypeSafeMatcher
 import org.hamcrest.text.IsBlankString.blankOrNullString
 import org.junit.Assert.assertThat
 
-fun allPaymentInstruments(): Matcher<AllPaymentInstruments> = AllPaymentInstrumentsMatcher()
+fun allPaymentInstruments(): Matcher<WalletContents> = AllPaymentInstrumentsMatcher()
 
 fun hasPaymentInstruments(): Matcher<PaymentInstruments> = PaymentInstrumentMatcher()
 
@@ -20,8 +20,8 @@ fun giftCard(): Matcher<GiftCard> = GiftCardMatcher()
 
 fun paymentInstrumentAdded(): Matcher<PaymentInstrumentAdditionResult> = PaymentInstrumentAdditionResultMatcher()
 
-class AllPaymentInstrumentsMatcher: TypeSafeMatcher<AllPaymentInstruments>() {
-    override fun matchesSafely(item: AllPaymentInstruments): Boolean {
+class AllPaymentInstrumentsMatcher: TypeSafeMatcher<WalletContents>() {
+    override fun matchesSafely(item: WalletContents): Boolean {
         assertThat(item.creditCards, hasCards(creditCard()))
         assertThat(item.giftCards, hasCards(giftCard()))
         assertThat(item.everydayPay!!, hasPaymentInstruments())
