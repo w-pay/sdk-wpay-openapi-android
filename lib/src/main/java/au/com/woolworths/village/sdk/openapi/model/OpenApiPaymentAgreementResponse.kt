@@ -4,7 +4,7 @@ import au.com.woolworths.village.sdk.model.PaymentAgreement
 import au.com.woolworths.village.sdk.model.PaymentAgreementStepUp
 import au.com.woolworths.village.sdk.model.walletmanagement.PaymentInstrumentStatus
 import java.math.BigDecimal
-import java.time.OffsetDateTime
+import org.threeten.bp.OffsetDateTime
 import java.util.*
 
 class OpenApiPaymentAgreementResponse(
@@ -17,16 +17,16 @@ class OpenApiPaymentAgreementResponse(
     override val paymentInstrumentId: String
         get() = paymentAgreement.paymentInstrumentId
 
-    override val scheme: String
+    override val scheme: String?
         get() = paymentAgreement.scheme
 
-    override val cardSuffix: String
+    override val cardSuffix: String?
         get() = paymentAgreement.cardSuffix
 
-    override val expiryMonth: String
+    override val expiryMonth: String?
         get() = paymentAgreement.expiryMonth
 
-    override val expiryYear: String
+    override val expiryYear: String?
         get() = paymentAgreement.expiryYear
 
     override val startDate: OffsetDateTime
@@ -53,8 +53,8 @@ class OpenApiPaymentAgreementResponse(
     override val description: String?
         get() = paymentAgreement.description
 
-    override val expired: Boolean?
-        get() = paymentAgreement.expired
+    override val expired: Boolean
+        get() = paymentAgreement.expired === "true"
 
     override val lastUpdated: OffsetDateTime?
         get() = paymentAgreement.lastUpdated
@@ -69,7 +69,7 @@ class OpenApiPaymentAgreementResponse(
         get() = paymentAgreement.primary
 
     override val status: PaymentInstrumentStatus
-        get() = paymentAgreement.status
+        get() = paymentAgreement.status as PaymentInstrumentStatus
 
     override val stepUp: PaymentAgreementStepUp?
         get() = paymentAgreement.stepUp as PaymentAgreementStepUp
