@@ -13,14 +13,12 @@
 
 package au.com.woolworths.village.sdk.openapi.dto;
 
+import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-
-import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
 
 /**
  * PaymentAgreementResponse
@@ -45,10 +43,10 @@ public class PaymentAgreementResponse implements Serializable {
   }
 
    /**
-   * Definition of a payment agreement
+   * Get data
    * @return data
   **/
-  @ApiModelProperty(required = true, value = "Definition of a payment agreement")
+  @ApiModelProperty(required = true, value = "")
 
   public PaymentAgreement getData() {
     return data;

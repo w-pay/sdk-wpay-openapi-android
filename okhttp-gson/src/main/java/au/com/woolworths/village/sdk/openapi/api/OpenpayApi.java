@@ -13,28 +13,39 @@
 
 package au.com.woolworths.village.sdk.openapi.api;
 
-import com.google.gson.reflect.TypeToken;
-
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import au.com.woolworths.village.sdk.openapi.client.ApiCallback;
 import au.com.woolworths.village.sdk.openapi.client.ApiClient;
 import au.com.woolworths.village.sdk.openapi.client.ApiException;
 import au.com.woolworths.village.sdk.openapi.client.ApiResponse;
 import au.com.woolworths.village.sdk.openapi.client.Configuration;
 import au.com.woolworths.village.sdk.openapi.client.Pair;
+import au.com.woolworths.village.sdk.openapi.client.ProgressRequestBody;
+import au.com.woolworths.village.sdk.openapi.client.ProgressResponseBody;
+
+import com.google.gson.reflect.TypeToken;
+
+import java.io.IOException;
+
+
+import au.com.woolworths.village.sdk.openapi.dto.BaseErrorResponse;
+import au.com.woolworths.village.sdk.openapi.dto.OpenpayCompletionsErrorResponse;
 import au.com.woolworths.village.sdk.openapi.dto.OpenpayCompletionsRequest;
 import au.com.woolworths.village.sdk.openapi.dto.OpenpayCompletionsSuccessResponse;
+import au.com.woolworths.village.sdk.openapi.dto.OpenpayPaymentsErrorResponse;
 import au.com.woolworths.village.sdk.openapi.dto.OpenpayPaymentsRequest;
 import au.com.woolworths.village.sdk.openapi.dto.OpenpayPaymentsSuccessResponse;
+import au.com.woolworths.village.sdk.openapi.dto.OpenpayRefundsErrorResponse;
 import au.com.woolworths.village.sdk.openapi.dto.OpenpayRefundsRequest;
 import au.com.woolworths.village.sdk.openapi.dto.OpenpayRefundsSuccessResponse;
+import au.com.woolworths.village.sdk.openapi.dto.OpenpayVoidsErrorResponse;
 import au.com.woolworths.village.sdk.openapi.dto.OpenpayVoidsRequest;
 import au.com.woolworths.village.sdk.openapi.dto.OpenpayVoidsSuccessResponse;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class OpenpayApi {
     private ApiClient localVarApiClient;

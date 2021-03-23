@@ -13,15 +13,12 @@
 
 package au.com.woolworths.village.sdk.openapi.dto;
 
+import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
-
-import  au.com.woolworths.village.sdk.openapi.model.digitalpay.DigitalPayPaymentAgreementResponse;
-import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
 
 /**
  * ChargePaymentAgreementResponse
@@ -32,14 +29,14 @@ public class ChargePaymentAgreementResponse implements Serializable {
 
   public static final String SERIALIZED_NAME_DATA = "data";
   @SerializedName(SERIALIZED_NAME_DATA)
-  private DigitalPayPaymentAgreementResponse data;
+  private PaymentAgreementResponse data;
 
   public static final String SERIALIZED_NAME_META = "meta";
   @SerializedName(SERIALIZED_NAME_META)
   private Map<String, Object> meta = new HashMap<String, Object>();
 
 
-  public ChargePaymentAgreementResponse data(DigitalPayPaymentAgreementResponse data) {
+  public ChargePaymentAgreementResponse data(PaymentAgreementResponse data) {
     
     this.data = data;
     return this;
@@ -51,12 +48,12 @@ public class ChargePaymentAgreementResponse implements Serializable {
   **/
   @ApiModelProperty(required = true, value = "")
 
-  public DigitalPayPaymentAgreementResponse getData() {
+  public PaymentAgreementResponse getData() {
     return data;
   }
 
 
-  public void setData(DigitalPayPaymentAgreementResponse data) {
+  public void setData(PaymentAgreementResponse data) {
     this.data = data;
   }
 

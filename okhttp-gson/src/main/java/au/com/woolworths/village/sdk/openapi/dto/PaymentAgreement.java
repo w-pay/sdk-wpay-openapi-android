@@ -13,28 +13,101 @@
 
 package au.com.woolworths.village.sdk.openapi.dto;
 
+import java.util.Objects;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-
-import org.threeten.bp.OffsetDateTime;
-
-import java.io.IOException;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Objects;
-
-import au.com.woolworths.village.sdk.model.walletmanagement.PaymentInstrumentStatus;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
+import java.math.BigDecimal;
+import org.threeten.bp.OffsetDateTime;
+import java.io.Serializable;
 
 /**
- * PaymentAgreement
+ * Definition of a payment agreement
  */
+@ApiModel(description = "Definition of a payment agreement")
 
 public class PaymentAgreement implements Serializable {
   private static final long serialVersionUID = 1L;
+
+  public static final String SERIALIZED_NAME_PAYMENT_TOKEN = "paymentToken";
+  @SerializedName(SERIALIZED_NAME_PAYMENT_TOKEN)
+  private String paymentToken;
+
+  /**
+   * The status of the payment agreement in the container.
+   */
+  @JsonAdapter(StatusEnum.Adapter.class)
+  public enum StatusEnum {
+    UNVERIFIED_PERSISTENT("UNVERIFIED_PERSISTENT"),
+
+    VERIFIED("VERIFIED");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static StatusEnum fromValue(String value) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (b.value.equals(value)) {
+          return b;
+        }
+      }
+      throw new IllegalArgumentException("Unexpected value '" + value + "'");
+    }
+
+    public static class Adapter extends TypeAdapter<StatusEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public StatusEnum read(final JsonReader jsonReader) throws IOException {
+        String value =  jsonReader.nextString();
+        return StatusEnum.fromValue(value);
+      }
+    }
+  }
+
+  public static final String SERIALIZED_NAME_STATUS = "status";
+  @SerializedName(SERIALIZED_NAME_STATUS)
+  private StatusEnum status;
+
+  public static final String SERIALIZED_NAME_LAST_UPDATED = "lastUpdated";
+  @SerializedName(SERIALIZED_NAME_LAST_UPDATED)
+  private String lastUpdated;
+
+  public static final String SERIALIZED_NAME_LAST_USED = "lastUsed";
+  @SerializedName(SERIALIZED_NAME_LAST_USED)
+  private String lastUsed;
+
+  public static final String SERIALIZED_NAME_CREATED_ON = "createdOn";
+  @SerializedName(SERIALIZED_NAME_CREATED_ON)
+  private OffsetDateTime createdOn;
+
+  public static final String SERIALIZED_NAME_PRIMARY = "primary";
+  @SerializedName(SERIALIZED_NAME_PRIMARY)
+  private Boolean primary;
+
+  public static final String SERIALIZED_NAME_ALLOWED = "allowed";
+  @SerializedName(SERIALIZED_NAME_ALLOWED)
+  private Boolean allowed;
 
   /**
    * The payment agreement type.
@@ -93,10 +166,6 @@ public class PaymentAgreement implements Serializable {
   @SerializedName(SERIALIZED_NAME_PAYMENT_INSTRUMENT_ID)
   private String paymentInstrumentId;
 
-  public static final String SERIALIZED_NAME_PAYMENT_INSTRUMENT_TYPE = "paymentInstrumentType";
-  @SerializedName(SERIALIZED_NAME_PAYMENT_INSTRUMENT_TYPE)
-  private String paymentInstrumentType;
-
   public static final String SERIALIZED_NAME_SCHEME = "scheme";
   @SerializedName(SERIALIZED_NAME_SCHEME)
   private String scheme;
@@ -120,54 +189,6 @@ public class PaymentAgreement implements Serializable {
   public static final String SERIALIZED_NAME_END_DATE = "endDate";
   @SerializedName(SERIALIZED_NAME_END_DATE)
   private String endDate;
-
-  public static final String SERIALIZED_NAME_ALLOWED = "allowed";
-  @SerializedName(SERIALIZED_NAME_ALLOWED)
-  private Boolean allowed;
-
-  public static final String SERIALIZED_NAME_CHARGE_CYCLE = "chargeCycle";
-  @SerializedName(SERIALIZED_NAME_CHARGE_CYCLE)
-  private BigDecimal chargeCycle;
-
-  public static final String SERIALIZED_NAME_CREATED_ON = "createdOn";
-  @SerializedName(SERIALIZED_NAME_CREATED_ON)
-  private String createdOn;
-
-  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
-  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
-  private String description;
-
-  public static final String SERIALIZED_NAME_EXPIRED = "expired";
-  @SerializedName(SERIALIZED_NAME_EXPIRED)
-  private Boolean expired;
-
-  public static final String SERIALIZED_NAME_LAST_UPDATED = "lastUpdated";
-  @SerializedName(SERIALIZED_NAME_LAST_UPDATED)
-  private String lastUpdated;
-
-  public static final String SERIALIZED_NAME_LAST_USED = "lastUsed";
-  @SerializedName(SERIALIZED_NAME_LAST_USED)
-  private String lastUsed;
-
-  public static final String SERIALIZED_NAME_PAYMENT_TOKEN = "paymentToken";
-  @SerializedName(SERIALIZED_NAME_PAYMENT_TOKEN)
-  private String paymentToken;
-
-  public static final String SERIALIZED_NAME_PRIMARY = "primary";
-  @SerializedName(SERIALIZED_NAME_PRIMARY)
-  private Boolean primary;
-
-  public static final String SERIALIZED_NAME_STATUS = "status";
-  @SerializedName(SERIALIZED_NAME_STATUS)
-  private PaymentInstrumentStatus status;
-
-  public static final String SERIALIZED_NAME_PAYMENT_AGREEMENT_STEP_UP = "stepUp";
-  @SerializedName(SERIALIZED_NAME_STATUS)
-  private PaymentAgreementStepUp stepUp;
-
-  public static final String SERIALIZED_NAME_UPDATE_URL = "updateURL";
-  @SerializedName(SERIALIZED_NAME_UPDATE_URL)
-  private String updateURL;
 
   /**
    * The payment agreement charge frequency.
@@ -226,6 +247,180 @@ public class PaymentAgreement implements Serializable {
   @SerializedName(SERIALIZED_NAME_CHARGE_AMOUNT)
   private BigDecimal chargeAmount;
 
+  public static final String SERIALIZED_NAME_CHARGE_CYCLE = "chargeCycle";
+  @SerializedName(SERIALIZED_NAME_CHARGE_CYCLE)
+  private BigDecimal chargeCycle;
+
+  public static final String SERIALIZED_NAME_EXPIRED = "expired";
+  @SerializedName(SERIALIZED_NAME_EXPIRED)
+  private String expired;
+
+  public static final String SERIALIZED_NAME_UPDATE_U_R_L = "updateURL";
+  @SerializedName(SERIALIZED_NAME_UPDATE_U_R_L)
+  private String updateURL;
+
+  public static final String SERIALIZED_NAME_STEP_UP = "stepUp";
+  @SerializedName(SERIALIZED_NAME_STEP_UP)
+  private ListPaymentInstrumentsResponseStepUp1 stepUp;
+
+  public static final String SERIALIZED_NAME_DESCRIPTION = "description";
+  @SerializedName(SERIALIZED_NAME_DESCRIPTION)
+  private String description;
+
+
+  public PaymentAgreement paymentToken(String paymentToken) {
+
+    this.paymentToken = paymentToken;
+    return this;
+  }
+
+   /**
+   * The payment token of the payment agreement. The payment token is a unique identifier for the payment agreement.
+   * @return paymentToken
+  **/
+  @ApiModelProperty(example = "27e07e4e-58df-4072-8e75-33dd464af667", required = true, value = "The payment token of the payment agreement. The payment token is a unique identifier for the payment agreement.")
+
+  public String getPaymentToken() {
+    return paymentToken;
+  }
+
+
+  public void setPaymentToken(String paymentToken) {
+    this.paymentToken = paymentToken;
+  }
+
+
+  public PaymentAgreement status(StatusEnum status) {
+
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * The status of the payment agreement in the container.
+   * @return status
+  **/
+  @ApiModelProperty(required = true, value = "The status of the payment agreement in the container.")
+
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+
+  public void setStatus(StatusEnum status) {
+    this.status = status;
+  }
+
+
+  public PaymentAgreement lastUpdated(String lastUpdated) {
+
+    this.lastUpdated = lastUpdated;
+    return this;
+  }
+
+   /**
+   * The timestamp the payment agreement was last updated in the container. The timestamp format is ISO8601.
+   * @return lastUpdated
+  **/
+  @ApiModelProperty(example = "2018-09-01T00:00:00.000+1100", required = true, value = "The timestamp the payment agreement was last updated in the container. The timestamp format is ISO8601.")
+
+  public String getLastUpdated() {
+    return lastUpdated;
+  }
+
+
+  public void setLastUpdated(String lastUpdated) {
+    this.lastUpdated = lastUpdated;
+  }
+
+
+  public PaymentAgreement lastUsed(String lastUsed) {
+
+    this.lastUsed = lastUsed;
+    return this;
+  }
+
+   /**
+   * The timestamp the payment agreement was last used in the container. The timestamp format is ISO8601. Will be null if never used.
+   * @return lastUsed
+  **/
+  @ApiModelProperty(example = "2018-09-14T12:00:00.000+1100", required = true, value = "The timestamp the payment agreement was last used in the container. The timestamp format is ISO8601. Will be null if never used.")
+
+  public String getLastUsed() {
+    return lastUsed;
+  }
+
+
+  public void setLastUsed(String lastUsed) {
+    this.lastUsed = lastUsed;
+  }
+
+
+  public PaymentAgreement createdOn(OffsetDateTime createdOn) {
+
+    this.createdOn = createdOn;
+    return this;
+  }
+
+   /**
+   * The timestamp for when the payment instrument was added. The timestamp format is ISO8601.
+   * @return createdOn
+  **/
+  @ApiModelProperty(example = "2017-11-06T19:38:09.890+11:00", required = true, value = "The timestamp for when the payment instrument was added. The timestamp format is ISO8601.")
+
+  public OffsetDateTime getCreatedOn() {
+    return createdOn;
+  }
+
+
+  public void setCreatedOn(OffsetDateTime createdOn) {
+    this.createdOn = createdOn;
+  }
+
+
+  public PaymentAgreement primary(Boolean primary) {
+
+    this.primary = primary;
+    return this;
+  }
+
+   /**
+   * A flag to indicate if this payment instrument is the primary instrument in the container. Not used for payment agreements.
+   * @return primary
+  **/
+  @ApiModelProperty(example = "false", required = true, value = "A flag to indicate if this payment instrument is the primary instrument in the container. Not used for payment agreements.")
+
+  public Boolean getPrimary() {
+    return primary;
+  }
+
+
+  public void setPrimary(Boolean primary) {
+    this.primary = primary;
+  }
+
+
+  public PaymentAgreement allowed(Boolean allowed) {
+
+    this.allowed = allowed;
+    return this;
+  }
+
+   /**
+   * A flag to indicate if the merchant profile in the container allows the use of this payment agreement.
+   * @return allowed
+  **/
+  @ApiModelProperty(example = "true", required = true, value = "A flag to indicate if the merchant profile in the container allows the use of this payment agreement.")
+
+  public Boolean getAllowed() {
+    return allowed;
+  }
+
+
+  public void setAllowed(Boolean allowed) {
+    this.allowed = allowed;
+  }
+
 
   public PaymentAgreement type(TypeEnum type) {
     
@@ -271,28 +466,6 @@ public class PaymentAgreement implements Serializable {
   }
 
 
-  public PaymentAgreement paymentInstrumentType(String paymentInstrumentType) {
-    
-    this.paymentInstrumentType = paymentInstrumentType;
-    return this;
-  }
-
-   /**
-   * The type of the payment instrument used in the payment agreement.
-   * @return paymentInstrumentType
-  **/
-  @ApiModelProperty(example = "CREDIT_CARD", required = true, value = "The type of the payment instrument used in the payment agreement.")
-
-  public String getPaymentInstrumentType() {
-    return paymentInstrumentType;
-  }
-
-
-  public void setPaymentInstrumentType(String paymentInstrumentType) {
-    this.paymentInstrumentType = paymentInstrumentType;
-  }
-
-
   public PaymentAgreement scheme(String scheme) {
     
     this.scheme = scheme;
@@ -303,7 +476,8 @@ public class PaymentAgreement implements Serializable {
    * The credit card scheme.
    * @return scheme
   **/
-  @ApiModelProperty(example = "VISA", required = true, value = "The credit card scheme.")
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "VISA", value = "The credit card scheme.")
 
   public String getScheme() {
     return scheme;
@@ -325,7 +499,8 @@ public class PaymentAgreement implements Serializable {
    * The suffix (last 4 digits) of the credit card number.
    * @return cardSuffix
   **/
-  @ApiModelProperty(example = "4405", required = true, value = "The suffix (last 4 digits) of the credit card number.")
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "4405", value = "The suffix (last 4 digits) of the credit card number.")
 
   public String getCardSuffix() {
     return cardSuffix;
@@ -347,7 +522,8 @@ public class PaymentAgreement implements Serializable {
    * The month of the expiry date of the credit card.
    * @return expiryMonth
   **/
-  @ApiModelProperty(example = "11", required = true, value = "The month of the expiry date of the credit card.")
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "11", value = "The month of the expiry date of the credit card.")
 
   public String getExpiryMonth() {
     return expiryMonth;
@@ -369,7 +545,8 @@ public class PaymentAgreement implements Serializable {
    * The year of the expiry date of the credit card.
    * @return expiryYear
   **/
-  @ApiModelProperty(example = "22", required = true, value = "The year of the expiry date of the credit card.")
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "22", value = "The year of the expiry date of the credit card.")
 
   public String getExpiryYear() {
     return expiryYear;
@@ -468,38 +645,18 @@ public class PaymentAgreement implements Serializable {
     this.chargeAmount = chargeAmount;
   }
 
-  public PaymentAgreement allowed(Boolean allowed) {
 
-    this.allowed = allowed;
-    return this;
-  }
-
-  /**
-   * A flag to indicate if the merchant profile in the container allows the use of this payment agreement.
-   * @return allowed
-   **/
-  @ApiModelProperty(example = "true", required = false, value = "A flag to indicate if the merchant profile in the container allows the use of this payment agreement.")
-
-  public Boolean getAllowed() {
-    return allowed;
-  }
-
-
-  public void setAllowed(Boolean allowed) {
-    this.allowed = allowed;
-  }
-
-  public PaymentAgreement chargeCycle(Boolean allowed) {
+  public PaymentAgreement chargeCycle(BigDecimal chargeCycle) {
 
     this.chargeCycle = chargeCycle;
     return this;
   }
 
-  /**
-   *
+   /**
+   * The current charge cycle number.
    * @return chargeCycle
-   **/
-  @ApiModelProperty(example = "true", required = false, value = "")
+  **/
+  @ApiModelProperty(example = "2", required = true, value = "The current charge cycle number.")
 
   public BigDecimal getChargeCycle() {
     return chargeCycle;
@@ -511,154 +668,27 @@ public class PaymentAgreement implements Serializable {
   }
 
 
-  public PaymentAgreement createdOn(String createdOn) {
-
-    this.createdOn = createdOn;
-    return this;
-  }
-
-  /**
-   *
-   * @return createdOn
-   **/
-  @ApiModelProperty(example = "true", required = false, value = "")
-
-  public String getCreatedOn() {
-    return createdOn;
-  }
-
-
-  public void setCreatedOn(String createdOn) {
-    this.createdOn = createdOn;
-  }
-
-  public PaymentAgreement description(String description) {
-
-    this.description = description;
-    return this;
-  }
-
-  /**
-   *
-   * @return description
-   **/
-  @ApiModelProperty(example = "true", required = false, value = "")
-
-  public String getDescription() {
-    return description;
-  }
-
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-
-  public PaymentAgreement expired(Boolean expired) {
+  public PaymentAgreement expired(String expired) {
 
     this.expired = expired;
     return this;
   }
 
-  /**
-   *
+   /**
+   * A flag to indicate if the payment agreement is expired.
    * @return expired
-   **/
-  @ApiModelProperty(example = "true", required = false, value = "")
+  **/
+  @ApiModelProperty(example = "false", required = true, value = "A flag to indicate if the payment agreement is expired.")
 
-  public Boolean getExpired() {
+  public String getExpired() {
     return expired;
   }
 
 
-  public void setExpired(Boolean expired) {
+  public void setExpired(String expired) {
     this.expired = expired;
   }
 
-
-  public PaymentAgreement lastUpdated(String lastUpdated) {
-
-    this.lastUpdated = lastUpdated;
-    return this;
-  }
-
-  /**
-   *
-   * @return lastUpdated
-   **/
-  @ApiModelProperty(example = "true", required = false, value = "")
-
-  public String getLastUpdated() {
-    return lastUpdated;
-  }
-
-
-  public void setLastUpdated(String lastUpdated) {
-    this.lastUpdated = lastUpdated;
-  }
-
-  public PaymentAgreement lastUsed(String lastUsed) {
-
-    this.lastUsed = lastUsed;
-    return this;
-  }
-
-  /**
-   *
-   * @return lastUsed
-   **/
-  @ApiModelProperty(example = "true", required = false, value = "")
-
-  public String getLastUsed() {
-    return lastUsed;
-  }
-
-
-  public void setLastUsed(String lastUsed) {
-    this.lastUsed = lastUsed;
-  }
-
-  public PaymentAgreement status(PaymentInstrumentStatus status) {
-
-    this.status = status;
-    return this;
-  }
-
-  /**
-   *
-   * @return status
-   **/
-  @ApiModelProperty(example = "true", required = false, value = "")
-
-  public PaymentInstrumentStatus getStatus() {
-    return status;
-  }
-
-
-  public void setStatus(PaymentInstrumentStatus status) {
-    this.status = status;
-  }
-
-  public PaymentAgreement stepUp(PaymentAgreementStepUp stepUp) {
-
-    this.stepUp = stepUp;
-    return this;
-  }
-
-  /**
-   *
-   * @return stepUp
-   **/
-  @ApiModelProperty(example = "true", required = false, value = "")
-
-  public PaymentAgreementStepUp getStepUp() {
-    return stepUp;
-  }
-
-
-  public void setStepUp(PaymentAgreementStepUp stepUp) {
-    this.stepUp = stepUp;
-  }
 
   public PaymentAgreement updateURL(String updateURL) {
 
@@ -666,11 +696,11 @@ public class PaymentAgreement implements Serializable {
     return this;
   }
 
-  /**
-   *
+   /**
+   * The URL of the endpoint to use to update the payment agreement.
    * @return updateURL
-   **/
-  @ApiModelProperty(example = "true", required = false, value = "")
+  **/
+  @ApiModelProperty(example = "https://{environment}.mobile-api.woolworths.com.au/wow/v1/pay/paymentagreements/27e07e4e-58df-4072-8e75-33dd464af667", required = true, value = "The URL of the endpoint to use to update the payment agreement.")
 
   public String getUpdateURL() {
     return updateURL;
@@ -682,48 +712,51 @@ public class PaymentAgreement implements Serializable {
   }
 
 
-  public PaymentAgreement paymentToken(String paymentToken) {
+  public PaymentAgreement stepUp(ListPaymentInstrumentsResponseStepUp1 stepUp) {
 
-    this.paymentToken = paymentToken;
+    this.stepUp = stepUp;
     return this;
   }
 
-  /**
-   *
-   * @return paymentToken
-   **/
-  @ApiModelProperty(example = "true", required = false, value = "")
+   /**
+   * Get stepUp
+   * @return stepUp
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "")
 
-  public String getPaymentToken() {
-    return paymentToken;
+  public ListPaymentInstrumentsResponseStepUp1 getStepUp() {
+    return stepUp;
   }
 
 
-  public void setPaymentToken(String paymentToken) {
-    this.paymentToken = paymentToken;
+  public void setStepUp(ListPaymentInstrumentsResponseStepUp1 stepUp) {
+    this.stepUp = stepUp;
   }
 
 
-  public PaymentAgreement primary(Boolean primary) {
+  public PaymentAgreement description(String description) {
 
-    this.primary = primary;
+    this.description = description;
     return this;
   }
 
-  /**
-   *
-   * @return primary
-   **/
-  @ApiModelProperty(example = "true", required = false, value = "")
+   /**
+   * A description of the payment agreement
+   * @return description
+  **/
+  @javax.annotation.Nullable
+  @ApiModelProperty(value = "A description of the payment agreement")
 
-  public Boolean getPrimary() {
-    return primary;
+  public String getDescription() {
+    return description;
   }
 
 
-  public void setPrimary(Boolean primary) {
-    this.primary = primary;
+  public void setDescription(String description) {
+    this.description = description;
   }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -734,9 +767,15 @@ public class PaymentAgreement implements Serializable {
       return false;
     }
     PaymentAgreement paymentAgreement = (PaymentAgreement) o;
-    return Objects.equals(this.type, paymentAgreement.type) &&
+    return Objects.equals(this.paymentToken, paymentAgreement.paymentToken) &&
+        Objects.equals(this.status, paymentAgreement.status) &&
+        Objects.equals(this.lastUpdated, paymentAgreement.lastUpdated) &&
+        Objects.equals(this.lastUsed, paymentAgreement.lastUsed) &&
+        Objects.equals(this.createdOn, paymentAgreement.createdOn) &&
+        Objects.equals(this.primary, paymentAgreement.primary) &&
+        Objects.equals(this.allowed, paymentAgreement.allowed) &&
+        Objects.equals(this.type, paymentAgreement.type) &&
         Objects.equals(this.paymentInstrumentId, paymentAgreement.paymentInstrumentId) &&
-        Objects.equals(this.paymentInstrumentType, paymentAgreement.paymentInstrumentType) &&
         Objects.equals(this.scheme, paymentAgreement.scheme) &&
         Objects.equals(this.cardSuffix, paymentAgreement.cardSuffix) &&
         Objects.equals(this.expiryMonth, paymentAgreement.expiryMonth) &&
@@ -745,20 +784,16 @@ public class PaymentAgreement implements Serializable {
         Objects.equals(this.endDate, paymentAgreement.endDate) &&
         Objects.equals(this.chargeFrequency, paymentAgreement.chargeFrequency) &&
         Objects.equals(this.chargeAmount, paymentAgreement.chargeAmount) &&
-        Objects.equals(this.allowed, paymentAgreement.allowed) &&
         Objects.equals(this.chargeCycle, paymentAgreement.chargeCycle) &&
-        Objects.equals(this.createdOn, paymentAgreement.createdOn) &&
-        Objects.equals(this.description, paymentAgreement.description) &&
         Objects.equals(this.expired, paymentAgreement.expired) &&
-        Objects.equals(this.expired, paymentAgreement.lastUpdated) &&
-        Objects.equals(this.lastUsed, paymentAgreement.lastUsed) &&
-        Objects.equals(this.paymentToken, paymentAgreement.paymentToken) &&
-        Objects.equals(this.primary, paymentAgreement.primary);
+        Objects.equals(this.updateURL, paymentAgreement.updateURL) &&
+        Objects.equals(this.stepUp, paymentAgreement.stepUp) &&
+        Objects.equals(this.description, paymentAgreement.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(type, paymentInstrumentId, paymentInstrumentType, scheme, cardSuffix, expiryMonth, expiryYear, startDate, endDate, chargeFrequency, chargeAmount);
+    return Objects.hash(paymentToken, status, lastUpdated, lastUsed, createdOn, primary, allowed, type, paymentInstrumentId, scheme, cardSuffix, expiryMonth, expiryYear, startDate, endDate, chargeFrequency, chargeAmount, chargeCycle, expired, updateURL, stepUp, description);
   }
 
 
@@ -766,9 +801,15 @@ public class PaymentAgreement implements Serializable {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class PaymentAgreement {\n");
+    sb.append("    paymentToken: ").append(toIndentedString(paymentToken)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    lastUpdated: ").append(toIndentedString(lastUpdated)).append("\n");
+    sb.append("    lastUsed: ").append(toIndentedString(lastUsed)).append("\n");
+    sb.append("    createdOn: ").append(toIndentedString(createdOn)).append("\n");
+    sb.append("    primary: ").append(toIndentedString(primary)).append("\n");
+    sb.append("    allowed: ").append(toIndentedString(allowed)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    paymentInstrumentId: ").append(toIndentedString(paymentInstrumentId)).append("\n");
-    sb.append("    paymentInstrumentType: ").append(toIndentedString(paymentInstrumentType)).append("\n");
     sb.append("    scheme: ").append(toIndentedString(scheme)).append("\n");
     sb.append("    cardSuffix: ").append(toIndentedString(cardSuffix)).append("\n");
     sb.append("    expiryMonth: ").append(toIndentedString(expiryMonth)).append("\n");
@@ -777,6 +818,11 @@ public class PaymentAgreement implements Serializable {
     sb.append("    endDate: ").append(toIndentedString(endDate)).append("\n");
     sb.append("    chargeFrequency: ").append(toIndentedString(chargeFrequency)).append("\n");
     sb.append("    chargeAmount: ").append(toIndentedString(chargeAmount)).append("\n");
+    sb.append("    chargeCycle: ").append(toIndentedString(chargeCycle)).append("\n");
+    sb.append("    expired: ").append(toIndentedString(expired)).append("\n");
+    sb.append("    updateURL: ").append(toIndentedString(updateURL)).append("\n");
+    sb.append("    stepUp: ").append(toIndentedString(stepUp)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");
     return sb.toString();
   }

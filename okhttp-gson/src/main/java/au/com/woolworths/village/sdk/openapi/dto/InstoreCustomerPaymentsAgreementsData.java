@@ -13,15 +13,19 @@
 
 package au.com.woolworths.village.sdk.openapi.dto;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-
+import java.util.Arrays;
+import au.com.woolworths.village.sdk.openapi.dto.BillingAddress;
+import au.com.woolworths.village.sdk.openapi.dto.PaymentAgreement;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
+import java.io.Serializable;
 
 /**
  * Mandatory data object containing request
@@ -176,10 +180,10 @@ public class InstoreCustomerPaymentsAgreementsData implements Serializable {
   }
 
    /**
-   * Definition of a payment agreement
+   * Get paymentAgreement
    * @return paymentAgreement
   **/
-  @ApiModelProperty(required = true, value = "Definition of a payment agreement")
+  @ApiModelProperty(required = true, value = "")
 
   public PaymentAgreement getPaymentAgreement() {
     return paymentAgreement;

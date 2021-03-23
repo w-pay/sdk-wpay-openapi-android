@@ -13,13 +13,11 @@
 
 package au.com.woolworths.village.sdk.openapi.dto;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
 import java.util.Objects;
-
+import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
 
 /**
  * Mandatory data object containing request
@@ -175,11 +173,11 @@ public class InstoreCustomerPaymentsAgreementsPaymentTokenData implements Serial
   }
 
    /**
-   * Definition of a payment agreement
+   * Get paymentAgreement
    * @return paymentAgreement
   **/
   @javax.annotation.Nullable
-  @ApiModelProperty(value = "Definition of a payment agreement")
+  @ApiModelProperty(value = "")
 
   public PaymentAgreement getPaymentAgreement() {
     return paymentAgreement;

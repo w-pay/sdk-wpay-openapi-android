@@ -13,14 +13,12 @@
 
 package au.com.woolworths.village.sdk.openapi.dto;
 
+import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
+import io.swagger.annotations.ApiModelProperty;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-
-import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
 
 /**
  * PaymentAgreementListResponseData
@@ -32,6 +30,7 @@ public class PaymentAgreementListResponseData implements Serializable {
   public static final String SERIALIZED_NAME_PAYMENT_AGREEMENTS = "paymentAgreements";
   @SerializedName(SERIALIZED_NAME_PAYMENT_AGREEMENTS)
   private List<PaymentAgreement> paymentAgreements = new ArrayList<PaymentAgreement>();
+
 
   public PaymentAgreementListResponseData paymentAgreements(List<PaymentAgreement> paymentAgreements) {
     

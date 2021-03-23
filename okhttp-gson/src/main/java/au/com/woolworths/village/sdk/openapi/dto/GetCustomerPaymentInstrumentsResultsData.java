@@ -13,15 +13,22 @@
 
 package au.com.woolworths.village.sdk.openapi.dto;
 
-import com.google.gson.annotations.SerializedName;
-
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
-
+import java.util.Arrays;
+import au.com.woolworths.village.sdk.openapi.dto.CreditCard;
+import au.com.woolworths.village.sdk.openapi.dto.GetCustomerPaymentInstrumentsResultsDataEverydayPay;
+import au.com.woolworths.village.sdk.openapi.dto.GiftCard;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
+import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.Serializable;
 
 /**
  * Mandatory data object containing response
