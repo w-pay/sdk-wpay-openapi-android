@@ -53,7 +53,7 @@ public class InstoreCustomerPaymentsAgreementsData implements Serializable {
 
   public static final String SERIALIZED_NAME_PAYMENT_AGREEMENT = "paymentAgreement";
   @SerializedName(SERIALIZED_NAME_PAYMENT_AGREEMENT)
-  private List<Object> paymentAgreement = new ArrayList<Object>();
+  private PaymentAgreement paymentAgreement;
 
 
   public InstoreCustomerPaymentsAgreementsData clientReference(String clientReference) {
@@ -169,14 +169,9 @@ public class InstoreCustomerPaymentsAgreementsData implements Serializable {
   }
 
 
-  public InstoreCustomerPaymentsAgreementsData paymentAgreement(List<Object> paymentAgreement) {
+  public InstoreCustomerPaymentsAgreementsData paymentAgreement(PaymentAgreement paymentAgreement) {
     
     this.paymentAgreement = paymentAgreement;
-    return this;
-  }
-
-  public InstoreCustomerPaymentsAgreementsData addPaymentAgreementItem(Object paymentAgreementItem) {
-    this.paymentAgreement.add(paymentAgreementItem);
     return this;
   }
 
@@ -186,12 +181,12 @@ public class InstoreCustomerPaymentsAgreementsData implements Serializable {
   **/
   @ApiModelProperty(required = true, value = "Definition of a payment agreement")
 
-  public List<Object> getPaymentAgreement() {
+  public PaymentAgreement getPaymentAgreement() {
     return paymentAgreement;
   }
 
 
-  public void setPaymentAgreement(List<Object> paymentAgreement) {
+  public void setPaymentAgreement(PaymentAgreement paymentAgreement) {
     this.paymentAgreement = paymentAgreement;
   }
 
