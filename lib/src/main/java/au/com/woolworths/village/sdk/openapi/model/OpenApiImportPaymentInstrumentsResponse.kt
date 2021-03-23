@@ -1,8 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.model
 
 import au.com.woolworths.village.sdk.openapi.dto.ImportPaymentInstrumentsResponse
-import au.com.woolworths.village.sdk.openapi.dto.ImportPaymentInstrumentsResponseCreditCards
-import au.com.woolworths.village.sdk.openapi.dto.ImportPaymentInstrumentsResponsePayPal
 import java.util.*
 
 class OpenApiImportPaymentInstrumentsResponse(
