@@ -39,13 +39,13 @@ class OpenApiMerchantPaymentAgreementsApiRepository(
                 body
             ).data
 
-            ApiResult.Success(DigitalPayPaymentAgreementResponse(data))
+            return@makeCall ApiResult.Success(DigitalPayPaymentAgreementResponse(data))
         }
     }
 
     override fun delete(
         paymentToken: String
-    ): ApiResult<Void> {
+    ): ApiResult<Unit> {
         return makeCall {
             val api = createMerchantApi()
 
@@ -54,7 +54,7 @@ class OpenApiMerchantPaymentAgreementsApiRepository(
                 paymentToken
             )
 
-            ApiResult.Success(null as Void)
+            return@makeCall ApiResult.Success(Unit)
         }
     }
 }
