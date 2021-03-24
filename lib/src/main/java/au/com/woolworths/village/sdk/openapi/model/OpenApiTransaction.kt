@@ -4,7 +4,7 @@ import au.com.woolworths.village.sdk.openapi.dto.TransactionHistoryResponseTrans
 import java.math.BigDecimal
 
 
-class OpenAiTransaction(
+class OpenApiTransaction(
     private val transactionHistoryResponseTransactions: TransactionHistoryResponseTransactions
 ) : au.com.woolworths.village.sdk.model.walletmanagement.Transaction {
     override val transactionType: au.com.woolworths.village.sdk.model.walletmanagement.ContainerTransactionType
