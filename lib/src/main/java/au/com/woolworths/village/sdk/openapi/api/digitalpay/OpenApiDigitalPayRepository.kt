@@ -41,7 +41,7 @@ class OpenApiDigitalPayRepository(
         OpenApiPaymentAgreementApiRepository(requestHeadersFactory, options)
 
     override val payments: PaymentApiRepository =
-        TODO("Not yet implemented")
+       OpenApiPaymentApiRepository(requestHeadersFactory, options)
 
     override val paypal: PayPalApiRepository =
         OpenApiPayPalApiRepository(requestHeadersFactory, options)
