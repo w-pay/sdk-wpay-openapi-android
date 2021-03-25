@@ -30,10 +30,10 @@ class OpenApiPaymentAgreementResponse(
         get() = paymentAgreement.expiryYear
 
     override val startDate: OffsetDateTime
-        get() = paymentAgreement.startDate
+        get() = OffsetDateTime.parse(paymentAgreement.startDate)
 
     override val endDate: OffsetDateTime
-        get() = paymentAgreement.endDate
+        get() = OffsetDateTime.parse(paymentAgreement.endDate)
 
     override val chargeFrequency: au.com.woolworths.village.sdk.model.PaymentAgreementChargeFrequency
         get() = au.com.woolworths.village.sdk.model.PaymentAgreementChargeFrequency.valueOf(paymentAgreement.chargeFrequency.value.toUpperCase(Locale.ROOT))
@@ -57,10 +57,10 @@ class OpenApiPaymentAgreementResponse(
         get() = paymentAgreement.expired === "true"
 
     override val lastUpdated: OffsetDateTime?
-        get() = paymentAgreement.lastUpdated
+        get() = paymentAgreement.lastUpdated?.let { OffsetDateTime.parse(it) }
 
     override val lastUsed: OffsetDateTime?
-        get() = paymentAgreement.lastUsed
+        get() = paymentAgreement.lastUsed?.let { OffsetDateTime.parse(it) }
 
     override val paymentToken: String
         get() = paymentAgreement.paymentToken

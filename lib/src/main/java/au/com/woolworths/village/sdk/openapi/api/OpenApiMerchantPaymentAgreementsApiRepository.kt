@@ -6,11 +6,12 @@ import au.com.woolworths.village.sdk.VillageOptions
 import au.com.woolworths.village.sdk.X_API_KEY
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.model.ChargePaymentAgreementRequest
-import au.com.woolworths.village.sdk.openapi.model.digitalpay.DigitalPayPaymentAgreementResponse
+import au.com.woolworths.village.sdk.openapi.model.digitalpay.OpenApiDigitalPayPaymentAgreementResponse
 import au.com.woolworths.village.sdk.openapi.dto.InstoreMerchantPaymentsAgreementsPaymentTokenData
 import au.com.woolworths.village.sdk.openapi.dto.MerchantChargePaymentAgreementRequest
 import au.com.woolworths.village.sdk.openapi.dto.TransactionType
 import au.com.woolworths.village.sdk.api.MerchantPaymentAgreementsRepository
+import au.com.woolworths.village.sdk.model.digitalpay.DigitalPayPaymentAgreementResponse
 
 class OpenApiMerchantPaymentAgreementsApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
@@ -39,7 +40,7 @@ class OpenApiMerchantPaymentAgreementsApiRepository(
                 body
             ).data
 
-            return@makeCall ApiResult.Success(DigitalPayPaymentAgreementResponse(data))
+            return@makeCall ApiResult.Success(OpenApiDigitalPayPaymentAgreementResponse(data))
         }
     }
 
