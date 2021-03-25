@@ -7,9 +7,9 @@ technology choices.
 
 #### Open API implementation
 
-The SDK can be used with an implementation of the `VillageApiRepository`
-that uses the [Open API generator](https://openapi-generator.tech/) to
-provide an API Client with DTOs representing the data structures of the
+The SDK can be used with an implementation of the `VillageCustomerApiRepository`
+and `VillageMerchantApiRepository` that uses the [Open API generator](https://openapi-generator.tech/)
+ to provide an API Client with DTOs representing the data structures of the
 API. The SDK can be configured to use different libraries that the Open
 API generator supports to again make it easier to embed into an existing
 project with existing technology choices.
