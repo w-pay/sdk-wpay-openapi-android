@@ -30,6 +30,10 @@ open class OpenApiClientFactory(
         return PaymentAgreementsApi(createApiClient())
     }
 
+    protected fun createPaymentsApi(): PaymentsApi {
+        return PaymentsApi(createApiClient())
+    }
+
     protected fun createOpenpayApi(): OpenpayApi {
         return OpenpayApi(createApiClient())
     }
