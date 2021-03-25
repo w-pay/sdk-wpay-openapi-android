@@ -15,7 +15,7 @@ package au.com.woolworths.village.sdk.openapi.dto;
 
 import java.util.Objects;
 import java.util.Arrays;
-import au.com.woolworths.village.sdk.openapi.dto.PaymentAgreementResponse;
+import au.com.woolworths.village.sdk.openapi.dto.PaymentAgreement;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -30,22 +30,22 @@ import java.util.Map;
 import java.io.Serializable;
 
 /**
- * ChargePaymentAgreementResponse
+ * CustomerPaymentAgreementResponse
  */
 
-public class ChargePaymentAgreementResponse implements Serializable {
+public class CustomerPaymentAgreementResponse implements Serializable {
   private static final long serialVersionUID = 1L;
 
   public static final String SERIALIZED_NAME_DATA = "data";
   @SerializedName(SERIALIZED_NAME_DATA)
-  private PaymentAgreementResponse data;
+  private PaymentAgreement data;
 
   public static final String SERIALIZED_NAME_META = "meta";
   @SerializedName(SERIALIZED_NAME_META)
   private Map<String, Object> meta = new HashMap<String, Object>();
 
 
-  public ChargePaymentAgreementResponse data(PaymentAgreementResponse data) {
+  public CustomerPaymentAgreementResponse data(PaymentAgreement data) {
     
     this.data = data;
     return this;
@@ -57,23 +57,23 @@ public class ChargePaymentAgreementResponse implements Serializable {
   **/
   @ApiModelProperty(required = true, value = "")
 
-  public PaymentAgreementResponse getData() {
+  public PaymentAgreement getData() {
     return data;
   }
 
 
-  public void setData(PaymentAgreementResponse data) {
+  public void setData(PaymentAgreement data) {
     this.data = data;
   }
 
 
-  public ChargePaymentAgreementResponse meta(Map<String, Object> meta) {
+  public CustomerPaymentAgreementResponse meta(Map<String, Object> meta) {
     
     this.meta = meta;
     return this;
   }
 
-  public ChargePaymentAgreementResponse putMetaItem(String key, Object metaItem) {
+  public CustomerPaymentAgreementResponse putMetaItem(String key, Object metaItem) {
     this.meta.put(key, metaItem);
     return this;
   }
@@ -102,9 +102,9 @@ public class ChargePaymentAgreementResponse implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ChargePaymentAgreementResponse chargePaymentAgreementResponse = (ChargePaymentAgreementResponse) o;
-    return Objects.equals(this.data, chargePaymentAgreementResponse.data) &&
-        Objects.equals(this.meta, chargePaymentAgreementResponse.meta);
+    CustomerPaymentAgreementResponse customerPaymentAgreementResponse = (CustomerPaymentAgreementResponse) o;
+    return Objects.equals(this.data, customerPaymentAgreementResponse.data) &&
+        Objects.equals(this.meta, customerPaymentAgreementResponse.meta);
   }
 
   @Override
@@ -116,7 +116,7 @@ public class ChargePaymentAgreementResponse implements Serializable {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ChargePaymentAgreementResponse {\n");
+    sb.append("class CustomerPaymentAgreementResponse {\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    meta: ").append(toIndentedString(meta)).append("\n");
     sb.append("}");
