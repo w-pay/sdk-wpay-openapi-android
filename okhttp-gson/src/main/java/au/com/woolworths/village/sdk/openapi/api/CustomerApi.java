@@ -28,6 +28,7 @@ import java.io.IOException;
 
 
 import au.com.woolworths.village.sdk.openapi.dto.CustomerCreatePaymentAgreementRequest;
+import au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentAgreementResponse;
 import au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetails;
 import au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetails1;
 import au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentSessionResult;
@@ -47,7 +48,6 @@ import au.com.woolworths.village.sdk.openapi.dto.InstrumentAdditionDetails;
 import au.com.woolworths.village.sdk.openapi.dto.MakeCustomerPaymentResults;
 import org.threeten.bp.OffsetDateTime;
 import au.com.woolworths.village.sdk.openapi.dto.PaymentAgreementListResponse;
-import au.com.woolworths.village.sdk.openapi.dto.PaymentAgreementResponse;
 import au.com.woolworths.village.sdk.openapi.dto.UpdatePaymentSessionRequest;
 
 import java.lang.reflect.Type;
@@ -264,7 +264,7 @@ public class CustomerApi {
      * Create an new payment agreement
      * @param xWalletID  (required)
      * @param customerCreatePaymentAgreementRequest  (required)
-     * @return PaymentAgreementResponse
+     * @return CustomerPaymentAgreementResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -272,8 +272,8 @@ public class CustomerApi {
         <tr><td> 200 </td><td> Response for Get, Create and Update Payment Agreements </td><td>  -  </td></tr>
      </table>
      */
-    public PaymentAgreementResponse createCustomerPaymentAgreement(String xWalletID, CustomerCreatePaymentAgreementRequest customerCreatePaymentAgreementRequest) throws ApiException {
-        ApiResponse<PaymentAgreementResponse> localVarResp = createCustomerPaymentAgreementWithHttpInfo(xWalletID, customerCreatePaymentAgreementRequest);
+    public CustomerPaymentAgreementResponse createCustomerPaymentAgreement(String xWalletID, CustomerCreatePaymentAgreementRequest customerCreatePaymentAgreementRequest) throws ApiException {
+        ApiResponse<CustomerPaymentAgreementResponse> localVarResp = createCustomerPaymentAgreementWithHttpInfo(xWalletID, customerCreatePaymentAgreementRequest);
         return localVarResp.getData();
     }
 
@@ -282,7 +282,7 @@ public class CustomerApi {
      * Create an new payment agreement
      * @param xWalletID  (required)
      * @param customerCreatePaymentAgreementRequest  (required)
-     * @return ApiResponse&lt;PaymentAgreementResponse&gt;
+     * @return ApiResponse&lt;CustomerPaymentAgreementResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -290,9 +290,9 @@ public class CustomerApi {
         <tr><td> 200 </td><td> Response for Get, Create and Update Payment Agreements </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<PaymentAgreementResponse> createCustomerPaymentAgreementWithHttpInfo(String xWalletID, CustomerCreatePaymentAgreementRequest customerCreatePaymentAgreementRequest) throws ApiException {
+    public ApiResponse<CustomerPaymentAgreementResponse> createCustomerPaymentAgreementWithHttpInfo(String xWalletID, CustomerCreatePaymentAgreementRequest customerCreatePaymentAgreementRequest) throws ApiException {
         okhttp3.Call localVarCall = createCustomerPaymentAgreementValidateBeforeCall(xWalletID, customerCreatePaymentAgreementRequest, null);
-        Type localVarReturnType = new TypeToken<PaymentAgreementResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<CustomerPaymentAgreementResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -310,10 +310,10 @@ public class CustomerApi {
         <tr><td> 200 </td><td> Response for Get, Create and Update Payment Agreements </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call createCustomerPaymentAgreementAsync(String xWalletID, CustomerCreatePaymentAgreementRequest customerCreatePaymentAgreementRequest, final ApiCallback<PaymentAgreementResponse> _callback) throws ApiException {
+    public okhttp3.Call createCustomerPaymentAgreementAsync(String xWalletID, CustomerCreatePaymentAgreementRequest customerCreatePaymentAgreementRequest, final ApiCallback<CustomerPaymentAgreementResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = createCustomerPaymentAgreementValidateBeforeCall(xWalletID, customerCreatePaymentAgreementRequest, _callback);
-        Type localVarReturnType = new TypeToken<PaymentAgreementResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<CustomerPaymentAgreementResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -2649,7 +2649,7 @@ public class CustomerApi {
      * Get a specific payment agreements
      * @param xWalletID  (required)
      * @param paymentToken The ID of the specific payment agreement (required)
-     * @return PaymentAgreementResponse
+     * @return CustomerPaymentAgreementResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -2657,8 +2657,8 @@ public class CustomerApi {
         <tr><td> 200 </td><td> Response for Get, Create and Update Payment Agreements </td><td>  -  </td></tr>
      </table>
      */
-    public PaymentAgreementResponse getPaymentAgreement(String xWalletID, String paymentToken) throws ApiException {
-        ApiResponse<PaymentAgreementResponse> localVarResp = getPaymentAgreementWithHttpInfo(xWalletID, paymentToken);
+    public CustomerPaymentAgreementResponse getPaymentAgreement(String xWalletID, String paymentToken) throws ApiException {
+        ApiResponse<CustomerPaymentAgreementResponse> localVarResp = getPaymentAgreementWithHttpInfo(xWalletID, paymentToken);
         return localVarResp.getData();
     }
 
@@ -2667,7 +2667,7 @@ public class CustomerApi {
      * Get a specific payment agreements
      * @param xWalletID  (required)
      * @param paymentToken The ID of the specific payment agreement (required)
-     * @return ApiResponse&lt;PaymentAgreementResponse&gt;
+     * @return ApiResponse&lt;CustomerPaymentAgreementResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -2675,9 +2675,9 @@ public class CustomerApi {
         <tr><td> 200 </td><td> Response for Get, Create and Update Payment Agreements </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<PaymentAgreementResponse> getPaymentAgreementWithHttpInfo(String xWalletID, String paymentToken) throws ApiException {
+    public ApiResponse<CustomerPaymentAgreementResponse> getPaymentAgreementWithHttpInfo(String xWalletID, String paymentToken) throws ApiException {
         okhttp3.Call localVarCall = getPaymentAgreementValidateBeforeCall(xWalletID, paymentToken, null);
-        Type localVarReturnType = new TypeToken<PaymentAgreementResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<CustomerPaymentAgreementResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -2695,10 +2695,10 @@ public class CustomerApi {
         <tr><td> 200 </td><td> Response for Get, Create and Update Payment Agreements </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call getPaymentAgreementAsync(String xWalletID, String paymentToken, final ApiCallback<PaymentAgreementResponse> _callback) throws ApiException {
+    public okhttp3.Call getPaymentAgreementAsync(String xWalletID, String paymentToken, final ApiCallback<CustomerPaymentAgreementResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = getPaymentAgreementValidateBeforeCall(xWalletID, paymentToken, _callback);
-        Type localVarReturnType = new TypeToken<PaymentAgreementResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<CustomerPaymentAgreementResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }
@@ -3610,7 +3610,7 @@ public class CustomerApi {
      * @param xWalletID  (required)
      * @param paymentToken The ID of the specific payment agreement (required)
      * @param customerUpdatePaymentAgreementRequest  (required)
-     * @return PaymentAgreementResponse
+     * @return CustomerPaymentAgreementResponse
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -3618,8 +3618,8 @@ public class CustomerApi {
         <tr><td> 200 </td><td> Response for Get, Create and Update Payment Agreements </td><td>  -  </td></tr>
      </table>
      */
-    public PaymentAgreementResponse updateCustomerPaymentAgreement(String xWalletID, String paymentToken, CustomerUpdatePaymentAgreementRequest customerUpdatePaymentAgreementRequest) throws ApiException {
-        ApiResponse<PaymentAgreementResponse> localVarResp = updateCustomerPaymentAgreementWithHttpInfo(xWalletID, paymentToken, customerUpdatePaymentAgreementRequest);
+    public CustomerPaymentAgreementResponse updateCustomerPaymentAgreement(String xWalletID, String paymentToken, CustomerUpdatePaymentAgreementRequest customerUpdatePaymentAgreementRequest) throws ApiException {
+        ApiResponse<CustomerPaymentAgreementResponse> localVarResp = updateCustomerPaymentAgreementWithHttpInfo(xWalletID, paymentToken, customerUpdatePaymentAgreementRequest);
         return localVarResp.getData();
     }
 
@@ -3629,7 +3629,7 @@ public class CustomerApi {
      * @param xWalletID  (required)
      * @param paymentToken The ID of the specific payment agreement (required)
      * @param customerUpdatePaymentAgreementRequest  (required)
-     * @return ApiResponse&lt;PaymentAgreementResponse&gt;
+     * @return ApiResponse&lt;CustomerPaymentAgreementResponse&gt;
      * @throws ApiException If fail to call the API, e.g. server error or cannot deserialize the response body
      * @http.response.details
      <table summary="Response Details" border="1">
@@ -3637,9 +3637,9 @@ public class CustomerApi {
         <tr><td> 200 </td><td> Response for Get, Create and Update Payment Agreements </td><td>  -  </td></tr>
      </table>
      */
-    public ApiResponse<PaymentAgreementResponse> updateCustomerPaymentAgreementWithHttpInfo(String xWalletID, String paymentToken, CustomerUpdatePaymentAgreementRequest customerUpdatePaymentAgreementRequest) throws ApiException {
+    public ApiResponse<CustomerPaymentAgreementResponse> updateCustomerPaymentAgreementWithHttpInfo(String xWalletID, String paymentToken, CustomerUpdatePaymentAgreementRequest customerUpdatePaymentAgreementRequest) throws ApiException {
         okhttp3.Call localVarCall = updateCustomerPaymentAgreementValidateBeforeCall(xWalletID, paymentToken, customerUpdatePaymentAgreementRequest, null);
-        Type localVarReturnType = new TypeToken<PaymentAgreementResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<CustomerPaymentAgreementResponse>(){}.getType();
         return localVarApiClient.execute(localVarCall, localVarReturnType);
     }
 
@@ -3658,10 +3658,10 @@ public class CustomerApi {
         <tr><td> 200 </td><td> Response for Get, Create and Update Payment Agreements </td><td>  -  </td></tr>
      </table>
      */
-    public okhttp3.Call updateCustomerPaymentAgreementAsync(String xWalletID, String paymentToken, CustomerUpdatePaymentAgreementRequest customerUpdatePaymentAgreementRequest, final ApiCallback<PaymentAgreementResponse> _callback) throws ApiException {
+    public okhttp3.Call updateCustomerPaymentAgreementAsync(String xWalletID, String paymentToken, CustomerUpdatePaymentAgreementRequest customerUpdatePaymentAgreementRequest, final ApiCallback<CustomerPaymentAgreementResponse> _callback) throws ApiException {
 
         okhttp3.Call localVarCall = updateCustomerPaymentAgreementValidateBeforeCall(xWalletID, paymentToken, customerUpdatePaymentAgreementRequest, _callback);
-        Type localVarReturnType = new TypeToken<PaymentAgreementResponse>(){}.getType();
+        Type localVarReturnType = new TypeToken<CustomerPaymentAgreementResponse>(){}.getType();
         localVarApiClient.executeAsync(localVarCall, localVarReturnType, _callback);
         return localVarCall;
     }

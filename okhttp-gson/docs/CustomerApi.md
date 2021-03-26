@@ -104,7 +104,7 @@ null (empty response body)
 
 <a name="createCustomerPaymentAgreement"></a>
 # **createCustomerPaymentAgreement**
-> PaymentAgreementResponse createCustomerPaymentAgreement(xWalletID, customerCreatePaymentAgreementRequest)
+> CustomerPaymentAgreementResponse createCustomerPaymentAgreement(xWalletID, customerCreatePaymentAgreementRequest)
 
 Create Payment Agreement
 
@@ -139,7 +139,7 @@ public class Example {
     String xWalletID = bb8f86af-9e7b-4659-85d5-346b5e99d500; // String | 
     CustomerCreatePaymentAgreementRequest customerCreatePaymentAgreementRequest = new CustomerCreatePaymentAgreementRequest(); // CustomerCreatePaymentAgreementRequest | 
     try {
-      PaymentAgreementResponse result = apiInstance.createCustomerPaymentAgreement(xWalletID, customerCreatePaymentAgreementRequest);
+      CustomerPaymentAgreementResponse result = apiInstance.createCustomerPaymentAgreement(xWalletID, customerCreatePaymentAgreementRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CustomerApi#createCustomerPaymentAgreement");
@@ -161,7 +161,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PaymentAgreementResponse**](PaymentAgreementResponse.md)
+[**CustomerPaymentAgreementResponse**](CustomerPaymentAgreementResponse.md)
 
 ### Authorization
 
@@ -1284,7 +1284,7 @@ Name | Type | Description  | Notes
 
 <a name="getPaymentAgreement"></a>
 # **getPaymentAgreement**
-> PaymentAgreementResponse getPaymentAgreement(xWalletID, paymentToken)
+> CustomerPaymentAgreementResponse getPaymentAgreement(xWalletID, paymentToken)
 
 Get Payment Agreement
 
@@ -1319,7 +1319,7 @@ public class Example {
     String xWalletID = bb8f86af-9e7b-4659-85d5-346b5e99d500; // String | 
     String paymentToken = "paymentToken_example"; // String | The ID of the specific payment agreement
     try {
-      PaymentAgreementResponse result = apiInstance.getPaymentAgreement(xWalletID, paymentToken);
+      CustomerPaymentAgreementResponse result = apiInstance.getPaymentAgreement(xWalletID, paymentToken);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CustomerApi#getPaymentAgreement");
@@ -1341,7 +1341,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PaymentAgreementResponse**](PaymentAgreementResponse.md)
+[**CustomerPaymentAgreementResponse**](CustomerPaymentAgreementResponse.md)
 
 ### Authorization
 
@@ -1777,7 +1777,7 @@ null (empty response body)
 
 <a name="updateCustomerPaymentAgreement"></a>
 # **updateCustomerPaymentAgreement**
-> PaymentAgreementResponse updateCustomerPaymentAgreement(xWalletID, paymentToken, customerUpdatePaymentAgreementRequest)
+> CustomerPaymentAgreementResponse updateCustomerPaymentAgreement(xWalletID, paymentToken, customerUpdatePaymentAgreementRequest)
 
 Update Payment Agreement
 
@@ -1813,7 +1813,7 @@ public class Example {
     String paymentToken = "paymentToken_example"; // String | The ID of the specific payment agreement
     CustomerUpdatePaymentAgreementRequest customerUpdatePaymentAgreementRequest = new CustomerUpdatePaymentAgreementRequest(); // CustomerUpdatePaymentAgreementRequest | 
     try {
-      PaymentAgreementResponse result = apiInstance.updateCustomerPaymentAgreement(xWalletID, paymentToken, customerUpdatePaymentAgreementRequest);
+      CustomerPaymentAgreementResponse result = apiInstance.updateCustomerPaymentAgreement(xWalletID, paymentToken, customerUpdatePaymentAgreementRequest);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling CustomerApi#updateCustomerPaymentAgreement");
@@ -1836,7 +1836,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**PaymentAgreementResponse**](PaymentAgreementResponse.md)
+[**CustomerPaymentAgreementResponse**](CustomerPaymentAgreementResponse.md)
 
 ### Authorization
 
