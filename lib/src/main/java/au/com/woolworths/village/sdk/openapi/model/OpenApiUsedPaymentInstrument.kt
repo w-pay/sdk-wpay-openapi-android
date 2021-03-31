@@ -32,6 +32,9 @@ class OpenApiUsedPaymentInstrumentTransaction(
     override val paymentTransactionRef: String?
         get() = transaction.paymentTransactionRef
 
+    override val refundTransactionRef: String?
+        get() = transaction.refundTransactionRef
+
     override val status: TransactionSummary.PaymentStatus?
         get() = transaction.status?.let {
             TransactionSummary.PaymentStatus.valueOf(it.value.toUpperCase(Locale.ROOT))

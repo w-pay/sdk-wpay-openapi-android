@@ -26,7 +26,7 @@ class OpenApiWalletApiRepository(
                 "",
                 "",
                 "",
-                (walletDeleteRequest.wallet == Wallet.EVERYDAY_PAY).toString()
+                getDefaultHeader(api.apiClient, X_EVERYDAY_PAY_WALLET)
             )
 
             return@makeCall ApiResult.Success(object : WalletDeleteResponse {})

@@ -10,7 +10,9 @@ import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.InstoreCustomerPaymentSessionPaymentSessionIdData
 import au.com.woolworths.village.sdk.openapi.dto.InstoreCustomerPaymentsPaymentRequestIdData
 import au.com.woolworths.village.sdk.openapi.dto.MetaChallenge
+import au.com.woolworths.village.sdk.openapi.dto.PreferencePaymentsSecondaryInstruments
 import au.com.woolworths.village.sdk.openapi.model.OpenApiPaymentSession
+import java.util.*
 
 class OpenApiCustomerPaymentSessionsRepository(
     requestHeadersFactory: RequestHeadersFactory,
@@ -98,9 +100,10 @@ class OpenApiCustomerPaymentSessionsRepository(
 
     override fun preApprove(
         paymentSessionId: String,
-        primaryInstrument: PaymentInstrumentIdentifier,
+        primaryInstrument: String?,
         secondaryInstruments: List<SecondaryPaymentInstrument>?,
         clientReference: String?,
+        preferences: PaymentPreferences?,
         challengeResponses: List<ChallengeResponse>?
     ): ApiResult<Unit> {
         return makeCall {
@@ -108,10 +111,27 @@ class OpenApiCustomerPaymentSessionsRepository(
 
             val body = au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetails1()
             body.data = InstoreCustomerPaymentsPaymentRequestIdData().apply {
-                this.primaryInstrumentId = primaryInstrument.paymentInstrumentId
+                this.primaryInstrumentId = primaryInstrument
                 this.secondaryInstruments =
                     secondaryInstruments?.map(::toSecondaryInstrument) ?: emptyList()
                 this.clientReference = clientReference
+
+                this.preferences = preferences?.let {
+                    val prefs = au.com.woolworths.village.sdk.openapi.dto.PreferencePayments()
+                    prefs.primaryInstrumentId = it.primaryInstrumentId
+                    prefs.secondaryInstruments = PreferencePaymentsSecondaryInstruments().apply {
+                        val secondaryInstruments = preferences.secondaryInstruments
+
+                        enableSecondaryInstruments = secondaryInstruments.enableSecondaryInstruments
+                        exclude = secondaryInstruments.exclude
+                        include = secondaryInstruments.include
+                        order = PreferencePaymentsSecondaryInstruments.OrderEnum.valueOf(
+                            secondaryInstruments.order.toString().toUpperCase(Locale.ROOT)
+                        )
+                    }
+
+                    return@let prefs
+                }
             }
 
             body.meta = MetaChallenge().apply {

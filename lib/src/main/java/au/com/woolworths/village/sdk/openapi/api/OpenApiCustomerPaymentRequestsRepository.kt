@@ -1,16 +1,14 @@
 package au.com.woolworths.village.sdk.openapi.api
 
 import au.com.woolworths.village.sdk.*
-import au.com.woolworths.village.sdk.Wallet
 import au.com.woolworths.village.sdk.api.CustomerPaymentRequestsRepository
 import au.com.woolworths.village.sdk.model.*
+import au.com.woolworths.village.sdk.model.CustomerTransactionSummary
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
-import au.com.woolworths.village.sdk.openapi.dto.InstoreCustomerPaymentsPaymentRequestIdData
-import au.com.woolworths.village.sdk.openapi.dto.InstoreCustomerPaymentsPaymentRequestIdDataSecondaryInstruments
-import au.com.woolworths.village.sdk.openapi.dto.MetaChallenge
-import au.com.woolworths.village.sdk.openapi.dto.MetaChallengeChallengeResponses
+import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCustomerPaymentRequest
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCustomerTransactionSummary
+import java.util.*
 
 class OpenApiCustomerPaymentRequestsRepository(
     requestHeadersFactory: RequestHeadersFactory,
@@ -54,9 +52,10 @@ class OpenApiCustomerPaymentRequestsRepository(
 
     override fun makePayment(
         paymentRequestId: String,
-        primaryInstrument: PaymentInstrumentIdentifier,
+        primaryInstrument: String?,
         secondaryInstruments: List<SecondaryPaymentInstrument>?,
         clientReference: String?,
+        preferences: PaymentPreferences?,
         challengeResponses: List<ChallengeResponse>?
     ): ApiResult<CustomerTransactionSummary> {
         return makeCall {
@@ -64,10 +63,27 @@ class OpenApiCustomerPaymentRequestsRepository(
 
             val body = au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetails()
             body.data = InstoreCustomerPaymentsPaymentRequestIdData().apply {
-                this.primaryInstrumentId = primaryInstrument.paymentInstrumentId
+                this.primaryInstrumentId = primaryInstrument
                 this.secondaryInstruments =
                     secondaryInstruments?.map(::toSecondaryInstrument) ?: emptyList()
                 this.clientReference = clientReference
+
+                this.preferences = preferences?.let {
+                    val prefs = au.com.woolworths.village.sdk.openapi.dto.PreferencePayments()
+                    prefs.primaryInstrumentId = it.primaryInstrumentId
+                    prefs.secondaryInstruments = PreferencePaymentsSecondaryInstruments().apply {
+                        val secondaryInstruments = preferences.secondaryInstruments
+
+                        enableSecondaryInstruments = secondaryInstruments.enableSecondaryInstruments
+                        exclude = secondaryInstruments.exclude
+                        include = secondaryInstruments.include
+                        order = PreferencePaymentsSecondaryInstruments.OrderEnum.valueOf(
+                            secondaryInstruments.order.toString().toUpperCase(Locale.ROOT)
+                        )
+                    }
+
+                    return@let prefs
+                }
             }
 
             body.meta = MetaChallenge().apply {
@@ -84,7 +100,7 @@ class OpenApiCustomerPaymentRequestsRepository(
                 "",
                 "",
                 "",
-                primaryInstrument.wallet == Wallet.EVERYDAY_PAY
+                getDefaultHeader(api.apiClient, X_EVERYDAY_PAY_WALLET)!!.toBoolean()
             ).data
 
             ApiResult.Success(OpenApiCustomerTransactionSummary(data))

@@ -12,7 +12,8 @@ class OpenApiClientFactoryTest {
         EmptyRequestHeadersFactory(),
         VillageOptions(
             baseUrl = "",
-            apiKey = ""
+            apiKey = "",
+            wallet = null
         )
     )
 
