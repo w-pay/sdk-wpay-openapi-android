@@ -12,9 +12,6 @@ class TestPaymentInstrument : PaymentInstrument {
     override val allowed: Boolean
         get() = true
 
-    override val cardSuffix: String
-        get() = "1234"
-
     override val lastUpdated: OffsetDateTime
         get() = OffsetDateTime.now()
 
@@ -32,9 +29,6 @@ class TestPaymentInstrument : PaymentInstrument {
 
     override val status: PaymentInstrument.InstrumentStatus
         get() = PaymentInstrument.InstrumentStatus.VERIFIED
-
-    override val wallet: Wallet
-        get() = Wallet.MERCHANT
 }
 
 class TestPaymentInstrumentAddition : PaymentInstrumentAddition {

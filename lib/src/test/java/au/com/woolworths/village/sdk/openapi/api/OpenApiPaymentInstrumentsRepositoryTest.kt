@@ -1,8 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.api
 
-import au.com.woolworths.village.sdk.Wallet
 import au.com.woolworths.village.sdk.data.aNewPaymentInstrument
-import au.com.woolworths.village.sdk.data.aSelectedPaymentInstrument
 import au.com.woolworths.village.sdk.matchers.allPaymentInstruments
 import au.com.woolworths.village.sdk.matchers.isSuccessful
 import au.com.woolworths.village.sdk.matchers.isSuccessfulWith
@@ -17,14 +15,14 @@ class OpenApiPaymentInstrumentsRepositoryTest {
 
     @Test
     fun shouldRetrievePaymentInstruments() {
-        val result = api.instruments.list(Wallet.MERCHANT)
+        val result = api.instruments.list()
 
         assertThat(result, isSuccessfulWith(allPaymentInstruments()))
     }
 
     @Test
     fun shouldDeletePaymentInstrument() {
-        val result = api.instruments.delete(aSelectedPaymentInstrument())
+        val result = api.instruments.delete("abc123")
 
         assertThat(result, isSuccessful())
     }

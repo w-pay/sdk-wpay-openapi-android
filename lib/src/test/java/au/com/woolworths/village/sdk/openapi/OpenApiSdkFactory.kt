@@ -27,7 +27,8 @@ class TestRequestHeadersFactory : RequestHeadersFactory {
         return hashMapOf(
             X_WALLET_ID to "a value",
             X_MERCHANT_ID to "a value",
-            X_API_KEY to "abc123"
+            X_API_KEY to "abc123",
+            X_EVERYDAY_PAY_WALLET to "true"
         )
     }
 }

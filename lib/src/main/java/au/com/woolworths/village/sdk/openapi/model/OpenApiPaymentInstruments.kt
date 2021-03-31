@@ -1,7 +1,8 @@
 package au.com.woolworths.village.sdk.openapi.model
 
-import au.com.woolworths.village.sdk.Wallet
 import au.com.woolworths.village.sdk.model.*
+import au.com.woolworths.village.sdk.openapi.dto.GetCustomerPaymentInstrumentResult
+import au.com.woolworths.village.sdk.openapi.dto.GetCustomerPaymentInstrumentResultDataPaymentInstrumentDetail
 import au.com.woolworths.village.sdk.openapi.dto.GetCustomerPaymentInstrumentsResultsDataEverydayPay
 import org.threeten.bp.OffsetDateTime
 import java.net.URL
@@ -11,32 +12,26 @@ class OpenApiWalletContents(
     creditCards: List<au.com.woolworths.village.sdk.openapi.dto.CreditCard>,
     giftCards: List<au.com.woolworths.village.sdk.openapi.dto.GiftCard>,
     private val data: GetCustomerPaymentInstrumentsResultsDataEverydayPay?
-) : OpenApiPaymentInstruments(creditCards, giftCards, Wallet.MERCHANT), WalletContents {
+) : OpenApiPaymentInstruments(creditCards, giftCards), WalletContents {
     override val everydayPay: PaymentInstruments?
         get() = data?.let {
-            OpenApiPaymentInstruments(
-                it.creditCards,
-                it.giftCards,
-                Wallet.EVERYDAY_PAY
-            )
+            OpenApiPaymentInstruments(it.creditCards, it.giftCards)
         }
 }
 
 open class OpenApiPaymentInstruments(
     private val creditCardsData: List<au.com.woolworths.village.sdk.openapi.dto.CreditCard>,
-    private val giftCardsData: List<au.com.woolworths.village.sdk.openapi.dto.GiftCard>,
-    private val wallet: Wallet
+    private val giftCardsData: List<au.com.woolworths.village.sdk.openapi.dto.GiftCard>
 ) : PaymentInstruments {
     override val creditCards: List<CreditCard>
-        get() = creditCardsData.map { OpenApiCreditCard(it, wallet) }
+        get() = creditCardsData.map { OpenApiCreditCard(it) }
 
     override val giftCards: List<GiftCard>
-        get() = giftCardsData.map { OpenApiGiftCard(it, wallet) }
+        get() = giftCardsData.map { OpenApiGiftCard(it) }
 }
 
 class OpenApiCreditCard(
-    private val card: au.com.woolworths.village.sdk.openapi.dto.CreditCard,
-    private val aWallet: Wallet
+    private val card: au.com.woolworths.village.sdk.openapi.dto.CreditCard
 ) : CreditCard {
     override val paymentInstrumentId: String
         get() = card.paymentInstrumentId
@@ -49,9 +44,6 @@ class OpenApiCreditCard(
 
     override val status: PaymentInstrument.InstrumentStatus
         get() = PaymentInstrument.InstrumentStatus.valueOf(card.status.value.toUpperCase(Locale.ROOT))
-
-    override val wallet: Wallet
-        get() = aWallet
 
     override val cardName: String
         get() = card.cardName
@@ -94,8 +86,7 @@ class OpenApiCreditCard(
 }
 
 class OpenApiGiftCard(
-    private val card: au.com.woolworths.village.sdk.openapi.dto.GiftCard,
-    private val aWallet: Wallet
+    private val card: au.com.woolworths.village.sdk.openapi.dto.GiftCard
 ) : GiftCard {
     override val programName: String
         get() = card.programName
@@ -124,9 +115,6 @@ class OpenApiGiftCard(
     override val status: PaymentInstrument.InstrumentStatus
         get() = PaymentInstrument.InstrumentStatus.valueOf(card.status.value)
 
-    override val wallet: Wallet
-        get() = aWallet
-
     override val stepUp: GiftCardStepUp?
         get() = card.stepUp?.let { OpenApiGiftCardStepUp(it) }
 }
@@ -152,4 +140,50 @@ class OpenApiGiftCardStepUp(
 
     override val mandatory: Boolean
         get() = stepUp.mandatory
+}
+
+class OpenApiIndividualPaymentInstrument(
+    private val result: GetCustomerPaymentInstrumentResult
+) : IndividualPaymentInstrument {
+    override val allowed: Boolean
+        get() = result.data.allowed
+
+    override val cipherText: String?
+        get() = result.meta.cipherText
+
+    override val lastUpdated: OffsetDateTime
+        get() = result.data.lastUpdated
+
+    override val lastUsed: OffsetDateTime?
+        get() = result.data.lastUsed
+
+    override val paymentInstrumentDetail: IndividualPaymentInstrument.InstrumentDetail
+        get() = OpenApiIndividualPaymentInstrumentInstrumentDetail(result.data.paymentInstrumentDetail)
+
+    override val paymentInstrumentId: String
+        get() = result.data.paymentInstrumentId
+
+    override val paymentInstrumentType: String
+        get() = result.data.paymentInstrumentType
+
+    override val paymentToken: String
+        get() = result.data.paymentToken
+
+    override val primary: Boolean
+        get() = result.data.primary
+
+    override val status: PaymentInstrument.InstrumentStatus
+        get() = PaymentInstrument.InstrumentStatus.valueOf(
+            result.data.status.toString().toUpperCase(Locale.ROOT)
+        )
+}
+
+class OpenApiIndividualPaymentInstrumentInstrumentDetail(
+    private val detail: GetCustomerPaymentInstrumentResultDataPaymentInstrumentDetail
+) : IndividualPaymentInstrument.InstrumentDetail {
+    override val programName: String
+        get() = detail.programName
+
+    override val stepUp: GiftCardStepUp
+        get() = OpenApiGiftCardStepUp(detail.stepUp)
 }

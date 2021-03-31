@@ -1,6 +1,5 @@
 package au.com.woolworths.village.sdk.openapi.api
 
-import au.com.woolworths.village.sdk.data.aSelectedPaymentInstrument
 import au.com.woolworths.village.sdk.matchers.customerPaymentRequest
 import au.com.woolworths.village.sdk.matchers.customerTransactionSummary
 import au.com.woolworths.village.sdk.matchers.isSuccessfulWith
@@ -36,7 +35,8 @@ class OpenApiCustomerPaymentRequestsRepositoryTest {
 
         val result = api.paymentRequests.makePayment(
             paymentRequestId,
-            aSelectedPaymentInstrument(),
+            "abc123",
+            null,
             null,
             null,
             null

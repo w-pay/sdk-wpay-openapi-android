@@ -58,7 +58,8 @@ class OpenApiCustomerPaymentSessionsRepositoryTest {
 
         val result = api.paymentSessions.preApprove(
             paymentSessionId,
-            aSelectedPaymentInstrument(),
+            "abc123",
+            null,
             null,
             null,
             null
