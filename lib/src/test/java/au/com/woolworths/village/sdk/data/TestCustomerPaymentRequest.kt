@@ -1,7 +1,6 @@
 package au.com.woolworths.village.sdk.data
 
-import au.com.woolworths.village.sdk.model.Basket
-import au.com.woolworths.village.sdk.model.CustomerPaymentRequest
+import au.com.woolworths.village.sdk.model.*
 import java.math.BigDecimal
 
 fun aNewCustomerPaymentRequest(): CustomerPaymentRequest = TestCustomerPaymentRequest()
@@ -21,4 +20,20 @@ class TestCustomerPaymentRequest : CustomerPaymentRequest {
 
     override val grossAmount: BigDecimal
         get() = BigDecimal.TEN
+}
+
+class TestCustomerPreferences : CustomerPreferences {
+    override val general: Preferences
+        get() = emptyMap()
+
+    override val payments: PaymentPreferences?
+        get() = TestPaymentPreferences()
+}
+
+class TestPaymentPreferences : PaymentPreferences {
+    override val primaryInstrumentId: String
+        get() = "90271"
+
+    override val secondaryInstruments: SecondaryInstrumentPreferences?
+        get() = null
 }
