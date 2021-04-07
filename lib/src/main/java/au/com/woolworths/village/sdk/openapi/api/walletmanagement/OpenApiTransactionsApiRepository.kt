@@ -37,7 +37,7 @@ class OpenApiTransactionsApiRepository(
                 "",
                 "",
                 "",
-            ""
+                getDefaultHeader(api.apiClient, X_EVERYDAY_PAY_WALLET)
             )
             return@makeCall ApiResult.Success(
                 OpenApiTransactionHistoryResponse(

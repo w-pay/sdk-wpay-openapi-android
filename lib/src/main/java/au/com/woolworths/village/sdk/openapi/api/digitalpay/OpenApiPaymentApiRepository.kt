@@ -1,9 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.api.digitalpay
 
-import au.com.woolworths.village.sdk.ApiResult
-import au.com.woolworths.village.sdk.RequestHeadersFactory
-import au.com.woolworths.village.sdk.VillageOptions
-import au.com.woolworths.village.sdk.X_API_KEY
+import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.digitalpay.PaymentApiRepository
 import au.com.woolworths.village.sdk.model.digitalpay.*
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
@@ -36,14 +33,15 @@ class OpenApiPaymentApiRepository (
             body.fraudPayload = paymentRequest.fraudPayload as PaymentsRequestFraudPayload
 
             val response = api.paymentsPost(
-                    "",
-                    getDefaultHeader(api.apiClient, X_API_KEY),
-                    "",
-                    body,
-                    "",
-                    "",
-                    "",
-                    "")
+                "",
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                body,
+                "",
+                "",
+                "",
+                getDefaultHeader(api.apiClient, X_EVERYDAY_PAY_WALLET)
+            )
 
             return@makeCall ApiResult.Success(OpenApiPaymentsPayResponse(response))
         }
@@ -66,14 +64,15 @@ class OpenApiPaymentApiRepository (
             body.fraudPayload = paymentRequest.fraudPayload as PaymentsRequestFraudPayload
 
             val response = api.paymentsPost(
-                    "",
-                    getDefaultHeader(api.apiClient, X_API_KEY),
-                    "",
-                    body,
-                    "",
-                    "",
-                    "",
-                    "")
+                "",
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                body,
+                "",
+                "",
+                "",
+                getDefaultHeader(api.apiClient, X_EVERYDAY_PAY_WALLET)
+            )
 
             return@makeCall ApiResult.Success(OpenApiPaymentsPayResponse(response))
         }

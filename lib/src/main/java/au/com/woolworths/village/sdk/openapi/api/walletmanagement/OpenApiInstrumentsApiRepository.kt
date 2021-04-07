@@ -64,7 +64,7 @@ class OpenApiInstrumentsApiRepository (
                 "",
                 "",
                 "",
-                ""
+                getDefaultHeader(api.apiClient, X_EVERYDAY_PAY_WALLET)
             )
 
             return@makeCall ApiResult.Success(
@@ -85,8 +85,7 @@ class OpenApiInstrumentsApiRepository (
                 "",
                 "",
                 "",
-                "",
-                ""
+                getDefaultHeader(api.apiClient, X_EVERYDAY_PAY_WALLET)
             )
 
             return@makeCall ApiResult.Success(
@@ -134,8 +133,7 @@ class OpenApiInstrumentsApiRepository (
                 "",
                 "",
                 "",
-                "",
-                ""
+                getDefaultHeader(api.apiClient, X_EVERYDAY_PAY_WALLET)
             ) as Map<String, Any>
             return@makeCall ApiResult.Success(
                 response

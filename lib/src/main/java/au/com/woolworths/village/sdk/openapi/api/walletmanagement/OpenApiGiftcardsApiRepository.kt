@@ -35,7 +35,7 @@ class OpenApiGiftcardsApiRepository(
                 "",
                 "",
                 "",
-                ""
+                getDefaultHeader(api.apiClient, X_EVERYDAY_PAY_WALLET)
             )
 
             return@makeCall ApiResult.Success(
@@ -93,7 +93,7 @@ class OpenApiGiftcardsApiRepository(
                 "",
                 "",
                 "",
-                ""
+                getDefaultHeader(api.apiClient, X_EVERYDAY_PAY_WALLET)
             )
 
             return@makeCall ApiResult.Success(
