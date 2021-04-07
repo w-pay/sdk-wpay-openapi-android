@@ -62,17 +62,17 @@ class OpenApiCustomerPaymentAgreementsApiRepository(
 
     override fun update(
         paymentToken: String,
-        paymentAgreementRequest: UpdatePaymentAgreementRequest
+        paymentAgreement: UpdatePaymentAgreementRequest
     ): ApiResult<OpenApiPaymentAgreementResponse> {
         return makeCall {
             val api = CustomerApi()
 
             val body = CustomerUpdatePaymentAgreementRequest()
             body.data = InstoreCustomerPaymentsAgreementsPaymentTokenData().apply {
-                clientReference = paymentAgreementRequest.clientReference
-                customerRef = paymentAgreementRequest.customerRef
-                billingAddress = paymentAgreementRequest.billingAddress as BillingAddress
-                paymentAgreement = paymentAgreementRequest.paymentAgreement as PaymentAgreement
+                clientReference = paymentAgreement.clientReference
+                customerRef = paymentAgreement.customerRef
+                billingAddress = paymentAgreement.billingAddress as BillingAddress
+                this.paymentAgreement = paymentAgreement.paymentAgreement as PaymentAgreement
             }
 
             val data = api.updateCustomerPaymentAgreement(

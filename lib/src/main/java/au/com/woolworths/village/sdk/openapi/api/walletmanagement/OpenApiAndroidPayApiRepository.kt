@@ -28,7 +28,7 @@ class OpenApiAndroidPayApiRepository(
 
             val response = api.androidpayTokenizePost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",
@@ -63,7 +63,7 @@ class OpenApiAndroidPayApiRepository(
             val response = api.androidpayTokenizePaymentInstrumentIdPost(
                 paymentInstrumentId,
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",

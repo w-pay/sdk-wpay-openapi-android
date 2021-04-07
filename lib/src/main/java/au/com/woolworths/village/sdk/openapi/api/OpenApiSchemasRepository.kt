@@ -1,9 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.api
 
-import au.com.woolworths.village.sdk.ApiResult
-import au.com.woolworths.village.sdk.RequestHeadersFactory
-import au.com.woolworths.village.sdk.VillageOptions
-import au.com.woolworths.village.sdk.X_API_KEY
+import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.SchemasRepository
 import au.com.woolworths.village.sdk.model.MerchantSchema
 import au.com.woolworths.village.sdk.model.MerchantSchemaSummaries
@@ -24,7 +21,7 @@ class OpenApiSchemasRepository(
 
             val data = api.getMerchantSchemas(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 "",
                 "",
@@ -41,7 +38,7 @@ class OpenApiSchemasRepository(
 
             val data = api.getMerchantSchemaDetails(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 schemaId,
                 "",
@@ -66,7 +63,7 @@ class OpenApiSchemasRepository(
 
             val data = api.createMerchantSchema(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",

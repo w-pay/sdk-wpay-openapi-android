@@ -1,9 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.api
 
-import au.com.woolworths.village.sdk.ApiResult
-import au.com.woolworths.village.sdk.RequestHeadersFactory
-import au.com.woolworths.village.sdk.VillageOptions
-import au.com.woolworths.village.sdk.X_API_KEY
+import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.CustomerPaymentSessionsRepository
 import au.com.woolworths.village.sdk.model.*
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
@@ -22,7 +19,7 @@ class OpenApiCustomerPaymentSessionsRepository(
 
             val data = api.getCustomerPaymentSession(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 paymentSessionId,
                 "",
@@ -40,7 +37,7 @@ class OpenApiCustomerPaymentSessionsRepository(
 
             val data = api.getCustomerPaymentSessionByQRCodeId(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 qrCodeId,
                 "",
@@ -65,7 +62,7 @@ class OpenApiCustomerPaymentSessionsRepository(
 
             api.customerUpdatePaymentSession(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 paymentSessionId,
                 body,
@@ -84,7 +81,7 @@ class OpenApiCustomerPaymentSessionsRepository(
 
             api.deleteCustomerPaymentSession(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 paymentSessionId,
                 "",
@@ -126,7 +123,7 @@ class OpenApiCustomerPaymentSessionsRepository(
 
             api.preApprovePaymentSession(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 paymentSessionId,
                 body,

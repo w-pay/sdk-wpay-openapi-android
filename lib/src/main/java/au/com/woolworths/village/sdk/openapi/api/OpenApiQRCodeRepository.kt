@@ -1,9 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.api
 
-import au.com.woolworths.village.sdk.ApiResult
-import au.com.woolworths.village.sdk.RequestHeadersFactory
-import au.com.woolworths.village.sdk.VillageOptions
-import au.com.woolworths.village.sdk.X_API_KEY
+import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.QRCodeRepository
 import au.com.woolworths.village.sdk.model.NewPaymentRequestQRCode
 import au.com.woolworths.village.sdk.model.QRCode
@@ -34,7 +31,7 @@ class OpenApiQRCodeRepository(
 
             val data = api.createPaymentRequestQRCode(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",
@@ -52,7 +49,7 @@ class OpenApiQRCodeRepository(
 
             val data = api.getPaymentRequestQRCodeContent(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 qrCodeId,
                 "",
@@ -70,7 +67,7 @@ class OpenApiQRCodeRepository(
 
             api.cancelPaymentRequestQRCode(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 qrCodeId,
                 "",

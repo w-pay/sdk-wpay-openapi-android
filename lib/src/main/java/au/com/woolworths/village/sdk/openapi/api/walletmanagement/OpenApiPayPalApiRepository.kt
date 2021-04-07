@@ -1,9 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.api.walletmanagement
 
-import au.com.woolworths.village.sdk.ApiResult
-import au.com.woolworths.village.sdk.RequestHeadersFactory
-import au.com.woolworths.village.sdk.VillageOptions
-import au.com.woolworths.village.sdk.X_API_KEY
+import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.model.TokenizePaypalResponse
 import au.com.woolworths.village.sdk.model.walletmanagement.TokenizePaypalRequest
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
@@ -26,13 +23,14 @@ class OpenApiPayPalApiRepository (
 
             val response = api.paypalTokenizePost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",
                 "",
                 ""
             )
+
             return@makeCall ApiResult.Success(
                 OpenApiTokenizePaypalResponse(
                     response
@@ -51,13 +49,14 @@ class OpenApiPayPalApiRepository (
 
             val response = api.guestPaypalTokenizePost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",
                 "",
                 ""
             )
+
             return@makeCall ApiResult.Success(
                 OpenApiGuestTokenizePaypalResponse(
                     response

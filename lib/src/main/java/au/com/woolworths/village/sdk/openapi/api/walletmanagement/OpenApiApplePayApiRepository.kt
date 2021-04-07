@@ -1,9 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.api.walletmanagement
 
-import au.com.woolworths.village.sdk.ApiResult
-import au.com.woolworths.village.sdk.RequestHeadersFactory
-import au.com.woolworths.village.sdk.VillageOptions
-import au.com.woolworths.village.sdk.X_API_KEY
+import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.walletmanagement.ApplePayApiRepository
 import au.com.woolworths.village.sdk.model.walletmanagement.TokenizeApplePayRequest
 import au.com.woolworths.village.sdk.model.walletmanagement.TokenizeApplePayResponse
@@ -34,7 +31,7 @@ class OpenApiApplePayApiRepository(
 
             val response = api.applepayTokenizePost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",
@@ -70,7 +67,7 @@ class OpenApiApplePayApiRepository(
 
             val response = api.guestApplepayTokenizePost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",
@@ -109,7 +106,7 @@ class OpenApiApplePayApiRepository(
             val response = api.applepayTokenizePaymentInstrumentIdPost(
                 paymentInstrumentId,
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",

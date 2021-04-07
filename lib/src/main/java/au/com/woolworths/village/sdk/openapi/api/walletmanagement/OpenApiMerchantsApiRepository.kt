@@ -1,9 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.api.walletmanagement
 
-import au.com.woolworths.village.sdk.ApiResult
-import au.com.woolworths.village.sdk.RequestHeadersFactory
-import au.com.woolworths.village.sdk.VillageOptions
-import au.com.woolworths.village.sdk.X_API_KEY
+import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.model.walletmanagement.MerchantProfileResponse
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.model.OpenApiMerchantProfileResponse
@@ -18,7 +15,7 @@ class   OpenApiMerchantsApiRepository (
 
             val response = api.merchantsProfileGet(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 "",
                 "",

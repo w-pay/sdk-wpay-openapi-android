@@ -27,7 +27,7 @@ class OpenApiPaymentInstrumentsRepository(
            val result = api.getCustomerPaymentInstrument(
                paymentToken,
                getDefaultHeader(api.apiClient, X_API_KEY),
-               "",
+               getDefaultHeader(api.apiClient, AUTHORISATION),
                "",
                "",
                "",
@@ -46,7 +46,7 @@ class OpenApiPaymentInstrumentsRepository(
 
             val data = api.getCustomerPaymentInstruments(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 "",
                 "",
@@ -69,7 +69,7 @@ class OpenApiPaymentInstrumentsRepository(
 
             api.deletePaymentInstrument(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 instrument,
                 "",
@@ -94,7 +94,7 @@ class OpenApiPaymentInstrumentsRepository(
 
             val data = api.initiatePaymentInstrumentAddition(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",

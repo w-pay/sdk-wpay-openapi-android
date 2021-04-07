@@ -1,9 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.api
 
-import au.com.woolworths.village.sdk.ApiResult
-import au.com.woolworths.village.sdk.RequestHeadersFactory
-import au.com.woolworths.village.sdk.VillageOptions
-import au.com.woolworths.village.sdk.X_API_KEY
+import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.MerchantPaymentsRepository
 import au.com.woolworths.village.sdk.model.*
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
@@ -30,7 +27,7 @@ class OpenApiMerchantPaymentsRepository(
 
             val data = api.getMerchantPayments(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 "",
                 "", "",
@@ -104,7 +101,7 @@ class OpenApiMerchantPaymentsRepository(
 
             val data = api.createPaymentRequest(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",
@@ -124,7 +121,7 @@ class OpenApiMerchantPaymentsRepository(
 
             val data = api.getMerchantPaymentDetails(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 paymentRequestId,
                 "",
@@ -142,7 +139,7 @@ class OpenApiMerchantPaymentsRepository(
 
             api.deleteMerchantPaymentRequest(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 paymentRequestId,
                 "",
@@ -168,7 +165,7 @@ class OpenApiMerchantPaymentsRepository(
 
             val data = api.refundMerchantTransaction(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 transactionId,
                 body,

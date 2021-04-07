@@ -1,9 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.api
 
-import au.com.woolworths.village.sdk.ApiResult
-import au.com.woolworths.village.sdk.RequestHeadersFactory
-import au.com.woolworths.village.sdk.VillageOptions
-import au.com.woolworths.village.sdk.X_API_KEY
+import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.CustomerPreferencesRepository
 import au.com.woolworths.village.sdk.model.CustomerPreferences
 import au.com.woolworths.village.sdk.model.PaymentPreferences
@@ -24,7 +21,7 @@ class OpenApiCustomerPreferencesRepository(
 
             val data = api.getCustomerPreferences(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 "",
                 "",
@@ -50,7 +47,7 @@ class OpenApiCustomerPreferencesRepository(
 
             api.setCustomerPreferences(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",

@@ -21,7 +21,7 @@ class OpenApiCustomerPaymentRequestsRepository(
 
             val data = api.getCustomerPaymentRequestDetailsByPaymentId(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 paymentRequestId,
                 "",
@@ -39,7 +39,7 @@ class OpenApiCustomerPaymentRequestsRepository(
 
             val data = api.getCustomerPaymentRequestDetailsByQRCodeId(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 qrCodeId,
                 "",
@@ -81,7 +81,7 @@ class OpenApiCustomerPaymentRequestsRepository(
 
             val data = api.makeCustomerPayment(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 paymentRequestId,
                 body,
