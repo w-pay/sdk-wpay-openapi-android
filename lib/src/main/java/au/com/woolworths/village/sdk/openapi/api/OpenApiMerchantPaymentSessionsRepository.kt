@@ -1,9 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.api
 
-import au.com.woolworths.village.sdk.ApiResult
-import au.com.woolworths.village.sdk.RequestHeadersFactory
-import au.com.woolworths.village.sdk.VillageOptions
-import au.com.woolworths.village.sdk.X_API_KEY
+import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.MerchantPaymentSessionsRepository
 import au.com.woolworths.village.sdk.model.CreatePaymentSessionRequest
 import au.com.woolworths.village.sdk.model.CreatePaymentSessionResult
@@ -37,7 +34,7 @@ class OpenApiMerchantPaymentSessionsRepository(
 
             val data = api.createPaymentSession(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",
@@ -55,7 +52,7 @@ class OpenApiMerchantPaymentSessionsRepository(
 
             val data = api.getPaymentSession(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 paymentSessionId,
                 "",
@@ -83,7 +80,7 @@ class OpenApiMerchantPaymentSessionsRepository(
 
             api.merchantUpdatePaymentSession(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 paymentSessionId,
                 body,
@@ -102,7 +99,7 @@ class OpenApiMerchantPaymentSessionsRepository(
 
             api.deletePaymentSession(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 paymentSessionId,
                 "",

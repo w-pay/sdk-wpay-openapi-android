@@ -1,9 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.api.walletmanagement
 
-import au.com.woolworths.village.sdk.ApiResult
-import au.com.woolworths.village.sdk.RequestHeadersFactory
-import au.com.woolworths.village.sdk.VillageOptions
-import au.com.woolworths.village.sdk.X_API_KEY
+import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.walletmanagement.CardsApiRepository
 import au.com.woolworths.village.sdk.model.walletmanagement.InitiateCardCaptureRequest
 import au.com.woolworths.village.sdk.model.walletmanagement.InitiateCardCaptureResponse
@@ -25,7 +22,7 @@ class OpenApiCardsApiRepository(
 
             val response = api.cardsInitcapturePost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",
@@ -53,7 +50,7 @@ class OpenApiCardsApiRepository(
 
             val response = api.guestCardsInitcapturePost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",

@@ -3,12 +3,13 @@ package au.com.woolworths.village.sdk.openapi.api
 import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.CustomerPaymentRequestsRepository
 import au.com.woolworths.village.sdk.model.*
-import au.com.woolworths.village.sdk.model.CustomerTransactionSummary
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
-import au.com.woolworths.village.sdk.openapi.dto.*
+import au.com.woolworths.village.sdk.openapi.dto.InstoreCustomerPaymentsPaymentRequestIdData
+import au.com.woolworths.village.sdk.openapi.dto.InstoreCustomerPaymentsPaymentRequestIdDataSecondaryInstruments
+import au.com.woolworths.village.sdk.openapi.dto.MetaChallenge
+import au.com.woolworths.village.sdk.openapi.dto.MetaChallengeChallengeResponses
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCustomerPaymentRequest
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCustomerTransactionSummary
-import java.util.*
 
 class OpenApiCustomerPaymentRequestsRepository(
     requestHeadersFactory: RequestHeadersFactory,
@@ -20,7 +21,7 @@ class OpenApiCustomerPaymentRequestsRepository(
 
             val data = api.getCustomerPaymentRequestDetailsByPaymentId(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 paymentRequestId,
                 "",
@@ -38,7 +39,7 @@ class OpenApiCustomerPaymentRequestsRepository(
 
             val data = api.getCustomerPaymentRequestDetailsByQRCodeId(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 qrCodeId,
                 "",
@@ -69,20 +70,7 @@ class OpenApiCustomerPaymentRequestsRepository(
                 this.clientReference = clientReference
 
                 this.preferences = preferences?.let {
-                    val prefs = au.com.woolworths.village.sdk.openapi.dto.PreferencePayments()
-                    prefs.primaryInstrumentId = it.primaryInstrumentId
-                    prefs.secondaryInstruments = PreferencePaymentsSecondaryInstruments().apply {
-                        val secondaryInstruments = preferences.secondaryInstruments
-
-                        enableSecondaryInstruments = secondaryInstruments.enableSecondaryInstruments
-                        exclude = secondaryInstruments.exclude
-                        include = secondaryInstruments.include
-                        order = PreferencePaymentsSecondaryInstruments.OrderEnum.valueOf(
-                            secondaryInstruments.order.toString().toUpperCase(Locale.ROOT)
-                        )
-                    }
-
-                    return@let prefs
+                    fromPaymentPreferences(it)
                 }
             }
 
@@ -93,7 +81,7 @@ class OpenApiCustomerPaymentRequestsRepository(
 
             val data = api.makeCustomerPayment(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 paymentRequestId,
                 body,

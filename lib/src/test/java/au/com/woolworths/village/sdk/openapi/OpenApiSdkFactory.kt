@@ -28,7 +28,8 @@ class TestRequestHeadersFactory : RequestHeadersFactory {
             X_WALLET_ID to "a value",
             X_MERCHANT_ID to "a value",
             X_API_KEY to "abc123",
-            X_EVERYDAY_PAY_WALLET to "true"
+            X_EVERYDAY_PAY_WALLET to "true",
+            AUTHORISATION to "def456"
         )
     }
 }

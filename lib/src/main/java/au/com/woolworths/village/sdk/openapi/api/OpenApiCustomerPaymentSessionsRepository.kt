@@ -1,18 +1,13 @@
 package au.com.woolworths.village.sdk.openapi.api
 
-import au.com.woolworths.village.sdk.ApiResult
-import au.com.woolworths.village.sdk.RequestHeadersFactory
-import au.com.woolworths.village.sdk.VillageOptions
-import au.com.woolworths.village.sdk.X_API_KEY
+import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.CustomerPaymentSessionsRepository
 import au.com.woolworths.village.sdk.model.*
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.InstoreCustomerPaymentSessionPaymentSessionIdData
 import au.com.woolworths.village.sdk.openapi.dto.InstoreCustomerPaymentsPaymentRequestIdData
 import au.com.woolworths.village.sdk.openapi.dto.MetaChallenge
-import au.com.woolworths.village.sdk.openapi.dto.PreferencePaymentsSecondaryInstruments
 import au.com.woolworths.village.sdk.openapi.model.OpenApiPaymentSession
-import java.util.*
 
 class OpenApiCustomerPaymentSessionsRepository(
     requestHeadersFactory: RequestHeadersFactory,
@@ -24,7 +19,7 @@ class OpenApiCustomerPaymentSessionsRepository(
 
             val data = api.getCustomerPaymentSession(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 paymentSessionId,
                 "",
@@ -42,7 +37,7 @@ class OpenApiCustomerPaymentSessionsRepository(
 
             val data = api.getCustomerPaymentSessionByQRCodeId(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 qrCodeId,
                 "",
@@ -67,7 +62,7 @@ class OpenApiCustomerPaymentSessionsRepository(
 
             api.customerUpdatePaymentSession(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 paymentSessionId,
                 body,
@@ -86,7 +81,7 @@ class OpenApiCustomerPaymentSessionsRepository(
 
             api.deleteCustomerPaymentSession(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 paymentSessionId,
                 "",
@@ -117,20 +112,7 @@ class OpenApiCustomerPaymentSessionsRepository(
                 this.clientReference = clientReference
 
                 this.preferences = preferences?.let {
-                    val prefs = au.com.woolworths.village.sdk.openapi.dto.PreferencePayments()
-                    prefs.primaryInstrumentId = it.primaryInstrumentId
-                    prefs.secondaryInstruments = PreferencePaymentsSecondaryInstruments().apply {
-                        val secondaryInstruments = preferences.secondaryInstruments
-
-                        enableSecondaryInstruments = secondaryInstruments.enableSecondaryInstruments
-                        exclude = secondaryInstruments.exclude
-                        include = secondaryInstruments.include
-                        order = PreferencePaymentsSecondaryInstruments.OrderEnum.valueOf(
-                            secondaryInstruments.order.toString().toUpperCase(Locale.ROOT)
-                        )
-                    }
-
-                    return@let prefs
+                    fromPaymentPreferences(it)
                 }
             }
 
@@ -141,7 +123,7 @@ class OpenApiCustomerPaymentSessionsRepository(
 
             api.preApprovePaymentSession(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 paymentSessionId,
                 body,

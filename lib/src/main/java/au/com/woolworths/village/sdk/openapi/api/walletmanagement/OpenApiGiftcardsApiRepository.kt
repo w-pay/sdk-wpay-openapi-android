@@ -29,13 +29,13 @@ class OpenApiGiftcardsApiRepository(
 
             val response = api.giftcardsTokenizePost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",
                 "",
                 "",
-                ""
+                getDefaultHeader(api.apiClient, X_EVERYDAY_PAY_WALLET)
             )
 
             return@makeCall ApiResult.Success(
@@ -58,7 +58,7 @@ class OpenApiGiftcardsApiRepository(
 
             val response = api.guestGiftcardsTokenizePost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",
@@ -87,13 +87,13 @@ class OpenApiGiftcardsApiRepository(
 
             val response = api.giftcardsBalancePost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",
                 "",
                 "",
-                ""
+                getDefaultHeader(api.apiClient, X_EVERYDAY_PAY_WALLET)
             )
 
             return@makeCall ApiResult.Success(

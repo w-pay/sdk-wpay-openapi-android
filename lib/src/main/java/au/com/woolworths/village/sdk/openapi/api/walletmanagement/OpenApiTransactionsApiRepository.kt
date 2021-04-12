@@ -1,9 +1,6 @@
 package au.com.woolworths.village.sdk.openapi.api.walletmanagement
 
-import au.com.woolworths.village.sdk.ApiResult
-import au.com.woolworths.village.sdk.RequestHeadersFactory
-import au.com.woolworths.village.sdk.VillageOptions
-import au.com.woolworths.village.sdk.X_API_KEY
+import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.TransactionHistoryRequest
 import au.com.woolworths.village.sdk.openapi.model.OpenApiTransactionHistoryResponse
@@ -31,14 +28,15 @@ class OpenApiTransactionsApiRepository(
 
             val response = api.transactionsPost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
-                "",
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",
                 "",
                 "",
-            ""
+                getDefaultHeader(api.apiClient, X_EVERYDAY_PAY_WALLET)
             )
+
             return@makeCall ApiResult.Success(
                 OpenApiTransactionHistoryResponse(
                     response
