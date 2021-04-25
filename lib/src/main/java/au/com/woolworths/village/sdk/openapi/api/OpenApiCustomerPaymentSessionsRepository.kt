@@ -108,7 +108,7 @@ class OpenApiCustomerPaymentSessionsRepository(
             body.data = InstoreCustomerPaymentsPaymentRequestIdData().apply {
                 this.primaryInstrumentId = primaryInstrument
                 this.secondaryInstruments =
-                    secondaryInstruments?.map(::toSecondaryInstrument) ?: emptyList()
+                    secondaryInstruments?.map(::toSecondaryInstrument)
                 this.clientReference = clientReference
 
                 this.preferences = preferences?.let {
