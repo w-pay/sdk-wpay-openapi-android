@@ -7,13 +7,13 @@ import au.com.woolworths.village.sdk.model.UpdatePaymentAgreementRequest
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiPaymentAgreementResponse
-import au.com.woolworths.village.sdk.openapi.model.OpenApiPaymentAgreementsResponse
+import au.com.woolworths.village.sdk.openapi.model.OpenApiPaymentAgreements
 
 class OpenApiCustomerPaymentAgreementsApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
     options: VillageOptions
 ) : OpenApiClientFactory(requestHeadersFactory, options), CustomerPaymentAgreementsApiRepository {
-    override fun list(): ApiResult<OpenApiPaymentAgreementsResponse> {
+    override fun list(): ApiResult<OpenApiPaymentAgreements> {
         return makeCall {
             val api = createCustomerApi()
 
@@ -21,7 +21,7 @@ class OpenApiCustomerPaymentAgreementsApiRepository(
                 getDefaultHeader(api.apiClient, X_WALLET_ID)
             ).data
 
-            ApiResult.Success(OpenApiPaymentAgreementsResponse(data))
+            ApiResult.Success(OpenApiPaymentAgreements(data))
         }
     }
 
