@@ -107,8 +107,7 @@ class OpenApiCustomerPaymentSessionsRepository(
             val body = au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetails1()
             body.data = InstoreCustomerPaymentsPaymentRequestIdData().apply {
                 this.primaryInstrumentId = primaryInstrument
-                this.secondaryInstruments =
-                    secondaryInstruments?.map(::toSecondaryInstrument)
+                this.secondaryInstruments = secondaryInstruments?.map(::toSecondaryInstrument)
                 this.clientReference = clientReference
 
                 this.preferences = preferences?.let {
