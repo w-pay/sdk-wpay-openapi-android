@@ -27,7 +27,7 @@ class OpenApiCustomerPaymentAgreementsApiRepository(
 
    override fun getById(paymentToken: String): ApiResult<OpenApiPaymentAgreementResponse> {
        return makeCall {
-           val api = CustomerApi()
+           val api = createCustomerApi()
 
            val data = api.getPaymentAgreement(
                getDefaultHeader(api.apiClient, X_WALLET_ID),
@@ -40,7 +40,7 @@ class OpenApiCustomerPaymentAgreementsApiRepository(
 
     override fun create(paymentAgreement: CreatePaymentAgreementRequest): ApiResult<OpenApiPaymentAgreementResponse> {
         return makeCall {
-            val api = CustomerApi()
+            val api = createCustomerApi()
 
             val body = CustomerCreatePaymentAgreementRequest()
             body.data = InstoreCustomerPaymentsAgreementsData().apply {
@@ -65,7 +65,7 @@ class OpenApiCustomerPaymentAgreementsApiRepository(
         paymentAgreement: UpdatePaymentAgreementRequest
     ): ApiResult<OpenApiPaymentAgreementResponse> {
         return makeCall {
-            val api = CustomerApi()
+            val api = createCustomerApi()
 
             val body = CustomerUpdatePaymentAgreementRequest()
             body.data = InstoreCustomerPaymentsAgreementsPaymentTokenData().apply {
