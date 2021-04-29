@@ -12,6 +12,7 @@ import au.com.woolworths.village.sdk.openapi.dto.MerchantChargePaymentAgreementR
 import au.com.woolworths.village.sdk.openapi.dto.TransactionType
 import au.com.woolworths.village.sdk.api.MerchantPaymentAgreementsRepository
 import au.com.woolworths.village.sdk.model.digitalpay.DigitalPayPaymentAgreementResponse
+import java.util.*
 
 class OpenApiMerchantPaymentAgreementsApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
@@ -30,7 +31,9 @@ class OpenApiMerchantPaymentAgreementsApiRepository(
                 amount = chargePaymentAgreementRequest.amount
                 clientReference = chargePaymentAgreementRequest.clientReference
                 orderNumber = chargePaymentAgreementRequest.orderNumber
-                transactionType = chargePaymentAgreementRequest.transactionType as TransactionType
+                transactionType = TransactionType.valueOf(
+                    chargePaymentAgreementRequest.transactionType.toString()
+                )
                 customerRef = chargePaymentAgreementRequest.customerRef
             }
 
