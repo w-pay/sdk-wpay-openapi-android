@@ -11,14 +11,14 @@ import au.com.woolworths.village.sdk.openapi.model.OpenApiRefundsResponse
 import au.com.woolworths.village.sdk.openapi.model.OpenApiVoidsResponse
 
 
-class OpenApiPaymentApiRepository (
-        requestHeadersFactory: RequestHeadersFactory,
-        options: VillageOptions
+class OpenApiPaymentApiRepository(
+    requestHeadersFactory: RequestHeadersFactory,
+    options: VillageOptions
 ) : OpenApiClientFactory(requestHeadersFactory, options), PaymentApiRepository {
 
     override fun pay(
-            paymentRequest: DigitalPayPaymentRequest
-    ): ApiResult<DigitalPayPaymentResponse>{
+        paymentRequest: DigitalPayPaymentRequest
+    ): ApiResult<DigitalPayPaymentResponse> {
         return makeCall {
             val api = createPaymentsApi()
             val body = au.com.woolworths.village.sdk.openapi.dto.PaymentsRequest()
@@ -28,13 +28,14 @@ class OpenApiPaymentApiRepository (
             body.orderNumber = paymentRequest.orderNumber
             body.shippingAddress = paymentRequest.shippingAddress as PaymentsRequestShippingAddress
             body.payments = paymentRequest.payments as List<PaymentsRequestPayments>
-            body.extendedMerchantData = paymentRequest.extendedMerchantData as List<PaymentsRequestExtendedMerchantData>?
+            body.extendedMerchantData =
+                paymentRequest.extendedMerchantData as List<PaymentsRequestExtendedMerchantData>?
             body.storeData = paymentRequest.storeData as PaymentsRequestStoreData
             body.fraudPayload = paymentRequest.fraudPayload as PaymentsRequestFraudPayload
 
             val response = api.paymentsPost(
-                "",
                 getDefaultHeader(api.apiClient, X_API_KEY),
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",
@@ -48,8 +49,8 @@ class OpenApiPaymentApiRepository (
     }
 
     override fun guestPayment(
-            paymentRequest: DigitalPayPaymentRequest
-    ): ApiResult<DigitalPayPaymentResponse>{
+        paymentRequest: DigitalPayPaymentRequest
+    ): ApiResult<DigitalPayPaymentResponse> {
         return makeCall {
             val api = createPaymentsApi()
             val body = au.com.woolworths.village.sdk.openapi.dto.PaymentsRequest()
@@ -59,19 +60,19 @@ class OpenApiPaymentApiRepository (
             body.orderNumber = paymentRequest.orderNumber
             body.shippingAddress = paymentRequest.shippingAddress as PaymentsRequestShippingAddress
             body.payments = paymentRequest.payments as List<PaymentsRequestPayments>
-            body.extendedMerchantData = paymentRequest.extendedMerchantData as List<PaymentsRequestExtendedMerchantData>?
+            body.extendedMerchantData =
+                paymentRequest.extendedMerchantData as List<PaymentsRequestExtendedMerchantData>?
             body.storeData = paymentRequest.storeData as PaymentsRequestStoreData
             body.fraudPayload = paymentRequest.fraudPayload as PaymentsRequestFraudPayload
 
-            val response = api.paymentsPost(
-                "",
+            val response = api.guestPaymentsPost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
+                getDefaultHeader(api.apiClient, AUTHORISATION),
                 "",
                 body,
                 "",
                 "",
-                "",
-                getDefaultHeader(api.apiClient, X_EVERYDAY_PAY_WALLET)
+                ""
             )
 
             return@makeCall ApiResult.Success(OpenApiPaymentsPayResponse(response))
@@ -79,8 +80,8 @@ class OpenApiPaymentApiRepository (
     }
 
     override fun complete(
-            completionRequest: DigitalPayCompletionRequest
-    ): ApiResult<DigitalPayCompletionResponse>{
+        completionRequest: DigitalPayCompletionRequest
+    ): ApiResult<DigitalPayCompletionResponse> {
         return makeCall {
             val api = createPaymentsApi()
             val body = au.com.woolworths.village.sdk.openapi.dto.CompletionsRequest()
@@ -90,20 +91,21 @@ class OpenApiPaymentApiRepository (
             body.completions = completionRequest.completions as List<CompletionsRequestCompletions>
 
             val response = api.completionsPost(
-                    "",
-                    getDefaultHeader(api.apiClient, X_API_KEY),
-                    body,
-                    "",
-                    "",
-                    "")
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                body,
+                "",
+                "",
+                ""
+            )
 
             return@makeCall ApiResult.Success(OpenApiCompletionsResponse(response))
         }
     }
 
     override fun voidPayment(
-            voidRequest: DigitalPayVoidRequest
-    ): ApiResult<DigitalPayVoidResponse>{
+        voidRequest: DigitalPayVoidRequest
+    ): ApiResult<DigitalPayVoidResponse> {
         return makeCall {
             val api = createPaymentsApi()
             val body = au.com.woolworths.village.sdk.openapi.dto.VoidsRequest()
@@ -113,20 +115,21 @@ class OpenApiPaymentApiRepository (
             body.voids = voidRequest.voids as List<VoidsRequestVoids>
 
             val response = api.voidsPost(
-                    "",
-                    getDefaultHeader(api.apiClient, X_API_KEY),
-                    body,
-                    "",
-                    "",
-                    "")
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                body,
+                "",
+                "",
+                ""
+            )
 
             return@makeCall ApiResult.Success(OpenApiVoidsResponse(response))
         }
     }
 
     override fun refund(
-            refundRequest: DigitalPayRefundRequest
-    ): ApiResult<DigitalPayRefundResponse>{
+        refundRequest: DigitalPayRefundRequest
+    ): ApiResult<DigitalPayRefundResponse> {
         return makeCall {
             val api = createPaymentsApi()
             val body = au.com.woolworths.village.sdk.openapi.dto.RefundsRequest()
@@ -136,12 +139,13 @@ class OpenApiPaymentApiRepository (
             body.refunds = refundRequest.refunds as List<RefundsRequestRefunds>
 
             val response = api.refundsPost(
-                    "",
-                    getDefaultHeader(api.apiClient, X_API_KEY),
-                    body,
-                    "",
-                    "",
-                    "")
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                body,
+                "",
+                "",
+                ""
+            )
 
             return@makeCall ApiResult.Success(OpenApiRefundsResponse(response))
         }
