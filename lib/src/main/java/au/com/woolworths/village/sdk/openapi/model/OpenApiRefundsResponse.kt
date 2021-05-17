@@ -12,6 +12,6 @@ class OpenApiRefundsResponse(
     override val partialSuccess: Boolean
         get() = refundsSuccessResponse.partialSuccess
 
-    override val refundResponses: DigitalPayRefundTransactionResponse
-        get() = refundsSuccessResponse.refundResponses as DigitalPayRefundTransactionResponse
+    override val refundResponses: List<DigitalPayRefundTransactionResponse>
+        get() = refundsSuccessResponse.refundResponses as List<DigitalPayRefundTransactionResponse>
 }

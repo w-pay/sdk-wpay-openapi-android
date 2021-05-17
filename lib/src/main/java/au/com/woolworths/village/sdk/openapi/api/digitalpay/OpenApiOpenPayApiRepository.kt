@@ -4,10 +4,7 @@ import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.digitalpay.OpenPayApiRepository
 import au.com.woolworths.village.sdk.model.digitalpay.*
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
-import au.com.woolworths.village.sdk.openapi.dto.OpenpayCompletionsRequestCompletions
-import au.com.woolworths.village.sdk.openapi.dto.OpenpayRefundsRequestRefunds
-import au.com.woolworths.village.sdk.openapi.dto.OpenpayRefundsRequestStoreData
-import au.com.woolworths.village.sdk.openapi.dto.OpenpayVoidsRequestVoids
+import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiOpenPayCompletionResponse
 import au.com.woolworths.village.sdk.openapi.model.OpenApiOpenPayPaymentResponse
 import au.com.woolworths.village.sdk.openapi.model.OpenApiOpenPayRefundsResponse
@@ -23,12 +20,18 @@ class OpenApiOpenPayApiRepository(
         return makeCall {
             val api = createOpenpayApi()
 
-            val body = au.com.woolworths.village.sdk.openapi.dto.OpenpayPaymentsRequest()
-            body.clientReference = paymentRequest.clientReference
-            body.channel = paymentRequest.channel
-            body.customerRef = paymentRequest.customerRef
-            body.merchantTransactedAt = paymentRequest.merchantTransactedAt
-            body.orderNumber = paymentRequest.orderNumber
+            val body = au.com.woolworths.village.sdk.openapi.dto.OpenpayPaymentsRequest().apply {
+                clientReference = paymentRequest.clientReference
+                channel = paymentRequest.channel
+                customerRef = paymentRequest.customerRef
+                merchantTransactedAt = paymentRequest.merchantTransactedAt
+                orderNumber = paymentRequest.orderNumber
+                transactionType = OpenpayPaymentsRequestTransactionType().apply {
+                    openPay = OpenpayPaymentsRequestTransactionType.OpenPayEnum.valueOf(
+                        paymentRequest.transactionType.openPay.toString()
+                    )
+                }
+            }
 
             val response = api.openpayPaymentsPost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
