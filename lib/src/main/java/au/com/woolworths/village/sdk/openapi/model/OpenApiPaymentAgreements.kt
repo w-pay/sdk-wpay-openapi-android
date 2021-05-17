@@ -4,7 +4,7 @@ import au.com.woolworths.village.sdk.model.PaymentAgreement
 import au.com.woolworths.village.sdk.model.PaymentAgreements
 import au.com.woolworths.village.sdk.openapi.dto.PaymentAgreementListResponseData
 
-class OpenApiPaymentAgreementsResponse(
+class OpenApiPaymentAgreements(
     private val paymentAgreementList: PaymentAgreementListResponseData
 ) : PaymentAgreements {
 

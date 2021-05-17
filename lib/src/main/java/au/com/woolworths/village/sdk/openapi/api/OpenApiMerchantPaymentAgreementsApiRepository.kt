@@ -23,7 +23,7 @@ class OpenApiMerchantPaymentAgreementsApiRepository(
         chargePaymentAgreementRequest: ChargePaymentAgreementRequest
     ): ApiResult<DigitalPayPaymentAgreementResponse> {
         return makeCall {
-            val api = MerchantApi()
+            val api = createMerchantApi()
 
             val body = MerchantChargePaymentAgreementRequest()
             body.data = InstoreMerchantPaymentsAgreementsPaymentTokenData().apply {

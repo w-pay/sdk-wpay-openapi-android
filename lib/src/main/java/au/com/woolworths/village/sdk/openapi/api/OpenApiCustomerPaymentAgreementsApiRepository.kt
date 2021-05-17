@@ -7,13 +7,13 @@ import au.com.woolworths.village.sdk.model.UpdatePaymentAgreementRequest
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiPaymentAgreementResponse
-import au.com.woolworths.village.sdk.openapi.model.OpenApiPaymentAgreementsResponse
+import au.com.woolworths.village.sdk.openapi.model.OpenApiPaymentAgreements
 
 class OpenApiCustomerPaymentAgreementsApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
     options: VillageOptions
 ) : OpenApiClientFactory(requestHeadersFactory, options), CustomerPaymentAgreementsApiRepository {
-    override fun list(): ApiResult<OpenApiPaymentAgreementsResponse> {
+    override fun list(): ApiResult<OpenApiPaymentAgreements> {
         return makeCall {
             val api = createCustomerApi()
 
@@ -21,13 +21,13 @@ class OpenApiCustomerPaymentAgreementsApiRepository(
                 getDefaultHeader(api.apiClient, X_WALLET_ID)
             ).data
 
-            ApiResult.Success(OpenApiPaymentAgreementsResponse(data))
+            ApiResult.Success(OpenApiPaymentAgreements(data))
         }
     }
 
    override fun getById(paymentToken: String): ApiResult<OpenApiPaymentAgreementResponse> {
        return makeCall {
-           val api = CustomerApi()
+           val api = createCustomerApi()
 
            val data = api.getPaymentAgreement(
                getDefaultHeader(api.apiClient, X_WALLET_ID),
@@ -40,7 +40,7 @@ class OpenApiCustomerPaymentAgreementsApiRepository(
 
     override fun create(paymentAgreement: CreatePaymentAgreementRequest): ApiResult<OpenApiPaymentAgreementResponse> {
         return makeCall {
-            val api = CustomerApi()
+            val api = createCustomerApi()
 
             val body = CustomerCreatePaymentAgreementRequest()
             body.data = InstoreCustomerPaymentsAgreementsData().apply {
@@ -65,7 +65,7 @@ class OpenApiCustomerPaymentAgreementsApiRepository(
         paymentAgreement: UpdatePaymentAgreementRequest
     ): ApiResult<OpenApiPaymentAgreementResponse> {
         return makeCall {
-            val api = CustomerApi()
+            val api = createCustomerApi()
 
             val body = CustomerUpdatePaymentAgreementRequest()
             body.data = InstoreCustomerPaymentsAgreementsPaymentTokenData().apply {

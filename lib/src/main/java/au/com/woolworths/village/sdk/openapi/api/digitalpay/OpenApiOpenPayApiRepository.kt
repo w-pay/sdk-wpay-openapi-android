@@ -12,8 +12,8 @@ import au.com.woolworths.village.sdk.openapi.model.OpenApiOpenPayVoidResponse
 
 
 class OpenApiOpenPayApiRepository(
-        requestHeadersFactory: RequestHeadersFactory,
-        options: VillageOptions
+    requestHeadersFactory: RequestHeadersFactory,
+    options: VillageOptions
 ) : OpenApiClientFactory(requestHeadersFactory, options), OpenPayApiRepository {
 
     override fun pay(paymentRequest: OpenPayPaymentRequest): ApiResult<OpenPayPaymentResponse> {
@@ -34,19 +34,20 @@ class OpenApiOpenPayApiRepository(
             }
 
             val response = api.openpayPaymentsPost(
-                    "",
-                    getDefaultHeader(api.apiClient, X_API_KEY),
-                    "",
-                    body,
-                    "",
-                    "",
-                    "")
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                getDefaultHeader(api.apiClient, AUTHORISATION),
+                "",
+                body,
+                "",
+                "",
+                ""
+            )
 
             return@makeCall ApiResult.Success(OpenApiOpenPayPaymentResponse(response))
         }
     }
 
-    override fun complete(completionRequest: OpenPayCompletionRequest): ApiResult<OpenPayCompletionResponse>{
+    override fun complete(completionRequest: OpenPayCompletionRequest): ApiResult<OpenPayCompletionResponse> {
         return makeCall {
             val api = createOpenpayApi()
 
@@ -54,21 +55,23 @@ class OpenApiOpenPayApiRepository(
             body.clientReference = completionRequest.clientReference
             body.orderNumber = completionRequest.orderNumber
             body.merchantTransactedAt = completionRequest.merchantTransactedAt
-            body.completions = completionRequest.completions as List<OpenpayCompletionsRequestCompletions>
+            body.completions =
+                completionRequest.completions as List<OpenpayCompletionsRequestCompletions>
 
             val response = api.openpayCompletionsPost(
-                    "",
-                    getDefaultHeader(api.apiClient, X_API_KEY),
-                    body,
-                    "",
-                    "",
-                    "")
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                getDefaultHeader(api.apiClient, AUTHORISATION),
+                body,
+                "",
+                "",
+                ""
+            )
 
             return@makeCall ApiResult.Success(OpenApiOpenPayCompletionResponse(response))
         }
     }
 
-    override fun voidPayment(voidRequest: OpenPayVoidRequest): ApiResult<OpenPayVoidResponse>{
+    override fun voidPayment(voidRequest: OpenPayVoidRequest): ApiResult<OpenPayVoidResponse> {
         return makeCall {
             val api = createOpenpayApi()
 
@@ -78,18 +81,19 @@ class OpenApiOpenPayApiRepository(
             body.voids = voidRequest.voids as List<OpenpayVoidsRequestVoids>
 
             val response = api.openpayVoidsPost(
-                    "",
-                    getDefaultHeader(api.apiClient, X_API_KEY),
-                    body,
-                    "",
-                    "",
-                    "")
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                body,
+                "",
+                "",
+                ""
+            )
 
             return@makeCall ApiResult.Success(OpenApiOpenPayVoidResponse(response))
         }
     }
 
-    override fun refund(refundRequest: OpenPayRefundRequest): ApiResult<OpenPayRefundResponse>{
+    override fun refund(refundRequest: OpenPayRefundRequest): ApiResult<OpenPayRefundResponse> {
         return makeCall {
             val api = createOpenpayApi()
 
@@ -101,12 +105,13 @@ class OpenApiOpenPayApiRepository(
             body.storeData = refundRequest.storeData as OpenpayRefundsRequestStoreData
 
             val response = api.openpayRefundsPost(
-                    "",
-                    getDefaultHeader(api.apiClient, X_API_KEY),
-                    body,
-                    "",
-                    "",
-                    "")
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                "",
+                body,
+                "",
+                "",
+                ""
+            )
 
             return@makeCall ApiResult.Success(OpenApiOpenPayRefundsResponse(response))
         }
