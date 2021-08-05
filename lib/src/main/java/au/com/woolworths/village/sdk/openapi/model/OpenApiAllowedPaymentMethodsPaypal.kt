@@ -4,10 +4,13 @@ import au.com.woolworths.village.sdk.openapi.dto.MerchantProfileResponseAllowedP
 
 
 class OpenApiAllowedPaymentMethodsPaypal(
-    private val payPal: MerchantProfileResponseAllowedPaymentMethodsPayPal?
+    private val payPal: MerchantProfileResponseAllowedPaymentMethodsPayPal
 ) : au.com.woolworths.village.sdk.model.walletmanagement.AllowedPaymentMethodsPaypal {
     override val clientToken: String
-        get() = payPal!!.clientToken
+        get() = payPal.clientToken
+
     override val serviceStatus: au.com.woolworths.village.sdk.model.walletmanagement.ServiceStatus
-        get() = au.com.woolworths.village.sdk.model.walletmanagement.ServiceStatus.valueOf(payPal!!.serviceStatus.value)
+        get() = au.com.woolworths.village.sdk.model.walletmanagement.ServiceStatus.valueOf(
+            payPal.serviceStatus.value
+        )
 }
