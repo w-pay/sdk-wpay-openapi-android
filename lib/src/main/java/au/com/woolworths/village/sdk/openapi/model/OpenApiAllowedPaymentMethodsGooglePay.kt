@@ -5,22 +5,31 @@ import java.math.BigDecimal
 
 
 class OpenApiAllowedPaymentMethodsGooglePay(
-    private val googlePay: MerchantProfileResponseAllowedPaymentMethodsGooglePay?
+    private val googlePay: MerchantProfileResponseAllowedPaymentMethodsGooglePay
 ) : au.com.woolworths.village.sdk.model.walletmanagement.AllowedPaymentMethodsGooglePay {
     override val publicKey: String
-        get() = googlePay!!.publicKey
+        get() = googlePay.publicKey
+
     override val publicKeyHash: String
-        get() = googlePay!!.publicKeyHash
+        get() = googlePay.publicKeyHash
+
     override val merchantId: String
-        get() = googlePay!!.merchantId
+        get() = googlePay.merchantId
+
     override val publicKeyExpiry: BigDecimal
-        get() = googlePay!!.publicKeyExpiry
+        get() = googlePay.publicKeyExpiry
+
     override val merchantName: String
-        get() = googlePay!!.merchantName
+        get() = googlePay.merchantName
+
     override val creditCard: au.com.woolworths.village.sdk.model.walletmanagement.Card
-        get() = OpenApiGooglePayCreditCard(googlePay!!.creditCard)
+        get() = OpenApiGooglePayCreditCard(googlePay.creditCard)
+
     override val debitCard: au.com.woolworths.village.sdk.model.walletmanagement.Card
-        get() = OpenApiGooglePayDebitCard(googlePay!!.debitCard)
+        get() = OpenApiGooglePayDebitCard(googlePay.debitCard)
+
     override val serviceStatus: au.com.woolworths.village.sdk.model.walletmanagement.ServiceStatus
-        get() = au.com.woolworths.village.sdk.model.walletmanagement.ServiceStatus.valueOf(googlePay!!.serviceStatus.value)
+        get() = au.com.woolworths.village.sdk.model.walletmanagement.ServiceStatus.valueOf(
+            googlePay.serviceStatus.value
+        )
 }
