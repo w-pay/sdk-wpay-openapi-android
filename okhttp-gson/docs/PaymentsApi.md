@@ -271,6 +271,7 @@ Name | Type | Description  | Notes
 **200** | Success |  -  |
 **400** | Missing or invalid request payload or value. |  -  |
 **401** | Invalid API Key or API Product Match Not Found or Invalid Token or Expired Token. |  -  |
+**403** | Restricted Product Validation (RPVS) error occurred. |  -  |
 **404** | Invalid API Route. |  -  |
 **500** | An unknown error occurred. |  -  |
 **501** | A Business Validation error occurred. |  -  |
