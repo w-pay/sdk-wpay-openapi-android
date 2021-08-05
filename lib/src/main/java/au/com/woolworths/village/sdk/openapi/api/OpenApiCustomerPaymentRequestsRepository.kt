@@ -55,7 +55,8 @@ class OpenApiCustomerPaymentRequestsRepository(
         secondaryInstruments: List<SecondaryPaymentInstrument>?,
         clientReference: String?,
         preferences: PaymentPreferences?,
-        challengeResponses: List<ChallengeResponse>?
+        challengeResponses: List<ChallengeResponse>?,
+        fraudPayload: FraudPayload?
     ): ApiResult<CustomerTransactionSummary> {
         return makeCall {
             val api = createCustomerApi()
@@ -74,6 +75,7 @@ class OpenApiCustomerPaymentRequestsRepository(
             body.meta = Meta().apply {
                 this.challengeResponses =
                     challengeResponses?.map(::toChallengeResponse) ?: emptyList()
+                fraud = fromFraudPayload(fraudPayload)
             }
 
             val data = api.makeCustomerPayment(
@@ -110,3 +112,16 @@ fun toChallengeResponse(challengeResponse: ChallengeResponse): MetaChallengeChal
 
     return cr
 }
+
+fun fromFraudPayload(payload: FraudPayload?): MetaFraudPayload? =
+    payload?.let {
+        val fraud = MetaFraudPayload()
+
+        fraud.message = it.message
+        fraud.provider = it.provider
+        fraud.format = MetaFraudPayload.FormatEnum.valueOf(it.format.toString())
+        fraud.responseFormat = MetaFraudPayload.ResponseFormatEnum.valueOf(it.responseFormat.toString())
+        fraud.version = it.version
+
+        return@let fraud
+    }
