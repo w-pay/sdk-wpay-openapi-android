@@ -2,7 +2,9 @@ package au.com.woolworths.village.sdk.openapi.api
 
 import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.CustomerPaymentAgreementsApiRepository
+import au.com.woolworths.village.sdk.model.ChallengeResponse
 import au.com.woolworths.village.sdk.model.CreatePaymentAgreementRequest
+import au.com.woolworths.village.sdk.model.FraudPayload
 import au.com.woolworths.village.sdk.model.UpdatePaymentAgreementRequest
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.*
@@ -38,7 +40,11 @@ class OpenApiCustomerPaymentAgreementsApiRepository(
        }
    }
 
-    override fun create(paymentAgreement: CreatePaymentAgreementRequest): ApiResult<OpenApiPaymentAgreementResponse> {
+    override fun create(
+        paymentAgreement: CreatePaymentAgreementRequest,
+        challengeResponses: List<ChallengeResponse>?,
+        fraudPayload: FraudPayload?
+    ): ApiResult<OpenApiPaymentAgreementResponse> {
         return makeCall {
             val api = createCustomerApi()
 
@@ -49,6 +55,11 @@ class OpenApiCustomerPaymentAgreementsApiRepository(
                 orderNumber = paymentAgreement.orderNumber
                 billingAddress = paymentAgreement.billingAddress as BillingAddress
                 this.paymentAgreement = paymentAgreement.paymentAgreement as au.com.woolworths.village.sdk.openapi.dto.PaymentAgreement
+            }
+
+            body.meta = Meta().apply {
+                this.challengeResponses = challengeResponses?.map(::toChallengeResponse) ?: emptyList()
+                fraud = fromFraudPayload(fraudPayload)
             }
 
             val data = api.createCustomerPaymentAgreement(
@@ -62,7 +73,9 @@ class OpenApiCustomerPaymentAgreementsApiRepository(
 
     override fun update(
         paymentToken: String,
-        paymentAgreement: UpdatePaymentAgreementRequest
+        paymentAgreement: UpdatePaymentAgreementRequest,
+        challengeResponses: List<ChallengeResponse>?,
+        fraudPayload: FraudPayload?
     ): ApiResult<OpenApiPaymentAgreementResponse> {
         return makeCall {
             val api = createCustomerApi()
@@ -73,6 +86,11 @@ class OpenApiCustomerPaymentAgreementsApiRepository(
                 customerRef = paymentAgreement.customerRef
                 billingAddress = paymentAgreement.billingAddress as BillingAddress
                 this.paymentAgreement = paymentAgreement.paymentAgreement as PaymentAgreement
+            }
+
+            body.meta = Meta().apply {
+                this.challengeResponses = challengeResponses?.map(::toChallengeResponse) ?: emptyList()
+                fraud = fromFraudPayload(fraudPayload)
             }
 
             val data = api.updateCustomerPaymentAgreement(

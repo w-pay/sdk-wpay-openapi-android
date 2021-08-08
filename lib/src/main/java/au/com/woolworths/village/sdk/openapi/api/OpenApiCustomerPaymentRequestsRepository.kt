@@ -3,11 +3,9 @@ package au.com.woolworths.village.sdk.openapi.api
 import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.CustomerPaymentRequestsRepository
 import au.com.woolworths.village.sdk.model.*
+import au.com.woolworths.village.sdk.model.CustomerTransactionSummary
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
-import au.com.woolworths.village.sdk.openapi.dto.InstoreCustomerPaymentsPaymentRequestIdData
-import au.com.woolworths.village.sdk.openapi.dto.InstoreCustomerPaymentsPaymentRequestIdDataSecondaryInstruments
-import au.com.woolworths.village.sdk.openapi.dto.MetaChallenge
-import au.com.woolworths.village.sdk.openapi.dto.MetaChallengeChallengeResponses
+import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCustomerPaymentRequest
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCustomerTransactionSummary
 
@@ -57,13 +55,14 @@ class OpenApiCustomerPaymentRequestsRepository(
         secondaryInstruments: List<SecondaryPaymentInstrument>?,
         clientReference: String?,
         preferences: PaymentPreferences?,
-        challengeResponses: List<ChallengeResponse>?
+        challengeResponses: List<ChallengeResponse>?,
+        fraudPayload: FraudPayload?
     ): ApiResult<CustomerTransactionSummary> {
         return makeCall {
             val api = createCustomerApi()
 
             val body = au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetails()
-            body.data = InstoreCustomerPaymentsPaymentRequestIdData().apply {
+            body.data = CustomerPaymentDetailsData().apply {
                 this.primaryInstrumentId = primaryInstrument
                 this.secondaryInstruments = secondaryInstruments?.map(::toSecondaryInstrument)
                 this.clientReference = clientReference
@@ -73,9 +72,10 @@ class OpenApiCustomerPaymentRequestsRepository(
                 }
             }
 
-            body.meta = MetaChallenge().apply {
+            body.meta = Meta().apply {
                 this.challengeResponses =
                     challengeResponses?.map(::toChallengeResponse) ?: emptyList()
+                fraud = fromFraudPayload(fraudPayload)
             }
 
             val data = api.makeCustomerPayment(
@@ -95,8 +95,8 @@ class OpenApiCustomerPaymentRequestsRepository(
     }
 }
 
-fun toSecondaryInstrument(instrument: SecondaryPaymentInstrument): InstoreCustomerPaymentsPaymentRequestIdDataSecondaryInstruments {
-    val i = InstoreCustomerPaymentsPaymentRequestIdDataSecondaryInstruments()
+fun toSecondaryInstrument(instrument: SecondaryPaymentInstrument): CustomerPaymentDetailsDataSecondaryInstruments {
+    val i = CustomerPaymentDetailsDataSecondaryInstruments()
     i.amount = instrument.amount
     i.instrumentId = instrument.paymentInstrumentId
 
@@ -112,3 +112,16 @@ fun toChallengeResponse(challengeResponse: ChallengeResponse): MetaChallengeChal
 
     return cr
 }
+
+fun fromFraudPayload(payload: FraudPayload?): MetaFraudPayload? =
+    payload?.let {
+        val fraud = MetaFraudPayload()
+
+        fraud.message = it.message
+        fraud.provider = it.provider
+        fraud.format = MetaFraudPayload.FormatEnum.valueOf(it.format.toString())
+        fraud.responseFormat = MetaFraudPayload.ResponseFormatEnum.valueOf(it.responseFormat.toString())
+        fraud.version = it.version
+
+        return@let fraud
+    }

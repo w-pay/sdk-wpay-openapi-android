@@ -3,10 +3,9 @@ package au.com.woolworths.village.sdk.openapi.api
 import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.CustomerPaymentSessionsRepository
 import au.com.woolworths.village.sdk.model.*
+import au.com.woolworths.village.sdk.model.PaymentSession
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
-import au.com.woolworths.village.sdk.openapi.dto.InstoreCustomerPaymentSessionPaymentSessionIdData
-import au.com.woolworths.village.sdk.openapi.dto.InstoreCustomerPaymentsPaymentRequestIdData
-import au.com.woolworths.village.sdk.openapi.dto.MetaChallenge
+import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiPaymentSession
 
 class OpenApiCustomerPaymentSessionsRepository(
@@ -104,8 +103,8 @@ class OpenApiCustomerPaymentSessionsRepository(
         return makeCall {
             val api = createCustomerApi()
 
-            val body = au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetails1()
-            body.data = InstoreCustomerPaymentsPaymentRequestIdData().apply {
+            val body = au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetails()
+            body.data = CustomerPaymentDetailsData().apply {
                 this.primaryInstrumentId = primaryInstrument
                 this.secondaryInstruments = secondaryInstruments?.map(::toSecondaryInstrument)
                 this.clientReference = clientReference
@@ -115,7 +114,7 @@ class OpenApiCustomerPaymentSessionsRepository(
                 }
             }
 
-            body.meta = MetaChallenge().apply {
+            body.meta = Meta().apply {
                 this.challengeResponses =
                     challengeResponses?.map(::toChallengeResponse) ?: emptyList()
             }

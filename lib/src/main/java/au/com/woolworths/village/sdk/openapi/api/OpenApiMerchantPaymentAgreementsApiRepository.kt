@@ -11,7 +11,9 @@ import au.com.woolworths.village.sdk.openapi.dto.InstoreMerchantPaymentsAgreemen
 import au.com.woolworths.village.sdk.openapi.dto.MerchantChargePaymentAgreementRequest
 import au.com.woolworths.village.sdk.openapi.dto.TransactionType
 import au.com.woolworths.village.sdk.api.MerchantPaymentAgreementsRepository
+import au.com.woolworths.village.sdk.model.FraudPayload
 import au.com.woolworths.village.sdk.model.digitalpay.DigitalPayPaymentAgreementResponse
+import au.com.woolworths.village.sdk.openapi.dto.Meta
 import java.util.*
 
 class OpenApiMerchantPaymentAgreementsApiRepository(
@@ -20,7 +22,8 @@ class OpenApiMerchantPaymentAgreementsApiRepository(
 ) : OpenApiClientFactory(requestHeadersFactory, options), MerchantPaymentAgreementsRepository {
     override fun charge(
         paymentToken: String,
-        chargePaymentAgreementRequest: ChargePaymentAgreementRequest
+        chargePaymentAgreementRequest: ChargePaymentAgreementRequest,
+        fraudPayload: FraudPayload?
     ): ApiResult<DigitalPayPaymentAgreementResponse> {
         return makeCall {
             val api = createMerchantApi()
@@ -35,6 +38,10 @@ class OpenApiMerchantPaymentAgreementsApiRepository(
                     chargePaymentAgreementRequest.transactionType.toString()
                 )
                 customerRef = chargePaymentAgreementRequest.customerRef
+            }
+
+            body.meta = Meta().apply {
+                fraud = fromFraudPayload(fraudPayload)
             }
 
             val data = api.chargeMerchantPaymentAgreement(
