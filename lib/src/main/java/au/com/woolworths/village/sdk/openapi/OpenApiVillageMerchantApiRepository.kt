@@ -12,14 +12,15 @@ import au.com.woolworths.village.sdk.openapi.api.digitalpay.OpenApiDigitalPayRep
 val OpenApiMerchantApiRepositoryFactory: MerchantApiRepositoryFactory =
     fun(options: VillageMerchantOptions,
         headers: RequestHeadersFactory,
-        _: ApiAuthenticator<HasAccessToken>
+        authenticator: ApiAuthenticator<HasAccessToken>
     ): VillageMerchantApiRepository {
-        return OpenApiVillageMerchantApiRepository(headers, options)
+        return OpenApiVillageMerchantApiRepository(headers, options, authenticator)
     }
 
 class OpenApiVillageMerchantApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    override val options: VillageMerchantOptions
+    override val options: VillageMerchantOptions,
+    override var authenticator: ApiAuthenticator<HasAccessToken>
 ) : VillageMerchantApiRepository {
     override val admin: AdministrationApiRepository =
         OpenApiAdministrationApiRepository(requestHeadersFactory, options)

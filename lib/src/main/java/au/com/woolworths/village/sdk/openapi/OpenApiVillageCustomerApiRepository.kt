@@ -13,9 +13,9 @@ import au.com.woolworths.village.sdk.openapi.api.digitalpay.OpenApiDigitalPayRep
 val OpenApiCustomerApiRepositoryFactory: CustomerApiRepositoryFactory =
     fun(options: VillageCustomerOptions,
         headers: RequestHeadersFactory,
-        _: ApiAuthenticator<HasAccessToken>
+        authenticator: ApiAuthenticator<HasAccessToken>
     ): VillageCustomerApiRepository {
-        return OpenApiVillageCustomerApiRepository(headers, options)
+        return OpenApiVillageCustomerApiRepository(headers, options, authenticator)
     }
 
 /**
@@ -23,7 +23,8 @@ val OpenApiCustomerApiRepositoryFactory: CustomerApiRepositoryFactory =
  */
 class OpenApiVillageCustomerApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    override val options: VillageCustomerOptions
+    override val options: VillageCustomerOptions,
+    override var authenticator: ApiAuthenticator<HasAccessToken>
 ) : VillageCustomerApiRepository {
     override val admin: AdministrationApiRepository =
         OpenApiAdministrationApiRepository(requestHeadersFactory, options)
