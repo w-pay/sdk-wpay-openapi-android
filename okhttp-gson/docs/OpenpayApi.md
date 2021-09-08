@@ -1,6 +1,6 @@
 # OpenpayApi
 
-All URIs are relative to *https://dev.wpay.com.au/wow/v1/pay*
+All URIs are relative to *https://dev-api.wpay.com.au/wow/v1/pay*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -31,7 +31,7 @@ import au.com.woolworths.village.sdk.openapi.api.OpenpayApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://dev.wpay.com.au/wow/v1/pay");
+    defaultClient.setBasePath("https://dev-api.wpay.com.au/wow/v1/pay");
     
     // Configure API key authorization: ApiKeyAuth
     ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
@@ -118,7 +118,7 @@ import au.com.woolworths.village.sdk.openapi.api.OpenpayApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://dev.wpay.com.au/wow/v1/pay");
+    defaultClient.setBasePath("https://dev-api.wpay.com.au/wow/v1/pay");
     
     // Configure API key authorization: ApiKeyAuth
     ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
@@ -207,7 +207,7 @@ import au.com.woolworths.village.sdk.openapi.api.OpenpayApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://dev.wpay.com.au/wow/v1/pay");
+    defaultClient.setBasePath("https://dev-api.wpay.com.au/wow/v1/pay");
     
     // Configure API key authorization: ApiKeyAuth
     ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
@@ -294,7 +294,7 @@ import au.com.woolworths.village.sdk.openapi.api.OpenpayApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://dev.wpay.com.au/wow/v1/pay");
+    defaultClient.setBasePath("https://dev-api.wpay.com.au/wow/v1/pay");
     
     // Configure API key authorization: ApiKeyAuth
     ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
