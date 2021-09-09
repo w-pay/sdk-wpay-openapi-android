@@ -38,6 +38,10 @@ open class OpenApiClientFactory(
         return OpenpayApi(createApiClient())
     }
 
+    protected fun createGiftingApi(): GiftingApi {
+        return GiftingApi(createApiClient())
+    }
+
     protected fun getDefaultHeader(client: ApiClient, name: String): String? {
         return (client as ExtendedApiClient).getDefaultHeader(name)
     }
