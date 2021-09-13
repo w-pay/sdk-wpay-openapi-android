@@ -2,10 +2,7 @@ package au.com.woolworths.village.sdk.openapi.api.digitalpay
 
 import au.com.woolworths.village.sdk.RequestHeadersFactory
 import au.com.woolworths.village.sdk.VillageOptions
-import au.com.woolworths.village.sdk.api.digitalpay.DigitalPayRepository
-import au.com.woolworths.village.sdk.api.digitalpay.OpenPayApiRepository
-import au.com.woolworths.village.sdk.api.digitalpay.PaymentAgreementApiRepository
-import au.com.woolworths.village.sdk.api.digitalpay.PaymentApiRepository
+import au.com.woolworths.village.sdk.api.digitalpay.*
 import au.com.woolworths.village.sdk.api.walletmanagement.*
 import au.com.woolworths.village.sdk.openapi.api.walletmanagement.*
 
@@ -24,6 +21,9 @@ class OpenApiDigitalPayRepository(
 
     override val giftcards: GiftcardsApiRepository =
         OpenApiGiftcardsApiRepository(requestHeadersFactory, options)
+
+    override val gifting: GiftingRepository =
+        OpenApiGiftingRepository(requestHeadersFactory, options)
 
     override val googlePay: GooglePayApiRepository =
         OpenApiGooglePayApiRepository(requestHeadersFactory, options)

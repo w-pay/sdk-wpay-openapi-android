@@ -1,7 +1,7 @@
 # okhttp-gson
 
 Wpay APIs
-- API version: 1.0.5
+- API version: 1.0.6
 
 Wpay APIs for payments and gifting
 
@@ -82,7 +82,7 @@ import au.com.woolworths.village.sdk.openapi.api.CustomerApi;
 public class Example {
   public static void main(String[] args) {
     ApiClient defaultClient = Configuration.getDefaultApiClient();
-    defaultClient.setBasePath("https://dev.wpay.com.au/wow/v1/pay");
+    defaultClient.setBasePath("https://dev-api.wpay.com.au/wow/v1/pay");
     
     // Configure API key authorization: ApiKeyAuth
     ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
@@ -113,7 +113,7 @@ public class Example {
 
 ## Documentation for API Endpoints
 
-All URIs are relative to *https://dev.wpay.com.au/wow/v1/pay*
+All URIs are relative to *https://dev-api.wpay.com.au/wow/v1/pay*
 
 Class | Method | HTTP request | Description
 ------------ | ------------- | ------------- | -------------
@@ -139,6 +139,10 @@ Class | Method | HTTP request | Description
 *CustomerApi* | [**preApprovePaymentSession**](docs/CustomerApi.md#preApprovePaymentSession) | **PUT** /instore/customer/payment/session/{paymentSessionId} | Pre-Approve payment
 *CustomerApi* | [**setCustomerPreferences**](docs/CustomerApi.md#setCustomerPreferences) | **POST** /instore/customer/preferences | Set Preferences
 *CustomerApi* | [**updateCustomerPaymentAgreement**](docs/CustomerApi.md#updateCustomerPaymentAgreement) | **POST** /instore/customer/payments/agreements/{paymentToken} | Update Payment Agreement
+*GiftingApi* | [**giftingProductsGet**](docs/GiftingApi.md#giftingProductsGet) | **GET** /gifting/products | Retrieve Gift Card Products
+*GiftingApi* | [**giftingProductsOrderPost**](docs/GiftingApi.md#giftingProductsOrderPost) | **POST** /gifting/products/order | Order Gift Card
+*GiftingApi* | [**giftingProductsProductIdGet**](docs/GiftingApi.md#giftingProductsProductIdGet) | **GET** /gifting/products/{productId} | Retrieve Gift Card Product Detail
+*GiftingApi* | [**giftingProductsQuotePost**](docs/GiftingApi.md#giftingProductsQuotePost) | **POST** /gifting/products/quote | Obtain Gift Card Quote
 *MerchantApi* | [**cancelPaymentRequestQRCode**](docs/MerchantApi.md#cancelPaymentRequestQRCode) | **DELETE** /instore/merchant/qr/{qrId} | Invalidate QR Code
 *MerchantApi* | [**chargeMerchantPaymentAgreement**](docs/MerchantApi.md#chargeMerchantPaymentAgreement) | **PUT** /instore/merchant/payments/agreements/{paymentToken} | Charge Payment Agreement
 *MerchantApi* | [**createMerchantSchema**](docs/MerchantApi.md#createMerchantSchema) | **POST** /instore/merchant/schema | Add Schema
@@ -276,6 +280,15 @@ Class | Method | HTTP request | Description
  - [GiftcardsBalanceRequestGiftCards](docs/GiftcardsBalanceRequestGiftCards.md)
  - [GiftcardsBalanceResponse](docs/GiftcardsBalanceResponse.md)
  - [GiftcardsBalanceResponseGiftCardBalances](docs/GiftcardsBalanceResponseGiftCardBalances.md)
+ - [GiftingProduct](docs/GiftingProduct.md)
+ - [GiftingProductDesign](docs/GiftingProductDesign.md)
+ - [GiftingProductDetail](docs/GiftingProductDetail.md)
+ - [GiftingProductDetailAllOf](docs/GiftingProductDetailAllOf.md)
+ - [GiftingProductDiscount](docs/GiftingProductDiscount.md)
+ - [GiftingProductList](docs/GiftingProductList.md)
+ - [GiftingProductOrderItem](docs/GiftingProductOrderItem.md)
+ - [GiftingProductOrderItemRecipientDetails](docs/GiftingProductOrderItemRecipientDetails.md)
+ - [GiftingProductsOrderBillingContact](docs/GiftingProductsOrderBillingContact.md)
  - [GuestTokenizeApplePayRequest](docs/GuestTokenizeApplePayRequest.md)
  - [GuestTokenizeGiftcardRequest](docs/GuestTokenizeGiftcardRequest.md)
  - [GuestTokenizeGiftcardResponse](docs/GuestTokenizeGiftcardResponse.md)
@@ -293,6 +306,15 @@ Class | Method | HTTP request | Description
  - [InitiateCardCaptureResponse](docs/InitiateCardCaptureResponse.md)
  - [InitiatePaymentInstrumentAdditionResults](docs/InitiatePaymentInstrumentAdditionResults.md)
  - [InitiatePaymentInstrumentAdditionResultsData](docs/InitiatePaymentInstrumentAdditionResultsData.md)
+ - [InlineObject](docs/InlineObject.md)
+ - [InlineObject1](docs/InlineObject1.md)
+ - [InlineResponse200](docs/InlineResponse200.md)
+ - [InlineResponse2001](docs/InlineResponse2001.md)
+ - [InlineResponse2002](docs/InlineResponse2002.md)
+ - [InlineResponse2002Data](docs/InlineResponse2002Data.md)
+ - [InlineResponse2002DataOrderItems](docs/InlineResponse2002DataOrderItems.md)
+ - [InlineResponse2003](docs/InlineResponse2003.md)
+ - [InlineResponse2003Data](docs/InlineResponse2003Data.md)
  - [InstoreCustomerInstrumentsData](docs/InstoreCustomerInstrumentsData.md)
  - [InstoreCustomerPaymentSessionPaymentSessionIdData](docs/InstoreCustomerPaymentSessionPaymentSessionIdData.md)
  - [InstoreCustomerPaymentsAgreementsData](docs/InstoreCustomerPaymentsAgreementsData.md)
