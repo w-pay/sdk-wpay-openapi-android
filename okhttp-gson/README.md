@@ -1,7 +1,7 @@
 # okhttp-gson
 
 Wpay APIs
-- API version: 1.0.6
+- API version: 1.0.7
 
 Wpay APIs for payments and gifting
 
@@ -136,6 +136,7 @@ Class | Method | HTTP request | Description
 *CustomerApi* | [**getPaymentAgreementList**](docs/CustomerApi.md#getPaymentAgreementList) | **GET** /instore/customer/payments/agreements | Get Payment Agreements
 *CustomerApi* | [**initiatePaymentInstrumentAddition**](docs/CustomerApi.md#initiatePaymentInstrumentAddition) | **POST** /instore/customer/instruments | Initiate Instrument Addition
 *CustomerApi* | [**makeCustomerPayment**](docs/CustomerApi.md#makeCustomerPayment) | **PUT** /instore/customer/payments/{paymentRequestId} | Pay Payment
+*CustomerApi* | [**makeImmediateCustomerPayments**](docs/CustomerApi.md#makeImmediateCustomerPayments) | **POST** /instore/customer/payments | Immediate Customer Payments
 *CustomerApi* | [**preApprovePaymentSession**](docs/CustomerApi.md#preApprovePaymentSession) | **PUT** /instore/customer/payment/session/{paymentSessionId} | Pre-Approve payment
 *CustomerApi* | [**setCustomerPreferences**](docs/CustomerApi.md#setCustomerPreferences) | **POST** /instore/customer/preferences | Set Preferences
 *CustomerApi* | [**updateCustomerPaymentAgreement**](docs/CustomerApi.md#updateCustomerPaymentAgreement) | **POST** /instore/customer/payments/agreements/{paymentToken} | Update Payment Agreement
@@ -161,6 +162,8 @@ Class | Method | HTTP request | Description
 *MerchantApi* | [**getMerchantTransactions**](docs/MerchantApi.md#getMerchantTransactions) | **GET** /instore/merchant/transactions | Get Transaction List
 *MerchantApi* | [**getPaymentRequestQRCodeContent**](docs/MerchantApi.md#getPaymentRequestQRCodeContent) | **GET** /instore/merchant/qr/{qrId} | Get QR Code Content
 *MerchantApi* | [**getPaymentSession**](docs/MerchantApi.md#getPaymentSession) | **GET** /instore/merchant/payment/session/{paymentSessionId} | Get Payment Session
+*MerchantApi* | [**instoreMerchantTransactionsTransactionIdCompletionPost**](docs/MerchantApi.md#instoreMerchantTransactionsTransactionIdCompletionPost) | **POST** /instore/merchant/transactions/{transactionId}/completion | Completions
+*MerchantApi* | [**instoreMerchantTransactionsTransactionIdVoidPost**](docs/MerchantApi.md#instoreMerchantTransactionsTransactionIdVoidPost) | **POST** /instore/merchant/transactions/{transactionId}/void | Voids
 *MerchantApi* | [**merchantUpdatePaymentSession**](docs/MerchantApi.md#merchantUpdatePaymentSession) | **POST** /instore/merchant/payment/session/{paymentSessionId} | Update Payment Session
 *MerchantApi* | [**refundMerchantTransaction**](docs/MerchantApi.md#refundMerchantTransaction) | **POST** /instore/merchant/transactions/{transactionId}/refund | Refund Transaction
 *MerchantApi* | [**setMerchantPreferences**](docs/MerchantApi.md#setMerchantPreferences) | **POST** /instore/merchant/preferences | Set Preferences
@@ -217,9 +220,10 @@ Class | Method | HTTP request | Description
  - [CommonTransactionSummary](docs/CommonTransactionSummary.md)
  - [CommonTransactionSummaryAllOf](docs/CommonTransactionSummaryAllOf.md)
  - [CompletionsErrorResponse](docs/CompletionsErrorResponse.md)
+ - [CompletionsErrorResponseAllOf](docs/CompletionsErrorResponseAllOf.md)
+ - [CompletionsErrorResponseAllOfCompletionResponses](docs/CompletionsErrorResponseAllOfCompletionResponses.md)
  - [CompletionsErrorResponseCompletionResponses](docs/CompletionsErrorResponseCompletionResponses.md)
  - [CompletionsRequest](docs/CompletionsRequest.md)
- - [CompletionsRequestCompletions](docs/CompletionsRequestCompletions.md)
  - [CompletionsSuccessResponse](docs/CompletionsSuccessResponse.md)
  - [CompletionsSuccessResponseCompletionResponses](docs/CompletionsSuccessResponseCompletionResponses.md)
  - [CreateMerchantPaymentSessionResponse](docs/CreateMerchantPaymentSessionResponse.md)
@@ -288,7 +292,10 @@ Class | Method | HTTP request | Description
  - [GiftingProductList](docs/GiftingProductList.md)
  - [GiftingProductOrderItem](docs/GiftingProductOrderItem.md)
  - [GiftingProductOrderItemRecipientDetails](docs/GiftingProductOrderItemRecipientDetails.md)
- - [GiftingProductsOrderBillingContact](docs/GiftingProductsOrderBillingContact.md)
+ - [GiftingProductOrderRequest](docs/GiftingProductOrderRequest.md)
+ - [GiftingProductOrderRequestData](docs/GiftingProductOrderRequestData.md)
+ - [GiftingProductOrderRequestDataBillingContact](docs/GiftingProductOrderRequestDataBillingContact.md)
+ - [GiftingProductQuoteRequest](docs/GiftingProductQuoteRequest.md)
  - [GuestTokenizeApplePayRequest](docs/GuestTokenizeApplePayRequest.md)
  - [GuestTokenizeGiftcardRequest](docs/GuestTokenizeGiftcardRequest.md)
  - [GuestTokenizeGiftcardResponse](docs/GuestTokenizeGiftcardResponse.md)
@@ -296,6 +303,9 @@ Class | Method | HTTP request | Description
  - [GuestTokenizePaypalRequest](docs/GuestTokenizePaypalRequest.md)
  - [GuestTokenizePaypalResponse](docs/GuestTokenizePaypalResponse.md)
  - [GuestTokenizePaypalResponsePayPal](docs/GuestTokenizePaypalResponsePayPal.md)
+ - [ImmediatePaymentRequest](docs/ImmediatePaymentRequest.md)
+ - [ImmediatePaymentRequestData](docs/ImmediatePaymentRequestData.md)
+ - [ImmediatePaymentRequestDataPayments](docs/ImmediatePaymentRequestDataPayments.md)
  - [ImportPaymentInstrumentsRequest](docs/ImportPaymentInstrumentsRequest.md)
  - [ImportPaymentInstrumentsRequestCreditCards](docs/ImportPaymentInstrumentsRequestCreditCards.md)
  - [ImportPaymentInstrumentsRequestPayPal](docs/ImportPaymentInstrumentsRequestPayPal.md)
@@ -326,8 +336,12 @@ Class | Method | HTTP request | Description
  - [InstoreMerchantPaymentsData](docs/InstoreMerchantPaymentsData.md)
  - [InstoreMerchantQrData](docs/InstoreMerchantQrData.md)
  - [InstoreMerchantSchemaData](docs/InstoreMerchantSchemaData.md)
+ - [InstoreMerchantTransactionsTransactionIdCompletionData](docs/InstoreMerchantTransactionsTransactionIdCompletionData.md)
+ - [InstoreMerchantTransactionsTransactionIdCompletionDataCompletions](docs/InstoreMerchantTransactionsTransactionIdCompletionDataCompletions.md)
  - [InstoreMerchantTransactionsTransactionIdRefundData](docs/InstoreMerchantTransactionsTransactionIdRefundData.md)
  - [InstoreMerchantTransactionsTransactionIdRefundDataSubTransactions](docs/InstoreMerchantTransactionsTransactionIdRefundDataSubTransactions.md)
+ - [InstoreMerchantTransactionsTransactionIdVoidData](docs/InstoreMerchantTransactionsTransactionIdVoidData.md)
+ - [InstoreMerchantTransactionsTransactionIdVoidDataVoids](docs/InstoreMerchantTransactionsTransactionIdVoidDataVoids.md)
  - [InstrumentAdditionDetails](docs/InstrumentAdditionDetails.md)
  - [InstrumentAllocation](docs/InstrumentAllocation.md)
  - [InstrumentAllocationTransactions](docs/InstrumentAllocationTransactions.md)
@@ -370,6 +384,7 @@ Class | Method | HTTP request | Description
  - [MerchantSchemaResultData](docs/MerchantSchemaResultData.md)
  - [MerchantSchemaSummary](docs/MerchantSchemaSummary.md)
  - [MerchantTransactionDetail](docs/MerchantTransactionDetail.md)
+ - [MerchantTransactionResults](docs/MerchantTransactionResults.md)
  - [MerchantTransactionSummary](docs/MerchantTransactionSummary.md)
  - [MerchantTransactionSummaryAllOf](docs/MerchantTransactionSummaryAllOf.md)
  - [Meta](docs/Meta.md)
@@ -413,6 +428,9 @@ Class | Method | HTTP request | Description
  - [PaymentAgreementResponsePaymentAgreement](docs/PaymentAgreementResponsePaymentAgreement.md)
  - [PaymentQRCodeDetails](docs/PaymentQRCodeDetails.md)
  - [PaymentSession](docs/PaymentSession.md)
+ - [PaymentTransactionType](docs/PaymentTransactionType.md)
+ - [PaymentTransactionTypeApplePay](docs/PaymentTransactionTypeApplePay.md)
+ - [PaymentTransactionTypeGooglePay](docs/PaymentTransactionTypeGooglePay.md)
  - [PaymentsErrorResponse](docs/PaymentsErrorResponse.md)
  - [PaymentsErrorResponseApplePay](docs/PaymentsErrorResponseApplePay.md)
  - [PaymentsErrorResponseCreditCards](docs/PaymentsErrorResponseCreditCards.md)
@@ -429,14 +447,13 @@ Class | Method | HTTP request | Description
  - [PaymentsRPVSErrorResponseValidationErrors](docs/PaymentsRPVSErrorResponseValidationErrors.md)
  - [PaymentsRequest](docs/PaymentsRequest.md)
  - [PaymentsRequestBasketData](docs/PaymentsRequestBasketData.md)
+ - [PaymentsRequestControlData](docs/PaymentsRequestControlData.md)
  - [PaymentsRequestExtendedMerchantData](docs/PaymentsRequestExtendedMerchantData.md)
  - [PaymentsRequestFraudPayload](docs/PaymentsRequestFraudPayload.md)
  - [PaymentsRequestPayments](docs/PaymentsRequestPayments.md)
  - [PaymentsRequestShippingAddress](docs/PaymentsRequestShippingAddress.md)
  - [PaymentsRequestStoreData](docs/PaymentsRequestStoreData.md)
- - [PaymentsRequestTransactionType](docs/PaymentsRequestTransactionType.md)
- - [PaymentsRequestTransactionTypeApplePay](docs/PaymentsRequestTransactionTypeApplePay.md)
- - [PaymentsRequestTransactionTypeGooglePay](docs/PaymentsRequestTransactionTypeGooglePay.md)
+ - [PaymentsRequestThreeDS](docs/PaymentsRequestThreeDS.md)
  - [PaymentsSuccessResponse](docs/PaymentsSuccessResponse.md)
  - [PaymentsSuccessResponseApplePay](docs/PaymentsSuccessResponseApplePay.md)
  - [PaymentsSuccessResponseCreditCards](docs/PaymentsSuccessResponseCreditCards.md)
@@ -452,6 +469,7 @@ Class | Method | HTTP request | Description
  - [PaymentsSuccessResponseReceiptData2](docs/PaymentsSuccessResponseReceiptData2.md)
  - [PaymentsSuccessResponseStepUp](docs/PaymentsSuccessResponseStepUp.md)
  - [PaymentsSuccessResponseStepUp1](docs/PaymentsSuccessResponseStepUp1.md)
+ - [PaymentsSuccessResponseThreeDS](docs/PaymentsSuccessResponseThreeDS.md)
  - [PaymentsSuccessResponseUnknown](docs/PaymentsSuccessResponseUnknown.md)
  - [PosPayload](docs/PosPayload.md)
  - [PreferencePayments](docs/PreferencePayments.md)
@@ -459,11 +477,11 @@ Class | Method | HTTP request | Description
  - [PreferencesCustomer](docs/PreferencesCustomer.md)
  - [Qr](docs/Qr.md)
  - [RefundMerchantTransactionRequest](docs/RefundMerchantTransactionRequest.md)
- - [RefundMerchantTransactionResults](docs/RefundMerchantTransactionResults.md)
  - [RefundsErrorResponse](docs/RefundsErrorResponse.md)
  - [RefundsErrorResponseRefundResponses](docs/RefundsErrorResponseRefundResponses.md)
  - [RefundsRequest](docs/RefundsRequest.md)
  - [RefundsRequestRefunds](docs/RefundsRequestRefunds.md)
+ - [RefundsRequestStoreData](docs/RefundsRequestStoreData.md)
  - [RefundsSuccessResponse](docs/RefundsSuccessResponse.md)
  - [RefundsSuccessResponseRefundResponses](docs/RefundsSuccessResponseRefundResponses.md)
  - [TokenizeAndroidPayRequest](docs/TokenizeAndroidPayRequest.md)
@@ -497,9 +515,9 @@ Class | Method | HTTP request | Description
  - [VerifyPaymentInstrumentsSuccessResponseFraudResponse](docs/VerifyPaymentInstrumentsSuccessResponseFraudResponse.md)
  - [VerifyPaymentInstrumentsSuccessResponseVerifyResponses](docs/VerifyPaymentInstrumentsSuccessResponseVerifyResponses.md)
  - [VoidsErrorResponse](docs/VoidsErrorResponse.md)
+ - [VoidsErrorResponseAllOf](docs/VoidsErrorResponseAllOf.md)
  - [VoidsErrorResponseVoidResponses](docs/VoidsErrorResponseVoidResponses.md)
  - [VoidsRequest](docs/VoidsRequest.md)
- - [VoidsRequestVoids](docs/VoidsRequestVoids.md)
  - [VoidsSuccessResponse](docs/VoidsSuccessResponse.md)
  - [VoidsSuccessResponseVoidResponses](docs/VoidsSuccessResponseVoidResponses.md)
 

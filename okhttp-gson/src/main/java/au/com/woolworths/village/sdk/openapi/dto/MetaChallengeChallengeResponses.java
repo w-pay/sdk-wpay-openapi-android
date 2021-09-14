@@ -45,7 +45,11 @@ public class MetaChallengeChallengeResponses implements Serializable {
   public enum TypeEnum {
     STEP_UP("STEP_UP"),
     
-    PASSCODE("PASSCODE");
+    PASSCODE("PASSCODE"),
+
+    THREEDS("3DS"),
+
+    THREEDS_FRICTIONLESS("3DS-frictionless");
 
     private String value;
 

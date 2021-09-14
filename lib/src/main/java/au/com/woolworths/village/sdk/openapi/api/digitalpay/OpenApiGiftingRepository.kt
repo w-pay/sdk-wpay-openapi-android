@@ -7,10 +7,7 @@ import au.com.woolworths.village.sdk.X_API_KEY
 import au.com.woolworths.village.sdk.api.digitalpay.GiftingRepository
 import au.com.woolworths.village.sdk.model.digitalpay.*
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
-import au.com.woolworths.village.sdk.openapi.dto.GiftingProductOrderItemRecipientDetails
-import au.com.woolworths.village.sdk.openapi.dto.GiftingProductsOrderBillingContact
-import au.com.woolworths.village.sdk.openapi.dto.InlineObject
-import au.com.woolworths.village.sdk.openapi.dto.InlineObject1
+import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.digitalpay.OpenApiDigitalPayGiftingOrderResponse
 import au.com.woolworths.village.sdk.openapi.model.digitalpay.OpenApiDigitalPayGiftingProduct
 import au.com.woolworths.village.sdk.openapi.model.digitalpay.OpenApiDigitalPayGiftingProductDetail
@@ -42,7 +39,7 @@ class OpenApiGiftingRepository(
         return makeCall {
             val api = createGiftingApi()
 
-            val body = InlineObject().apply {
+            val body = GiftingProductQuoteRequest().apply {
                 orderItems = quoteRequest.orderItems.map { item ->
                     au.com.woolworths.village.sdk.openapi.dto.GiftingProductOrderItem().apply {
                         amount = item.amount
@@ -97,8 +94,9 @@ class OpenApiGiftingRepository(
         return makeCall {
             val api = createGiftingApi()
 
-            val body = InlineObject1().apply {
-                billingContact = GiftingProductsOrderBillingContact().apply {
+            val body = GiftingProductOrderRequest()
+            body.data = GiftingProductOrderRequestData().apply {
+                billingContact = GiftingProductOrderRequestDataBillingContact().apply {
                     val billingContact = orderRequest.billingContact
 
                     countryCode = billingContact.countryCode

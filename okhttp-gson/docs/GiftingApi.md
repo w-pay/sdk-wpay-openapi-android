@@ -103,7 +103,7 @@ Name | Type | Description  | Notes
 
 <a name="giftingProductsOrderPost"></a>
 # **giftingProductsOrderPost**
-> InlineResponse2003 giftingProductsOrderPost(xApiKey, xJWSSignature, inlineObject1, xAuthKey, xAuthDigest, xMessageId)
+> InlineResponse2003 giftingProductsOrderPost(xApiKey, xJWSSignature, giftingProductOrderRequest, xAuthKey, xAuthDigest, xMessageId)
 
 Order Gift Card
 
@@ -133,12 +133,12 @@ public class Example {
     GiftingApi apiInstance = new GiftingApi(defaultClient);
     String xApiKey = haTdoUWVhnXm5n75u6d0VG67vCCvKjQC; // String | The API key for the request. The API keys (non-prod/prod) will be supplied by the Digital Pay team.
     String xJWSSignature = eyJhbGciOiJSUzI1NiIsImtpZCI6ImRldiIsInZlcmIiOiJQT1NUIiwidXJsIjoiaHR0cHM6Ly9kZXYubW9iaWxlLWFwaS53b29sd29ydGhzLmNvbS5hdS93b3cvdjEvandzZGVtby92YWxpZGF0ZSIsInRpbWVzdGFtcCI6MTU5NTIwNjcxNDQzOH0..muEr0b3GNORrP0FW1ohUh2XITRNaOO7uBz; // String | The JWS signature used to sign the request. The JWS signature authentication approach can only be used by API consumers that implement a server-to-server architecture (BFF, microservice, web server, etc.) for calling the Digital Pay APIs. The RSA private key, required to generate the signiture, has to be stored securely and should not be publicly accessible.
-    InlineObject1 inlineObject1 = new InlineObject1(); // InlineObject1 | 
+    GiftingProductOrderRequest giftingProductOrderRequest = new GiftingProductOrderRequest(); // GiftingProductOrderRequest | Request payload containing instruments to use for the payment
     String xAuthKey = OHR1Ull5TVk53NjI5Ng==; // String | (Deprecated) You are required to use this header to provide the base64 encoded API key. Requires the X-Auth-Digest header to be present.
     String xAuthDigest = c51e0ee540cd3893982d3539d81fddec0bcd832d; // String | (Deprecated) You are required to use this header to provide the encrypted API key. The value is the API key encrypted with the client secret key. Requires the X-Auth-Key header to be present.
     String xMessageId = f23c096b2e816da158fdf1ad839298e2; // String | This id is used to keep track of the request and its response in the Digital Pay platform. If no value is provided for the request header, Apigee will auto generate an id to use for the request. This header will also be returned in the response and will have the value passed in (or auto generated) from the request.
     try {
-      InlineResponse2003 result = apiInstance.giftingProductsOrderPost(xApiKey, xJWSSignature, inlineObject1, xAuthKey, xAuthDigest, xMessageId);
+      InlineResponse2003 result = apiInstance.giftingProductsOrderPost(xApiKey, xJWSSignature, giftingProductOrderRequest, xAuthKey, xAuthDigest, xMessageId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling GiftingApi#giftingProductsOrderPost");
@@ -157,7 +157,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xApiKey** | **String**| The API key for the request. The API keys (non-prod/prod) will be supplied by the Digital Pay team. |
  **xJWSSignature** | **String**| The JWS signature used to sign the request. The JWS signature authentication approach can only be used by API consumers that implement a server-to-server architecture (BFF, microservice, web server, etc.) for calling the Digital Pay APIs. The RSA private key, required to generate the signiture, has to be stored securely and should not be publicly accessible. |
- **inlineObject1** | [**InlineObject1**](InlineObject1.md)|  |
+ **giftingProductOrderRequest** | [**GiftingProductOrderRequest**](GiftingProductOrderRequest.md)| Request payload containing instruments to use for the payment |
  **xAuthKey** | **String**| (Deprecated) You are required to use this header to provide the base64 encoded API key. Requires the X-Auth-Digest header to be present. | [optional]
  **xAuthDigest** | **String**| (Deprecated) You are required to use this header to provide the encrypted API key. The value is the API key encrypted with the client secret key. Requires the X-Auth-Key header to be present. | [optional]
  **xMessageId** | **String**| This id is used to keep track of the request and its response in the Digital Pay platform. If no value is provided for the request header, Apigee will auto generate an id to use for the request. This header will also be returned in the response and will have the value passed in (or auto generated) from the request. | [optional]
@@ -277,7 +277,7 @@ Name | Type | Description  | Notes
 
 <a name="giftingProductsQuotePost"></a>
 # **giftingProductsQuotePost**
-> InlineResponse2002 giftingProductsQuotePost(xApiKey, xJWSSignature, inlineObject, xAuthKey, xAuthDigest, xMessageId)
+> InlineResponse2002 giftingProductsQuotePost(xApiKey, xJWSSignature, giftingProductQuoteRequest, xAuthKey, xAuthDigest, xMessageId)
 
 Obtain Gift Card Quote
 
@@ -307,12 +307,12 @@ public class Example {
     GiftingApi apiInstance = new GiftingApi(defaultClient);
     String xApiKey = haTdoUWVhnXm5n75u6d0VG67vCCvKjQC; // String | The API key for the request. The API keys (non-prod/prod) will be supplied by the Digital Pay team.
     String xJWSSignature = eyJhbGciOiJSUzI1NiIsImtpZCI6ImRldiIsInZlcmIiOiJQT1NUIiwidXJsIjoiaHR0cHM6Ly9kZXYubW9iaWxlLWFwaS53b29sd29ydGhzLmNvbS5hdS93b3cvdjEvandzZGVtby92YWxpZGF0ZSIsInRpbWVzdGFtcCI6MTU5NTIwNjcxNDQzOH0..muEr0b3GNORrP0FW1ohUh2XITRNaOO7uBz; // String | The JWS signature used to sign the request. The JWS signature authentication approach can only be used by API consumers that implement a server-to-server architecture (BFF, microservice, web server, etc.) for calling the Digital Pay APIs. The RSA private key, required to generate the signiture, has to be stored securely and should not be publicly accessible.
-    InlineObject inlineObject = new InlineObject(); // InlineObject | 
+    GiftingProductQuoteRequest giftingProductQuoteRequest = new GiftingProductQuoteRequest(); // GiftingProductQuoteRequest | Request payload containing details of the order to quote on
     String xAuthKey = OHR1Ull5TVk53NjI5Ng==; // String | (Deprecated) You are required to use this header to provide the base64 encoded API key. Requires the X-Auth-Digest header to be present.
     String xAuthDigest = c51e0ee540cd3893982d3539d81fddec0bcd832d; // String | (Deprecated) You are required to use this header to provide the encrypted API key. The value is the API key encrypted with the client secret key. Requires the X-Auth-Key header to be present.
     String xMessageId = f23c096b2e816da158fdf1ad839298e2; // String | This id is used to keep track of the request and its response in the Digital Pay platform. If no value is provided for the request header, Apigee will auto generate an id to use for the request. This header will also be returned in the response and will have the value passed in (or auto generated) from the request.
     try {
-      InlineResponse2002 result = apiInstance.giftingProductsQuotePost(xApiKey, xJWSSignature, inlineObject, xAuthKey, xAuthDigest, xMessageId);
+      InlineResponse2002 result = apiInstance.giftingProductsQuotePost(xApiKey, xJWSSignature, giftingProductQuoteRequest, xAuthKey, xAuthDigest, xMessageId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling GiftingApi#giftingProductsQuotePost");
@@ -331,7 +331,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **xApiKey** | **String**| The API key for the request. The API keys (non-prod/prod) will be supplied by the Digital Pay team. |
  **xJWSSignature** | **String**| The JWS signature used to sign the request. The JWS signature authentication approach can only be used by API consumers that implement a server-to-server architecture (BFF, microservice, web server, etc.) for calling the Digital Pay APIs. The RSA private key, required to generate the signiture, has to be stored securely and should not be publicly accessible. |
- **inlineObject** | [**InlineObject**](InlineObject.md)|  |
+ **giftingProductQuoteRequest** | [**GiftingProductQuoteRequest**](GiftingProductQuoteRequest.md)| Request payload containing details of the order to quote on |
  **xAuthKey** | **String**| (Deprecated) You are required to use this header to provide the base64 encoded API key. Requires the X-Auth-Digest header to be present. | [optional]
  **xAuthDigest** | **String**| (Deprecated) You are required to use this header to provide the encrypted API key. The value is the API key encrypted with the client secret key. Requires the X-Auth-Key header to be present. | [optional]
  **xMessageId** | **String**| This id is used to keep track of the request and its response in the Digital Pay platform. If no value is provided for the request header, Apigee will auto generate an id to use for the request. This header will also be returned in the response and will have the value passed in (or auto generated) from the request. | [optional]

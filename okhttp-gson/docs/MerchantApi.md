@@ -22,6 +22,8 @@ Method | HTTP request | Description
 [**getMerchantTransactions**](MerchantApi.md#getMerchantTransactions) | **GET** /instore/merchant/transactions | Get Transaction List
 [**getPaymentRequestQRCodeContent**](MerchantApi.md#getPaymentRequestQRCodeContent) | **GET** /instore/merchant/qr/{qrId} | Get QR Code Content
 [**getPaymentSession**](MerchantApi.md#getPaymentSession) | **GET** /instore/merchant/payment/session/{paymentSessionId} | Get Payment Session
+[**instoreMerchantTransactionsTransactionIdCompletionPost**](MerchantApi.md#instoreMerchantTransactionsTransactionIdCompletionPost) | **POST** /instore/merchant/transactions/{transactionId}/completion | Completions
+[**instoreMerchantTransactionsTransactionIdVoidPost**](MerchantApi.md#instoreMerchantTransactionsTransactionIdVoidPost) | **POST** /instore/merchant/transactions/{transactionId}/void | Voids
 [**merchantUpdatePaymentSession**](MerchantApi.md#merchantUpdatePaymentSession) | **POST** /instore/merchant/payment/session/{paymentSessionId} | Update Payment Session
 [**refundMerchantTransaction**](MerchantApi.md#refundMerchantTransaction) | **POST** /instore/merchant/transactions/{transactionId}/refund | Refund Transaction
 [**setMerchantPreferences**](MerchantApi.md#setMerchantPreferences) | **POST** /instore/merchant/preferences | Set Preferences
@@ -1477,6 +1479,188 @@ Name | Type | Description  | Notes
 **200** | Successful response |  -  |
 **422** | The specified Payment Session ID doesn&#39;t exist or has expired |  -  |
 
+<a name="instoreMerchantTransactionsTransactionIdCompletionPost"></a>
+# **instoreMerchantTransactionsTransactionIdCompletionPost**
+> MerchantTransactionResults instoreMerchantTransactionsTransactionIdCompletionPost(xApiKey, authorization, xJWSSignature, transactionId, xAuthKey, xAuthDigest, xMessageId, inlineObject)
+
+Completions
+
+Complete pre-authed payments. This API is IP restricted to allow unauthenticated server side calls.
+
+### Example
+```java
+// Import classes:
+import au.com.woolworths.village.sdk.openapi.client.ApiClient;
+import au.com.woolworths.village.sdk.openapi.client.ApiException;
+import au.com.woolworths.village.sdk.openapi.client.Configuration;
+import au.com.woolworths.village.sdk.openapi.client.auth.*;
+import au.com.woolworths.village.sdk.openapi.client.models.*;
+import au.com.woolworths.village.sdk.openapi.api.MerchantApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://dev-api.wpay.com.au/wow/v1/pay");
+    
+    // Configure API key authorization: ApiKeyAuth
+    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+    ApiKeyAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //ApiKeyAuth.setApiKeyPrefix("Token");
+
+    MerchantApi apiInstance = new MerchantApi(defaultClient);
+    String xApiKey = haTdoUWVhnXm5n75u6d0VG67vCCvKjQC; // String | The API key for the request. The API keys (non-prod/prod) will be supplied by the Digital Pay team.
+    String authorization = Bearer 7M8hv8tqpdfSnsEZIDBzJNo91MHF; // String | The Bearer token for the request. The Bearer token authentication approach can be used by API consumers that implement a client-to-server architecture (mobile app, browser site/page) or server-to-server architecture (BFF, microservice, web server, etc.) for calling Digital Pay APIs. However the Bearer token for a shopper/customer must be obtained from the IDM Server Token API which can only be accessed from a server-to-server architecture (BFF, microservice, web server, etc.). The Authorization header is only required if the X-JWS-Signature header is not present.
+    String xJWSSignature = eyJhbGciOiJSUzI1NiIsImtpZCI6ImRldiIsInZlcmIiOiJQT1NUIiwidXJsIjoiaHR0cHM6Ly9kZXYubW9iaWxlLWFwaS53b29sd29ydGhzLmNvbS5hdS93b3cvdjEvandzZGVtby92YWxpZGF0ZSIsInRpbWVzdGFtcCI6MTU5NTIwNjcxNDQzOH0..muEr0b3GNORrP0FW1ohUh2XITRNaOO7uBz; // String | The JWS signature used to sign the request. The JWS signature authentication approach can only be used by API consumers that implement a server-to-server architecture (BFF, microservice, web server, etc.) for calling the Digital Pay APIs. The RSA private key, required to generate the signiture, has to be stored securely and should not be publicly accessible. The X-JWS-Signature header is only required if the Authorization header is not present.
+    String transactionId = "transactionId_example"; // String | The ID of the transaction to operate on
+    String xAuthKey = OHR1Ull5TVk53NjI5Ng==; // String | (Deprecated) You are required to use this header to provide the base64 encoded API key. Requires the X-Auth-Digest header to be present.
+    String xAuthDigest = c51e0ee540cd3893982d3539d81fddec0bcd832d; // String | (Deprecated) You are required to use this header to provide the encrypted API key. The value is the API key encrypted with the client secret key. Requires the X-Auth-Key header to be present.
+    String xMessageId = f23c096b2e816da158fdf1ad839298e2; // String | This id is used to keep track of the request and its response in the Digital Pay platform. If no value is provided for the request header, Apigee will auto generate an id to use for the request. This header will also be returned in the response and will have the value passed in (or auto generated) from the request.
+    InlineObject inlineObject = new InlineObject(); // InlineObject | 
+    try {
+      MerchantTransactionResults result = apiInstance.instoreMerchantTransactionsTransactionIdCompletionPost(xApiKey, authorization, xJWSSignature, transactionId, xAuthKey, xAuthDigest, xMessageId, inlineObject);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling MerchantApi#instoreMerchantTransactionsTransactionIdCompletionPost");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xApiKey** | **String**| The API key for the request. The API keys (non-prod/prod) will be supplied by the Digital Pay team. |
+ **authorization** | **String**| The Bearer token for the request. The Bearer token authentication approach can be used by API consumers that implement a client-to-server architecture (mobile app, browser site/page) or server-to-server architecture (BFF, microservice, web server, etc.) for calling Digital Pay APIs. However the Bearer token for a shopper/customer must be obtained from the IDM Server Token API which can only be accessed from a server-to-server architecture (BFF, microservice, web server, etc.). The Authorization header is only required if the X-JWS-Signature header is not present. |
+ **xJWSSignature** | **String**| The JWS signature used to sign the request. The JWS signature authentication approach can only be used by API consumers that implement a server-to-server architecture (BFF, microservice, web server, etc.) for calling the Digital Pay APIs. The RSA private key, required to generate the signiture, has to be stored securely and should not be publicly accessible. The X-JWS-Signature header is only required if the Authorization header is not present. |
+ **transactionId** | **String**| The ID of the transaction to operate on |
+ **xAuthKey** | **String**| (Deprecated) You are required to use this header to provide the base64 encoded API key. Requires the X-Auth-Digest header to be present. | [optional]
+ **xAuthDigest** | **String**| (Deprecated) You are required to use this header to provide the encrypted API key. The value is the API key encrypted with the client secret key. Requires the X-Auth-Key header to be present. | [optional]
+ **xMessageId** | **String**| This id is used to keep track of the request and its response in the Digital Pay platform. If no value is provided for the request header, Apigee will auto generate an id to use for the request. This header will also be returned in the response and will have the value passed in (or auto generated) from the request. | [optional]
+ **inlineObject** | [**InlineObject**](InlineObject.md)|  | [optional]
+
+### Return type
+
+[**MerchantTransactionResults**](MerchantTransactionResults.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response |  -  |
+**400** |  |  -  |
+**401** |  |  -  |
+**404** |  |  -  |
+**500** |  |  -  |
+**501** |  |  -  |
+**502** |  |  -  |
+**503** |  |  -  |
+**504** |  |  -  |
+
+<a name="instoreMerchantTransactionsTransactionIdVoidPost"></a>
+# **instoreMerchantTransactionsTransactionIdVoidPost**
+> MerchantTransactionResults instoreMerchantTransactionsTransactionIdVoidPost(xApiKey, authorization, xJWSSignature, transactionId, xAuthKey, xAuthDigest, xMessageId, inlineObject1)
+
+Voids
+
+Void (cancel) pre-authed payments. This API is IP restricted to allow unauthenticated server side calls.
+
+### Example
+```java
+// Import classes:
+import au.com.woolworths.village.sdk.openapi.client.ApiClient;
+import au.com.woolworths.village.sdk.openapi.client.ApiException;
+import au.com.woolworths.village.sdk.openapi.client.Configuration;
+import au.com.woolworths.village.sdk.openapi.client.auth.*;
+import au.com.woolworths.village.sdk.openapi.client.models.*;
+import au.com.woolworths.village.sdk.openapi.api.MerchantApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("https://dev-api.wpay.com.au/wow/v1/pay");
+    
+    // Configure API key authorization: ApiKeyAuth
+    ApiKeyAuth ApiKeyAuth = (ApiKeyAuth) defaultClient.getAuthentication("ApiKeyAuth");
+    ApiKeyAuth.setApiKey("YOUR API KEY");
+    // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+    //ApiKeyAuth.setApiKeyPrefix("Token");
+
+    MerchantApi apiInstance = new MerchantApi(defaultClient);
+    String xApiKey = haTdoUWVhnXm5n75u6d0VG67vCCvKjQC; // String | The API key for the request. The API keys (non-prod/prod) will be supplied by the Digital Pay team.
+    String authorization = Bearer 7M8hv8tqpdfSnsEZIDBzJNo91MHF; // String | The Bearer token for the request. The Bearer token authentication approach can be used by API consumers that implement a client-to-server architecture (mobile app, browser site/page) or server-to-server architecture (BFF, microservice, web server, etc.) for calling Digital Pay APIs. However the Bearer token for a shopper/customer must be obtained from the IDM Server Token API which can only be accessed from a server-to-server architecture (BFF, microservice, web server, etc.). The Authorization header is only required if the X-JWS-Signature header is not present.
+    String xJWSSignature = eyJhbGciOiJSUzI1NiIsImtpZCI6ImRldiIsInZlcmIiOiJQT1NUIiwidXJsIjoiaHR0cHM6Ly9kZXYubW9iaWxlLWFwaS53b29sd29ydGhzLmNvbS5hdS93b3cvdjEvandzZGVtby92YWxpZGF0ZSIsInRpbWVzdGFtcCI6MTU5NTIwNjcxNDQzOH0..muEr0b3GNORrP0FW1ohUh2XITRNaOO7uBz; // String | The JWS signature used to sign the request. The JWS signature authentication approach can only be used by API consumers that implement a server-to-server architecture (BFF, microservice, web server, etc.) for calling the Digital Pay APIs. The RSA private key, required to generate the signiture, has to be stored securely and should not be publicly accessible. The X-JWS-Signature header is only required if the Authorization header is not present.
+    String transactionId = "transactionId_example"; // String | The ID of the transaction to operate on
+    String xAuthKey = OHR1Ull5TVk53NjI5Ng==; // String | (Deprecated) You are required to use this header to provide the base64 encoded API key. Requires the X-Auth-Digest header to be present.
+    String xAuthDigest = c51e0ee540cd3893982d3539d81fddec0bcd832d; // String | (Deprecated) You are required to use this header to provide the encrypted API key. The value is the API key encrypted with the client secret key. Requires the X-Auth-Key header to be present.
+    String xMessageId = f23c096b2e816da158fdf1ad839298e2; // String | This id is used to keep track of the request and its response in the Digital Pay platform. If no value is provided for the request header, Apigee will auto generate an id to use for the request. This header will also be returned in the response and will have the value passed in (or auto generated) from the request.
+    InlineObject1 inlineObject1 = new InlineObject1(); // InlineObject1 | 
+    try {
+      MerchantTransactionResults result = apiInstance.instoreMerchantTransactionsTransactionIdVoidPost(xApiKey, authorization, xJWSSignature, transactionId, xAuthKey, xAuthDigest, xMessageId, inlineObject1);
+      System.out.println(result);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling MerchantApi#instoreMerchantTransactionsTransactionIdVoidPost");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **xApiKey** | **String**| The API key for the request. The API keys (non-prod/prod) will be supplied by the Digital Pay team. |
+ **authorization** | **String**| The Bearer token for the request. The Bearer token authentication approach can be used by API consumers that implement a client-to-server architecture (mobile app, browser site/page) or server-to-server architecture (BFF, microservice, web server, etc.) for calling Digital Pay APIs. However the Bearer token for a shopper/customer must be obtained from the IDM Server Token API which can only be accessed from a server-to-server architecture (BFF, microservice, web server, etc.). The Authorization header is only required if the X-JWS-Signature header is not present. |
+ **xJWSSignature** | **String**| The JWS signature used to sign the request. The JWS signature authentication approach can only be used by API consumers that implement a server-to-server architecture (BFF, microservice, web server, etc.) for calling the Digital Pay APIs. The RSA private key, required to generate the signiture, has to be stored securely and should not be publicly accessible. The X-JWS-Signature header is only required if the Authorization header is not present. |
+ **transactionId** | **String**| The ID of the transaction to operate on |
+ **xAuthKey** | **String**| (Deprecated) You are required to use this header to provide the base64 encoded API key. Requires the X-Auth-Digest header to be present. | [optional]
+ **xAuthDigest** | **String**| (Deprecated) You are required to use this header to provide the encrypted API key. The value is the API key encrypted with the client secret key. Requires the X-Auth-Key header to be present. | [optional]
+ **xMessageId** | **String**| This id is used to keep track of the request and its response in the Digital Pay platform. If no value is provided for the request header, Apigee will auto generate an id to use for the request. This header will also be returned in the response and will have the value passed in (or auto generated) from the request. | [optional]
+ **inlineObject1** | [**InlineObject1**](InlineObject1.md)|  | [optional]
+
+### Return type
+
+[**MerchantTransactionResults**](MerchantTransactionResults.md)
+
+### Authorization
+
+[ApiKeyAuth](../README.md#ApiKeyAuth)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Successful response |  -  |
+**400** |  |  -  |
+**401** |  |  -  |
+**404** |  |  -  |
+**500** |  |  -  |
+**501** |  |  -  |
+**502** |  |  -  |
+**503** |  |  -  |
+**504** |  |  -  |
+
 <a name="merchantUpdatePaymentSession"></a>
 # **merchantUpdatePaymentSession**
 > merchantUpdatePaymentSession(xApiKey, authorization, xJWSSignature, paymentSessionId, updatePaymentSessionRequest1, xAuthKey, xAuthDigest, xMessageId)
@@ -1561,7 +1745,7 @@ null (empty response body)
 
 <a name="refundMerchantTransaction"></a>
 # **refundMerchantTransaction**
-> RefundMerchantTransactionResults refundMerchantTransaction(xApiKey, authorization, xJWSSignature, transactionId, refundMerchantTransactionRequest, xAuthKey, xAuthDigest, xMessageId)
+> MerchantTransactionResults refundMerchantTransaction(xApiKey, authorization, xJWSSignature, transactionId, refundMerchantTransactionRequest, xAuthKey, xAuthDigest, xMessageId)
 
 Refund Transaction
 
@@ -1598,7 +1782,7 @@ public class Example {
     String xAuthDigest = c51e0ee540cd3893982d3539d81fddec0bcd832d; // String | (Deprecated) You are required to use this header to provide the encrypted API key. The value is the API key encrypted with the client secret key. Requires the X-Auth-Key header to be present.
     String xMessageId = f23c096b2e816da158fdf1ad839298e2; // String | This id is used to keep track of the request and its response in the Digital Pay platform. If no value is provided for the request header, Apigee will auto generate an id to use for the request. This header will also be returned in the response and will have the value passed in (or auto generated) from the request.
     try {
-      RefundMerchantTransactionResults result = apiInstance.refundMerchantTransaction(xApiKey, authorization, xJWSSignature, transactionId, refundMerchantTransactionRequest, xAuthKey, xAuthDigest, xMessageId);
+      MerchantTransactionResults result = apiInstance.refundMerchantTransaction(xApiKey, authorization, xJWSSignature, transactionId, refundMerchantTransactionRequest, xAuthKey, xAuthDigest, xMessageId);
       System.out.println(result);
     } catch (ApiException e) {
       System.err.println("Exception when calling MerchantApi#refundMerchantTransaction");
@@ -1626,7 +1810,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**RefundMerchantTransactionResults**](RefundMerchantTransactionResults.md)
+[**MerchantTransactionResults**](MerchantTransactionResults.md)
 
 ### Authorization
 

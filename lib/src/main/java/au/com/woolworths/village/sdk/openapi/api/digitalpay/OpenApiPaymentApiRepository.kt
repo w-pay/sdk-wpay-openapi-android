@@ -23,7 +23,7 @@ class OpenApiPaymentApiRepository(
             val api = createPaymentsApi()
             val body = au.com.woolworths.village.sdk.openapi.dto.PaymentsRequest()
 
-            body.transactionType = paymentRequest.transactionType as PaymentsRequestTransactionType
+            body.transactionType = paymentRequest.transactionType as PaymentTransactionType
             body.clientReference = paymentRequest.clientReference
             body.orderNumber = paymentRequest.orderNumber
             body.shippingAddress = paymentRequest.shippingAddress as PaymentsRequestShippingAddress
@@ -55,7 +55,7 @@ class OpenApiPaymentApiRepository(
             val api = createPaymentsApi()
             val body = au.com.woolworths.village.sdk.openapi.dto.PaymentsRequest()
 
-            body.transactionType = paymentRequest.transactionType as PaymentsRequestTransactionType
+            body.transactionType = paymentRequest.transactionType as PaymentTransactionType
             body.clientReference = paymentRequest.clientReference
             body.orderNumber = paymentRequest.orderNumber
             body.shippingAddress = paymentRequest.shippingAddress as PaymentsRequestShippingAddress
@@ -88,7 +88,7 @@ class OpenApiPaymentApiRepository(
 
             body.clientReference = completionRequest.clientReference
             body.orderNumber = completionRequest.orderNumber
-            body.completions = completionRequest.completions as List<CompletionsRequestCompletions>
+            body.completions = completionRequest.completions as List<InstoreMerchantTransactionsTransactionIdCompletionDataCompletions>
 
             val response = api.completionsPost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
@@ -112,7 +112,7 @@ class OpenApiPaymentApiRepository(
 
             body.clientReference = voidRequest.clientReference
             body.orderNumber = voidRequest.orderNumber
-            body.voids = voidRequest.voids as List<VoidsRequestVoids>
+            body.voids = voidRequest.voids as List<InstoreMerchantTransactionsTransactionIdVoidDataVoids>
 
             val response = api.voidsPost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
