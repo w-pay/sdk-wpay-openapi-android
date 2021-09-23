@@ -4,7 +4,9 @@ import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.CustomerPaymentRequestsRepository
 import au.com.woolworths.village.sdk.model.*
 import au.com.woolworths.village.sdk.model.CustomerTransactionSummary
+import au.com.woolworths.village.sdk.model.ImmediatePaymentRequest
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
+import au.com.woolworths.village.sdk.openapi.api.digitalpay.fromPaymentTransactionType
 import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCustomerPaymentRequest
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCustomerTransactionSummary
@@ -56,7 +58,9 @@ class OpenApiCustomerPaymentRequestsRepository(
         clientReference: String?,
         preferences: PaymentPreferences?,
         challengeResponses: List<ChallengeResponse>?,
-        fraudPayload: FraudPayload?
+        fraudPayload: FraudPayload?,
+        transactionType: au.com.woolworths.village.sdk.model.digitalpay.PaymentTransactionType?,
+        allowPartialSuccess: Boolean?
     ): ApiResult<CustomerTransactionSummary> {
         return makeCall {
             val api = createCustomerApi()
@@ -66,6 +70,8 @@ class OpenApiCustomerPaymentRequestsRepository(
                 this.primaryInstrumentId = primaryInstrument
                 this.secondaryInstruments = secondaryInstruments?.map(::toSecondaryInstrument)
                 this.clientReference = clientReference
+                this.allowPartialSuccess = allowPartialSuccess
+                this.transactionType = transactionType?.let { fromPaymentTransactionType(it) }
 
                 this.preferences = preferences?.let {
                     fromPaymentPreferences(it)
@@ -93,6 +99,55 @@ class OpenApiCustomerPaymentRequestsRepository(
             ApiResult.Success(OpenApiCustomerTransactionSummary(data))
         }
     }
+
+    override fun makeImmediatePayment(
+        immediatePaymentRequest: ImmediatePaymentRequest,
+        challengeResponses: List<ChallengeResponse>?,
+        fraudPayload: FraudPayload?
+    ): ApiResult<CustomerTransactionSummary> {
+        return makeCall {
+            val api = createCustomerApi()
+
+            val body = au.com.woolworths.village.sdk.openapi.dto.ImmediatePaymentRequest()
+            body.data = ImmediatePaymentRequestData().apply {
+                clientReference = immediatePaymentRequest.clientReference
+                orderNumber = immediatePaymentRequest.orderNumber
+                skipRollback = immediatePaymentRequest.skipRollback
+                allowPartialSuccess = immediatePaymentRequest.allowPartialSuccess
+                payments = immediatePaymentRequest.payments.map { item ->
+                    ImmediatePaymentRequestDataPayments().apply {
+                        paymentInstrumentId = item.paymentInstrumentId
+                        amount = item.amount
+                    }
+                }
+                posPayload = immediatePaymentRequest.posPayload?.let { fromPosPayload(it) }
+                merchantPayload =
+                    immediatePaymentRequest.merchantPayload?.let { fromMerchantPayload(it) }
+                transactionType =
+                    immediatePaymentRequest.transactionType?.let { fromPaymentTransactionType(it) }
+            }
+
+            body.meta = Meta().apply {
+                this.challengeResponses =
+                    challengeResponses?.map(::toChallengeResponse) ?: emptyList()
+                fraud = fromFraudPayload(fraudPayload)
+            }
+
+            val data = api.makeImmediateCustomerPayments(
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                getDefaultHeader(api.apiClient, AUTHORISATION),
+                "",
+                body,
+                "",
+                "",
+                "",
+                getDefaultHeader(api.apiClient, X_EVERYDAY_PAY_WALLET)!!.toBoolean()
+            ).data
+
+            ApiResult.Success(OpenApiCustomerTransactionSummary(data))
+        }
+    }
+
 }
 
 fun toSecondaryInstrument(instrument: SecondaryPaymentInstrument): CustomerPaymentDetailsDataSecondaryInstruments {
@@ -108,7 +163,7 @@ fun toChallengeResponse(challengeResponse: ChallengeResponse): MetaChallengeChal
     cr.instrumentId = challengeResponse.instrumentId
     cr.reference = challengeResponse.reference
     cr.token = challengeResponse.token
-    cr.type = MetaChallengeChallengeResponses.TypeEnum.valueOf(challengeResponse.type.toString())
+    cr.type = MetaChallengeChallengeResponses.TypeEnum.valueOf(challengeResponse.type.value)
 
     return cr
 }
