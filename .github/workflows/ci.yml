@@ -24,10 +24,15 @@ jobs:
         with:
           java-version: 8
 
+      - name: Lint
+        uses: burrunan/gradle-cache-action@v1
+        with:
+          arguments: clean lint
+
       - name: Build
         uses: burrunan/gradle-cache-action@v1
         with:
-          arguments: clean lint assembleRelease
+          arguments: clean assembleRelease
 
       - name: Tag
         if: ${{ github.ref == 'refs/heads/master' }}
