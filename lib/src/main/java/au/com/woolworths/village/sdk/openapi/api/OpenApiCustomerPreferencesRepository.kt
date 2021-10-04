@@ -4,6 +4,7 @@ import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.CustomerPreferencesRepository
 import au.com.woolworths.village.sdk.model.CustomerPreferences
 import au.com.woolworths.village.sdk.model.PaymentPreferences
+import au.com.woolworths.village.sdk.model.ext.fromPaymentPreferences
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.PreferencePayments
 import au.com.woolworths.village.sdk.openapi.dto.PreferencePaymentsSecondaryInstruments
@@ -39,10 +40,7 @@ class OpenApiCustomerPreferencesRepository(
             val body = au.com.woolworths.village.sdk.openapi.dto.CustomerPreferences()
             body.data = PreferencesCustomer().apply {
                 this.general = preferences.general
-
-                this.payments = preferences.payments?.let {
-                    fromPaymentPreferences(it)
-                }
+                this.payments = preferences.payments?.fromPaymentPreferences()
             }
 
             api.setCustomerPreferences(
@@ -59,20 +57,3 @@ class OpenApiCustomerPreferencesRepository(
         }
     }
 }
-
-fun fromPaymentPreferences(preferences: PaymentPreferences): PreferencePayments =
-    PreferencePayments().apply {
-        primaryInstrumentId = preferences.primaryInstrumentId
-        secondaryInstruments = preferences.secondaryInstruments?.let {
-            PreferencePaymentsSecondaryInstruments().apply {
-                enableSecondaryInstruments = it.enableSecondaryInstruments
-                exclude = it.exclude
-                include = it.include
-                order = it.order?.let {
-                    PreferencePaymentsSecondaryInstruments.OrderEnum.valueOf(
-                        it.toString().toUpperCase(Locale.ROOT)
-                    )
-                }
-            }
-        }
-    }

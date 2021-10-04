@@ -6,6 +6,7 @@ import au.com.woolworths.village.sdk.model.ChallengeResponse
 import au.com.woolworths.village.sdk.model.CreatePaymentAgreementRequest
 import au.com.woolworths.village.sdk.model.FraudPayload
 import au.com.woolworths.village.sdk.model.UpdatePaymentAgreementRequest
+import au.com.woolworths.village.sdk.model.ext.fromFraudPayload
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiPaymentAgreementResponse
@@ -59,7 +60,7 @@ class OpenApiCustomerPaymentAgreementsApiRepository(
 
             body.meta = Meta().apply {
                 this.challengeResponses = challengeResponses?.map(::toChallengeResponse) ?: emptyList()
-                fraud = fromFraudPayload(fraudPayload)
+                fraud = fraudPayload?.fromFraudPayload()
             }
 
             val data = api.createCustomerPaymentAgreement(
@@ -90,7 +91,7 @@ class OpenApiCustomerPaymentAgreementsApiRepository(
 
             body.meta = Meta().apply {
                 this.challengeResponses = challengeResponses?.map(::toChallengeResponse) ?: emptyList()
-                fraud = fromFraudPayload(fraudPayload)
+                fraud = fraudPayload?.fromFraudPayload()
             }
 
             val data = api.updateCustomerPaymentAgreement(

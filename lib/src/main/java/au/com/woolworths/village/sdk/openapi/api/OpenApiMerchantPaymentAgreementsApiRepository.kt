@@ -13,6 +13,7 @@ import au.com.woolworths.village.sdk.openapi.dto.TransactionType
 import au.com.woolworths.village.sdk.api.MerchantPaymentAgreementsRepository
 import au.com.woolworths.village.sdk.model.FraudPayload
 import au.com.woolworths.village.sdk.model.digitalpay.DigitalPayPaymentAgreementResponse
+import au.com.woolworths.village.sdk.model.ext.fromFraudPayload
 import au.com.woolworths.village.sdk.openapi.dto.Meta
 import java.util.*
 
@@ -41,7 +42,7 @@ class OpenApiMerchantPaymentAgreementsApiRepository(
             }
 
             body.meta = Meta().apply {
-                fraud = fromFraudPayload(fraudPayload)
+                fraud = fraudPayload?.fromFraudPayload()
             }
 
             val data = api.chargeMerchantPaymentAgreement(

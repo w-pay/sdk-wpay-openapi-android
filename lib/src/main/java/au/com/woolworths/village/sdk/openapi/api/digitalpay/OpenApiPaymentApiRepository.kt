@@ -4,6 +4,8 @@ import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.digitalpay.PaymentApiRepository
 import au.com.woolworths.village.sdk.model.digitalpay.*
 import au.com.woolworths.village.sdk.model.digitalpay.PaymentTransactionType
+import au.com.woolworths.village.sdk.model.ext.digitalpay.fromDigitalPayFraudPayload
+import au.com.woolworths.village.sdk.model.ext.digitalpay.fromDigitalPayPaymentRequest
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCompletionsResponse
@@ -20,7 +22,7 @@ class OpenApiPaymentApiRepository(
     ): ApiResult<DigitalPayPaymentResponse> {
         return makeCall {
             val api = createPaymentsApi()
-            val body = fromDigitalPayPaymentRequest(paymentRequest)
+            val body = paymentRequest.fromDigitalPayPaymentRequest()
 
             val response = api.paymentsPost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
@@ -42,7 +44,7 @@ class OpenApiPaymentApiRepository(
     ): ApiResult<DigitalPayPaymentResponse> {
         return makeCall {
             val api = createPaymentsApi()
-            val body = fromDigitalPayPaymentRequest(paymentRequest)
+            val body = paymentRequest.fromDigitalPayPaymentRequest()
 
             val response = api.guestPaymentsPost(
                 getDefaultHeader(api.apiClient, X_API_KEY),
@@ -144,144 +146,3 @@ class OpenApiPaymentApiRepository(
         }
     }
 }
-
-fun fromPaymentTransactionType(
-    transactionType: PaymentTransactionType
-): au.com.woolworths.village.sdk.openapi.dto.PaymentTransactionType {
-    val dto = au.com.woolworths.village.sdk.openapi.dto.PaymentTransactionType()
-
-    transactionType.applePay?.let { detail ->
-        dto.applePay = PaymentTransactionTypeApplePay(). apply {
-            creditCard = PaymentTransactionTypeApplePay.CreditCardEnum.fromValue(detail.creditCard.toString())
-            debitCard = PaymentTransactionTypeApplePay.DebitCardEnum.fromValue(detail.debitCard.toString())
-        }
-    }
-
-    transactionType.creditCard?.let {
-        dto.creditCard =
-            au.com.woolworths.village.sdk.openapi.dto.PaymentTransactionType.CreditCardEnum.fromValue(
-                it.toString()
-            )
-    }
-
-    transactionType.giftCard?.let {
-        dto.giftCard =
-            au.com.woolworths.village.sdk.openapi.dto.PaymentTransactionType.GiftCardEnum.fromValue(
-                it.toString()
-            )
-    }
-
-    transactionType.googlePay?.let { detail ->
-        dto.googlePay = PaymentTransactionTypeGooglePay().apply {
-            creditCard = PaymentTransactionTypeGooglePay.CreditCardEnum.fromValue(detail.creditCard.toString())
-            debitCard = PaymentTransactionTypeGooglePay.DebitCardEnum.fromValue(detail.debitCard.toString())
-        }
-    }
-
-    transactionType.payPal?.let {
-        dto.payPal =
-            au.com.woolworths.village.sdk.openapi.dto.PaymentTransactionType.PayPalEnum.fromValue(
-                it.toString()
-            )
-    }
-
-    return dto
-}
-
-fun fromDigitalPayPaymentRequest(paymentRequest: DigitalPayPaymentRequest): PaymentsRequest {
-    val dto = PaymentsRequest()
-
-    dto.transactionType = fromPaymentTransactionType(paymentRequest.transactionType)
-    dto.clientReference = paymentRequest.clientReference
-    dto.orderNumber = paymentRequest.orderNumber
-    dto.shippingAddress = fromShippingAddress(paymentRequest.shippingAddress)
-    dto.payments = paymentRequest.payments.map(::fromPaymentsRequestPayments)
-
-    paymentRequest.extendedMerchantData?.let {
-        dto.extendedMerchantData = it.map(::fromExtendedMerchantData)
-    }
-
-    paymentRequest.storeData?.let {
-        dto.storeData = fromDigitalPayStoreData(it)
-    }
-
-    paymentRequest.fraudPayload?.let {
-        dto.fraudPayload = fromDigitalPayFraudPayload(it)
-    }
-
-    return dto
-}
-
-fun fromShippingAddress(address: DigitalPayAddress): PaymentsRequestShippingAddress =
-    PaymentsRequestShippingAddress().apply {
-        company = address.company
-        countryCode = address.countryCode
-        email = address.email
-        extendedAddress = address.extendedAddress
-        firstName = address.firstName
-        lastName = address.lastName
-        postalCode = address.postalCode
-        stateOrTerritory = address.stateOrTerritory
-        streetAddress = address.streetAddress
-        suburb = address.suburb
-    }
-
-fun fromPaymentsRequestPayments(payment: DigitalPayPayment): PaymentsRequestPayments =
-    PaymentsRequestPayments().apply {
-        amount = payment.amount
-
-        payment.controlData?.let { data ->
-            controlData = PaymentsRequestControlData().apply {
-                tokenType = PaymentsRequestControlData.TokenTypeEnum.fromValue(data.tokenType.toString())
-            }
-        }
-
-        passcode = payment.passcode
-        paymentInstrumentId = payment.paymentInstrumentId
-        paymentToken = payment.paymentToken
-        stepUpToken = payment.stepUpToken
-
-        payment.threeDS?.let {
-            threeDS = fromDigitalPayThreeDS(it)
-        }
-    }
-
-fun fromDigitalPayThreeDS(threeDS: DigitalPayThreeDS): PaymentsRequestThreeDS =
-    PaymentsRequestThreeDS().apply {
-        aresStatus = PaymentsRequestThreeDS.AresStatusEnum.fromValue(threeDS.aresStatus.statusCode)
-        authenticationValue = threeDS.authenticationValue
-        dsTransID = threeDS.dsTransID
-        eci = threeDS.eci
-        messageVersion = threeDS.messageVersion
-        sli = threeDS.sli
-        transStatus = PaymentsRequestThreeDS.TransStatusEnum.fromValue(threeDS.transStatus.statusCode)
-        veresEnrolled = PaymentsRequestThreeDS.VeresEnrolledEnum.fromValue(threeDS.veresEnrolled.statusCode)
-        xid = threeDS.xid
-    }
-
-fun fromExtendedMerchantData(data: ExtendedMerchantData): PaymentsRequestExtendedMerchantData =
-    PaymentsRequestExtendedMerchantData().apply {
-        field = PaymentsRequestExtendedMerchantData.FieldEnum.valueOf(data.field.toString())
-        value = data.value
-    }
-
-fun fromDigitalPayStoreData(data: DigitalPayStoreData): PaymentsRequestStoreData =
-    PaymentsRequestStoreData().apply {
-        groupId = data.groupId
-        laneId = data.laneId
-        rrn = data.rrn
-        stan = data.stan
-        storeId = data.storeId
-        terminalId = data.terminalId
-        transactionTimestamp = data.transactionTimestamp
-    }
-
-fun fromDigitalPayFraudPayload(payload: DigitalPayFraudPayload): PaymentsRequestFraudPayload =
-    PaymentsRequestFraudPayload().apply {
-        format = PaymentsRequestFraudPayload.FormatEnum.valueOf(payload.format.toString())
-        message = payload.message
-        provider = payload.provider
-        responseFormat =
-            PaymentsRequestFraudPayload.ResponseFormatEnum.valueOf(payload.responseFormat.toString())
-        version = payload.version
-    }

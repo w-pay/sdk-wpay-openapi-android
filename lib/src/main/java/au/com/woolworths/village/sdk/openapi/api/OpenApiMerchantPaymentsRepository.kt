@@ -7,6 +7,8 @@ import au.com.woolworths.village.sdk.model.MerchantPayload
 import au.com.woolworths.village.sdk.model.MerchantPaymentDetails
 import au.com.woolworths.village.sdk.model.MerchantTransactionSummary
 import au.com.woolworths.village.sdk.model.PosPayload
+import au.com.woolworths.village.sdk.model.ext.fromMerchantPayload
+import au.com.woolworths.village.sdk.model.ext.fromPosPayload
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCreatePaymentRequestResult
@@ -62,8 +64,8 @@ class OpenApiMerchantPaymentsRepository(
                 paymentRequest.timeToLiveQR?.let { timeToLiveQR = it }
                 paymentRequest.specificWalletId?.let { specificWalletId = it }
 
-                paymentRequest.posPayload?.let { posPayload = fromPosPayload(it) }
-                paymentRequest.merchantPayload?.let { merchantPayload = fromMerchantPayload(it) }
+                paymentRequest.posPayload?.fromPosPayload()
+                paymentRequest.merchantPayload?.fromMerchantPayload()
 
                 paymentRequest.basket?.let { aBasket ->
                     basket = aBasket.run {
@@ -232,22 +234,4 @@ class OpenApiMerchantPaymentsRepository(
             ApiResult.Success(OpenApiMerchantTransactionSummary(data))
         }
     }
-}
-
-fun fromPosPayload(payload: PosPayload): au.com.woolworths.village.sdk.openapi.dto.PosPayload {
-    val dto = au.com.woolworths.village.sdk.openapi.dto.PosPayload()
-    dto.schemaId(payload.schemaId)
-    dto.payload(payload.payload)
-
-    return dto
-}
-
-fun fromMerchantPayload(
-    payload: MerchantPayload
-): au.com.woolworths.village.sdk.openapi.dto.MerchantPayload {
-    val dto = au.com.woolworths.village.sdk.openapi.dto.MerchantPayload()
-    dto.schemaId(payload.schemaId)
-    dto.payload(payload.payload)
-
-    return dto
 }

@@ -3,6 +3,7 @@ package au.com.woolworths.village.sdk.openapi.api.digitalpay
 import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.digitalpay.PaymentAgreementApiRepository
 import au.com.woolworths.village.sdk.model.digitalpay.*
+import au.com.woolworths.village.sdk.model.ext.digitalpay.fromDigitalPayAddress
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.digitalpay.OpenApiDigitalPayPaymentAgreementResponse
@@ -22,7 +23,7 @@ class OpenApiPaymentAgreementApiRepository(
                 clientReference = paymentAgreementRequest.clientReference
                 customerRef = paymentAgreementRequest.customerRef
                 orderNumber = paymentAgreementRequest.orderNumber
-                billingAddress = fromDigitalPayAddress(paymentAgreementRequest.billingAddress)
+                billingAddress = paymentAgreementRequest.billingAddress.fromDigitalPayAddress()
                 paymentAgreement = CreatePaymentAgreementRequestPaymentAgreement().apply {
                     val paymentAgreement = paymentAgreementRequest.paymentAgreement
 
@@ -73,9 +74,7 @@ class OpenApiPaymentAgreementApiRepository(
             val body = UpdatePaymentAgreementRequest().apply {
                 clientReference = paymentAgreementRequest.clientReference
                 customerRef = paymentAgreementRequest.customerRef
-                billingAddress = paymentAgreementRequest.billingAddress?.let {
-                    fromDigitalPayAddress(it)
-                }
+                billingAddress = paymentAgreementRequest.billingAddress?.fromDigitalPayAddress()
                 paymentAgreement = UpdatePaymentAgreementRequestPaymentAgreement().apply {
                     val paymentAgreement = paymentAgreementRequest.paymentAgreement
 
@@ -221,24 +220,5 @@ class OpenApiPaymentAgreementApiRepository(
 
             return@makeCall ApiResult.Success(Unit)
         }
-    }
-}
-
-fun fromDigitalPayAddress(
-    billingAddress: DigitalPayAddress
-): CreatePaymentAgreementRequestBillingAddress {
-    return CreatePaymentAgreementRequestBillingAddress().apply {
-        firstName = billingAddress.firstName
-        lastName = billingAddress.lastName
-        email = billingAddress.email
-        company = billingAddress.company
-        extendedAddress = billingAddress.extendedAddress
-        streetAddress = billingAddress.streetAddress
-        suburb = billingAddress.suburb
-        stateOrTerritory = billingAddress.stateOrTerritory
-        postalCode = billingAddress.postalCode
-        countryCode = billingAddress.countryCode
-        firstName = billingAddress.firstName
-        firstName = billingAddress.firstName
     }
 }

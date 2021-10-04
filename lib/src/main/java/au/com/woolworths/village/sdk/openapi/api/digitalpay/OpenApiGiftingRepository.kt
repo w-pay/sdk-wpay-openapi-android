@@ -8,8 +8,8 @@ import au.com.woolworths.village.sdk.api.digitalpay.GiftingRepository
 import au.com.woolworths.village.sdk.model.ChallengeResponse
 import au.com.woolworths.village.sdk.model.FraudPayload
 import au.com.woolworths.village.sdk.model.digitalpay.*
+import au.com.woolworths.village.sdk.model.ext.fromFraudPayload
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
-import au.com.woolworths.village.sdk.openapi.api.fromFraudPayload
 import au.com.woolworths.village.sdk.openapi.api.toChallengeResponse
 import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.digitalpay.OpenApiDigitalPayGiftingOrderResponse
@@ -135,7 +135,7 @@ class OpenApiGiftingRepository(
             body.meta = Meta().apply {
                 this.challengeResponses =
                     challengeResponses?.map(::toChallengeResponse) ?: emptyList()
-                fraud = fromFraudPayload(fraudPayload)
+                fraud = fraudPayload?.fromFraudPayload()
             }
 
             val data = api.giftingProductsOrderPost(

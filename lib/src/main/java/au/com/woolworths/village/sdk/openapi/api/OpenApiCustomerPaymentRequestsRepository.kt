@@ -5,8 +5,12 @@ import au.com.woolworths.village.sdk.api.CustomerPaymentRequestsRepository
 import au.com.woolworths.village.sdk.model.*
 import au.com.woolworths.village.sdk.model.CustomerTransactionSummary
 import au.com.woolworths.village.sdk.model.ImmediatePaymentRequest
+import au.com.woolworths.village.sdk.model.ext.digitalpay.fromPaymentTransactionType
+import au.com.woolworths.village.sdk.model.ext.fromFraudPayload
+import au.com.woolworths.village.sdk.model.ext.fromMerchantPayload
+import au.com.woolworths.village.sdk.model.ext.fromPaymentPreferences
+import au.com.woolworths.village.sdk.model.ext.fromPosPayload
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
-import au.com.woolworths.village.sdk.openapi.api.digitalpay.fromPaymentTransactionType
 import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCustomerPaymentRequest
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCustomerTransactionSummary
@@ -71,17 +75,14 @@ class OpenApiCustomerPaymentRequestsRepository(
                 this.secondaryInstruments = secondaryInstruments?.map(::toSecondaryInstrument)
                 this.clientReference = clientReference
                 this.allowPartialSuccess = allowPartialSuccess
-                this.transactionType = transactionType?.let { fromPaymentTransactionType(it) }
-
-                this.preferences = preferences?.let {
-                    fromPaymentPreferences(it)
-                }
+                this.transactionType = transactionType?.fromPaymentTransactionType()
+                this.preferences = preferences?.fromPaymentPreferences()
             }
 
             body.meta = Meta().apply {
                 this.challengeResponses =
                     challengeResponses?.map(::toChallengeResponse) ?: emptyList()
-                fraud = fromFraudPayload(fraudPayload)
+                fraud = fraudPayload?.fromFraudPayload()
             }
 
             val data = api.makeCustomerPayment(
@@ -120,17 +121,15 @@ class OpenApiCustomerPaymentRequestsRepository(
                         amount = item.amount
                     }
                 }
-                posPayload = immediatePaymentRequest.posPayload?.let { fromPosPayload(it) }
-                merchantPayload =
-                    immediatePaymentRequest.merchantPayload?.let { fromMerchantPayload(it) }
-                transactionType =
-                    immediatePaymentRequest.transactionType?.let { fromPaymentTransactionType(it) }
+                posPayload = immediatePaymentRequest.posPayload?.fromPosPayload()
+                merchantPayload = immediatePaymentRequest.merchantPayload?.fromMerchantPayload()
+                transactionType = immediatePaymentRequest.transactionType?.fromPaymentTransactionType()
             }
 
             body.meta = Meta().apply {
                 this.challengeResponses =
                     challengeResponses?.map(::toChallengeResponse) ?: emptyList()
-                fraud = fromFraudPayload(fraudPayload)
+                fraud = fraudPayload?.fromFraudPayload()
             }
 
             val data = api.makeImmediateCustomerPayments(
@@ -167,16 +166,3 @@ fun toChallengeResponse(challengeResponse: ChallengeResponse): MetaChallengeChal
 
     return cr
 }
-
-fun fromFraudPayload(payload: FraudPayload?): MetaFraudPayload? =
-    payload?.let {
-        val fraud = MetaFraudPayload()
-
-        fraud.message = it.message
-        fraud.provider = it.provider
-        fraud.format = MetaFraudPayload.FormatEnum.valueOf(it.format.toString())
-        fraud.responseFormat = MetaFraudPayload.ResponseFormatEnum.valueOf(it.responseFormat.toString())
-        fraud.version = it.version
-
-        return@let fraud
-    }
