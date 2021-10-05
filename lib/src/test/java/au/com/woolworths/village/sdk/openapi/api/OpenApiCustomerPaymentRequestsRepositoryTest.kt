@@ -40,6 +40,8 @@ class OpenApiCustomerPaymentRequestsRepositoryTest {
             null,
             null,
             null,
+            null,
+            null,
             null
         )
 

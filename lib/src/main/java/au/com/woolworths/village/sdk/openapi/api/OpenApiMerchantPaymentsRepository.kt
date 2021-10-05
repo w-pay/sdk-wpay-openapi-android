@@ -3,11 +3,14 @@ package au.com.woolworths.village.sdk.openapi.api
 import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.MerchantPaymentsRepository
 import au.com.woolworths.village.sdk.model.*
+import au.com.woolworths.village.sdk.model.MerchantPayload
+import au.com.woolworths.village.sdk.model.MerchantPaymentDetails
+import au.com.woolworths.village.sdk.model.MerchantTransactionSummary
+import au.com.woolworths.village.sdk.model.PosPayload
+import au.com.woolworths.village.sdk.model.ext.fromMerchantPayload
+import au.com.woolworths.village.sdk.model.ext.fromPosPayload
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
-import au.com.woolworths.village.sdk.openapi.dto.InstoreMerchantPaymentsData
-import au.com.woolworths.village.sdk.openapi.dto.InstoreMerchantTransactionsTransactionIdRefundData
-import au.com.woolworths.village.sdk.openapi.dto.MerchantPaymentRequest
-import au.com.woolworths.village.sdk.openapi.dto.RefundMerchantTransactionRequest
+import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCreatePaymentRequestResult
 import au.com.woolworths.village.sdk.openapi.model.OpenApiMerchantPaymentDetails
 import au.com.woolworths.village.sdk.openapi.model.OpenApiMerchantPaymentSummaries
@@ -61,21 +64,8 @@ class OpenApiMerchantPaymentsRepository(
                 paymentRequest.timeToLiveQR?.let { timeToLiveQR = it }
                 paymentRequest.specificWalletId?.let { specificWalletId = it }
 
-                paymentRequest.posPayload?.let {
-                    posPayload = it.run {
-                        val dto = au.com.woolworths.village.sdk.openapi.dto.PosPayload()
-                        dto.schemaId(schemaId)
-                        dto.payload(payload)
-                    }
-                }
-
-                paymentRequest.merchantPayload?.let {
-                    merchantPayload = it.run {
-                        val dto = au.com.woolworths.village.sdk.openapi.dto.MerchantPayload()
-                        dto.schemaId(schemaId)
-                        dto.payload(payload)
-                    }
-                }
+                paymentRequest.posPayload?.fromPosPayload()
+                paymentRequest.merchantPayload?.fromMerchantPayload()
 
                 paymentRequest.basket?.let { aBasket ->
                     basket = aBasket.run {
@@ -172,6 +162,73 @@ class OpenApiMerchantPaymentsRepository(
                 "",
                 "",
                 ""
+            ).data
+
+            ApiResult.Success(OpenApiMerchantTransactionSummary(data))
+        }
+    }
+
+    override fun completeTransaction(
+        transactionId: String,
+        completionDetails: TransactionCompletionDetails
+    ): ApiResult<MerchantTransactionSummary> {
+        return makeCall {
+            val api = createMerchantApi()
+
+            val body = InlineObject()
+            body.data = InstoreMerchantTransactionsTransactionIdCompletionData().apply {
+                clientReference = completionDetails.clientReference
+                orderNumber = completionDetails.orderNumber
+                completions = completionDetails.completions?.map { item ->
+                    InstoreMerchantTransactionsTransactionIdCompletionDataCompletions().apply {
+                        paymentTransactionRef = item.paymentTransactionRef
+                        amount = item.amount
+                    }
+                }
+            }
+
+            val data = api.instoreMerchantTransactionsTransactionIdCompletionPost(
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                getDefaultHeader(api.apiClient, AUTHORISATION),
+                "",
+                transactionId,
+                "",
+                "",
+                "",
+                body
+            ).data
+
+            ApiResult.Success(OpenApiMerchantTransactionSummary(data))
+        }
+    }
+
+    override fun voidTransaction(
+        transactionId: String,
+        voidDetails: TransactionVoidDetails
+    ): ApiResult<MerchantTransactionSummary> {
+        return makeCall {
+            val api = createMerchantApi()
+
+            val body = InlineObject1()
+            body.data = InstoreMerchantTransactionsTransactionIdVoidData().apply {
+                clientReference = voidDetails.clientReference
+                orderNumber = voidDetails.orderNumber
+                voids = voidDetails.voids?.map { item ->
+                    InstoreMerchantTransactionsTransactionIdVoidDataVoids().apply {
+                        paymentTransactionRef = item.paymentTransactionRef
+                    }
+                }
+            }
+
+            val data = api.instoreMerchantTransactionsTransactionIdVoidPost(
+                getDefaultHeader(api.apiClient, X_API_KEY),
+                getDefaultHeader(api.apiClient, AUTHORISATION),
+                "",
+                transactionId,
+                "",
+                "",
+                "",
+                body
             ).data
 
             ApiResult.Success(OpenApiMerchantTransactionSummary(data))
