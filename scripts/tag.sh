@@ -1,6 +1,6 @@
 #! /bin/sh
 
-version=$(./gradlew :sdk:properties | grep '^version:' | sed -e 's/^version: \(.*\)$/v\1/')
+version=$(./gradlew :lib:properties | grep '^version:' | sed -e 's/^version: \(.*\)$/v\1/')
 
 # When GH Actions checks out the repo it doesn't pull tags
 echo "Fetching tags"
