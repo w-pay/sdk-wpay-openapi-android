@@ -1,9 +1,9 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'maven' // Required for publishing to packagecloud
+apply plugin: 'maven-publish'
 
-group "au.com.woolworths.village.sdk.openapi"
+group "au.com.wpay.village.sdk"
 version "4.4.0"
 
 android {
@@ -48,6 +48,24 @@ configurations {
     deployerJars
 }
 
+task sourceJar(type: Jar) {
+    from android.sourceSets.main.java.srcDirs
+    classifier "sources"
+}
+
+project.afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.okhttpDebug
+                groupId = group
+                artifactId = 'openapi-sdk'
+                version = version
+            }
+        }
+    }
+}
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -74,14 +92,3 @@ dependencies {
     deployerJars "io.packagecloud.maven.wagon:maven-packagecloud-wagon:0.0.6"
 }
 
-uploadArchives {
-    repositories.mavenDeployer {
-        configuration = configurations.deployerJars
-        repository(url: "packagecloud+https://packagecloud.io/woolworths/paysdk2") {
-            authentication(password: System.getenv('PACKAGECLOUD_TOKEN'))
-        }
-        pom.groupId = project.group
-        pom.version = project.version
-        pom.artifactId = project.getName()
-    }
-}
