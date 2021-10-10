@@ -24,6 +24,7 @@ plugins {
 
 allprojects {
     repositories {
+        mavenLocal()
         google()
         jcenter()
         maven {
@@ -207,4 +208,11 @@ subprojects.each { sub ->
             }
         }
     }
+}
+
+subprojects {
+    apply plugin: 'maven-publish'
+
+    group "au.com.wpay.village.sdk"
+    version "4.4.0"
 }

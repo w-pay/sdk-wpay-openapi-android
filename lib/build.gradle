@@ -1,10 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'maven-publish'
-
-group "au.com.wpay.village.sdk"
-version "4.4.0"
 
 android {
     compileSdkVersion 29
@@ -57,7 +53,7 @@ project.afterEvaluate {
     publishing {
         publications {
             release(MavenPublication) {
-                from components.okhttpDebug
+                from components.okhttpRelease
                 groupId = group
                 artifactId = 'openapi-sdk'
                 version = version
