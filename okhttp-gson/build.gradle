@@ -2,6 +2,9 @@ apply plugin: 'idea'
 apply plugin: 'eclipse'
 apply plugin: 'java'
 
+group = 'au.com.woolworths.village.sdk.openapi'
+version = '0.0.6.0'
+
 buildscript {
     repositories {
         maven { url "https://repo1.maven.org/maven2" }
@@ -77,20 +80,14 @@ if(hasProperty('target') && target == 'android') {
 } else {
 
     apply plugin: 'java'
+    apply plugin: 'maven'
 
     sourceCompatibility = JavaVersion.VERSION_1_7
     targetCompatibility = JavaVersion.VERSION_1_7
 
-    project.afterEvaluate {
-        publishing {
-            publications {
-                release(MavenPublication) {
-                    from components.java
-                    groupId = group
-                    artifactId = 'okhttp-gson'
-                    version = version
-                }
-            }
+    install {
+        repositories.mavenInstaller {
+            pom.artifactId = 'okhttp-gson'
         }
     }
 
