@@ -80,14 +80,19 @@ if(hasProperty('target') && target == 'android') {
 } else {
 
     apply plugin: 'java'
-    apply plugin: 'maven-publish'
-    apply plugin: 'maven'
     sourceCompatibility = JavaVersion.VERSION_1_7
     targetCompatibility = JavaVersion.VERSION_1_7
 
-    install {
-        repositories.mavenInstaller {
-            pom.artifactId = 'okhttp-gson'
+    project.afterEvaluate {
+        publishing {
+            publications {
+                release(MavenPublication) {
+                    from components.java
+                    groupId = group
+                    artifactId = 'okhttp-gson'
+                    version = version
+                }
+            }
         }
     }
 
