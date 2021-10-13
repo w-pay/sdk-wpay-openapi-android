@@ -12,17 +12,6 @@ persist: &persist
   paths:
     - repository
 
-commands:
-    install_packagecloud:
-      description: Install Packagecloud
-      steps:
-        - run: gem install package_cloud
-
-    upload_artifact:
-      description: Upload the artifact to Packagecloud
-      steps:
-        - run: ./gradlew uploadArchives
-
 jobs:
   unit_tests:
       <<: *config
@@ -47,16 +36,6 @@ jobs:
           path: lib/build/outputs/aar
       - persist_to_workspace: *persist
 
-  upload_to_packagecloud:
-    <<: *config
-
-    steps:
-      - attach_workspace:
-          # must be absolute path or relative path from working_directory
-          at: ~/
-      - install_packagecloud
-      - upload_artifact
-
 workflows:
   build_and_publish:
     jobs:
@@ -73,6 +52,3 @@ workflows:
           requires:
             - build
           type: approval
-      - upload_to_packagecloud:
-          requires:
-            - hold
