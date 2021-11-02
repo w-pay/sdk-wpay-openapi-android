@@ -12,7 +12,7 @@ class OpenApiCreditCardDetails(
         get() = au.com.woolworths.village.sdk.model.walletmanagement.PaymentInstrumentStatus.valueOf(listPaymentInstrumentsResponseCreditCards.status.value)
     override val lastUpdated: String
         get() = listPaymentInstrumentsResponseCreditCards.lastUpdated
-    override val lastUsed: String
+    override val lastUsed: String?
         get() = listPaymentInstrumentsResponseCreditCards.lastUsed
     override val cardName: String
         get() = listPaymentInstrumentsResponseCreditCards.cardName

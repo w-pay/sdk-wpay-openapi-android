@@ -12,7 +12,7 @@ class OpenApiApplePayDetails(
         get() = au.com.woolworths.village.sdk.model.walletmanagement.PaymentInstrumentStatus.valueOf(applePay.status.value)
     override val lastUpdated: String
         get() = applePay.lastUpdated
-    override val lastUsed: String
+    override val lastUsed: String?
         get() = applePay.lastUsed
     override val paymentToken: String
         get() = applePay.paymentToken
