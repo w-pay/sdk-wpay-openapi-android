@@ -12,7 +12,7 @@ class OpenApiGooglePayDetails(
         get() = au.com.woolworths.village.sdk.model.walletmanagement.PaymentInstrumentStatus.valueOf(listPaymentInstrumentsResponseGooglePay.status.value)
     override val lastUpdated: String
         get() = listPaymentInstrumentsResponseGooglePay.lastUpdated
-    override val lastUsed: String
+    override val lastUsed: String?
         get() = listPaymentInstrumentsResponseGooglePay.lastUsed
     override val primary: Boolean
         get() = listPaymentInstrumentsResponseGooglePay.primary

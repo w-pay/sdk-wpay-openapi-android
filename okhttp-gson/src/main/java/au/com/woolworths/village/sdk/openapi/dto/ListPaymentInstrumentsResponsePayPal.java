@@ -219,7 +219,8 @@ public class ListPaymentInstrumentsResponsePayPal implements Serializable {
    * The timestamp the payment instrument was last used in the container. The timestamp format is ISO8601. Will be null if never used.
    * @return lastUsed
   **/
-  @ApiModelProperty(example = "2017-11-06T08:38:09.860Z", required = true, value = "The timestamp the payment instrument was last used in the container. The timestamp format is ISO8601. Will be null if never used.")
+  @javax.annotation.Nullable
+  @ApiModelProperty(example = "2017-11-06T08:38:09.860Z", value = "The timestamp the payment instrument was last used in the container. The timestamp format is ISO8601. Will be null if never used.")
 
   public String getLastUsed() {
     return lastUsed;

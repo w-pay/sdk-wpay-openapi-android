@@ -12,7 +12,7 @@ class OpenApiGuestTokenizedGiftCard(
         get() = au.com.woolworths.village.sdk.model.walletmanagement.Status.valueOf(card.status.value)
     override val lastUpdated: String
         get() = Date().toString()
-    override val lastUsed: String
+    override val lastUsed: String?
         get() = Date().toString()
     override val allowed: Boolean
         get() = card.allowed

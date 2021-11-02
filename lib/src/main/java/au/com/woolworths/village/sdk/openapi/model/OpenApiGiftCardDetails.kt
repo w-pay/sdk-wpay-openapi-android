@@ -14,7 +14,7 @@ class OpenApiGiftCardDetails(
         get() = au.com.woolworths.village.sdk.model.walletmanagement.PaymentInstrumentStatus.valueOf(listPaymentInstrumentsResponseGiftCards.status.value)
     override val lastUpdated: String
         get() = listPaymentInstrumentsResponseGiftCards.lastUpdated
-    override val lastUsed: String
+    override val lastUsed: String?
         get() = listPaymentInstrumentsResponseGiftCards.lastUsed
     override val programName: String
         get() = listPaymentInstrumentsResponseGiftCards.programName

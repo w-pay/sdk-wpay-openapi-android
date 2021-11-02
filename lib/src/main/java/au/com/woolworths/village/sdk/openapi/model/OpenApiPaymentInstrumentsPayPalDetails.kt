@@ -14,7 +14,7 @@ class OpenApiPaymentInstrumentsPayPalDetails(
         get() = au.com.woolworths.village.sdk.model.walletmanagement.PaymentInstrumentStatus.valueOf(listPaymentInstrumentsResponsePayPal.status.value)
     override val lastUpdated: String
         get() = listPaymentInstrumentsResponsePayPal.lastUpdated
-    override val lastUsed: String
+    override val lastUsed: String?
         get() = listPaymentInstrumentsResponsePayPal.lastUsed
     override val primary: Boolean
         get() = listPaymentInstrumentsResponsePayPal.primary

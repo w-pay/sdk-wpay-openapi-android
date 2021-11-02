@@ -12,7 +12,7 @@ class OpenApiPaypalDetails(
         get() = au.com.woolworths.village.sdk.model.PaypalStatusEnum.valueOf(tokenizePaypalResponsePayPal.status.value)
     override val lastUpdated: String
         get() = tokenizePaypalResponsePayPal.lastUpdated
-    override val lastUsed: String
+    override val lastUsed: String?
         get() = tokenizePaypalResponsePayPal.lastUsed
     override val primary: Boolean
         get() = tokenizePaypalResponsePayPal.primary
