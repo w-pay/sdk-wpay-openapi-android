@@ -24,32 +24,33 @@ val OpenApiCustomerApiRepositoryFactory: CustomerApiRepositoryFactory =
 class OpenApiVillageCustomerApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
     override val options: VillageCustomerOptions,
-    override var authenticator: ApiAuthenticator<HasAccessToken>
+    override var authenticator: ApiAuthenticator<HasAccessToken>,
+    clientOptions: ClientOptions = ClientOptions()
 ) : VillageCustomerApiRepository {
     override val admin: AdministrationApiRepository =
-        OpenApiAdministrationApiRepository(requestHeadersFactory, options)
+        OpenApiAdministrationApiRepository(requestHeadersFactory, options, clientOptions)
 
     override val dp: DigitalPayRepository =
-        OpenApiDigitalPayRepository(requestHeadersFactory, options)
+        OpenApiDigitalPayRepository(requestHeadersFactory, options, clientOptions)
 
     override val instruments: PaymentInstrumentsRepository =
-        OpenApiPaymentInstrumentsRepository(requestHeadersFactory, options)
+        OpenApiPaymentInstrumentsRepository(requestHeadersFactory, options, clientOptions)
 
     override val paymentAgreements: CustomerPaymentAgreementsApiRepository =
-        OpenApiCustomerPaymentAgreementsApiRepository(requestHeadersFactory, options)
+        OpenApiCustomerPaymentAgreementsApiRepository(requestHeadersFactory, options, clientOptions)
 
     override val paymentRequests: CustomerPaymentRequestsRepository =
-        OpenApiCustomerPaymentRequestsRepository(requestHeadersFactory, options)
+        OpenApiCustomerPaymentRequestsRepository(requestHeadersFactory, options, clientOptions)
 
     override val paymentSessions: CustomerPaymentSessionsRepository =
-        OpenApiCustomerPaymentSessionsRepository(requestHeadersFactory, options)
+        OpenApiCustomerPaymentSessionsRepository(requestHeadersFactory, options, clientOptions)
 
     override val preferences: CustomerPreferencesRepository =
-        OpenApiCustomerPreferencesRepository(requestHeadersFactory, options)
+        OpenApiCustomerPreferencesRepository(requestHeadersFactory, options, clientOptions)
 
     override val termsAndConditions: CustomerTermsAndConditionsApiRepository =
-        OpenApiCustomerTermsAndConditionsApiRepository(requestHeadersFactory, options)
+        OpenApiCustomerTermsAndConditionsApiRepository(requestHeadersFactory, options, clientOptions)
 
     override val transactions: CustomerTransactionsRepository =
-        OpenApiCustomerTransactionsRepository(requestHeadersFactory, options)
+        OpenApiCustomerTransactionsRepository(requestHeadersFactory, options, clientOptions)
 }

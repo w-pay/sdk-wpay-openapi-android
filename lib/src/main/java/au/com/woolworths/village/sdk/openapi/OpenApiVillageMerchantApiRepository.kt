@@ -20,31 +20,32 @@ val OpenApiMerchantApiRepositoryFactory: MerchantApiRepositoryFactory =
 class OpenApiVillageMerchantApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
     override val options: VillageMerchantOptions,
-    override var authenticator: ApiAuthenticator<HasAccessToken>
+    override var authenticator: ApiAuthenticator<HasAccessToken>,
+    clientOptions: ClientOptions = ClientOptions()
 ) : VillageMerchantApiRepository {
     override val admin: AdministrationApiRepository =
-        OpenApiAdministrationApiRepository(requestHeadersFactory, options)
+        OpenApiAdministrationApiRepository(requestHeadersFactory, options, clientOptions)
 
     override val dp: DigitalPayRepository =
-        OpenApiDigitalPayRepository(requestHeadersFactory, options)
+        OpenApiDigitalPayRepository(requestHeadersFactory, options, clientOptions)
 
     override val paymentAgreements: MerchantPaymentAgreementsRepository =
-        OpenApiMerchantPaymentAgreementsApiRepository(requestHeadersFactory, options)
+        OpenApiMerchantPaymentAgreementsApiRepository(requestHeadersFactory, options, clientOptions)
 
     override val payments: MerchantPaymentsRepository =
-        OpenApiMerchantPaymentsRepository(requestHeadersFactory, options)
+        OpenApiMerchantPaymentsRepository(requestHeadersFactory, options, clientOptions)
 
     override val paymentSession: MerchantPaymentSessionsRepository =
-        OpenApiMerchantPaymentSessionsRepository(requestHeadersFactory, options)
+        OpenApiMerchantPaymentSessionsRepository(requestHeadersFactory, options, clientOptions)
 
     override val preferences: MerchantPreferencesRepository =
-        OpenApiMerchantPreferencesRepository(requestHeadersFactory, options)
+        OpenApiMerchantPreferencesRepository(requestHeadersFactory, options, clientOptions)
 
-    override val qr: QRCodeRepository = OpenApiQRCodeRepository(requestHeadersFactory, options)
+    override val qr: QRCodeRepository = OpenApiQRCodeRepository(requestHeadersFactory, options, clientOptions)
 
     override val schemas: SchemasRepository =
-        OpenApiSchemasRepository(requestHeadersFactory, options)
+        OpenApiSchemasRepository(requestHeadersFactory, options, clientOptions)
 
     override val transactions: MerchantTransactionsRepository =
-        OpenApiMerchantTransactionsRepository(requestHeadersFactory, options)
+        OpenApiMerchantTransactionsRepository(requestHeadersFactory, options, clientOptions)
 }
