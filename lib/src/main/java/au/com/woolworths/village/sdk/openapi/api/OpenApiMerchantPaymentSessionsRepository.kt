@@ -6,6 +6,7 @@ import au.com.woolworths.village.sdk.model.CreatePaymentSessionRequest
 import au.com.woolworths.village.sdk.model.CreatePaymentSessionResult
 import au.com.woolworths.village.sdk.model.MerchantUpdatePaymentSessionRequest
 import au.com.woolworths.village.sdk.model.PaymentSession
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.InstoreMerchantPaymentSessionData
 import au.com.woolworths.village.sdk.openapi.dto.InstoreMerchantPaymentSessionPaymentSessionIdData
@@ -15,8 +16,11 @@ import au.com.woolworths.village.sdk.openapi.model.OpenApiPaymentSession
 
 class OpenApiMerchantPaymentSessionsRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), MerchantPaymentSessionsRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions),
+    MerchantPaymentSessionsRepository
+{
     override fun create(
         request: CreatePaymentSessionRequest
     ): ApiResult<CreatePaymentSessionResult> {

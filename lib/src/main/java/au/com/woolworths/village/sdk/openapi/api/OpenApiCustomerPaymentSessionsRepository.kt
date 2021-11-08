@@ -3,16 +3,21 @@ package au.com.woolworths.village.sdk.openapi.api
 import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.CustomerPaymentSessionsRepository
 import au.com.woolworths.village.sdk.model.*
-import au.com.woolworths.village.sdk.model.PaymentSession
 import au.com.woolworths.village.sdk.model.ext.fromPaymentPreferences
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
-import au.com.woolworths.village.sdk.openapi.dto.*
+import au.com.woolworths.village.sdk.openapi.dto.CustomerPaymentDetailsData
+import au.com.woolworths.village.sdk.openapi.dto.InstoreCustomerPaymentSessionPaymentSessionIdData
+import au.com.woolworths.village.sdk.openapi.dto.Meta
 import au.com.woolworths.village.sdk.openapi.model.OpenApiPaymentSession
 
 class OpenApiCustomerPaymentSessionsRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), CustomerPaymentSessionsRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions),
+    CustomerPaymentSessionsRepository
+{
     override fun getById(paymentSessionId: String): ApiResult<PaymentSession> {
         return makeCall {
             val api = createCustomerApi()

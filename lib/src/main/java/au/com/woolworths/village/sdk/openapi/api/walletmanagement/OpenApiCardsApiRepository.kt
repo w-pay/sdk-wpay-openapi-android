@@ -2,15 +2,15 @@ package au.com.woolworths.village.sdk.openapi.api.walletmanagement
 
 import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.walletmanagement.CardsApiRepository
-import au.com.woolworths.village.sdk.model.walletmanagement.InitiateCardCaptureRequest
-import au.com.woolworths.village.sdk.model.walletmanagement.InitiateCardCaptureResponse
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.model.OpenApiInitiateCardCaptureResponse
 
 class OpenApiCardsApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), CardsApiRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions), CardsApiRepository {
     override fun initCapture(
         initiateCardCaptureRequest: au.com.woolworths.village.sdk.model.walletmanagement.InitiateCardCaptureRequest
     ): ApiResult<au.com.woolworths.village.sdk.model.walletmanagement.InitiateCardCaptureResponse> {

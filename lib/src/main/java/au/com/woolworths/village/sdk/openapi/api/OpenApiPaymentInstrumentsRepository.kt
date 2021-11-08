@@ -6,6 +6,7 @@ import au.com.woolworths.village.sdk.model.IndividualPaymentInstrument
 import au.com.woolworths.village.sdk.model.PaymentInstrumentAddition
 import au.com.woolworths.village.sdk.model.PaymentInstrumentAdditionResult
 import au.com.woolworths.village.sdk.model.WalletContents
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.InstoreCustomerInstrumentsData
 import au.com.woolworths.village.sdk.openapi.dto.InstrumentAdditionDetails
@@ -15,8 +16,11 @@ import au.com.woolworths.village.sdk.openapi.model.OpenApiWalletContents
 
 class OpenApiPaymentInstrumentsRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), PaymentInstrumentsRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions),
+    PaymentInstrumentsRepository
+{
     override fun getByToken(
         paymentToken: String,
         publicKey: String?

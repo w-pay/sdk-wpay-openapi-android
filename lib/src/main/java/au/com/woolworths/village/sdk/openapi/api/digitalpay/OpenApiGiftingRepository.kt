@@ -9,6 +9,7 @@ import au.com.woolworths.village.sdk.model.ChallengeResponse
 import au.com.woolworths.village.sdk.model.FraudPayload
 import au.com.woolworths.village.sdk.model.digitalpay.*
 import au.com.woolworths.village.sdk.model.ext.fromFraudPayload
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.api.toChallengeResponse
 import au.com.woolworths.village.sdk.openapi.dto.*
@@ -20,8 +21,9 @@ import org.threeten.bp.OffsetDateTime
 
 class OpenApiGiftingRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), GiftingRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions), GiftingRepository {
     override fun getProductById(productId: String): ApiResult<DigitalPayGiftingProductDetail> {
         return makeCall {
             val api = createGiftingApi()

@@ -1,14 +1,16 @@
 package au.com.woolworths.village.sdk.openapi.api.walletmanagement
 
 import au.com.woolworths.village.sdk.*
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.TransactionHistoryRequest
 import au.com.woolworths.village.sdk.openapi.model.OpenApiTransactionHistoryResponse
 
 class OpenApiTransactionsApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options),
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions),
     au.com.woolworths.village.sdk.api.walletmanagement.TransactionsApiRepository  {
     override fun history(
         transactionHistoryRequest: au.com.woolworths.village.sdk.model.walletmanagement.TransactionHistoryRequest

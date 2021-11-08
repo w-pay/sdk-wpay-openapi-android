@@ -4,6 +4,7 @@ import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.digitalpay.PaymentAgreementApiRepository
 import au.com.woolworths.village.sdk.model.digitalpay.*
 import au.com.woolworths.village.sdk.model.ext.digitalpay.fromDigitalPayAddress
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.digitalpay.OpenApiDigitalPayPaymentAgreementResponse
@@ -11,8 +12,9 @@ import java.util.*
 
 class OpenApiPaymentAgreementApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), PaymentAgreementApiRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions), PaymentAgreementApiRepository {
     override fun create(
         paymentAgreementRequest: DigitalPayCreatePaymentAgreementRequest
     ): ApiResult<DigitalPayPaymentAgreementResponse> {

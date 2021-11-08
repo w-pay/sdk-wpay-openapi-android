@@ -3,6 +3,7 @@ package au.com.woolworths.village.sdk.openapi.api
 import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.CustomerTermsAndConditionsApiRepository
 import au.com.woolworths.village.sdk.model.*
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.CustomerTermsAndConditions
 import au.com.woolworths.village.sdk.openapi.dto.InstoreCustomerTermsandconditionsAcceptanceData
@@ -10,8 +11,11 @@ import au.com.woolworths.village.sdk.openapi.model.OpenApiTermsAndConditionsAcce
 
 class OpenApiCustomerTermsAndConditionsApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), CustomerTermsAndConditionsApiRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions),
+    CustomerTermsAndConditionsApiRepository
+{
     override fun get(type: String?, version: String?): ApiResult<TermsAndConditionsAcceptances> {
         return makeCall {
             val api = createCustomerApi()

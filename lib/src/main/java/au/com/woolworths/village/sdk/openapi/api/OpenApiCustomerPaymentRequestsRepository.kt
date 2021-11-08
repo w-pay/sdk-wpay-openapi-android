@@ -10,6 +10,7 @@ import au.com.woolworths.village.sdk.model.ext.fromFraudPayload
 import au.com.woolworths.village.sdk.model.ext.fromMerchantPayload
 import au.com.woolworths.village.sdk.model.ext.fromPaymentPreferences
 import au.com.woolworths.village.sdk.model.ext.fromPosPayload
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCustomerPaymentRequest
@@ -17,8 +18,11 @@ import au.com.woolworths.village.sdk.openapi.model.OpenApiCustomerTransactionSum
 
 class OpenApiCustomerPaymentRequestsRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), CustomerPaymentRequestsRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions),
+    CustomerPaymentRequestsRepository
+{
     override fun getById(paymentRequestId: String): ApiResult<CustomerPaymentRequest> {
         return makeCall {
             val api = createCustomerApi()

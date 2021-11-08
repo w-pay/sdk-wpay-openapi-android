@@ -4,23 +4,27 @@ import au.com.woolworths.village.sdk.ApiResult
 import au.com.woolworths.village.sdk.RequestHeadersFactory
 import au.com.woolworths.village.sdk.VillageOptions
 import au.com.woolworths.village.sdk.X_API_KEY
-import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
-import au.com.woolworths.village.sdk.model.ChargePaymentAgreementRequest
-import au.com.woolworths.village.sdk.openapi.model.digitalpay.OpenApiDigitalPayPaymentAgreementResponse
-import au.com.woolworths.village.sdk.openapi.dto.InstoreMerchantPaymentsAgreementsPaymentTokenData
-import au.com.woolworths.village.sdk.openapi.dto.MerchantChargePaymentAgreementRequest
-import au.com.woolworths.village.sdk.openapi.dto.TransactionType
 import au.com.woolworths.village.sdk.api.MerchantPaymentAgreementsRepository
+import au.com.woolworths.village.sdk.model.ChargePaymentAgreementRequest
 import au.com.woolworths.village.sdk.model.FraudPayload
 import au.com.woolworths.village.sdk.model.digitalpay.DigitalPayPaymentAgreementResponse
 import au.com.woolworths.village.sdk.model.ext.fromFraudPayload
+import au.com.woolworths.village.sdk.openapi.ClientOptions
+import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
+import au.com.woolworths.village.sdk.openapi.dto.InstoreMerchantPaymentsAgreementsPaymentTokenData
+import au.com.woolworths.village.sdk.openapi.dto.MerchantChargePaymentAgreementRequest
 import au.com.woolworths.village.sdk.openapi.dto.Meta
+import au.com.woolworths.village.sdk.openapi.dto.TransactionType
+import au.com.woolworths.village.sdk.openapi.model.digitalpay.OpenApiDigitalPayPaymentAgreementResponse
 import java.util.*
 
 class OpenApiMerchantPaymentAgreementsApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), MerchantPaymentAgreementsRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions),
+    MerchantPaymentAgreementsRepository
+{
     override fun charge(
         paymentToken: String,
         chargePaymentAgreementRequest: ChargePaymentAgreementRequest,

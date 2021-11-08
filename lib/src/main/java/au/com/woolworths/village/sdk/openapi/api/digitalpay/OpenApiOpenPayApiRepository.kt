@@ -3,6 +3,7 @@ package au.com.woolworths.village.sdk.openapi.api.digitalpay
 import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.digitalpay.OpenPayApiRepository
 import au.com.woolworths.village.sdk.model.digitalpay.*
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiOpenPayCompletionResponse
@@ -13,8 +14,9 @@ import au.com.woolworths.village.sdk.openapi.model.OpenApiOpenPayVoidResponse
 
 class OpenApiOpenPayApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), OpenPayApiRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions), OpenPayApiRepository {
 
     override fun pay(paymentRequest: OpenPayPaymentRequest): ApiResult<OpenPayPaymentResponse> {
         return makeCall {
