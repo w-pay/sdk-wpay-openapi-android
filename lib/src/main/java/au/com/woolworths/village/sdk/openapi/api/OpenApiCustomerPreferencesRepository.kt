@@ -3,19 +3,19 @@ package au.com.woolworths.village.sdk.openapi.api
 import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.CustomerPreferencesRepository
 import au.com.woolworths.village.sdk.model.CustomerPreferences
-import au.com.woolworths.village.sdk.model.PaymentPreferences
 import au.com.woolworths.village.sdk.model.ext.fromPaymentPreferences
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
-import au.com.woolworths.village.sdk.openapi.dto.PreferencePayments
-import au.com.woolworths.village.sdk.openapi.dto.PreferencePaymentsSecondaryInstruments
 import au.com.woolworths.village.sdk.openapi.dto.PreferencesCustomer
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCustomerPreferences
-import java.util.*
 
 class OpenApiCustomerPreferencesRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), CustomerPreferencesRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions),
+    CustomerPreferencesRepository
+{
     override fun get(): ApiResult<CustomerPreferences> {
         return makeCall {
             val api = createCustomerApi()

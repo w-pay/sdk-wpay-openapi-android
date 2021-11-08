@@ -3,12 +3,16 @@ package au.com.woolworths.village.sdk.openapi.api
 import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.MerchantPreferences
 import au.com.woolworths.village.sdk.api.MerchantPreferencesRepository
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 
 class OpenApiMerchantPreferencesRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), MerchantPreferencesRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions),
+    MerchantPreferencesRepository
+{
     override fun get(): ApiResult<MerchantPreferences> {
         return makeCall {
             val api = createMerchantApi()

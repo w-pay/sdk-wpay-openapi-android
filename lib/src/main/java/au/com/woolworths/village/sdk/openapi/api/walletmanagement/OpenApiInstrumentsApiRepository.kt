@@ -2,6 +2,7 @@ package au.com.woolworths.village.sdk.openapi.api.walletmanagement
 
 import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.model.walletmanagement.*
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiImportPaymentInstrumentsResponse
@@ -10,8 +11,9 @@ import au.com.woolworths.village.sdk.openapi.model.OpenApiVerifyPaymentInstrumen
 
 class OpenApiInstrumentsApiRepository (
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options),
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions),
     au.com.woolworths.village.sdk.api.walletmanagement.InstrumentsApiRepository {
     override fun import(
         importPaymentInstrumentsRequest: au.com.woolworths.village.sdk.model.walletmanagement.ImportPaymentInstrumentsRequest

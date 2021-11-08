@@ -3,12 +3,11 @@ package au.com.woolworths.village.sdk.openapi.api
 import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.MerchantPaymentsRepository
 import au.com.woolworths.village.sdk.model.*
-import au.com.woolworths.village.sdk.model.MerchantPayload
 import au.com.woolworths.village.sdk.model.MerchantPaymentDetails
 import au.com.woolworths.village.sdk.model.MerchantTransactionSummary
-import au.com.woolworths.village.sdk.model.PosPayload
 import au.com.woolworths.village.sdk.model.ext.fromMerchantPayload
 import au.com.woolworths.village.sdk.model.ext.fromPosPayload
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCreatePaymentRequestResult
@@ -18,8 +17,11 @@ import au.com.woolworths.village.sdk.openapi.model.OpenApiMerchantTransactionSum
 
 class OpenApiMerchantPaymentsRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), MerchantPaymentsRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions),
+    MerchantPaymentsRepository
+{
     override fun listPayments(
         type: String?,
         page: Int?,

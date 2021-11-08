@@ -4,13 +4,15 @@ import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.walletmanagement.ApplePayApiRepository
 import au.com.woolworths.village.sdk.model.walletmanagement.TokenizeApplePayRequest
 import au.com.woolworths.village.sdk.model.walletmanagement.TokenizeApplePayResponse
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.model.OpenApiTokenizeApplePayResponse
 
 class OpenApiApplePayApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), ApplePayApiRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions), ApplePayApiRepository {
     override fun tokenize(tokenizeApplePayRequest: au.com.woolworths.village.sdk.model.walletmanagement.TokenizeApplePayRequest):
             ApiResult<au.com.woolworths.village.sdk.model.walletmanagement.TokenizeApplePayResponse> {
         return makeCall {

@@ -4,6 +4,7 @@ import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.CustomerTransactionsRepository
 import au.com.woolworths.village.sdk.model.CustomerTransactionDetails
 import au.com.woolworths.village.sdk.model.CustomerTransactionSummaries
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCustomerTransactionDetails
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCustomerTransactionSummaries
@@ -11,8 +12,11 @@ import org.threeten.bp.OffsetDateTime
 
 class OpenApiCustomerTransactionsRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), CustomerTransactionsRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions),
+    CustomerTransactionsRepository
+{
     override fun list(
         paymentRequestId: String?,
         page: Int?,

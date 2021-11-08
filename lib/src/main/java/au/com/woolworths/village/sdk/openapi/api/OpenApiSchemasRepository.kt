@@ -5,6 +5,7 @@ import au.com.woolworths.village.sdk.api.SchemasRepository
 import au.com.woolworths.village.sdk.model.MerchantSchema
 import au.com.woolworths.village.sdk.model.MerchantSchemaSummaries
 import au.com.woolworths.village.sdk.model.MerchantSchemaSummary
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.InstoreMerchantSchemaData
 import au.com.woolworths.village.sdk.openapi.model.OpenApiMerchantSchema
@@ -13,8 +14,9 @@ import au.com.woolworths.village.sdk.openapi.model.OpenApiMerchantSchemaSummary
 
 class OpenApiSchemasRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), SchemasRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions), SchemasRepository {
     override fun list(): ApiResult<MerchantSchemaSummaries> {
         return makeCall {
             val api = createMerchantApi()

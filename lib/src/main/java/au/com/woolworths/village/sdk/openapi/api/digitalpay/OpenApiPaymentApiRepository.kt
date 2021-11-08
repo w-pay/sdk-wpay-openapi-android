@@ -3,9 +3,8 @@ package au.com.woolworths.village.sdk.openapi.api.digitalpay
 import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.digitalpay.PaymentApiRepository
 import au.com.woolworths.village.sdk.model.digitalpay.*
-import au.com.woolworths.village.sdk.model.digitalpay.PaymentTransactionType
-import au.com.woolworths.village.sdk.model.ext.digitalpay.fromDigitalPayFraudPayload
 import au.com.woolworths.village.sdk.model.ext.digitalpay.fromDigitalPayPaymentRequest
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiCompletionsResponse
@@ -15,8 +14,9 @@ import au.com.woolworths.village.sdk.openapi.model.OpenApiVoidsResponse
 
 class OpenApiPaymentApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), PaymentApiRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions), PaymentApiRepository {
     override fun pay(
         paymentRequest: DigitalPayPaymentRequest
     ): ApiResult<DigitalPayPaymentResponse> {

@@ -2,10 +2,7 @@ package au.com.woolworths.village.sdk.openapi.api.walletmanagement
 
 import au.com.woolworths.village.sdk.*
 import au.com.woolworths.village.sdk.api.walletmanagement.GiftcardsApiRepository
-import au.com.woolworths.village.sdk.model.walletmanagement.GiftcardsBalanceRequest
-import au.com.woolworths.village.sdk.model.walletmanagement.GiftcardsBalanceResponse
-import au.com.woolworths.village.sdk.model.walletmanagement.TokenizeGiftcardRequest
-import au.com.woolworths.village.sdk.model.walletmanagement.TokenizeGiftcardResponse
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.dto.*
 import au.com.woolworths.village.sdk.openapi.model.OpenApiGiftcardsBalanceResponse
@@ -14,8 +11,9 @@ import au.com.woolworths.village.sdk.openapi.model.OpenApiTokenizeGiftcardRespon
 
 class OpenApiGiftcardsApiRepository(
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options), GiftcardsApiRepository {
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions), GiftcardsApiRepository {
     override fun tokenize(tokenizeGiftcardRequest: au.com.woolworths.village.sdk.model.walletmanagement.TokenizeGiftcardRequest):
             ApiResult<au.com.woolworths.village.sdk.model.walletmanagement.TokenizeGiftcardResponse> {
         return makeCall {

@@ -1,16 +1,16 @@
 package au.com.woolworths.village.sdk.openapi.api.walletmanagement
 
 import au.com.woolworths.village.sdk.*
-import au.com.woolworths.village.sdk.model.TokenizePaypalResponse
-import au.com.woolworths.village.sdk.model.walletmanagement.TokenizePaypalRequest
+import au.com.woolworths.village.sdk.openapi.ClientOptions
 import au.com.woolworths.village.sdk.openapi.OpenApiClientFactory
 import au.com.woolworths.village.sdk.openapi.model.OpenApiGuestTokenizePaypalResponse
 import au.com.woolworths.village.sdk.openapi.model.OpenApiTokenizePaypalResponse
 
 class OpenApiPayPalApiRepository (
     requestHeadersFactory: RequestHeadersFactory,
-    options: VillageOptions
-) : OpenApiClientFactory(requestHeadersFactory, options),
+    options: VillageOptions,
+    clientOptions: ClientOptions = ClientOptions()
+) : OpenApiClientFactory(requestHeadersFactory, options, clientOptions),
     au.com.woolworths.village.sdk.api.walletmanagement.PayPalApiRepository {
     override fun tokenize(tokenizePaypalRequest: au.com.woolworths.village.sdk.model.walletmanagement.TokenizePaypalRequest):
             ApiResult<au.com.woolworths.village.sdk.model.TokenizePaypalResponse> {
