@@ -6,9 +6,14 @@ import au.com.woolworths.village.sdk.openapi.client.ApiClient
 import au.com.woolworths.village.sdk.openapi.dto.DynamicPayload
 import java.lang.IllegalStateException
 
+data class ClientOptions(
+    val debug: Boolean = false
+)
+
 open class OpenApiClientFactory(
     private val requestHeadersFactory: RequestHeadersFactory,
-    private var options: VillageOptions
+    private var options: VillageOptions,
+    private var clientOptions: ClientOptions = ClientOptions()
 ) {
     protected fun createAdministrationApi(): AdministrationApi {
         return AdministrationApi(createApiClient())
@@ -90,6 +95,7 @@ open class OpenApiClientFactory(
     private fun createApiClient(): ApiClient {
         val apiClient = ExtendedApiClient()
         apiClient.basePath = options.baseUrl
+        apiClient.isDebugging = clientOptions.debug
 
         requestHeadersFactory.createHeaders().forEach { (name, value) ->
             apiClient.addDefaultHeader(name, value)
