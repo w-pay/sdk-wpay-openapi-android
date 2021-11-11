@@ -4,7 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'maven-publish'
 
 group "au.com.wpay.village.sdk"
-version "4.5.0"
+version "4.5.1"
 
 android {
     compileSdkVersion 29
