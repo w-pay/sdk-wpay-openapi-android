@@ -66,8 +66,8 @@ class OpenApiMerchantPaymentsRepository(
                 paymentRequest.timeToLiveQR?.let { timeToLiveQR = it }
                 paymentRequest.specificWalletId?.let { specificWalletId = it }
 
-                paymentRequest.posPayload?.fromPosPayload()
-                paymentRequest.merchantPayload?.fromMerchantPayload()
+                posPayload = paymentRequest.posPayload?.fromPosPayload()
+                merchantPayload = paymentRequest.merchantPayload?.fromMerchantPayload()
 
                 paymentRequest.basket?.let { aBasket ->
                     basket = aBasket.run {
